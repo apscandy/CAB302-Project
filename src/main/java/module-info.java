@@ -1,4 +1,4 @@
-module com.example.application {
+module com.cab302.cab302project {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -8,6 +8,6 @@ module com.example.application {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
 
-    opens com.example.application to javafx.fxml;
-    exports com.example.application;
+    opens com.cab302.cab302project to javafx.fxml;
+    exports com.cab302.cab302project;
 }
