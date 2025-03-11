@@ -18,13 +18,13 @@ We would like to acknowledge the following individuals who have contributed to t
     - Worked on [specific feature or functionality].
     - Assisted in bug fixing and testing.
 
-### [David Bui](https://github.com/HoangDatBui)
+### [Hoang Dat Bui (David Bui)](https://github.com/HoangDatBui)
 - **Role**: Developer
 - **Contributions**:
     - Designed and implemented [specific feature].
     
 
-### [Maverick Doan](https://github.com/maverick-doan)
+### [Minh Son Doan (Maverick Doan)](https://github.com/maverick-doan)
 - **Role**: Developer 
 - **Contributions**:
   - Designed and implemented [specific feature].
