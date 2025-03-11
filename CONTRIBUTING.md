@@ -14,7 +14,24 @@ Welcome to **CAB302-Project**! This project follows a straightforward Git workfl
 - **Work on only one feature per branch.** Once you finish one task and are ready to work on a new one, create a new branch for the new feature.
 - If you are working on a feature and need to start a different one, make sure to **complete and submit your changes** for your current feature first before starting a new one.
 
-### 3. Merging Changes
+### 3. Commit Messages
+- **Purpose**: Write concise commit messages that clearly explain why the changes were made. Good commit messages help others understand your work and make it easier to trace and debug later.
+
+- **Recommended Format**: The commit message should follow this format:
+`<type>(<scope>): <description>`
+For example: fix(navbar): adjust navbar alignment.
+
+- **Capitalization and Punctuation**: Capitalize the first word, and avoid using punctuation at the end of the subject line. If using Conventional Commits, stick to lowercase.
+
+- **Mood**: Use the imperative mood in the subject line (e.g., "Fix bug", "Add feature"). This gives your commit message a direct and action-oriented tone.
+
+- **Type of Commit**: Specify the type of change made, such as "fix", "update", "refactor", or "bump". Consistency in these terms helps maintain clarity. For more on Conventional Commits, refer to the [Conventional Commits guidelines](https://www.conventionalcommits.org/en/v1.0.0/).
+
+- **Length**: Keep the subject line under 50 characters, and limit the body of the message to 72 characters per line.
+
+- **Content**: Be direct and eliminate unnecessary words like "maybe", "kind of", or "I think". Write like a journalist—clear and to the point.
+
+### 4. Merging Changes
 
 - Once your feature is complete and tested, **merge your branch into `main`** using the following command:
 ```bash
@@ -22,15 +39,9 @@ git merge --no-commit --no-ff <branch_name>
 ```
 - The `--no-commit` flag prevents Git from automatically committing the merge, allowing you to review the changes before committing.
 - The `--no-ff` flag ensures that a merge commit is created even if the merge could be fast-forwarded. This is important for maintaining a clear history of all merges.
-- Provide a clear description of the changes in the merge commit. If you are unsure how to write a good commit message please read these resources [Better commit messages](https://www.freecodecamp.org/news/how-to-write-better-git-commit-messages/) and [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 - Resolve any conflicts before merging. Here is a link to a YouTube video if you are unsure how resolve a [merge conflict](https://www.youtube.com/watch?v=Sqsz1-o7nXk)
 - Ensure all tests pass before committing the merge.
 
-### 4. Rebasing and Force Pushing
+### 5. Rebasing and Force Pushing
 - Rebasing is strictly banned in this project. Always use merging for bringing changes into your branch or the main branch. Rebasing rewrites history and can cause issues for fellow collaborators.
 - The use of git push --force is also banned. Force pushing can overwrite changes on remote branches, which can cause confusion and lost work for other collaborators. Always use git push without the --force flag.
-
-### 5. Commit Message
-- Write concise commit messages explaining WHY changes were made. Writing a good commit message allows others to understand your work and makes things easier later on when tracing back and debugging.
-- The following format is recommended: `<type>(<scope>): <description>`. *(e.g.: fix(navbar): Change navbar alignment.)*
-- Refer to this [link](https://www.conventionalcommits.org/en/v1.0.0/) on commit message best practices.
