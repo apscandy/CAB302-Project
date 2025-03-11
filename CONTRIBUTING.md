@@ -31,6 +31,6 @@ git merge --no-commit --no-ff <branch_name>
 - The use of git push --force is also banned. Force pushing can overwrite changes on remote branches, which can cause confusion and lost work for other collaborators. Always use git push without the --force flag.
 
 ### 5. Commit Message
-- Write concise commit messages explaining WHAT and WHY changes were made. Writing a good commit message allows others to understand your work and makes things easier later on when tracing back and debugging.
+- Write concise commit messages explaining WHY changes were made. Writing a good commit message allows others to understand your work and makes things easier later on when tracing back and debugging.
 - The following format is recommended: `<type>(<scope>): <description>`. *(e.g.: fix(navbar): Change navbar alignment.)*
-- Refer to this [link](https://graphite.dev/guides/git-commit-message-best-practices) on commit message best practices.
+- Refer to this [link](https://www.conventionalcommits.org/en/v1.0.0/) on commit message best practices.
