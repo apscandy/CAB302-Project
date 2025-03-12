@@ -39,7 +39,9 @@ git merge --no-commit --no-ff <branch_name>
 ```
 - The `--no-commit` flag prevents Git from automatically committing the merge, allowing you to review the changes before committing.
 - The `--no-ff` flag ensures that a merge commit is created even if the merge could be fast-forwarded. This is important for maintaining a clear history of all merges.
-- Resolve any conflicts before merging. Here is a link to a YouTube video if you are unsure how resolve a [merge conflict](https://www.youtube.com/watch?v=Sqsz1-o7nXk)
+- **Peer Review**: Before merging your changes, it is considered good practice to have someone review your feature branch. This helps catch potential issues and ensures the code aligns with project standards.
+- **Merge Process (Optional)**: Although not required, it’s a good practice to have someone else, typically a more senior or more experienced team member, run the actual merge into the main branch. This can help ensure the merge is done correctly.
+- Resolve any conflicts before merging. Here is a link to a YouTube video if you are unsure how resolve a [merge conflict](https://www.youtube.com/watch?v=Sqs)
 - Ensure all tests pass before committing the merge.
 
 ### 5. Rebasing and Force Pushing
