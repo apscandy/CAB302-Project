@@ -30,7 +30,7 @@ We would like to acknowledge the following individuals who have contributed to t
   - Designed and implemented [specific feature].
   - Contributed to project documentation and README.
 
-### [Monica Borg](https://github.com/)
+### [Monica Borg](https://github.com/monicaborg)
 - **Role**: Documentation Writer
 - **Contributions**:
   - Designed and implemented [specific feature].
