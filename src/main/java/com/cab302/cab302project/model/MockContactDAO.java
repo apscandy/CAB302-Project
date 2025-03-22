@@ -1,4 +1,4 @@
-package com.cab302.cab302project;
+package com.cab302.cab302project.model;
 
 import java.util.ArrayList;
 import java.util.List;

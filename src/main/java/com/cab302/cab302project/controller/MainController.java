@@ -1,5 +1,9 @@
-package com.cab302.cab302project;
+package com.cab302.cab302project.controller;
 
+import com.cab302.cab302project.model.Contact;
+import com.cab302.cab302project.model.IContactDAO;
+import com.cab302.cab302project.model.MockContactDAO;
+import com.cab302.cab302project.model.SqliteContactDao;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -30,8 +34,8 @@ public class MainController {
     private final IContactDAO contactDAO;
 
     public MainController() {
-        contactDAO = new MockContactDAO();
-        contactDAO.addContact(new Contact("Jerry", "Doe", "jerrydoe@example.com", "0423423426"));
+        contactDAO = new SqliteContactDao();
+//        contactDAO.addContact(new Contact("Jerry", "Doe", "jerrydoe@example.com", "0423423426"));
     }
 
     private ListCell<Contact> renderCell(ListView<Contact> contactsListView) {
@@ -117,10 +121,10 @@ public class MainController {
 
     @FXML
     private void onAdd() {
-        final String firstName = firstNameTextField.getText();
-        final String lastName = lastNameTextField.getText();
-        final String email = emailTextField.getText();
-        final String phone = phoneTextField.getText();
+        final String firstName = "New";
+        final String lastName = "Contact";
+        final String email = "";
+        final String phone = "";
         Contact contact = new Contact(firstName, lastName, email, phone);
         contactDAO.addContact(contact);
         syncContacts();

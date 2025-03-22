@@ -1,5 +1,6 @@
-package com.cab302.cab302project;
+package com.cab302.cab302project.controller;
 
+import com.cab302.cab302project.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
