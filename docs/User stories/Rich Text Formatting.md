@@ -10,8 +10,11 @@ As a user, I want to format text in my flashcards so that I can emphasize import
 4. **Given** I am editing a flashcard, **when** I select text and click the highlight button, **then** the selected text's background should be highlighted.
 5. **Given** I have applied formatting to text, **when** I save the flashcard, **then** the formatting should be preserved when viewing the card.
 
-**Priority:** High
+**MoSCoW**: #Could-have 
 
-**Story Points / Effort:** 5
+**Priority:** #Low 
+
+**Effort:** 
+_4/10_
 
 **Additional Notes:** Consider adding a floating toolbar that appears when text is selected for a better user experience.

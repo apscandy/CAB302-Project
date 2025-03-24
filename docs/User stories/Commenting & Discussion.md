@@ -1,4 +1,4 @@
-created by: **David Bui**
+Created by: **David Bui**
 
 _As a collaborator on a shared deck, I want to add comments and participate in discussions about specific cards so that I can provide feedback and clarify content with other collaborators._
 
@@ -9,11 +9,12 @@ _As a collaborator on a shared deck, I want to add comments and participate in d
 3. **Given** I am reading a comment, **when** I click the reply button, **then** I can create a threaded response to that specific comment.
 4. **Given** I am the deck owner, **when** inappropriate comments are added, **then** I can delete any comment in the deck.
 
-**Priority:**  
-_Low_
+**MoSCoW**: #Wont-have 
+
+**Priority:**  #Low 
 
 **Effort:**  
-_7/10_
+_9/10_
 
 **Additional Notes:**
 - Consider adding emoji reactions to comments

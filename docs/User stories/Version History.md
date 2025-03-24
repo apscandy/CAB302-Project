@@ -9,11 +9,11 @@ _As a user, I want to view the version history of my flashcards so that I can re
 3. **Given** I am viewing version history, **when** I compare two versions, **then** the system should be able highlight the differences between the selected versions.
 4. **Given** I have restored an earlier version, **when** I return to editing, **then** the restored version should be the active one.
 
-**Priority:**  
-Medium
+**MoSCoW**: #Could-have 
 
-**Story Points / Effort:**  
-5
+**Priority:**  #Low 
+
+**Effort:**  
+_7/10_
 
 **Additional Notes:**  
-No

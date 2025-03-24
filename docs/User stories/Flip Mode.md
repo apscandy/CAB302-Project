@@ -8,11 +8,11 @@ _As a user, I want to study my flashcards using Flip Mode so that I can test my 
 2. **Given** I have flipped a card, **when** I tap or click again, **then** the card should flip back to its original side.
 3. **Given** I have a deck with multiple cards, **when** I complete flipping all cards, **then** I should have an option to restart the session or exit.
 
-**Priority:**  
-High
+**MoSCoW**: #Must-have 
 
-**Story Points / Effort:**  
-3
+**Priority:**  #High 
+
+**Effort:**  
+_2/10_
 
 **Additional Notes:**  
-Time-based Auto Flip can be an add-on.

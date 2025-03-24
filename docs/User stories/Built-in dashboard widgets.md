@@ -1,6 +1,6 @@
-Created by: **Linh Phan Đăng** (Lewis)
+Created by: **Linh Phan Đăng**
 
-_As a user, I want to access built-in dashboards/widgets, so that I can quickly utilise pre-designed tools without the need for customisation._
+As a user, I want to access built-in dashboards/widgets so that I can quickly utilize pre-designed tools without the need for customization.
 
 **Acceptance Criteria:**
 
@@ -8,11 +8,15 @@ _As a user, I want to access built-in dashboards/widgets, so that I can quickly 
 2. **Given** I have selected a built-in dashboard/widget, **when** I add it to my account, **then** it is available for immediate use.
 3. **Given** I am using a built-in dashboard/widget, **when** I apply filters or make adjustments, **then** the changes are reflected in real-time without affecting the original design.
 
-**Priority:** Medium
+**MoSCoW**: #Wont-have 
 
-**Story Points / Effort:** 8
+**Priority:** #Low 
+
+**Effort:** 
+_9/10_
 
 **Additional Notes:**
+
 - Ensure a variety of built-in dashboards/widgets are available to cover common use cases.
 - Provide clear descriptions and examples for each option to help users make informed choices.
-- Consider allowing limited customisation of built-in dashboards/widgets, such as changing colours or basic layouts.
+- Consider allowing limited customization of built-in dashboards/widgets, such as changing colors or basic layouts.

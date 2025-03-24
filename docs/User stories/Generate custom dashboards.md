@@ -8,9 +8,12 @@ As a user, I want to generate custom dashboards so that I can have a personalize
 2. **Given** I have created a dashboard, **when** I save it, **then** it becomes accessible from my account for future use.
 3. **Given** I am viewing one of my custom dashboards, **when** I update its settings or layout, **then** the changes are immediately applied and saved.
 
-**Priority:** Medium
+**MoSCoW**: #Wont-have 
 
-**Story Points / Effort:** 8
+**Priority:** #Low 
+
+**Effort:** 
+_10/10_
 
 **Additional Notes:**
 - The dashboard layout should support drag-and-drop functionality for easy customization.
