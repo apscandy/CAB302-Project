@@ -1,6 +1,6 @@
-created by:  **David Bui**
+Created by:  **David Bui**
 
-_As a user, I want to collaborate with other users on creating and editing flashcard decks so that we can build comprehensive study materials together._
+_As a user, I want to collaborate with other users on creating and editing flashcard decks, so that we can build comprehensive study materials together._
 
 **Acceptance Criteria:**
 
@@ -14,8 +14,8 @@ _As a user, I want to collaborate with other users on creating and editing flash
 **Priority:**  
 _Low_
 
-**Effort:**  
-_8/10_
+**Story Points / Effort:**  
+_8/10_ NEEDS UPDATE TO REFLECT OTHER USER STORIES
 
 **Additional Notes:**  
 - None
