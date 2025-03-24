@@ -9,7 +9,9 @@ As a user, I want to import a deck so that I can quickly add external collection
 3. **Given** my deck file has been successfully processed, **when** the system loads the data, I can preview the deck, including card names, descriptions, and categories, to confirm the details before completing the import.
 4. **Given** I am satisfied with the preview, **when** I click the "Import" button, the deck is saved to my account, and I receive a confirmation message indicating the import was successful.
 
-**Priority:**  
-Medium
+**MoSCoW**: #Could-have 
 
-**Story Points / Effort: 5**
+**Priority:**  #Medium 
+
+**Effort:**
+_6/10_

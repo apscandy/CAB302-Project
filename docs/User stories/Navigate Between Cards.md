@@ -9,11 +9,12 @@ _As a user, I want to navigate between flashcards easily so that I can control m
 3. **Given** I want to jump to a specific card, **when** I select it from a deck overview, **then** the system should take me directly to that card.
 4. **Given** I have completed a session, **when** I navigate back to previous cards, **then** my last viewed position should be saved for later review.
 
-**Priority:**  
-High
+**MoSCoW**: #Must-have 
 
-**Story Points / Effort:**  
-5
+**Priority:**  #High 
+
+**Effort:**  
+_4/10_
 
 **Additional Notes:**  
 Keyboard shortcuts for quick navigation.

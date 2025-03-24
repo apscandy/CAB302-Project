@@ -9,11 +9,11 @@ _As a user, I want to bookmark a flashcard so that I can easily find and review 
 3. **Given** I have bookmarked multiple cards, **when** I navigate to my bookmarked list, **then** I should see only the cards I have previously marked.
 4. **Given** I have bookmarked multiple cards, **when** I navigate to my bookmarked list, **then** I should see only the cards I have previously marked.
 
-**Priority:**  
-Medium
+**MoSCoW**: #Could-have 
 
-**Story Points / Effort:**  
-3
+**Priority:**  #Low 
+
+**Effort:**  
+_2/10_
 
 **Additional Notes:**  
-Allow users to apply filter for bookmarked cards.

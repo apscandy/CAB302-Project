@@ -8,8 +8,11 @@ As a user, I want to toggle between dark and light modes so that I can study com
 2. **Given** I set the application to dark mode, **when** I close and reopen the application, **then** my theme preference should be remembered.
 3. **Given** I am in dark mode, **when** I view flashcards, **then** all UI elements should have appropriate contrast and readability.
 
-**Priority:** Low
+**MoSCoW**: #Could-have 
 
-**Story Points / Effort:** 4
+**Priority:** #Low 
+
+**Effort:** 
+_2/10_
 
 **Additional Notes:** None

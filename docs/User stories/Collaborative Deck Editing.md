@@ -11,11 +11,12 @@ _As a user, I want to collaborate with other users on creating and editing flash
 5. **Given** multiple users are editing a deck, **when** one user saves changes while another is still editing, **then** the last person to save will override previous changes.
 6. **Given** I am editing a collaborative deck, **when** I save my changes, **then** I see a timestamp of when the deck was last updated and by whom.
 
-**Priority:**  
-_Low_
+**MoSCoW**: #Wont-have 
 
-**Story Points / Effort:**  
-_8/10_ NEEDS UPDATE TO REFLECT OTHER USER STORIES
+**Priority:**  #Low 
+
+**Effort:**  
+_8/10_
 
 **Additional Notes:**  
 - None

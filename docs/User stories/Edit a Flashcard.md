@@ -9,12 +9,11 @@ _As a user, I want to edit an existing flashcard so that I can update or correct
 2. **Given** I make changes to a flashcard, **when** I save the edits, **then** the updated version should be stored.
 3. **Given** I try to leave the edit screen without saving, **when** I navigate away, **then** I should receive a confirmation prompt.
 
+**MoSCoW**: #Must-have 
 
-**Priority:**  
-High
+**Priority:**  #High 
 
-**Story Points / Effort:**  
-3
+**Effort:**  
+2
 
 **Additional Notes:**  
-Same feature to be applied to decks.
