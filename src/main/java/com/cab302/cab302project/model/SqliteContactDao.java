@@ -107,7 +107,7 @@ public class SqliteContactDao implements IContactDAO{
                 String lastName = resultSet.getString("lastName");
                 String phone = resultSet.getString("phone");
                 String email = resultSet.getString("email");
-                Contact contact = new Contact(firstName, lastName, phone, email);
+                Contact contact = new Contact(firstName, lastName, email, phone);
                 contact.setId(id);
                 return contact;
             }
@@ -132,7 +132,7 @@ public class SqliteContactDao implements IContactDAO{
                 String lastName = rs.getString("lastName");
                 String phone = rs.getString("phone");
                 String email = rs.getString("email");
-                Contact contact = new Contact(firstName, lastName, phone, email);
+                Contact contact = new Contact(firstName, lastName, email, phone);
                 contact.setId(id);
                 contacts.add(contact);
             }
