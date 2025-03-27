@@ -1,8 +1,8 @@
 **Date**: 26/03/2025
 **Time**: 17:10
 **Location**: F101
-**Facilitator**: Andrew Clarke
-**Attendees:** Andrew Clarke, Monica Borg, Lewis Phan, Maverick Doan and David Bui
+**Facilitator**: [[Andrew Clarke]]
+**Attendees:** [[Andrew Clarke]], [[Monica Borg]], [[Dang Linh Phan (Lewis)]], [[Minh Son Doan (Maverick)]] and [[Hoang Dat Bui (David)]]
 
 ## **1. Meeting Agenda**
 1. Team contract 
@@ -15,7 +15,7 @@
 1. **Team Contract:** Contract needs to be in place regarding deliverables and letting people know if we are struggling with work. Implementing a check in period before the task is due. Also allowing time for review in the time it will take for a task to be completed.
 2. **User Stories:** A consistent story point weighting system has to be decided throughout the team. The spreadsheet was re-evaluated as a team, and another system was implemented to group user stories together based on their function/closeness in functionality. 
 3. **Sprint plan:** See below. 
-4. **UI Design:** All okay, photos will be uploaded to docs/gui-design. Monica and Andy will move to completing the medium fidelity design. 
+4. **UI Design:** All okay, photos will be uploaded to `docs/gui-design`. Monica and Andy will move to completing the medium fidelity design. 
 5. **Merge Strategy:** When a feature is finished, we are to no longer merge to main. 
 The code will need to be reviewed first, to make sure it is all up to date. 
 Once the feature is complete, let Andy or Monica know for review; we will merge. 
@@ -59,16 +59,16 @@ Code can be rejected for:
 
 ## **4. Action Items**
 
-| **Task**                             | **Owner** | **Deadline** |
-|--------------------------------------|-----------|--------------|
-| Upload UI Designs                    | Monica    | COB Thursday | 
-| Decide what user stories we all want | All       | Sat/Sun      |
-| Brainstorm application name          | All       | No date      |     
-| Database scheme and UML              | Andy      | TBA          |     
+| **Task**                             | **Owner**         | **Deadline** |     |
+| ------------------------------------ | ----------------- | ------------ | --- |
+| Upload UI Designs                    | [[Monica Borg]]   | COB Thursday |     |
+| Decide what user stories we all want | All               | Sat/Sun      |     |
+| Brainstorm application name          | All               | No date      |     |
+| Database scheme and UML              | [[Andrew Clarke]] | TBA          |     |
 
 ---
 **Next Meeting:** 02/04/2025
 
 **Meeting Adjourned at:** 19:20
 
-_Prepared by:_ Monica Borg
+_Prepared by:_ [[Monica Borg]]

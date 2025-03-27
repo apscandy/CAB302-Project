@@ -1,8 +1,9 @@
 **Date**: 19/03/2025
 **Time**: 1810
 **Location**: F101 
-**Facilitator**: Andrew Clarke
-**Attendees:** Andrew Clarke, Monica Borg and Lewis Phan,
+**Facilitator**: [[Andrew Clarke]]
+**Attendees:** [[Andrew Clarke]], [[Monica Borg]] and [[Dang Linh Phan (Lewis)]],
+**Apologies**: [[Hoang Dat Bui (David)]] and [[Minh Son Doan (Maverick)]] 
  
 ## **1. Meeting Agenda**
 - Getting comfortable committing to the repo by completing practical 4 
@@ -32,4 +33,4 @@
 **Next Meeting:** 26/03/2025 1810
 **Meeting Adjourned at:** 1830
 
-_Prepared by:_ Andrew Clarke
+_Prepared by:_ [[Andrew Clarke]]
