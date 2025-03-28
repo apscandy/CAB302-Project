@@ -8,8 +8,8 @@ import java.sql.SQLException;
 public class SqliteConnection {
     private static Connection instance = null;
 
-    private SqliteConnection()  {
-        String url = "jdbc:sqlite:contacts.db";
+    private SqliteConnection(String url)  {
+
         try{
             instance = DriverManager.getConnection(url);
         } catch (SQLException e) {
@@ -17,9 +17,14 @@ public class SqliteConnection {
         }
     }
 
-    public static Connection getInstance() {
+    public static Connection getInstance(Boolean testMode) {
         if (instance == null) {
-            new SqliteConnection();
+            if (testMode == false) {
+                new SqliteConnection("jdbc:sqlite:contacts.db");
+            }else{
+                new SqliteConnection("jdbc:sqlite:test_contacts.db");
+            }
+
         }
         return instance;
     }
