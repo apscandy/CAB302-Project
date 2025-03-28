@@ -9,22 +9,9 @@ public class SqliteContactDao implements IContactDAO{
     private Connection con;
 
 
-    public SqliteContactDao(Boolean testMode) {
-        con = SqliteConnection.getInstance(false);
-        if (testMode == true) {
-            dropTable();
-        }
+    public SqliteContactDao() {
+        con = SqliteConnection.getInstance();
         createTable();
-    }
-
-    private void dropTable() {
-        try {
-            Statement stmt = con.createStatement();
-            String sql = "DROP TABLE IF EXISTS contacts";
-            stmt.execute(sql);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void createTable() {
@@ -106,6 +93,7 @@ public class SqliteContactDao implements IContactDAO{
         }catch (Exception e){
             e.printStackTrace();
         }
+
     }
 
     @Override
