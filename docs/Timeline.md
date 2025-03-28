@@ -10,6 +10,6 @@
 
 ## Sprints
 
-| Event  | Start date | End date | Sprint plan       |
-| ------ | ---------- | -------- | ----------------- |
-| Sprint | 31/06/25   | 06/04/25 | [[Sprint plan 1]] |
+| Event  | Start date | End date | Sprint plan       | Status  |
+| ------ | ---------- | -------- | ----------------- | ------- |
+| Sprint | 31/06/25   | 06/04/25 | [[Sprint plan 1]] | DELAYED |

@@ -23,7 +23,7 @@
 |------------|-------|---------|--------|
 | <!-- Action 1 --> | <!-- Name --> | <!-- Date --> | <!-- Not Started/In Progress/Completed --> |
 | <!-- Action 2 --> | <!-- Name --> | <!-- Date --> | <!-- Not Started/In Progress/Completed --> |
-
+	
 ## Team Feedback & Suggestions 💡
 <!-- Additional feedback or ideas from the team -->
 - 

@@ -19,7 +19,6 @@
 | [[Security Questions]] | #Must-have / #High | TBA      | #in-progress |
 | [[Create a Deck]]      | #Must-have / #High | TBA      | #in-progress |
 
-
 ## Tasks Breakdown
 | Task                                                     | Related User Story                                                                                  | Assignee | Status |
 | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------- | ------ |

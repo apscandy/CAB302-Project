@@ -20,12 +20,12 @@
 
 ## **3. Action Items**
 
-| **Task**                     | **Owner**         | **Deadline** |
-| ---------------------------- | ----------------- | ------------ |
-| Practical 4 on branch        | All (individual)  | 23/03/2025   |
-| Test dev environment         | All (individual)  | 23/03/2025   |
-| Low fidelity wireframe       | Monica and Andrew | 26/03/2025   |
-| Preperation for checkpoint 1 | All (individual)  | 26/03/2025   |
+| **Task**                     | **Owner**                             | **Deadline** |
+| ---------------------------- | ------------------------------------- | ------------ |
+| Practical 4 on branch        | All (individual)                      | 23/03/2025   |
+| Test dev environment         | All (individual)                      | 23/03/2025   |
+| Low fidelity wireframe       | [[Monica Borg]] and [[Andrew Clarke]] | 26/03/2025   |
+| Preperation for checkpoint 1 | All (individual)                      | 26/03/2025   |
 
 
 
