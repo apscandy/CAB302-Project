@@ -1,4 +1,4 @@
-
+ 
 
 ## Sprint Details
 **Sprint Duration:** 31/03/25 - 06/04/25  
@@ -21,14 +21,15 @@
 
 
 ## Tasks Breakdown
-| Task                                                     | Related User Story                                                                  | Assignee | Status |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------- | ------ |
-| Create `User.java`, `IUserDAO` and `SqliteUserDAO`       | [[User Login]], [[User Log Out]], [[User Registration]]  and [[Security Questions]] | TBA      |        |
-| Create `Deck.java`, `IDeckDAO` and `SqlitleDeckDAO`      | [[Create a Deck]]                                                                   | TBA      |        |
-| Create `UserAuthController` and associated view          | [[User Login]], [[User Log Out]], [[User Registration]]  and [[Security Questions]] | TBA      |        |
-| Create `DeckController`                                  | [[Create a Deck]]                                                                   | TBA      |        |
-| Create basic `main-view` and add a button to make a deck | [[Create a Deck]]                                                                   | TBA      |        |
-| Create a pop up view to add the decks name               | [[Create a Deck]]                                                                   | TBA      |        |
+| Task                                                     | Related User Story                                                                                  | Assignee | Status |
+| -------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------- | ------ |
+| Create `User.java`, `IUserDAO` and `SqliteUserDAO`       | [[User Login]], [[User Log Out]], [[User Registration]]  and [[Security Questions]]                 | TBA      |        |
+| Create `Deck.java`, `IDeckDAO` and `SqlitleDeckDAO`      | [[Create a Deck]]                                                                                   | TBA      |        |
+| Create `UserAuthController` and associated view          | [[User Login]], [[User Log Out]], [[User Registration]]  and [[Security Questions]]                 | TBA      |        |
+| Create `DeckController`                                  | [[Create a Deck]]                                                                                   | TBA      |        |
+| Create basic `main-view` and add a button to make a deck | [[Create a Deck]]                                                                                   | TBA      |        |
+| Create a pop up view to add the decks name               | [[Create a Deck]]                                                                                   | TBA      |        |
+| Create test cases for all database operations            | [[Create a Deck]] , [[User Login]], [[User Log Out]], [[User Registration]], [[Security Questions]] |          |        |
 
 ## Sprint Meetings 
 **Weekly Standup:** 02/04/25 
