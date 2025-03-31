@@ -6,7 +6,9 @@ permissions:
 on:
   push:
     branches-ignore:
-      - main
+      - "main"
+      - "docs"
+      - "docs/**"
 
 jobs:
   build:

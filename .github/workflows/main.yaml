@@ -6,7 +6,10 @@ permissions:
 on:
   push:
     branches:
-      - main
+      - "main"
+    branches-ignore:
+      - "docs"
+      - "docs/**"
     tags:
       - ["v*.*.*-alpha","v*.*.*-beta","v*.*.*"]
 jobs:
