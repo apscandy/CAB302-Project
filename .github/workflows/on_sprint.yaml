@@ -1,18 +1,12 @@
-name: Test and build on main with tagged commit
-
+name: Test on sprint or releases branches
 permissions:
   contents: write
 
 on:
   push:
     branches:
-      - main
       - 'releases/**'
       - 'sprint/**'
-    tags:
-      - v*.*.*
-      - v*.*.*-alpha
-      - v*.*.*-beta
 
 jobs:
   build:
@@ -32,6 +26,3 @@ jobs:
 
       - name: Run Tests
         run: mvn test --batch-mode
-
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml

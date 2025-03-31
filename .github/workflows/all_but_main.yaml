@@ -1,4 +1,4 @@
-name: Test and analysis on all but main
+name: Test on all but main and docs
 
 permissions:
   contents: write
@@ -22,9 +22,6 @@ jobs:
           java-version: '21'
           distribution: 'corretto'
           cache: maven
-
-      - name: Dependency Analysis
-        run: mvn dependency:analyze
 
       - name: Run Tests
         run: mvn test --batch-mode
