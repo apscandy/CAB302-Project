@@ -1,8 +1,8 @@
 **Date**: 12/03/2025
 **Time**: 1700 to 1745
 **Location**: Discord call 
-**Facilitator**: Andrew Clarke
-**Attendees:** Andrew Clarke, Monica Borg, Lewis Phan, Maverick Doan and David Bui
+**Facilitator**: [[Andrew Clarke]]
+**Attendees:**  [[Andrew Clarke]], [[Monica Borg]]. [[Dang Linh Phan (Lewis)]], [[Minh Son Doan (Maverick)]] and [[Hoang Dat Bui (David)]]
  
 ## **1. Meeting Agenda**
 - Asynchronous team communication
@@ -23,14 +23,14 @@
 
 ## **3. Action Items**
 
-| **Task**                      | **Owner**                 | **Deadline** |
-| ----------------------------- | ------------------------- | ------------ |
-| User stories                  | Maverick, Lewis and David | 16/03/2025   |
-| Teammebers fill out team form | All                       | 16/03/2025   |
+| **Task**                      | **Owner**                                                                              | **Deadline** |
+| ----------------------------- | -------------------------------------------------------------------------------------- | ------------ |
+| User stories                  | [[Minh Son Doan (Maverick)]], [[Dang Linh Phan (Lewis)]] and [[Hoang Dat Bui (David)]] | 16/03/2025   |
+| Teammebers fill out team form | All                                                                                    | 16/03/2025   |
 
 
 ---
 **Next Meeting:** 19/03/2025 1810
 **Meeting Adjourned at:** 1745
 
-_Prepared by:_ Andrew Clarke
+_Prepared by:_ [[Andrew Clarke]]
