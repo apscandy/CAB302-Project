@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SqliteContactsDaoTestHelper {
+public class SqliteContactDAOTestHelper {
 
         // Helper method to get the contact count from the database
         public static int getContactCount(Connection con) {

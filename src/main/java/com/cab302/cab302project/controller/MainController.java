@@ -2,8 +2,7 @@ package com.cab302.cab302project.controller;
 
 import com.cab302.cab302project.model.Contact;
 import com.cab302.cab302project.model.IContactDAO;
-import com.cab302.cab302project.model.MockContactDAO;
-import com.cab302.cab302project.model.SqliteContactDao;
+import com.cab302.cab302project.model.SqliteContactDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -34,7 +33,7 @@ public class MainController {
     private final IContactDAO contactDAO;
 
     public MainController() {
-        contactDAO = new SqliteContactDao();
+        contactDAO = new SqliteContactDAO();
 //        contactDAO.addContact(new Contact("Jerry", "Doe", "jerrydoe@example.com", "0423423426"));
     }
 

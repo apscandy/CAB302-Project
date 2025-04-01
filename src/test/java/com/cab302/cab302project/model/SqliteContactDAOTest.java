@@ -1,18 +1,15 @@
 package com.cab302.cab302project.model;
 
 import org.junit.jupiter.api.*;
-import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class SqliteContactDaoTest {
+class SqliteContactDAOTest {
 
     private static IContactDAO contactDAO;
 
@@ -21,13 +18,13 @@ class SqliteContactDaoTest {
     @BeforeAll
     static void setUp() {
         SqliteConnection.setTestingModeTrue();
-        contactDAO = new SqliteContactDao();
+        contactDAO = new SqliteContactDAO();
         con = SqliteConnection.getInstance();
     }
 
     @AfterAll
     static void tearDown() throws SQLException {
-        SqliteContactsDaoTestHelper.deleteAllContacts(con);
+        SqliteContactDAOTestHelper.deleteAllContacts(con);
     }
 
     @BeforeEach
@@ -39,7 +36,7 @@ class SqliteContactDaoTest {
     @Order(1)
     void addContact() {
         contactDAO.addContact(new Contact("Andrew", "TheGoat", "thegoat@qut.edu.au", "1300655506"));
-        assertEquals(1,  SqliteContactsDaoTestHelper.getContactCount(con));
+        assertEquals(1,  SqliteContactDAOTestHelper.getContactCount(con));
     }
 
     @Test
@@ -74,19 +71,19 @@ class SqliteContactDaoTest {
     void deleteContact() {
         Contact contact = contactDAO.getContact(1);
         contactDAO.deleteContact(contact);
-        assertEquals(0, SqliteContactsDaoTestHelper.getContactCount(con));
+        assertEquals(0, SqliteContactDAOTestHelper.getContactCount(con));
     }
 
 
     @Test
     @Order(5)
     void getAllContacts() {
-        SqliteContactsDaoTestHelper.AddNUsers(contactDAO, 10);
+        SqliteContactDAOTestHelper.AddNUsers(contactDAO, 10);
         List<Contact> contacts = contactDAO.getAllContacts();
         assertEquals(10, contacts.size());
 
-        SqliteContactsDaoTestHelper.deleteAllContacts(con);
-        SqliteContactsDaoTestHelper.AddNUsers(contactDAO, 50);
+        SqliteContactDAOTestHelper.deleteAllContacts(con);
+        SqliteContactDAOTestHelper.AddNUsers(contactDAO, 50);
         List<Contact> contactsTestTwo = contactDAO.getAllContacts();
         assertEquals(50, contactsTestTwo.size());
 
