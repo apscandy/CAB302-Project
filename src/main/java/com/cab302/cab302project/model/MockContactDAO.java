@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MockContactDAO implements IContactDAO {
     public static final ArrayList<Contact> contacts = new ArrayList<>();
-    private static int autoIncrementedId  = 0;
+    private static int autoIncrementedId  = 1;
 
     public MockContactDAO(){
         addContact(new Contact("John", "Doe", "johndoe@example.com", "0423423423"));
@@ -49,5 +49,11 @@ public class MockContactDAO implements IContactDAO {
     @Override
     public List<Contact> getAllContacts() {
         return new ArrayList<>(contacts);
+    }
+
+    public void resetMockDatabase(){
+        contacts.clear();
+        autoIncrementedId  = 1;
+        new MockContactDAO();
     }
 }
