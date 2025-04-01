@@ -8,7 +8,6 @@ public class SqliteContactDao implements IContactDAO{
 
     private Connection con;
 
-
     public SqliteContactDao() {
         con = SqliteConnection.getInstance();
         createTable();

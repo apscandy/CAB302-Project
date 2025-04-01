@@ -7,9 +7,15 @@ import java.sql.SQLException;
 
 public class SqliteConnection {
     private static Connection instance = null;
+    private static Boolean testingMode = false;
 
     private SqliteConnection()  {
-        String url = "jdbc:sqlite:contacts.db";
+        String url;
+        if (testingMode) {
+            url = "jdbc:sqlite::memory:";
+        }else{
+            url = "jdbc:sqlite:contacts.db";
+        }
         try{
             instance = DriverManager.getConnection(url);
         } catch (SQLException e) {
@@ -22,5 +28,9 @@ public class SqliteConnection {
             new SqliteConnection();
         }
         return instance;
+    }
+
+    public static void setTestingModeTrue() {
+        testingMode = true;
     }
 }
