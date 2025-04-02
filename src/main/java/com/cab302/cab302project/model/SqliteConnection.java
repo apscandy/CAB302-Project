@@ -14,7 +14,7 @@ public class SqliteConnection {
         if (testingMode) {
             url = "jdbc:sqlite::memory:";
         }else{
-            url = "jdbc:sqlite:contacts.db";
+            url = "jdbc:sqlite:flashCards.db";
         }
         try{
             instance = DriverManager.getConnection(url);
