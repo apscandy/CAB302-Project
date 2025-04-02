@@ -10,7 +10,7 @@ public class Deck {
     private int id;
     private String name;
     private String description;
-    private User user;
+    private final User user;
     private List<Card> cards;
 
     public Deck(String name, String description, User user, List<Card> cards) {
@@ -48,13 +48,6 @@ public class Deck {
         this.description = description;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public List<Card> getCards() {
         return cards;
@@ -63,6 +56,4 @@ public class Deck {
     public void setCards(List<Card> cards) {
         this.cards = cards;
     }
-
-
 }
