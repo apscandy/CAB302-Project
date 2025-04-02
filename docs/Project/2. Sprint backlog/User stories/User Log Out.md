@@ -14,3 +14,7 @@ _As a logged-in user, I want to log out of my account so that I can secure my in
 _3/10_
 
 **Additional Notes:**  
+
+**Sprint** [[Sprint plan 1]]
+
+**Assigned to** [[Minh Son Doan (Maverick)]] [[Hoang Dat Bui (David)]] [[Dang Linh Phan (Lewis)]]

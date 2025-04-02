@@ -12,3 +12,7 @@ _As a user, I want to be able to set up three (3) security questions that can be
 
 **Effort:**
 _6/10_
+
+**Sprint** [[Sprint plan 1]]
+
+**Assigned to** [[Minh Son Doan (Maverick)]] [[Hoang Dat Bui (David)]] [[Dang Linh Phan (Lewis)]]

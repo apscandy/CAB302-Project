@@ -16,4 +16,8 @@ _As a registered user, I want to log in to my account so that I can access my fl
 _3/10_
 
 **Additional Notes:**  
-- None
+
+
+**Sprint** [[Sprint plan 1]]
+
+**Assigned to** [[Minh Son Doan (Maverick)]] [[Hoang Dat Bui (David)]] [[Dang Linh Phan (Lewis)]]

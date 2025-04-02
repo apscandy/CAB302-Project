@@ -1,7 +1,7 @@
  
 
 ## Sprint Details
-**Sprint Duration:** 31/03/25 - 06/04/25  
+**Sprint Duration:** 02/04/25 - 16/04/25  
 **Sprint Goal:** Project setup - getting user authentication done and the main view configured  
 
 ## Team Members
@@ -20,20 +20,21 @@
 | [[Create a Deck]]      | #Must-have / #High | TBA      | #in-progress |
 
 ## Tasks Breakdown
-| Task                                                     | Related User Story                                                                                  | Assignee | Status |
-| -------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------- | ------ |
-| Create `User.java`, `IUserDAO` and `SqliteUserDAO`       | [[User Login]], [[User Log Out]], [[User Registration]]  and [[Security Questions]]                 | TBA      |        |
-| Create `Deck.java`, `IDeckDAO` and `SqlitleDeckDAO`      | [[Create a Deck]]                                                                                   | TBA      |        |
-| Create `UserAuthController` and associated view          | [[User Login]], [[User Log Out]], [[User Registration]]  and [[Security Questions]]                 | TBA      |        |
-| Create `DeckController`                                  | [[Create a Deck]]                                                                                   | TBA      |        |
-| Create basic `main-view` and add a button to make a deck | [[Create a Deck]]                                                                                   | TBA      |        |
-| Create a pop up view to add the decks name               | [[Create a Deck]]                                                                                   | TBA      |        |
-| Create test cases for all database operations            | [[Create a Deck]] , [[User Login]], [[User Log Out]], [[User Registration]], [[Security Questions]] |          |        |
+| Task                                                                                                                                   | Related User Story                                                                  | Assignee                                                                          | Status |
+| -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------ |
+| Create `User.java`, `IUserDAO` and `SqliteUserDAO`                                                                                     | [[User Login]], [[User Log Out]], [[User Registration]]  and [[Security Questions]] | [[Minh Son Doan (Maverick)]] [[Hoang Dat Bui (David)]] [[Dang Linh Phan (Lewis)]] |        |
+| Create `LoginController`, `RegisterController` and `SecurityQuestionController` and views associated with the user story and UI design | [[User Login]], [[User Log Out]], [[User Registration]]  and [[Security Questions]] | [[Minh Son Doan (Maverick)]] [[Hoang Dat Bui (David)]] [[Dang Linh Phan (Lewis)]] |        |
+| Create `Deck.java`, `IDeckDAO` and `SqlitleDeckDAO`                                                                                    | [[Create a Deck]] [[Delete a Deck]]                                                 | [[Andrew Clarke]]                                                                 |        |
+| Create `DeckController` and and all view associated with the user story and UI design                                                  | [[Create a Deck]] [[Delete a Deck]]                                                 | [[Andrew Clarke]]                                                                 |        |
+| Create `Card.java`, `ICardDAO` and `SqliteCardDAO`                                                                                     | [[Add Flashcard to a Deck]] [[Edit a Flashcard]] [[Delete a Flashcard]]             | [[Monica Borg]]                                                                   |        |
+| Create `CardController` and views associated with the user story and UI design                                                         | [[Add Flashcard to a Deck]] [[Edit a Flashcard]] [[Delete a Flashcard]]             |                                                                                   |        |
+
+ 
 
 ## Sprint Meetings 
-**Weekly Standup:** 02/04/25 
-**Sprint Review:** 05/04/25
-**Sprint Retrospective:** 05/04/25 
+**Weekly Standup:** 09/04/25 
+**Sprint Review:** 14/04/25
+**Sprint Retrospective:** 17/04/25 
 
 ## Risks & Dependencies
 -  Database configurations for the user need to be setup first.
