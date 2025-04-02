@@ -14,3 +14,7 @@ _As a user, I want to delete a card from a deck so that I can remove cards that 
 _2/10_
 
 **Additional Notes:**  
+
+**Sprint** [[Sprint plan 1]]
+
+**Assigned to** [[Monica Borg]] 

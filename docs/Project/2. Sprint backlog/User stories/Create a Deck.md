@@ -17,3 +17,7 @@ _As a user, I want to create a new flashcard deck so that I can organise my flas
 4
 
 **Additional Notes:**  
+
+**Sprint** [[Sprint plan 1]]
+
+**Assigned to** [[Andrew Clarke]]

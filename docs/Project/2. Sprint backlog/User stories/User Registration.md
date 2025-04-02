@@ -18,3 +18,6 @@ _4/10_
 
 **Additional Notes:**  
 
+**Sprint** [[Sprint plan 1]]
+
+**Assigned to** [[Minh Son Doan (Maverick)]] [[Hoang Dat Bui (David)]] [[Dang Linh Phan (Lewis)]]

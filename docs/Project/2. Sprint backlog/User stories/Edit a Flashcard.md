@@ -17,3 +17,7 @@ _As a user, I want to edit an existing flashcard so that I can update or correct
 2
 
 **Additional Notes:**  
+
+**Sprint** [[Sprint plan 1]]
+
+**Assigned to** [[Monica Borg]] 

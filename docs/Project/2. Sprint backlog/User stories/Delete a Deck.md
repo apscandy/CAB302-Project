@@ -14,3 +14,7 @@ _As a user, I want to delete a deck so that I can remove decks that I am no long
 _2/10_
 
 **Additional Notes:**  
+
+**Sprint** [[Sprint plan 1]]
+
+**Assigned to** [[Andrew Clarke]]

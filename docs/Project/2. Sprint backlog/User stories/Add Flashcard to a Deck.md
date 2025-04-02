@@ -19,3 +19,7 @@ _4/10_
 
 **Additional Notes:**  
 Flashcard should also support text, image and audio attachment.
+
+**Sprint** [[Sprint plan 1]]
+
+**Assigned to** [[Monica Borg]] 
