@@ -2,33 +2,35 @@ package com.cab302.cab302project.model.userSecQuestions;
 
 import java.util.List;
 import java.util.ArrayList;
-import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
 
-public class MockUserSecurityQuestionDAO {
+public class MockUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
 
     private int autoincrement = 1;
     private final List<UserSecurityQuestion> questionList = new ArrayList<>();
 
     public MockUserSecurityQuestionDAO() {
+
     }
 
-    public void createQuestions(UserSecurityQuestion questions) {
-        questions.setId(autoincrement++);
-        questionList.add(questions);
+    @Override
+    public void createQuestion(UserSecurityQuestion question) {
+        questionList.add(question);
     }
 
-    public UserSecurityQuestion getQuestions(int userId) {
+    @Override
+    public List<UserSecurityQuestion> getQuestions(int userId) {
+        List<UserSecurityQuestion> userQuestions = new ArrayList<>();
         for (UserSecurityQuestion questions : questionList) {
             if (questions.getUserId() == userId) {
-                return questions;
+                userQuestions.add(questions);
             }
         }
-        return null;
+        return userQuestions;
     }
 
     public void updateQuestions(UserSecurityQuestion updatedQuestions) {
         for (int i = 0; i < questionList.size(); i++) {
-            if (questionList.get(i).getUserId() == updatedQuestions.getUserId) {
+            if (questionList.get(i).getUserId() == updatedQuestions.getUserId()) {
                 questionList.set(i, updatedQuestions);
                 return;
             }

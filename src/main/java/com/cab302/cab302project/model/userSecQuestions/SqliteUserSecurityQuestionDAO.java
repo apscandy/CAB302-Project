@@ -2,6 +2,7 @@ package com.cab302.cab302project.model.userSecQuestions;
 
 import com.cab302.cab302project.model.SqliteConnection;
 import java.sql.*;
+import java.util.List;
 
 public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
 
@@ -32,11 +33,11 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
     }
 
     @Override
-    public void createQuestions(UserSecurityQuestion question) {
+    public void createQuestion(UserSecurityQuestion question) {
     }
 
     @Override
-    public UserSecurityQuestion getQuestions(int userId) {
+    public List<UserSecurityQuestion> getQuestions(int userId) {
         return null;
     }
 
