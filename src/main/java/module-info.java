@@ -11,10 +11,10 @@ module com.cab302.cab302project {
     requires java.sql;
     requires jdk.jdi;
 
-    opens com.cab302.cab302project to javafx.fxml;
-    exports com.cab302.cab302project;
-    exports com.cab302.cab302project.controller;
-    opens com.cab302.cab302project.controller to javafx.fxml;
-    exports com.cab302.cab302project.model;
-    opens com.cab302.cab302project.model to javafx.fxml;
+    opens com.flashcards.cab to javafx.fxml;
+    exports com.flashcards.cab;
+    exports com.flashcards.cab.controller;
+    opens com.flashcards.cab.controller to javafx.fxml;
+    exports com.flashcards.cab.model;
+    opens com.flashcards.cab.model to javafx.fxml;
 }
