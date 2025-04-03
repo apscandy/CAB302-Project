@@ -13,6 +13,13 @@ public class Deck {
     private final User user;
     private List<Card> cards;
 
+
+    public Deck(String name, String description, User user) {
+        this.name = name;
+        this.description = description;
+        this.user = user;
+    }
+
     public Deck(String name, String description, User user, List<Card> cards) {
         this.name = name;
         this.description = description;
