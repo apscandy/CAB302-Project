@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.deck.DeckController">
+   <children>
+      <ListView layoutX="14.0" layoutY="36.0" prefHeight="262.0" prefWidth="200.0" fx:id="decks"/>
+      <TextField fx:id="deckName" layoutX="230.0" layoutY="53.0" prefHeight="25.0" prefWidth="229.0" />
+      <TextArea fx:id="deckDescription" layoutX="230.0" layoutY="106.0" prefHeight="66.0" prefWidth="229.0" />
+      <Button layoutX="230.0" layoutY="178.0" mnemonicParsing="false" text="Update" />
+      <Button layoutX="296.0" layoutY="178.0" mnemonicParsing="false" text="Delete" onAction="#deleteDeck"/>
+      <Button layoutX="14.0" layoutY="311.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="35.0" prefWidth="200.0" text="Create new deck" />
+      <Label layoutX="230.0" layoutY="36.0" text="Name" />
+      <Label layoutX="230.0" layoutY="89.0" text="Description" />
+      <MenuBar prefHeight="25.0" prefWidth="640.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
