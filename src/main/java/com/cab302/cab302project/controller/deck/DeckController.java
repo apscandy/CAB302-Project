@@ -34,7 +34,7 @@ public class DeckController implements Initializable {
         deckDAO = new SqliteDeckDAO();
     }
 
-    public boolean checkUserIsLoggedIn() {
+    public boolean userIsLoggedIn() {
         if (ApplicationState.getCurrentUser() == null || !ApplicationState.isUserLoggedIn()) {
             logger.warn("ApplicationState.getCurrentUser() is null");
             logger.warn("ApplicationState.isUserLoggedIn() equals false");
@@ -47,37 +47,53 @@ public class DeckController implements Initializable {
     @FXML
     private void createDeck() {
         logger.debug("Create deck button pressed");
-        if (checkUserIsLoggedIn()) {
-            Deck deck = new Deck(deckName.getText(), deckDescription.getText(), ApplicationState.getCurrentUser());
-            deckDAO.createDeck(deck);
-            loadDecks();
-            deckName.clear();
-            deckDescription.clear();
-        }
+        if (!userIsLoggedIn()) return;
+        Deck deck = new Deck(deckName.getText(), deckDescription.getText(), ApplicationState.getCurrentUser());
+        deckDAO.createDeck(deck);
+        loadDecks();
+        deckName.clear();
+        deckDescription.clear();
     }
 
     @FXML
     private void deleteDeck() {
         logger.debug("Delete deck button pressed");
-        if (checkUserIsLoggedIn()) {
-            deckDAO.deleteDeck(decks.getSelectionModel().getSelectedItem());
-            loadDecks();
-        }
+        if (!userIsLoggedIn()) return;
+        deckDAO.deleteDeck(decks.getSelectionModel().getSelectedItem());
+        loadDecks();
+    }
+
+    @FXML
+    private void editDeck() {
+        logger.debug("Edit deck button pressed");
+        if (!userIsLoggedIn()) return;
+        Deck deck = decks.getSelectionModel().getSelectedItem();
+        deck.setName(deckName.getText());
+        deckDescription.setText(deckDescription.getText());
+        deckDAO.updateDeck(deck);
+        loadDecks();
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
         logger.info("initializing DeckController listView");
-        if (checkUserIsLoggedIn()){
-            loadDecks();
-        }
+        if (!userIsLoggedIn()) return;
+        loadDecks();
+    }
+
+    @FXML
+    public void selectListViewItem() {
+        if (!userIsLoggedIn()) return;
+        Deck deck = decks.getSelectionModel().getSelectedItem();
+        if (deck == null) return;
+        deckName.setText(deck.getName());
+        deckDescription.setText(deck.getDescription());
     }
 
     private void loadDecks() {
-        if (checkUserIsLoggedIn()){
-            decks.getItems().clear();
-            decks.getItems().addAll(deckDAO.getDecks(ApplicationState.getCurrentUser()));
-            decks.refresh();
-        }
+        if (!userIsLoggedIn()) return;
+        decks.getItems().clear();
+        decks.getItems().addAll(deckDAO.getDecks(ApplicationState.getCurrentUser()));
+        decks.refresh();
     }
 }
