@@ -77,8 +77,10 @@ public class DeckController implements Initializable {
     public void selectListViewItem() {
         if (checkUserIsLoggedIn()) {
             Deck deck = decks.getSelectionModel().getSelectedItem();
-            deckName.setText(deck.getName());
-            deckDescription.setText(deck.getDescription());
+            if(deck != null){
+                deckName.setText(deck.getName());
+                deckDescription.setText(deck.getDescription());
+            }
         }
 
     }
