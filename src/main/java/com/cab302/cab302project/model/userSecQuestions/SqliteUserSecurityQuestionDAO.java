@@ -33,6 +33,21 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
 
     @Override
     public void createQuestion(UserSecurityQuestion question) {
+        String sql = "INSERT INTO securityQuestions (id, secQuestionOne, secAnswerOne, secQuestionTwo, secAnswerTwo, secQuestionThree, secAnswerThree) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, question.getUserId());
+            pstmt.setString(2, question.getQuestionOne());
+            pstmt.setString(3, question.getAnswerOne());
+            pstmt.setString(4, question.getQuestionTwo());
+            pstmt.setString(5, question.getAnswerTwo());
+            pstmt.setString(6, question.getQuestionThree());
+            pstmt.setString(7, question.getAnswerThree());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
