@@ -3,6 +3,6 @@ import java.util.List;
 
 public interface IUserSecurityQuestionDAO {
     void createQuestion(UserSecurityQuestion question);
-    List<UserSecurityQuestion> getQuestions(int userId);
+    UserSecurityQuestion getQuestions(int userId);
     void updateQuestions(UserSecurityQuestion updatedQuestion);
 }

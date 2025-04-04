@@ -14,18 +14,24 @@ public class MockUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
 
     @Override
     public void createQuestion(UserSecurityQuestion question) {
+
         questionList.add(question);
     }
 
     @Override
-    public List<UserSecurityQuestion> getQuestions(int userId) {
-        List<UserSecurityQuestion> userQuestions = new ArrayList<>();
+    public UserSecurityQuestion getQuestions(int userId) {
+
+        UserSecurityQuestion User = null;
+
         for (UserSecurityQuestion questions : questionList) {
             if (questions.getUserId() == userId) {
-                userQuestions.add(questions);
+
+                User = questions;
+
+                return User;
             }
         }
-        return userQuestions;
+        return User;
     }
 
     public void updateQuestions(UserSecurityQuestion updatedQuestions) {
