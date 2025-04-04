@@ -1,5 +1,7 @@
 package com.cab302.cab302project.model.userSecQuestions;
 
+import com.cab302.cab302project.model.user.User;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -18,19 +20,19 @@ public class MockUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
     }
 
     @Override
-    public UserSecurityQuestion getQuestions(int userId) {
+    public UserSecurityQuestion getQuestions(User user) {
 
-        UserSecurityQuestion User = null;
+        UserSecurityQuestion trackingUser = null;
 
         for (UserSecurityQuestion questions : questionList) {
-            if (questions.getUserId() == userId) {
+            if (questions.getUserId() == user.getId()) {
 
-                User = questions;
+                trackingUser = questions;
 
-                return User;
+                return trackingUser;
             }
         }
-        return User;
+        return trackingUser;
     }
 
     public void updateQuestions(UserSecurityQuestion updatedQuestions) {
