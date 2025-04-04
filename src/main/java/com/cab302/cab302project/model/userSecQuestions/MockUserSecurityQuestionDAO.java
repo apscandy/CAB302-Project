@@ -14,7 +14,6 @@ public class MockUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
 
     @Override
     public void createQuestion(UserSecurityQuestion question) {
-
         questionList.add(question);
     }
 
