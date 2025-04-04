@@ -1,9 +1,13 @@
 package com.cab302.cab302project.model;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.Statement;
 
 public class SqliteCreateTables {
+    private static final Logger logger = LogManager.getLogger(SqliteCreateTables.class);
     private final Connection con;
 
     public SqliteCreateTables() {
@@ -24,7 +28,7 @@ public class SqliteCreateTables {
                     + ")";
             stmt.executeUpdate(sql);
         }catch (Exception e){
-            e.printStackTrace();
+            logger.fatal("Error creating user table: {}", e.getMessage());
         }
     }
 
@@ -40,7 +44,7 @@ public class SqliteCreateTables {
                     + ")";
             stmt.executeUpdate(sql);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.fatal("Error creating deck table: {}", e.getMessage());
         }
     }
 }
