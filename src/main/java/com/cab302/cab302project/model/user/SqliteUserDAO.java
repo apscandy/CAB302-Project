@@ -84,12 +84,12 @@ public class SqliteUserDAO implements IUserDAO {
             ResultSet result = sql.executeQuery();
             if (result.next()) {
                 user = new User (
-                        result.getInt("id"),
                         result.getString("firstName"),
                         result.getString("lastName"),
                         result.getString("email"),
                         result.getString("password")
                 );
+                user.setId(result.getInt("id"));
             }
             result.close();
         } catch (Exception e) {
@@ -107,12 +107,13 @@ public class SqliteUserDAO implements IUserDAO {
             ResultSet result = sql.executeQuery();
             if (result.next()) {
                 user = new User (
-                        result.getInt("id"),
                         result.getString("firstName"),
                         result.getString("lastName"),
                         result.getString("email"),
                         result.getString("password")
+
                 );
+                user.setId(result.getInt("id"));
             }
             result.close();
         } catch (Exception e) {
