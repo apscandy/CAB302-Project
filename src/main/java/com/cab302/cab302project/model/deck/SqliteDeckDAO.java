@@ -3,16 +3,18 @@ package com.cab302.cab302project.model.deck;
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.user.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SqliteDeckDAO implements IDeckDAO {
 
+    private static final Logger logger = LogManager.getLogger(SqliteDeckDAO.class);
     private final Connection con;
 
     private final String createDeckSQL = "INSERT INTO deck (user_id, name, description) VALUES (?,?,?)";
@@ -27,6 +29,9 @@ public class SqliteDeckDAO implements IDeckDAO {
 
     @Override
     public void createDeck(Deck deck) {
+        if (deck == null || deck.getUserId() == 0) {
+            logger.error("Deck is null or empty {createDeck}");
+        }
         try {
             PreparedStatement insertStatement = con.prepareStatement(createDeckSQL);
             insertStatement.setInt(1, deck.getUserId());
@@ -38,12 +43,15 @@ public class SqliteDeckDAO implements IDeckDAO {
                 deck.setId(resultSet.getInt(1));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.fatal(e.getMessage());
         }
     }
 
     @Override
     public void updateDeck(Deck deck) {
+        if (deck == null || deck.getUserId() == 0) {
+            logger.error("Deck is null or empty {updateDeck}");
+        }
         try {
             PreparedStatement insertStatement = con.prepareStatement(updateDeckSQL);
             insertStatement.setString(1, deck.getName());
@@ -51,18 +59,24 @@ public class SqliteDeckDAO implements IDeckDAO {
             insertStatement.setInt(3, deck.getId());
             insertStatement.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.fatal(e.getMessage());
         }
     }
 
     @Override
     public void deleteDeck(Deck deck) {
+        if (deck == null || deck.getUserId() == 0) {
+            logger.error("Deck is null or empty {deleteDeck}");
+        }
+        if (deck.getId() <= 0) {
+            logger.error("Deck ID is less than or equal to 0 {deleteDeck}");
+        }
        try{
            PreparedStatement deleteStatement = con.prepareStatement(deleteDeckSQL);
            deleteStatement.setInt(1, deck.getId());
            deleteStatement.executeUpdate();
        } catch (Exception e) {
-           e.printStackTrace();
+           logger.fatal(e.getMessage());
        }
     }
 
@@ -71,7 +85,10 @@ public class SqliteDeckDAO implements IDeckDAO {
      */
     @Override
     public List<Deck> getDecks(User user) {
-        List<Deck> decks = new ArrayList<Deck>();
+        List<Deck> decks = new ArrayList<>();
+        if (user == null || user.getId() == 0) {
+            logger.error("User is null or empty {getDecks}");
+        }
         try{
             PreparedStatement selectStatement = con.prepareStatement(selectDeckSQL);
             selectStatement.setInt(1, user.getId());
@@ -85,7 +102,7 @@ public class SqliteDeckDAO implements IDeckDAO {
                 decks.add(deck);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.fatal(e.getMessage());
         }
         return decks;
     }
@@ -93,6 +110,9 @@ public class SqliteDeckDAO implements IDeckDAO {
     @Override
     public Deck getDeck(int id) {
         Deck deck = null;
+        if (id <= 0) {
+            logger.error("id is less then or equal to 0 {getDeck}");
+        }
         try{
             PreparedStatement selectStatement = con.prepareStatement(selectDeckByIdSQL);
             selectStatement.setInt(1, id);
@@ -105,7 +125,7 @@ public class SqliteDeckDAO implements IDeckDAO {
                 deck.setId(deckId);
             }
         }catch (Exception e) {
-            e.printStackTrace();
+            logger.fatal(e.getMessage());
         }
         return deck;
     }
