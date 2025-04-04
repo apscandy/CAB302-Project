@@ -10,10 +10,9 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
 
     public SqliteUserSecurityQuestionDAO() {
         conn = SqliteConnection.getInstance();
-        createTable();
     }
 
-    private void createTable() {
+    public void createSecurityQuestionTable() {
         try{
             Statement statement = conn.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS securityQuestions ("
