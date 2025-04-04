@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.deck.DeckController">
    <children>
-      <ListView layoutX="14.0" layoutY="36.0" prefHeight="262.0" prefWidth="200.0" fx:id="decks"/>
+      <ListView layoutX="14.0" layoutY="36.0" prefHeight="262.0" prefWidth="200.0" fx:id="decks" onMouseClicked="#selectListViewItem"/>
       <TextField fx:id="deckName" layoutX="230.0" layoutY="53.0" prefHeight="25.0" prefWidth="229.0" />
       <TextArea fx:id="deckDescription" layoutX="230.0" layoutY="106.0" prefHeight="66.0" prefWidth="229.0" />
       <Button layoutX="230.0" layoutY="178.0" mnemonicParsing="false" text="Update" />

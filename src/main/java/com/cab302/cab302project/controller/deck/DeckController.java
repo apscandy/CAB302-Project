@@ -73,6 +73,15 @@ public class DeckController implements Initializable {
         }
     }
 
+    @FXML
+    public void selectListViewItem() {
+        Deck deck = decks.getSelectionModel().getSelectedItem();
+        deckName.setText(deck.getName());
+        deckDescription.setText(deck.getDescription());
+
+
+    }
+
     private void loadDecks() {
         if (checkUserIsLoggedIn()){
             decks.getItems().clear();
