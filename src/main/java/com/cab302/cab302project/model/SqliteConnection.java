@@ -72,8 +72,8 @@ public class SqliteConnection {
             stmt.executeUpdate(sql);
             sql = "PRAGMA synchronous = FULL;";
             stmt.executeUpdate(sql);
-//            sql = "PRAGMA locking_mode = EXCLUSIVE;";
-//            stmt.executeUpdate(sql);
+            sql = "PRAGMA locking_mode = EXCLUSIVE;";
+            stmt.executeUpdate(sql);
             stmt.close();
             logger.debug("database pragma set successfully.");
         }catch (SQLException e){
