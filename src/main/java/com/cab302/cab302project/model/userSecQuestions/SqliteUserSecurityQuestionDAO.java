@@ -1,8 +1,9 @@
 package com.cab302.cab302project.model.userSecQuestions;
 
 import com.cab302.cab302project.model.SqliteConnection;
+import com.cab302.cab302project.model.user.User;
+
 import java.sql.*;
-import java.util.List;
 
 public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
 
@@ -10,25 +11,6 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
 
     public SqliteUserSecurityQuestionDAO() {
         conn = SqliteConnection.getInstance();
-    }
-
-    public void createSecurityQuestionTable() {
-        try{
-            Statement statement = conn.createStatement();
-            String query = "CREATE TABLE IF NOT EXISTS securityQuestions ("
-                    + "id INTEGER PRIMARY KEY,"
-                    + "secQuestionOne TEXT NOT NULL,"
-                    + "secAnswerOne TEXT NOT NULL,"
-                    + "secQuestionTwo TEXT NOT NULL,"
-                    + "secAnswerTwo TEXT NOT NULL,"
-                    + "secQuestionThree TEXT NOT NULL,"
-                    + "secAnswerThree TEXT NOT NULL,"
-                    + "FOREIGN KEY(id) REFERENCES users(id)"
-                    + ")";
-            statement.execute(query);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -51,8 +33,21 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
     }
 
     @Override
-    public List<UserSecurityQuestion> getQuestions(int userId) {
-        return null;
+    public UserSecurityQuestion getQuestions(User user) {
+        UserSecurityQuestion userQuestions = new UserSecurityQuestion(user);
+        String sql = "SELECT secQuestionOne, secQuestionTwo, secQuestionThree FROM securityQuestions WHERE id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, user.getId());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                userQuestions.setQuestionOne(rs.getString("secQuestionOne"));
+                userQuestions.setQuestionTwo(rs.getString("secQuestionTwo"));
+                userQuestions.setQuestionThree(rs.getString("secQuestionThree"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userQuestions;
     }
 
     @Override

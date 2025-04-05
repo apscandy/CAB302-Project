@@ -19,6 +19,7 @@ public class SqliteUserDAO implements IUserDAO {
         con = SqliteConnection.getInstance();
     }
 
+    private final String addUserSQL = "INSERT INTO user (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
     private final String updateUserSQL = "UPDATE user SET first_name = ?, last_name = ?, email = ?, password = ? WHERE id = ?";
     private final String getUserByIdSQL = "SELECT * FROM user WHERE id = ?";
     private final String getUserByEmailSQL = "SELECT * FROM user WHERE email = ?";
@@ -27,7 +28,6 @@ public class SqliteUserDAO implements IUserDAO {
     public void addUser (User user) {
         try {
             con.setAutoCommit(false);
-            String addUserSQL = "INSERT INTO user (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
             try (PreparedStatement sql = con.prepareStatement(addUserSQL)) {
                 sql.setString(1, user.getFirstName());
                 sql.setString(2, user.getLastName());
@@ -35,8 +35,12 @@ public class SqliteUserDAO implements IUserDAO {
                 sql.setString(4, user.getPassword());
                 sql.executeUpdate();
                 con.commit();
+                ResultSet rs = sql.getGeneratedKeys();
+                if (rs.next()) {
+                    user.setId(rs.getInt(1));
+                }
                 sql.close();
-                logger.error("Add user transaction completed successfully.");
+                logger.info("Add user transaction completed successfully.");
             } catch (SQLException e) {
                 con.rollback();
                 logger.error("Add user transaction failed.");
@@ -62,7 +66,7 @@ public class SqliteUserDAO implements IUserDAO {
                 sql.executeUpdate();
                 con.commit();
                 sql.close();
-                logger.error("Update user transaction completed successfully.");
+                logger.info("Update user transaction completed successfully.");
             } catch (SQLException e) {
                 con.rollback();
                 logger.error("Update user transaction failed.");
@@ -84,17 +88,18 @@ public class SqliteUserDAO implements IUserDAO {
                 sql.setInt(1, id);
                 ResultSet result = sql.executeQuery();
                 if (result.next()) {
-                    user = new User (
-                            result.getString("first_name"),
-                            result.getString("last_name"),
-                            result.getString("email"),
-                            result.getString("password")
-                    );
-                    user.setId(result.getInt("id"));
+                    String firstName = result.getString("first_name");
+                    String lastName = result.getString("last_name");
+                    String password = result.getString("password");
+                    String emails = result.getString("email");
+                    int ids = result.getInt("id");
+                    user = new User(firstName, lastName, emails, password);
+                    user.setId(ids);
                 }
                 con.commit();
                 sql.close();
                 result.close();
+                logger.info("Get user transaction completed successfully.");
            }catch (SQLException e) {
                 con.rollback();
                 logger.error("Get user by id transaction failed.");
@@ -117,18 +122,18 @@ public class SqliteUserDAO implements IUserDAO {
                 sql.setString(1, email);
                 ResultSet result = sql.executeQuery();
                 if (result.next()) {
-                    user = new User (
-                            result.getString("first_name"),
-                            result.getString("last_name"),
-                            result.getString("email"),
-                            result.getString("password")
-
-                    );
-                    user.setId(result.getInt("id"));
+                    String firstName = result.getString("first_name");
+                    String lastName = result.getString("last_name");
+                    String password = result.getString("password");
+                    String emails = result.getString("email");
+                    int id = result.getInt("id");
+                    user = new User(firstName, lastName, emails, password);
+                    user.setId(id);
                 }
                 con.commit();
                 sql.close();
                 result.close();
+                logger.info("Get user transaction completed successfully.");
             }catch (SQLException e) {
                 con.rollback();
                 logger.error("Get user by email transaction failed.");
