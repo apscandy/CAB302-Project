@@ -14,37 +14,20 @@ public class SqliteUserDAO implements IUserDAO {
         con = SqliteConnection.getInstance();
     }
 
-    private final String createUserTableSQL = """
-            CREATE TABLE IF NOT EXISTS users (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                firstName TEXT NOT NULL,
-                lastName TEXT NOT NULL,
-                email TEXT NOT NULL UNIQUE,
-                password TEXT NOT NULL
-            );""";
     private final String addUserSQL = """
-            INSERT INTO users (firstName, lastName, email, password)
+            INSERT INTO user (first_name, last_name, email, password)
                 VALUES (?, ?, ?, ?);
             """;
     private final String updateUserSQL = """
-            UPDATE users SET firstName = ?, lastName = ?, email = ?, password = ? 
+            UPDATE user SET first_name = ?, last_name = ?, email = ?, password = ? 
                 WHERE id = ?;
             """;
     private final String getUserByIdSQL = """
-            SELECT * FROM users WHERE id = ?;
+            SELECT * FROM user WHERE id = ?;
             """;
     private final String getUserByEmailSQL = """
-            SELECT * FROM users WHERE email = ?;
+            SELECT * FROM user WHERE email = ?;
             """;
-
-    public void  createUserTable() {
-        try {
-            PreparedStatement sql = con.prepareStatement(createUserTableSQL);
-            sql.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void addUser (User user) {
@@ -84,8 +67,8 @@ public class SqliteUserDAO implements IUserDAO {
             ResultSet result = sql.executeQuery();
             if (result.next()) {
                 user = new User (
-                        result.getString("firstName"),
-                        result.getString("lastName"),
+                        result.getString("first_name"),
+                        result.getString("last_name"),
                         result.getString("email"),
                         result.getString("password")
                 );
@@ -107,8 +90,8 @@ public class SqliteUserDAO implements IUserDAO {
             ResultSet result = sql.executeQuery();
             if (result.next()) {
                 user = new User (
-                        result.getString("firstName"),
-                        result.getString("lastName"),
+                        result.getString("first_name"),
+                        result.getString("last_name"),
                         result.getString("email"),
                         result.getString("password")
 
