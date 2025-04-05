@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0"
+            prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.cab302.cab302project.controller.menubar.MenuBarController">
+  <MenuBar prefHeight="25.0" prefWidth="640.0">
+    <Menu mnemonicParsing="false" text="File">
+      <MenuItem mnemonicParsing="false" text="Close" fx:id="close" onAction="#closeProgram"/>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Edit">
+      <MenuItem mnemonicParsing="false" text="Delete"/>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Help">
+      <MenuItem mnemonicParsing="false" text="About"/>
+    </Menu>
+  </MenuBar>
+</AnchorPane>

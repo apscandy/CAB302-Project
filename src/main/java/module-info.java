@@ -10,6 +10,7 @@ module com.cab302.cab302project {
     requires java.desktop;
     requires java.sql;
     requires jdk.jdi;
+    requires org.apache.logging.log4j;
 
     opens com.cab302.cab302project to javafx.fxml;
     exports com.cab302.cab302project;
@@ -17,4 +18,6 @@ module com.cab302.cab302project {
     opens com.cab302.cab302project.controller to javafx.fxml;
     exports com.cab302.cab302project.model;
     opens com.cab302.cab302project.model to javafx.fxml;
+    opens com.cab302.cab302project.controller.deck to javafx.fxml;
+    opens com.cab302.cab302project.controller.menubar to javafx.fxml;
 }
