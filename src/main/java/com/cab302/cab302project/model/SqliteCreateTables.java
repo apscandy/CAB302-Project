@@ -47,4 +47,25 @@ public class SqliteCreateTables {
             logger.fatal("Error creating deck table: {}", e.getMessage());
         }
     }
+
+    public void createSecurityQuestionTable() {
+        try {
+            Statement stmt = con.createStatement();
+            String query = "CREATE TABLE IF NOT EXISTS securityQuestions ("
+                    + "id INTEGER PRIMARY KEY,"
+                    + "secQuestionOne TEXT NOT NULL,"
+                    + "secAnswerOne TEXT NOT NULL,"
+                    + "secQuestionTwo TEXT NOT NULL,"
+                    + "secAnswerTwo TEXT NOT NULL,"
+                    + "secQuestionThree TEXT NOT NULL,"
+                    + "secAnswerThree TEXT NOT NULL,"
+                    + "FOREIGN KEY(id) REFERENCES users(id)"
+                    + ")";
+            stmt.execute(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
