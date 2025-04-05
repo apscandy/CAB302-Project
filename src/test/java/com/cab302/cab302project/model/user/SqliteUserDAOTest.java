@@ -32,6 +32,12 @@ public class SqliteUserDAOTest {
             stmt.executeUpdate(sql);
             sql = "DELETE FROM deck";
             stmt.executeUpdate(sql);
+            // below resets the sqlite auto inc id
+            // https://stackoverflow.com/questions/1601697/sqlite-reset-primary-key-field
+            sql = "delete from sqlite_sequence where name='user'";
+            stmt.executeUpdate(sql);
+            sql = "delete from sqlite_sequence where name='deck'";
+            stmt.executeUpdate(sql);
             stmt.close();
         }
         catch(Exception e){
@@ -43,7 +49,7 @@ public class SqliteUserDAOTest {
     @Order(1)
     void testAddUser() {
         userDAO.addUser(user);
-        assertEquals(2, user.getId());
+        assertEquals(1, user.getId());
     }
 
     @Test
