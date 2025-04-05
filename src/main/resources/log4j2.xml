@@ -12,7 +12,9 @@
     <Loggers>
         <Root level="debug">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="FileLogger"/>
         </Root>
+        <Logger name="FileLogger" level="warn" additivity="false">
+            <AppenderRef ref="FileLogger"/>
+        </Logger>
     </Loggers>
 </Configuration>
