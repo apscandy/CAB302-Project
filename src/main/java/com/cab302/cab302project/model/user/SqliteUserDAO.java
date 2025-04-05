@@ -50,7 +50,7 @@ public class SqliteUserDAO implements IUserDAO {
                 result.close();
             } catch (SQLException e) {
                 con.rollback();
-                e.getMessage();
+                e.printStackTrace();
             } finally {
                 con.setAutoCommit(true);
             }
@@ -62,13 +62,23 @@ public class SqliteUserDAO implements IUserDAO {
     @Override
     public void updateUser (User user) {
         try {
-            PreparedStatement sql = con.prepareStatement(updateUserSQL);
-            sql.setString(1, user.getFirstName());
-            sql.setString(2, user.getLastName());
-            sql.setString(3, user.getEmail());
-            sql.setString(4, user.getPassword());
-            sql.setInt(5, user.getId());
-            sql.executeUpdate();
+            con.setAutoCommit(false);
+            try {
+                PreparedStatement sql = con.prepareStatement(updateUserSQL);
+                sql.setString(1, user.getFirstName());
+                sql.setString(2, user.getLastName());
+                sql.setString(3, user.getEmail());
+                sql.setString(4, user.getPassword());
+                sql.setInt(5, user.getId());
+                sql.executeUpdate();
+                con.commit();
+                sql.close();
+            } catch (SQLException e) {
+                con.rollback();
+                e.printStackTrace();
+            } finally {
+                con.setAutoCommit(true);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
