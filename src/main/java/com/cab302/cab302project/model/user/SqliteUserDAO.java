@@ -19,91 +19,72 @@ public class SqliteUserDAO implements IUserDAO {
         con = SqliteConnection.getInstance();
     }
 
+    private final  String addUserSQL = "INSERT INTO user (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
     private final String updateUserSQL = "UPDATE user SET first_name = ?, last_name = ?, email = ?, password = ? WHERE id = ?";
     private final String getUserByIdSQL = "SELECT * FROM user WHERE id = ?";
     private final String getUserByEmailSQL = "SELECT * FROM user WHERE email = ?";
 
     @Override
     public void addUser (User user) {
-        try {
-            con.setAutoCommit(false);
-            String addUserSQL = "INSERT INTO user (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
-            try (PreparedStatement sql = con.prepareStatement(addUserSQL)) {
-                sql.setString(1, user.getFirstName());
-                sql.setString(2, user.getLastName());
-                sql.setString(3, user.getEmail());
-                sql.setString(4, user.getPassword());
-                sql.executeUpdate();
-                con.commit();
-                sql.close();
-                logger.error("Add user transaction completed successfully.");
-            } catch (SQLException e) {
-                con.rollback();
-                logger.error("Add user transaction failed.");
-                logger.fatal(e.getMessage());
-            }finally {
-                con.setAutoCommit(true);
+        try (PreparedStatement sql = con.prepareStatement(addUserSQL)) {
+            sql.setString(1, user.getFirstName());
+            sql.setString(2, user.getLastName());
+            sql.setString(3, user.getEmail());
+            sql.setString(4, user.getPassword());
+            sql.executeUpdate();
+            ResultSet rs = sql.getGeneratedKeys();
+            if (rs.next()) {
+                user.setId(rs.getInt(1));
             }
+            rs.close();
+            sql.close();
+            logger.info("Add user transaction completed successfully.");
+        }catch (SQLException sqlException) {
+            logger.fatal("Add user transaction failed: {}", sqlException.getMessage());
         }catch (Exception e) {
-            logger.fatal(e.getMessage());
+            logger.fatal("Something went wrong: {}", e.getMessage());
         }
     }
 
     @Override
     public void updateUser (User user) {
-        try {
-            con.setAutoCommit(false);
-            try (PreparedStatement sql = con.prepareStatement(updateUserSQL)) {
-                sql.setString(1, user.getFirstName());
-                sql.setString(2, user.getLastName());
-                sql.setString(3, user.getEmail());
-                sql.setString(4, user.getPassword());
-                sql.setInt(5, user.getId());
-                sql.executeUpdate();
-                con.commit();
-                sql.close();
-                logger.error("Update user transaction completed successfully.");
-            } catch (SQLException e) {
-                con.rollback();
-                logger.error("Update user transaction failed.");
-                logger.fatal(e.getMessage());
-            }finally {
-                con.setAutoCommit(true);
-            }
+        try (PreparedStatement sql = con.prepareStatement(updateUserSQL)) {
+            sql.setString(1, user.getFirstName());
+            sql.setString(2, user.getLastName());
+            sql.setString(3, user.getEmail());
+            sql.setString(4, user.getPassword());
+            sql.setInt(5, user.getId());
+            sql.executeUpdate();
+            sql.close();
+            logger.info("Update user transaction completed successfully.");
+        }catch (SQLException sqlException) {
+            logger.fatal("Update user transaction failed: {}", sqlException.getMessage());
         }catch (Exception e) {
-            logger.fatal(e.getMessage());
+            logger.fatal("Something went wrong: {}", e.getMessage());
         }
     }
 
     @Override
     public User getUser (int id) {
         User user = null;
-        try {
-            con.setAutoCommit(false);
-            try (PreparedStatement sql = con.prepareStatement(getUserByIdSQL)) {
-                sql.setInt(1, id);
-                ResultSet result = sql.executeQuery();
-                if (result.next()) {
-                    user = new User (
-                            result.getString("first_name"),
-                            result.getString("last_name"),
-                            result.getString("email"),
-                            result.getString("password")
-                    );
-                    user.setId(result.getInt("id"));
-                }
-                con.commit();
-                sql.close();
-                result.close();
-           }catch (SQLException e) {
-                con.rollback();
-                logger.error("Get user by id transaction failed.");
-                logger.fatal(e.getMessage());
-            }finally {
-                con.setAutoCommit(true);
+        try (PreparedStatement sql = con.prepareStatement(getUserByIdSQL)) {
+            sql.setInt(1, id);
+            ResultSet result = sql.executeQuery();
+            if (result.next()) {
+                String firstName = result.getString("first_name");
+                String lastName = result.getString("last_name");
+                String email = result.getString("email");
+                String password = result.getString("password");
+                user = new User(firstName, lastName, email, password);
+                user.setId(result.getInt("id"));
             }
-        } catch (Exception e) {
-            logger.fatal(e.getMessage());
+            sql.close();
+            result.close();
+            logger.info("Get user transaction completed successfully.");
+       }catch (SQLException sqlException) {
+            logger.fatal("Get user by id transaction failed: {}", sqlException.getMessage());
+        }catch (Exception e) {
+            logger.fatal("Something went wrong: {}", e.getMessage());
         }
         return user;
     }
@@ -111,33 +92,24 @@ public class SqliteUserDAO implements IUserDAO {
     @Override
     public User getUser(String email) {
         User user = null;
-        try {
-            con.setAutoCommit(false);
-            try (PreparedStatement sql = con.prepareStatement(getUserByEmailSQL)) {
-                sql.setString(1, email);
-                ResultSet result = sql.executeQuery();
-                if (result.next()) {
-                    user = new User (
-                            result.getString("first_name"),
-                            result.getString("last_name"),
-                            result.getString("email"),
-                            result.getString("password")
-
-                    );
-                    user.setId(result.getInt("id"));
-                }
-                con.commit();
-                sql.close();
-                result.close();
-            }catch (SQLException e) {
-                con.rollback();
-                logger.error("Get user by email transaction failed.");
-                logger.fatal(e.getMessage());
-            }finally {
-                con.setAutoCommit(true);
+        try (PreparedStatement sql = con.prepareStatement(getUserByEmailSQL)) {
+            sql.setString(1, email);
+            ResultSet result = sql.executeQuery();
+            if (result.next()) {
+                String firstName = result.getString("first_name");
+                String lastName = result.getString("last_name");
+                String emails = result.getString("email");
+                String password = result.getString("password");
+                user = new User(firstName, lastName, emails, password);
+                user.setId(result.getInt("id"));
             }
-        } catch (Exception e) {
-            logger.fatal(e.getMessage());
+            sql.close();
+            result.close();
+            logger.info("Get user transaction completed successfully.");
+        }catch (SQLException sqlException) {
+            logger.fatal("Get user by email transaction failed: {}", sqlException.getMessage());
+        }catch (Exception e) {
+            logger.fatal("Something went wrong: {}", e.getMessage());
         }
         return user;
     }
