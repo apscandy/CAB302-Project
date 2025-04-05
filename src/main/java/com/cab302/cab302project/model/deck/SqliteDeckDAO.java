@@ -44,6 +44,8 @@ public class SqliteDeckDAO implements IDeckDAO {
                     deck.setId(resultSet.getInt(1));
                 }
                 con.commit();
+                stmt.close();
+                resultSet.close();
                 logger.info("Created Deck transaction completed successfully.");
             } catch (SQLException  e) {
                 con.rollback();
@@ -72,6 +74,7 @@ public class SqliteDeckDAO implements IDeckDAO {
                 insertStatement.setInt(3, deck.getId());
                 insertStatement.executeUpdate();
                 con.commit();
+                insertStatement.close();
                 logger.info("Update Deck transaction completed successfully.");
             }catch (SQLException  e) {
                 con.rollback();
@@ -100,6 +103,7 @@ public class SqliteDeckDAO implements IDeckDAO {
                deleteStatement.setInt(1, deck.getId());
                deleteStatement.executeUpdate();
                con.commit();
+               deleteStatement.close();
                logger.info("Delete Deck transaction completed successfully.");
            }catch (SQLException  e) {
                con.rollback();
@@ -135,8 +139,9 @@ public class SqliteDeckDAO implements IDeckDAO {
                     deck.setId(deckId);
                     decks.add(deck);
                 }
-                resultSet.close();
                 con.commit();
+                resultSet.close();
+                selectStatement.close();
                 logger.info("Get Decks transaction completed successfully.");
             }catch (SQLException e) {
                 con.rollback();
@@ -171,6 +176,8 @@ public class SqliteDeckDAO implements IDeckDAO {
                     deck.setId(deckId);
                 }
                 con.commit();
+                resultSet.close();
+                selectStatement.close();
                 logger.info("Get Deck transaction completed successfully.");
             } catch (SQLException  e) {
                 con.rollback();

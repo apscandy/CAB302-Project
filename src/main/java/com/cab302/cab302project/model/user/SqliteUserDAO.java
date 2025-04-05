@@ -35,6 +35,7 @@ public class SqliteUserDAO implements IUserDAO {
                 sql.setString(4, user.getPassword());
                 sql.executeUpdate();
                 con.commit();
+                sql.close();
                 logger.error("Add user transaction completed successfully.");
             } catch (SQLException e) {
                 con.rollback();
@@ -60,6 +61,7 @@ public class SqliteUserDAO implements IUserDAO {
                 sql.setInt(5, user.getId());
                 sql.executeUpdate();
                 con.commit();
+                sql.close();
                 logger.error("Update user transaction completed successfully.");
             } catch (SQLException e) {
                 con.rollback();
@@ -91,6 +93,8 @@ public class SqliteUserDAO implements IUserDAO {
                     user.setId(result.getInt("id"));
                 }
                 con.commit();
+                sql.close();
+                result.close();
            }catch (SQLException e) {
                 con.rollback();
                 logger.error("Get user by id transaction failed.");
@@ -123,6 +127,8 @@ public class SqliteUserDAO implements IUserDAO {
                     user.setId(result.getInt("id"));
                 }
                 con.commit();
+                sql.close();
+                result.close();
             }catch (SQLException e) {
                 con.rollback();
                 logger.error("Get user by email transaction failed.");
