@@ -1,40 +1,46 @@
 package com.cab302.cab302project.controller.deck;
 
 import com.cab302.cab302project.ApplicationState;
+import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.model.deck.Deck;
 import com.cab302.cab302project.model.deck.IDeckDAO;
 import com.cab302.cab302project.model.deck.SqliteDeckDAO;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DeckController implements Initializable {
+public class DeckViewController implements Initializable {
 
-    private static final Logger logger = LogManager.getLogger(DeckController.class);
+    private static final Logger logger = LogManager.getLogger(DeckViewController.class);
 
     @FXML
-    private TextField deckName;
+    private Label deckName;
 
     @FXML
     private TextArea deckDescription;
+
+    @FXML
+    private Button createDeckButton;
 
     @FXML
     private ListView<Deck> decks;
 
     private final IDeckDAO deckDAO;
 
-    public DeckController() {
+    public DeckViewController() {
         deckDAO = new SqliteDeckDAO();
     }
 
-    public boolean userIsLoggedIn() {
+    private static boolean userIsLoggedIn() {
         if (ApplicationState.getCurrentUser() == null || !ApplicationState.isUserLoggedIn()) {
             logger.warn("ApplicationState.getCurrentUser() is null");
             logger.warn("ApplicationState.isUserLoggedIn() equals false");
@@ -45,34 +51,14 @@ public class DeckController implements Initializable {
     }
 
     @FXML
-    private void createDeck() {
+    private void createDeck() throws IOException {
         logger.debug("Create deck button pressed");
         if (!userIsLoggedIn()) return;
-        Deck deck = new Deck(deckName.getText(), deckDescription.getText(), ApplicationState.getCurrentUser());
-        deckDAO.createDeck(deck);
-        loadDecks();
-        deckName.clear();
-        deckDescription.clear();
-    }
-
-    @FXML
-    private void deleteDeck() {
-        logger.debug("Delete deck button pressed");
-        if (!userIsLoggedIn()) return;
-        deckDAO.deleteDeck(decks.getSelectionModel().getSelectedItem());
-        loadDecks();
-    }
-
-    @FXML
-    private void editDeck() {
-        logger.debug("Edit deck button pressed");
-        if (!userIsLoggedIn()) return;
-        Deck deck = decks.getSelectionModel().getSelectedItem();
-        if (deck == null) return;
-        deck.setName(deckName.getText());
-        deck.setDescription(deckDescription.getText());
-        deckDAO.updateDeck(deck);
-        loadDecks();
+        Stage stage = (Stage) createDeckButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("deck/deck-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setScene(scene);
+        logger.debug("User on deck view screen");
     }
 
     @Override
@@ -84,14 +70,18 @@ public class DeckController implements Initializable {
 
     @FXML
     public void selectListViewItem() {
+        logger.debug("Select ListView item");
         if (!userIsLoggedIn()) return;
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) return;
+        deckName.setVisible(true);
+        deckDescription.setVisible(true);
         deckName.setText(deck.getName());
         deckDescription.setText(deck.getDescription());
     }
 
     private void loadDecks() {
+        logger.debug("Load deck");
         if (!userIsLoggedIn()) return;
         decks.getItems().clear();
         decks.getItems().addAll(deckDAO.getDecks(ApplicationState.getCurrentUser()));
