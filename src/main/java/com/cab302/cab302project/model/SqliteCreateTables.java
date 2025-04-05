@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SqliteCreateTables {
@@ -14,6 +15,7 @@ public class SqliteCreateTables {
         con = SqliteConnection.getInstance();
         createUserTable();
         createUserEmailIndex();
+        createUserSecurityQuestionTable();
         createDeckTable();
         createCardTable();
     }
@@ -36,9 +38,14 @@ public class SqliteCreateTables {
                     + "password TEXT NOT NULL"
                     + ")";
             stmt.executeUpdate(sql);
-        }catch (Exception e){
-            logger.fatal("Error creating user table: {}", e.getMessage());
-            throw new RuntimeException(e);
+            stmt.close();
+        } catch (SQLException sqlE){
+            logger.fatal("Error creating user table: {}", sqlE.getMessage());
+            throw new RuntimeException(sqlE.getMessage());
+        }
+        catch (Exception e){
+            logger.fatal("Something went wrong: {}", e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -53,8 +60,14 @@ public class SqliteCreateTables {
                     + "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE"
                     + ")";
             stmt.executeUpdate(sql);
-        } catch (Exception e) {
-            logger.fatal("Error creating deck table: {}", e.getMessage());
+            stmt.close();
+        } catch (SQLException sqlE){
+            logger.fatal("Error creating deck table: {}", sqlE.getMessage());
+            throw new RuntimeException(sqlE.getMessage());
+        }
+        catch (Exception e){
+            logger.fatal("Something went wrong: {}", e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -63,9 +76,14 @@ public class SqliteCreateTables {
             Statement stmt = con.createStatement();
             String sql = "CREATE UNIQUE INDEX IF NOT EXISTS idx_user_email ON user (email)";
             stmt.executeUpdate(sql);
-        } catch (Exception e) {
-            logger.fatal("Error creating user email index: {}", e.getMessage());
-            throw new RuntimeException(e);
+            stmt.close();
+        }catch (SQLException sqlE){
+            logger.fatal("Error creating user email index: {}", sqlE.getMessage());
+            throw new RuntimeException(sqlE.getMessage());
+        }
+        catch (Exception e){
+            logger.fatal("Something went wrong: {}", e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -80,9 +98,39 @@ public class SqliteCreateTables {
                     + "FOREIGN KEY (deck_id) REFERENCES deck(id) ON DELETE CASCADE"
                     + ")";
             stmt.executeUpdate(sql);
-        }catch (Exception e){
-            logger.fatal("Error creating card table: {}", e.getMessage());
-            throw new RuntimeException(e);
+            stmt.close();
+        }catch (SQLException sqlE){
+            logger.fatal("Error creating card table: {}",sqlE.getMessage());
+            throw new RuntimeException(sqlE.getMessage());
+        }
+        catch (Exception e){
+            logger.fatal("Something went wrong: {}", e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    private void createUserSecurityQuestionTable() {
+        try{
+            Statement stmt = con.createStatement();
+            String sql = "CREATE TABLE IF NOT EXISTS user_security_question ("
+                    + "id INTEGER PRIMARY KEY,"
+                    + "sec_question_one TEXT NOT NULL,"
+                    + "sec_answer_one TEXT NOT NULL,"
+                    + "sec_question_two TEXT NOT NULL,"
+                    + "sec_answer_two TEXT NOT NULL,"
+                    + "sec_question_three TEXT NOT NULL,"
+                    + "sec_answer_three TEXT NOT NULL,"
+                    + "FOREIGN KEY(id) REFERENCES user(id) ON DELETE CASCADE"
+                    + ")";
+            stmt.executeUpdate(sql);
+            stmt.close();
+        }catch (SQLException sqlE){
+            logger.fatal("Error creating user security question: {}", sqlE.getMessage());
+            throw new RuntimeException(sqlE.getMessage());
+        }
+        catch (Exception e){
+            logger.fatal("Something went wrong: {}", e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 }
