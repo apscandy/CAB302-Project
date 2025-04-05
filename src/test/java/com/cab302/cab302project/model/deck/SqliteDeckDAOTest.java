@@ -48,6 +48,12 @@ class SqliteDeckDAOTest {
             stmt.executeUpdate(sql);
             sql = "DELETE FROM deck";
             stmt.executeUpdate(sql);
+            // below resets the sqlite auto inc id
+            // https://stackoverflow.com/questions/1601697/sqlite-reset-primary-key-fiel
+            sql = "delete from sqlite_sequence where name='user'";
+            stmt.executeUpdate(sql);
+            sql = "delete from sqlite_sequence where name='deck'";
+            stmt.executeUpdate(sql);
             stmt.close();
         }
         catch(Exception e){
