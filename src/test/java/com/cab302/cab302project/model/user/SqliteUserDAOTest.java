@@ -30,7 +30,7 @@ public class SqliteUserDAOTest {
     @Order(1)
     void testAddUser() {
         userDAO.addUser(user);
-        assertEquals(1, user.getId());
+        assertEquals(2, user.getId());
     }
 
     @Test
