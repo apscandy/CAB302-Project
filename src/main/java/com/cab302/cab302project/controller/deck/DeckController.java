@@ -68,8 +68,9 @@ public class DeckController implements Initializable {
         logger.debug("Edit deck button pressed");
         if (!userIsLoggedIn()) return;
         Deck deck = decks.getSelectionModel().getSelectedItem();
+        if (deck == null) return;
         deck.setName(deckName.getText());
-        deckDescription.setText(deckDescription.getText());
+        deck.setDescription(deckDescription.getText());
         deckDAO.updateDeck(deck);
         loadDecks();
     }
