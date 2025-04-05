@@ -5,6 +5,7 @@ import com.cab302.cab302project.model.SqliteConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class SqliteUserDAO implements IUserDAO {
 
@@ -14,47 +15,45 @@ public class SqliteUserDAO implements IUserDAO {
         con = SqliteConnection.getInstance();
     }
 
-    private final String createUserTableSQL = """
-            CREATE TABLE IF NOT EXISTS users (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                firstName TEXT NOT NULL,
-                lastName TEXT NOT NULL,
-                email TEXT NOT NULL UNIQUE,
-                password TEXT NOT NULL
-            );""";
     private final String addUserSQL = """
-            INSERT INTO users (firstName, lastName, email, password)
+            INSERT INTO user (first_name, last_name, email, password)
                 VALUES (?, ?, ?, ?);
             """;
     private final String updateUserSQL = """
-            UPDATE users SET firstName = ?, lastName = ?, email = ?, password = ? 
+            UPDATE user SET first_name = ?, last_name = ?, email = ?, password = ? 
                 WHERE id = ?;
             """;
     private final String getUserByIdSQL = """
-            SELECT * FROM users WHERE id = ?;
+            SELECT * FROM user WHERE id = ?;
             """;
     private final String getUserByEmailSQL = """
-            SELECT * FROM users WHERE email = ?;
+            SELECT * FROM user WHERE email = ?;
             """;
-
-    public void  createUserTable() {
-        try {
-            PreparedStatement sql = con.prepareStatement(createUserTableSQL);
-            sql.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void addUser (User user) {
         try {
-            PreparedStatement sql = con.prepareStatement(addUserSQL);
-            sql.setString(1, user.getFirstName());
-            sql.setString(2, user.getLastName());
-            sql.setString(3, user.getEmail());
-            sql.setString(4, user.getPassword());
-            sql.executeUpdate();
+            try {
+                con.setAutoCommit(false);
+                PreparedStatement sql = con.prepareStatement(addUserSQL);
+                sql.setString(1, user.getFirstName());
+                sql.setString(2, user.getLastName());
+                sql.setString(3, user.getEmail());
+                sql.setString(4, user.getPassword());
+                sql.executeUpdate();
+                ResultSet result = sql.getGeneratedKeys();
+                if (result.next()) {
+                    user.setId(result.getInt(1));
+                }
+                con.commit();
+                sql.close();
+                result.close();
+            } catch (SQLException e) {
+                con.rollback();
+                e.printStackTrace();
+            } finally {
+                con.setAutoCommit(true);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,13 +62,23 @@ public class SqliteUserDAO implements IUserDAO {
     @Override
     public void updateUser (User user) {
         try {
-            PreparedStatement sql = con.prepareStatement(updateUserSQL);
-            sql.setString(1, user.getFirstName());
-            sql.setString(2, user.getLastName());
-            sql.setString(3, user.getEmail());
-            sql.setString(4, user.getPassword());
-            sql.setInt(5, user.getId());
-            sql.executeUpdate();
+            con.setAutoCommit(false);
+            try {
+                PreparedStatement sql = con.prepareStatement(updateUserSQL);
+                sql.setString(1, user.getFirstName());
+                sql.setString(2, user.getLastName());
+                sql.setString(3, user.getEmail());
+                sql.setString(4, user.getPassword());
+                sql.setInt(5, user.getId());
+                sql.executeUpdate();
+                con.commit();
+                sql.close();
+            } catch (SQLException e) {
+                con.rollback();
+                e.printStackTrace();
+            } finally {
+                con.setAutoCommit(true);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,8 +93,8 @@ public class SqliteUserDAO implements IUserDAO {
             ResultSet result = sql.executeQuery();
             if (result.next()) {
                 user = new User (
-                        result.getString("firstName"),
-                        result.getString("lastName"),
+                        result.getString("first_name"),
+                        result.getString("last_name"),
                         result.getString("email"),
                         result.getString("password")
                 );
@@ -107,8 +116,8 @@ public class SqliteUserDAO implements IUserDAO {
             ResultSet result = sql.executeQuery();
             if (result.next()) {
                 user = new User (
-                        result.getString("firstName"),
-                        result.getString("lastName"),
+                        result.getString("first_name"),
+                        result.getString("last_name"),
                         result.getString("email"),
                         result.getString("password")
 
