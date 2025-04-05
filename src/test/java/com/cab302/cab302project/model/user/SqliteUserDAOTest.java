@@ -38,6 +38,8 @@ public class SqliteUserDAOTest {
     void testUpdateUser() {
         String newPassword = "AntiMFA";
         String newEmail = "test@test.com";
+        user.setPassword(newPassword);
+        user.setEmail(newEmail);
         userDAO.updateUser(user);
         User returnUser = userDAO.getUser(user.getId());
         assertEquals(newPassword, returnUser.getPassword());
@@ -57,10 +59,10 @@ public class SqliteUserDAOTest {
     @Test
     @Order(4)
     void testGetUserByEmail() {
-        User returnUser = userDAO.getUser("test@test.com");
+        User returnUser = userDAO.getUser(user.getEmail());
         assertEquals(user.getId(), returnUser.getId());
         assertEquals(user.getFirstName(), returnUser.getFirstName());
         assertEquals(user.getLastName(), returnUser.getLastName());
-        assertEquals("AntiMFA", returnUser.getPassword());
+        assertEquals(user.getPassword(), returnUser.getPassword());
     }
 }
