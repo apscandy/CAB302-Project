@@ -10,9 +10,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
-    public static final String TITLE = "Address book";
-    public static final int WIDTH = 1280;
-    public static final int HEIGHT = 720;
+    public static final String TITLE = "Flashcard app";
+    public static final int WIDTH = 640;
+    public static final int HEIGHT = 360;
 
 
     @Override
@@ -24,7 +24,7 @@ public class HelloApplication extends Application {
 //        user.setId(1);
 //        ApplicationState.login(user);
         // <--- End --->
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("deck-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.resizableProperty().setValue(Boolean.FALSE);
         stage.setTitle(TITLE);
