@@ -5,6 +5,7 @@ import com.cab302.cab302project.model.SqliteConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class SqliteUserDAO implements IUserDAO {
 
@@ -32,12 +33,27 @@ public class SqliteUserDAO implements IUserDAO {
     @Override
     public void addUser (User user) {
         try {
-            PreparedStatement sql = con.prepareStatement(addUserSQL);
-            sql.setString(1, user.getFirstName());
-            sql.setString(2, user.getLastName());
-            sql.setString(3, user.getEmail());
-            sql.setString(4, user.getPassword());
-            sql.executeUpdate();
+            try {
+                con.setAutoCommit(false);
+                PreparedStatement sql = con.prepareStatement(addUserSQL);
+                sql.setString(1, user.getFirstName());
+                sql.setString(2, user.getLastName());
+                sql.setString(3, user.getEmail());
+                sql.setString(4, user.getPassword());
+                sql.executeUpdate();
+                ResultSet result = sql.getGeneratedKeys();
+                if (result.next()) {
+                    user.setId(result.getInt(1));
+                }
+                con.commit();
+                sql.close();
+                result.close();
+            } catch (SQLException e) {
+                con.rollback();
+                e.getMessage();
+            } finally {
+                con.setAutoCommit(true);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
