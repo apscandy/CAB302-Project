@@ -22,6 +22,17 @@ public class UserController {
         return false;
     }
 
+    public static boolean emailCheck (String email, SqliteUserDAO userDAO) {
+        if (email.trim().isEmpty()) {
+            return false;
+        }
+        User user = userDAO.getUser(email);
+        if (user != null) {
+            return true;
+        }
+        return false;
+    }
+
     public static boolean register (User user, SqliteUserDAO userDAO) {
         if (user.getEmail().trim().isEmpty() || user.getPassword().trim().isEmpty() ||
                 user.getFirstName().trim().isEmpty() || user.getLastName().trim().isEmpty() ||
