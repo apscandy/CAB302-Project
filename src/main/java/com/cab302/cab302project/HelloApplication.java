@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
-    public static final String TITLE = "Flashcard app";
+    public static final String TITLE = "CRAM IT!";
     public static final int WIDTH = 640;
     public static final int HEIGHT = 360;
     private static Stage primaryStage; // NEW
@@ -34,7 +34,7 @@ public class HelloApplication extends Application {
 //        User user = new User("Andrew", "Clarke", "thegoat@qut.edu.au", "Password");
 //        user.setId(1);
         // <--- End --->
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.resizableProperty().setValue(Boolean.FALSE);
         stage.setTitle(TITLE);
