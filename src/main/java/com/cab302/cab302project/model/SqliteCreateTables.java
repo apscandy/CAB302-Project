@@ -14,6 +14,7 @@ public class SqliteCreateTables {
         con = SqliteConnection.getInstance();
         createUserTable();
         createDeckTable();
+        createSecurityQuestionTable();
     }
 
     private void createUserTable() {
@@ -63,7 +64,7 @@ public class SqliteCreateTables {
                     + ")";
             stmt.execute(query);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.fatal("Error creating security questions table: {}", e.getMessage());
         }
     }
 

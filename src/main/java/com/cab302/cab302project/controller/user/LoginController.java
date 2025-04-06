@@ -25,6 +25,12 @@ public class LoginController {
     private Button resetPasswordBtn;
 
     @FXML
+    private Button goToPromptPasswordPageBtn;
+
+    @FXML
+    private Button backToPromptEmailPageBtn;
+
+    @FXML
     public void resetPassword() throws IOException {
         Stage stage = (Stage) resetPasswordBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("answer-security-questions-view.fxml"));
@@ -33,7 +39,23 @@ public class LoginController {
     }
 
     @FXML
-    public void createAccount() throws IOException {
+    public void backToPromptEmailPage() throws IOException {
+        Stage stage = (Stage) backToPromptEmailPageBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    @FXML
+    public void goToPromptPasswordPage() throws IOException {
+        Stage stage = (Stage) goToPromptPasswordPageBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-password-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    @FXML
+    public void goToRegisterPage() throws IOException {
         Stage stage = (Stage) resetPasswordBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
