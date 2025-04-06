@@ -6,9 +6,7 @@ import com.cab302.cab302project.model.user.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,25 +25,40 @@ public class SqliteDeckDAO implements IDeckDAO {
         con = SqliteConnection.getInstance();
     }
 
+
     @Override
     public void createDeck(Deck deck) {
         if (deck == null || deck.getUserId() == 0) {
             logger.error("Deck is null or empty {createDeck}");
         }
         try {
-            PreparedStatement insertStatement = con.prepareStatement(createDeckSQL);
-            insertStatement.setInt(1, deck.getUserId());
-            insertStatement.setString(2, deck.getName());
-            insertStatement.setString(3, deck.getDescription());
-            insertStatement.executeUpdate();
-            ResultSet resultSet = insertStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                deck.setId(resultSet.getInt(1));
+            // Transaction try/catch block
+            con.setAutoCommit(false);
+            try (PreparedStatement stmt = con.prepareStatement(createDeckSQL)) {
+                stmt.setInt(1, deck.getUserId());
+                stmt.setString(2, deck.getName());
+                stmt.setString(3, deck.getDescription());
+                stmt.executeUpdate();
+                ResultSet resultSet = stmt.getGeneratedKeys();
+                if (resultSet.next()) {
+                    deck.setId(resultSet.getInt(1));
+                }
+                con.commit();
+                stmt.close();
+                resultSet.close();
+                logger.info("Created Deck transaction completed successfully.");
+            } catch (SQLException  e) {
+                con.rollback();
+                logger.error("Created Deck transaction failed.");
+                logger.fatal(e.getMessage());
+            }finally {
+                con.setAutoCommit(true);
             }
         } catch (Exception e) {
             logger.fatal(e.getMessage());
         }
     }
+
 
     @Override
     public void updateDeck(Deck deck) {
@@ -53,11 +66,23 @@ public class SqliteDeckDAO implements IDeckDAO {
             logger.error("Deck is null or empty {updateDeck}");
         }
         try {
-            PreparedStatement insertStatement = con.prepareStatement(updateDeckSQL);
-            insertStatement.setString(1, deck.getName());
-            insertStatement.setString(2, deck.getDescription());
-            insertStatement.setInt(3, deck.getId());
-            insertStatement.executeUpdate();
+            // Transaction try/catch block
+            con.setAutoCommit(false);
+            try (PreparedStatement insertStatement = con.prepareStatement(updateDeckSQL)) {
+                insertStatement.setString(1, deck.getName());
+                insertStatement.setString(2, deck.getDescription());
+                insertStatement.setInt(3, deck.getId());
+                insertStatement.executeUpdate();
+                con.commit();
+                insertStatement.close();
+                logger.info("Update Deck transaction completed successfully.");
+            }catch (SQLException  e) {
+                con.rollback();
+                logger.error("Update Deck transaction failed.");
+                logger.fatal(e.getMessage());
+            }finally {
+                con.setAutoCommit(true);
+            }
         } catch (Exception e) {
             logger.fatal(e.getMessage());
         }
@@ -72,9 +97,21 @@ public class SqliteDeckDAO implements IDeckDAO {
             logger.error("Deck ID is less than or equal to 0 {deleteDeck}");
         }
        try{
-           PreparedStatement deleteStatement = con.prepareStatement(deleteDeckSQL);
-           deleteStatement.setInt(1, deck.getId());
-           deleteStatement.executeUpdate();
+           // Transaction try/catch block
+           con.setAutoCommit(false);
+           try (PreparedStatement deleteStatement = con.prepareStatement(deleteDeckSQL)) {
+               deleteStatement.setInt(1, deck.getId());
+               deleteStatement.executeUpdate();
+               con.commit();
+               deleteStatement.close();
+               logger.info("Delete Deck transaction completed successfully.");
+           }catch (SQLException  e) {
+               con.rollback();
+               logger.error("Delete Deck transaction failed.");
+               logger.fatal(e.getMessage());
+           }finally {
+               con.setAutoCommit(true);
+           }
        } catch (Exception e) {
            logger.fatal(e.getMessage());
        }
@@ -90,16 +127,29 @@ public class SqliteDeckDAO implements IDeckDAO {
             logger.error("User is null or empty {getDecks}");
         }
         try{
-            PreparedStatement selectStatement = con.prepareStatement(selectDeckSQL);
-            selectStatement.setInt(1, user.getId());
-            ResultSet resultSet = selectStatement.executeQuery();
-            while (resultSet.next()) {
-                int deckId = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String description = resultSet.getString("description");
-                Deck deck = new Deck(name, description, user);
-                deck.setId(deckId);
-                decks.add(deck);
+            con.setAutoCommit(false);
+            try (PreparedStatement selectStatement = con.prepareStatement(selectDeckSQL)) {
+                selectStatement.setInt(1, user.getId());
+                ResultSet resultSet = selectStatement.executeQuery();
+                while (resultSet.next()) {
+                    int deckId = resultSet.getInt("id");
+                    String name = resultSet.getString("name");
+                    String description = resultSet.getString("description");
+                    Deck deck = new Deck(name, description, user);
+                    deck.setId(deckId);
+                    decks.add(deck);
+                }
+                con.commit();
+                resultSet.close();
+                selectStatement.close();
+                logger.info("Get Decks transaction completed successfully.");
+            }catch (SQLException e) {
+                con.rollback();
+                logger.error("Get Decks Deck transaction failed.");
+                logger.fatal(e.getMessage());
+            }finally {
+                con.setAutoCommit(true);
+
             }
         } catch (Exception e) {
             logger.fatal(e.getMessage());
@@ -114,15 +164,27 @@ public class SqliteDeckDAO implements IDeckDAO {
             logger.error("id is less then or equal to 0 {getDeck}");
         }
         try{
-            PreparedStatement selectStatement = con.prepareStatement(selectDeckByIdSQL);
-            selectStatement.setInt(1, id);
-            ResultSet resultSet = selectStatement.executeQuery();
-            if (resultSet.next()) {
-                int deckId = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String description = resultSet.getString("description");
-                deck = new Deck(name, description, ApplicationState.getCurrentUser());
-                deck.setId(deckId);
+            con.setAutoCommit(false);
+            try( PreparedStatement selectStatement = con.prepareStatement(selectDeckByIdSQL)) {
+                selectStatement.setInt(1, id);
+                ResultSet resultSet = selectStatement.executeQuery();
+                if (resultSet.next()) {
+                    int deckId = resultSet.getInt("id");
+                    String name = resultSet.getString("name");
+                    String description = resultSet.getString("description");
+                    deck = new Deck(name, description, ApplicationState.getCurrentUser());
+                    deck.setId(deckId);
+                }
+                con.commit();
+                resultSet.close();
+                selectStatement.close();
+                logger.info("Get Deck transaction completed successfully.");
+            } catch (SQLException  e) {
+                con.rollback();
+                logger.error("Get Deck Deck transaction failed.");
+                logger.fatal(e.getMessage());
+            }finally {
+                con.setAutoCommit(true);
             }
         }catch (Exception e) {
             logger.fatal(e.getMessage());

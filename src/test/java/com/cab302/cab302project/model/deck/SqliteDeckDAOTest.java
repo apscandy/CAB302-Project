@@ -3,6 +3,8 @@ package com.cab302.cab302project.model.deck;
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.SqliteCreateTables;
+import com.cab302.cab302project.model.user.IUserDAO;
+import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
 import org.junit.jupiter.api.*;
 
@@ -10,6 +12,7 @@ import org.junit.jupiter.api.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,6 +22,7 @@ class SqliteDeckDAOTest {
     private static User user;
     private static Connection con;
     private static IDeckDAO deckDAO;
+    private static IUserDAO userDAO;
     private static Deck deck;
     private static final String insertTestUser = "INSERT INTO user (first_name, last_name, email, password ) VALUES (?,?,?,?)";
 
@@ -26,28 +30,35 @@ class SqliteDeckDAOTest {
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
         SqliteConnection.setTestingModeTrue();
-        user = new User("Andrew", "Clarke", "thegoat@qut.edu.au", "This is a secrete");
-        SqliteCreateTables tables = new SqliteCreateTables();
+        new SqliteCreateTables();
         con = SqliteConnection.getInstance();
-        try{
-            PreparedStatement statement = con.prepareStatement(insertTestUser);
-            statement.setString(1, user.getFirstName());
-            statement.setString(2, user.getLastName());
-            statement.setString(3, user.getEmail());
-            statement.setString(4, user.getPassword());
-            statement.execute();
-            ResultSet rs = statement.getGeneratedKeys();
-            user.setId(rs.getInt(1));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         deckDAO = new SqliteDeckDAO();
+        userDAO = new SqliteUserDAO();
+        user = new User("test-user-fName", "test-user-lName", "test-user-email", "test-password");
+        userDAO.addUser(user);
         deck =  new Deck("test", "test", user);
         ApplicationState.login(user);
     }
 
-    @AfterEach
-    void tearDown() {
+    @AfterAll
+    static void tearDownAfterClass() throws Exception {
+        try{
+            String sql = "DELETE FROM user";
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+            sql = "DELETE FROM deck";
+            stmt.executeUpdate(sql);
+            // below resets the sqlite auto inc id
+            // https://stackoverflow.com/questions/1601697/sqlite-reset-primary-key-fiel
+            sql = "delete from sqlite_sequence where name='user'";
+            stmt.executeUpdate(sql);
+            sql = "delete from sqlite_sequence where name='deck'";
+            stmt.executeUpdate(sql);
+            stmt.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Test
