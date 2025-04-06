@@ -105,8 +105,4 @@ public class UserController {
         logger.info("Logging out current user.");
         ApplicationState.logout();
     }
-
-    public static User getUserProfile (String email, SqliteUserDAO userDAO) {
-        return userDAO.getUser(email);
-    }
 }
