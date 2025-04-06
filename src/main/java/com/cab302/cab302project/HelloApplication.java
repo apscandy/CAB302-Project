@@ -4,6 +4,8 @@ import com.cab302.cab302project.model.SqliteCreateTables;
 import com.cab302.cab302project.model.user.IUserDAO;
 import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
+import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
+import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,9 +14,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
-    public static final String TITLE = "Address book";
-    public static final int WIDTH = 1280;
-    public static final int HEIGHT = 720;
+    public static final String TITLE = "Flashcard app";
+    public static final int WIDTH = 640;
+    public static final int HEIGHT = 360;
 
     private IUserDAO userDAO;
 
