@@ -13,13 +13,13 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Button fx:id="backToPromptPasswordPage" layoutX="34.0" layoutY="29.0" mnemonicParsing="false" text="Back" onAction="#backToPromptPasswordPageBtn"/>
+        <Button fx:id="backToPromptPasswordPageBtn" layoutX="34.0" layoutY="29.0" mnemonicParsing="false" text="Back" onAction="#backToPromptPasswordPage"/>
         <Label layoutX="187.0" layoutY="78.0" text="Question One" />
         <TextField fx:id="AnswerOneTextField" layoutX="301.0" layoutY="74.0" prefHeight="25.0" prefWidth="195.0" promptText="Answer One" />
         <Label layoutX="186.0" layoutY="118.0" text="Question Two" />
         <TextField fx:id="AnswerTwoTextField" layoutX="301.0" layoutY="114.0" prefHeight="25.0" prefWidth="195.0" promptText="Answer Two" />
         <Label layoutX="187.0" layoutY="158.0" text="Question Three" />
         <TextField fx:id="AnswerThreeTextField" layoutX="301.0" layoutY="154.0" prefHeight="25.0" prefWidth="195.0" promptText="Answer Three" />
-        <Button fx:id="resetPasswordBtn" layoutX="297.0" layoutY="244.0" mnemonicParsing="false" style="-fx-background-color: #00FF00;" text="ResetPassword" onAction="#resetPassword"/>
+        <Button fx:id="goToResetPasswordPageBtn" layoutX="297.0" layoutY="244.0" mnemonicParsing="false" style="-fx-background-color: #00FF00;" text="Next" onAction="#goToResetPasswordPage"/>
     </children>
 </AnchorPane>
