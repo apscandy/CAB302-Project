@@ -15,55 +15,55 @@ public class UserSecurityQuestion {
         this.user = user;
     }
 
-    public String getQuestionOne() {
-        return questionOne;
+    public int getUserId() {
+        return this.user.getId();
     }
 
-    public int getUserId() {
-        return user.getId();
+    public String getQuestionOne() {
+        return this.questionOne;
     }
 
     public String getQuestionTwo() {
-        return questionTwo;
+        return this.questionTwo;
     }
 
     public String getQuestionThree() {
-        return questionThree;
+        return this.questionThree;
     }
 
     public String getAnswerOne() {
-        return answerOne;
+        return this.answerOne;
     }
 
     public String getAnswerTwo() {
-        return answerTwo;
+        return this.answerTwo;
     }
 
     public String getAnswerThree() {
-        return answerThree;
+        return this.answerThree;
     }
 
-    public String setQuestionOne(String questionOne) {
-        return this.questionOne = questionOne;
+    public void setQuestionOne(String questionOne) {
+        this.questionOne = questionOne;
     }
 
-    public String setQuestionTwo(String questionTwo) {
-        return this.questionTwo = questionTwo;
+    public void setQuestionTwo(String questionTwo) {
+        this.questionTwo = questionTwo;
     }
 
-    public String setQuestionThree(String questionThree) {
-        return this.questionThree = questionThree;
+    public void setQuestionThree(String questionThree) {
+        this.questionThree = questionThree;
     }
 
-    public String setAnswerOne(String answerOne) {
-        return this.answerOne = answerOne;
+    public void setAnswerOne(String answerOne) {
+        this.answerOne = answerOne;
     }
 
-    public String setAnswerTwo(String answerTwo) {
-        return this.answerTwo = answerTwo;
+    public void setAnswerTwo(String answerTwo) {
+        this.answerTwo = answerTwo;
     }
 
-    public String setAnswerThree(String answerThree) {
-        return this.answerThree = answerThree;
+    public void setAnswerThree(String answerThree) {
+        this.answerThree = answerThree;
     }
 }

@@ -11,9 +11,8 @@ import java.sql.SQLException;
 
 public class SqliteUserDAO implements IUserDAO {
 
-    private static final Logger logger = LogManager.getLogger(SqliteUserDAO.class);
-
     private final Connection con;
+    private static final Logger logger = LogManager.getLogger(SqliteUserDAO.class);
 
     public SqliteUserDAO() {
         con = SqliteConnection.getInstance();
@@ -26,29 +25,34 @@ public class SqliteUserDAO implements IUserDAO {
 
     @Override
     public void addUser (User user) {
+        if (user == null || user.getFirstName() == null || user.getLastName() == null || user.getEmail() == null) {
+            logger.fatal("User is null OR insufficient user attributes");
+        }
         try {
-            con.setAutoCommit(false);
-            try (PreparedStatement sql = con.prepareStatement(addUserSQL)) {
+            try {
+                con.setAutoCommit(false);
+                PreparedStatement sql = con.prepareStatement(addUserSQL);
                 sql.setString(1, user.getFirstName());
                 sql.setString(2, user.getLastName());
                 sql.setString(3, user.getEmail());
                 sql.setString(4, user.getPassword());
                 sql.executeUpdate();
-                con.commit();
-                ResultSet rs = sql.getGeneratedKeys();
-                if (rs.next()) {
-                    user.setId(rs.getInt(1));
+                ResultSet result = sql.getGeneratedKeys();
+                if (result.next()) {
+                    user.setId(result.getInt(1));
                 }
+                con.commit();
                 sql.close();
-                logger.info("Add user transaction completed successfully.");
+                result.close();
+                logger.info(String.format("User added: %s", user.getEmail() + " - " + user.getFirstName() + " " + user.getLastName()));
             } catch (SQLException e) {
                 con.rollback();
-                logger.error("Add user transaction failed.");
+                logger.error("Add user transaction failed: {}", e.getMessage());
                 logger.fatal(e.getMessage());
-            }finally {
+            } finally {
                 con.setAutoCommit(true);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             logger.fatal(e.getMessage());
         }
     }
@@ -57,7 +61,8 @@ public class SqliteUserDAO implements IUserDAO {
     public void updateUser (User user) {
         try {
             con.setAutoCommit(false);
-            try (PreparedStatement sql = con.prepareStatement(updateUserSQL)) {
+            try {
+                PreparedStatement sql = con.prepareStatement(updateUserSQL);
                 sql.setString(1, user.getFirstName());
                 sql.setString(2, user.getLastName());
                 sql.setString(3, user.getEmail());
@@ -66,15 +71,15 @@ public class SqliteUserDAO implements IUserDAO {
                 sql.executeUpdate();
                 con.commit();
                 sql.close();
-                logger.info("Update user transaction completed successfully.");
+                logger.info(String.format("User updated: %s", user.getEmail() + " - " + user.getFirstName() + " " + user.getLastName()));
             } catch (SQLException e) {
                 con.rollback();
-                logger.error("Update user transaction failed.");
+                logger.error("Update user transaction failed: {}", e.getMessage());
                 logger.fatal(e.getMessage());
-            }finally {
+            } finally {
                 con.setAutoCommit(true);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             logger.fatal(e.getMessage());
         }
     }
@@ -99,10 +104,10 @@ public class SqliteUserDAO implements IUserDAO {
                 con.commit();
                 sql.close();
                 result.close();
-                logger.info("Get user transaction completed successfully.");
+                logger.info("Get user by id transaction completed successfully.");
            }catch (SQLException e) {
                 con.rollback();
-                logger.error("Get user by id transaction failed.");
+                logger.error("Get user by id transaction failed: {}", e.getMessage());
                 logger.fatal(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
@@ -133,10 +138,10 @@ public class SqliteUserDAO implements IUserDAO {
                 con.commit();
                 sql.close();
                 result.close();
-                logger.info("Get user transaction completed successfully.");
+                logger.info("Get user by email transaction completed successfully.");
             }catch (SQLException e) {
                 con.rollback();
-                logger.error("Get user by email transaction failed.");
+                logger.error("Get user by email transaction failed: {}", e.getMessage());
                 logger.fatal(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
