@@ -21,21 +21,24 @@ public class AnswerSecurityQuestionController {
     private TextField AnswerThreeTextField;
 
     @FXML
-    private Button backToPromptPasswordPage;
+    private Button backToPromptPasswordPageBtn;
 
     @FXML
-    private Button resetPasswordBtn;
+    private Button goToResetPasswordPageBtn;
 
     @FXML
-    public void backToPromptPasswordPageBtn() throws IOException {
-        Stage stage = (Stage) backToPromptPasswordPage.getScene().getWindow();
+    public void backToPromptPasswordPage() throws IOException {
+        Stage stage = (Stage) backToPromptPasswordPageBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-password-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
 
     @FXML
-    public void resetPassword() {
-
+    public void goToResetPasswordPage() throws IOException {
+        Stage stage = (Stage) goToResetPasswordPageBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("reset-password-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
     }
 }

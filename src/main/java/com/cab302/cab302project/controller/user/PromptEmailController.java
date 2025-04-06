@@ -1,9 +1,6 @@
 package com.cab302.cab302project.controller.user;
 
 import com.cab302.cab302project.HelloApplication;
-import com.cab302.cab302project.model.user.SqliteUserDAO;
-import com.cab302.cab302project.model.user.User;
-import com.cab302.cab302project.ApplicationState;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,41 +10,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LoginController {
+public class PromptEmailController {
 
     @FXML
     private TextField userEmail;
 
     @FXML
-    private TextField userPassword;
-
-    @FXML
-    private Button resetPasswordBtn;
-
-    @FXML
     private Button goToPromptPasswordPageBtn;
 
     @FXML
-    private Button backToPromptEmailPageBtn;
-
-    @FXML
     private Button goToRegisterPageBtn;
-
-    @FXML
-    public void resetPassword() throws IOException {
-        Stage stage = (Stage) resetPasswordBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("answer-security-questions-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
-    }
-
-    @FXML
-    public void backToPromptEmailPage() throws IOException {
-        Stage stage = (Stage) backToPromptEmailPageBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
-    }
 
     @FXML
     public void goToPromptPasswordPage() throws IOException {
@@ -63,10 +35,5 @@ public class LoginController {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
-    }
-
-    @FXML
-    public void login() {
-
     }
 }
