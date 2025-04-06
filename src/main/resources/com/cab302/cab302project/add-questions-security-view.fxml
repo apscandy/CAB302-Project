@@ -20,7 +20,7 @@
       <TextField fx:id="FirstAnswerTextField" layoutX="222.0" layoutY="110.0" prefHeight="25.0" prefWidth="200.0" promptText="Answer for Question One" />
       <TextField fx:id="SecondAnswerTextField" layoutX="222.0" layoutY="186.0" prefHeight="25.0" prefWidth="200.0" promptText="Answer for Question Two" />
       <TextField fx:id="ThirdAnswerTextField" layoutX="222.0" layoutY="265.0" prefHeight="25.0" prefWidth="200.0" promptText="Answer for Question Three" />
-      <Button fx:id="BackButton" layoutX="220.0" layoutY="304.0" mnemonicParsing="false" text="Back" />
+      <Button fx:id="BackButton" layoutX="220.0" layoutY="304.0" mnemonicParsing="false" text="Back" onAction="#BackButtonAction"/>
       <Button fx:id="RegisterButton" layoutX="362.0" layoutY="304.0" mnemonicParsing="false" style="-fx-background-color: #00FF00;" text="Register" />
    </children>
 </AnchorPane>
