@@ -19,5 +19,15 @@
         </library>
       </libraries>
     </data-source>
+    <data-source source="LOCAL" name="flashCards.db" uuid="26a40ec0-3996-4d57-9763-f0396db79ea1">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Dell N16 Plus 7620\Documents\QUT\CAB302\repo\CAB302-Project\flashCards.db</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+      </jdbc-additional-properties>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
