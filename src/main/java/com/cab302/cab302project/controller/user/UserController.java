@@ -5,6 +5,7 @@ import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
+import com.cab302.cab302project.util.PasswordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +21,8 @@ public class UserController {
             logger.warn("Authentication failed: user not found");
             return false;
         }
-        if (user.getPassword().equals(password)) {
+        String pwdHash = PasswordUtils.hashSHA256(password);
+        if (user.getPassword().equals(pwdHash)) {
             logger.info("Authentication successful");
             ApplicationState.login(user);
             return true;
@@ -55,6 +57,8 @@ public class UserController {
             return false;
         }
         if (userDAO.getUser(user.getEmail()) == null) {
+            String pwdHash = PasswordUtils.hashSHA256(user.getPassword());
+            user.setPassword(pwdHash);
             userDAO.addUser(user);
             logger.info("User registration successful");
             return true;
@@ -71,7 +75,8 @@ public class UserController {
         }
         User checkUser = userDAO.getUser(email);
         if (checkUser != null) {
-            checkUser.setPassword(newPassword);
+            String pwdHash = PasswordUtils.hashSHA256(newPassword);
+            checkUser.setPassword(pwdHash);
             userDAO.updateUser(checkUser);
             logger.info("Password reset successful");
             return true;
