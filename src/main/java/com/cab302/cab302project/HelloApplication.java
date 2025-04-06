@@ -1,7 +1,9 @@
 package com.cab302.cab302project;
 
 import com.cab302.cab302project.model.SqliteCreateTables;
+import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
+import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -25,12 +27,16 @@ public class HelloApplication extends Application {
 //        user.setId(1);
 //        ApplicationState.login(user);
 //        UserSecurityQuestion question = new UserSecurityQuestion(user);
+//        SqliteUserDAO userDAO = new SqliteUserDAO();
+//        userDAO.addUser(user);
 //        question.setQuestionThree("dfghj");
 //        question.setQuestionOne("ksdvnjdfv");
 //        question.setQuestionTwo("yefgeuren");
 //        question.setAnswerThree("dfghj");
 //        question.setAnswerOne("ksdvnjdfv");
 //        question.setAnswerTwo("yefgeuren");
+//        SqliteUserSecurityQuestionDAO questionDAO = new SqliteUserSecurityQuestionDAO();
+//        questionDAO.createQuestion(question);
         // <--- End --->
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());

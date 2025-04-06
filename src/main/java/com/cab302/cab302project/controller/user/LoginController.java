@@ -31,6 +31,9 @@ public class LoginController {
     private Button backToPromptEmailPageBtn;
 
     @FXML
+    private Button goToRegisterPageBtn;
+
+    @FXML
     public void resetPassword() throws IOException {
         Stage stage = (Stage) resetPasswordBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("answer-security-questions-view.fxml"));
@@ -56,7 +59,7 @@ public class LoginController {
 
     @FXML
     public void goToRegisterPage() throws IOException {
-        Stage stage = (Stage) resetPasswordBtn.getScene().getWindow();
+        Stage stage = (Stage) goToRegisterPageBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
