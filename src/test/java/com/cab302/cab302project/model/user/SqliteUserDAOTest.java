@@ -1,10 +1,10 @@
 package com.cab302.cab302project.model.user;
 
 import com.cab302.cab302project.model.SqliteConnection;
-import com.cab302.cab302project.model.deck.IDeckDAO;
 import org.junit.jupiter.api.*;
 import com.cab302.cab302project.model.SqliteCreateTables;
 import java.sql.Connection;
+import java.sql.Statement;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,20 +17,39 @@ public class SqliteUserDAOTest {
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
         SqliteConnection.setTestingModeTrue();
-        SqliteCreateTables tables = new SqliteCreateTables();
+        new SqliteCreateTables();
         con = SqliteConnection.getInstance();
         userDAO = new SqliteUserDAO();
         user = new User("Test", "Still Testing", "AmITestingMyCode@OrIsMyCodeTestingMe.ru", "SameAsEmail");
     }
 
-    @AfterEach
-    void tearDown() {}
+
+    @AfterAll
+    static void tearDownAfterClass() throws Exception {
+        try{
+            String sql = "DELETE FROM user";
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+            sql = "DELETE FROM deck";
+            stmt.executeUpdate(sql);
+            // below resets the sqlite auto inc id
+            // https://stackoverflow.com/questions/1601697/sqlite-reset-primary-key-field
+            sql = "delete from sqlite_sequence where name='user'";
+            stmt.executeUpdate(sql);
+            sql = "delete from sqlite_sequence where name='deck'";
+            stmt.executeUpdate(sql);
+            stmt.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
     @Test
     @Order(1)
     void testAddUser() {
         userDAO.addUser(user);
-        assertEquals(2, user.getId());
+        assertEquals(1, user.getId());
     }
 
     @Test
