@@ -24,9 +24,9 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         // <--- Below is temporary until users are done --->
         // if you wish to use this uncomment below and run it once, then open the db file and add a single user
-        new SqliteCreateTables();
-        userDAO = new SqliteUserDAO();
-        ApplicationState.login(userDAO.getUser("waDa"));
+//        new SqliteCreateTables();
+//        userDAO = new SqliteUserDAO();
+//        ApplicationState.login(userDAO.getUser("waDa"));
 //        userDAO.addUser(new User("andy", "clarke", "waDa","123142"));
 //        User user = new User("Andrew", "Clarke", "thegoat@qut.edu.au", "Password");
 //        user.setId(1);
