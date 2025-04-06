@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.security.MessageDigest;
 
 public class PasswordUtils {
+    private static final Logger logger = LogManager.getLogger(PasswordUtils.class);
     public static String hashSHA256(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -17,8 +18,10 @@ public class PasswordUtils {
                 if (hexString.length() == 1) hexString = "0" + hexString;
                 hex.append(hexString);
             }
+            logger.debug("Password hashed successfully using SHA-256");
             return hex.toString();
         } catch (Exception e) {
+            logger.error("Error hashing user password: {}", e.getMessage());
             throw new RuntimeException(e);
         }
     }
