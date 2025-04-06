@@ -17,6 +17,7 @@ public class HelloApplication extends Application {
     public static final String TITLE = "Flashcard app";
     public static final int WIDTH = 640;
     public static final int HEIGHT = 360;
+    private static Stage primaryStage; // NEW
 
     private IUserDAO userDAO;
 
@@ -24,6 +25,8 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         // <--- Below is temporary until users are done --->
         // if you wish to use this uncomment below and run it once, then open the db file and add a single user
+        primaryStage = stage; // NEW - store reference for later use
+
         new SqliteCreateTables();
         userDAO = new SqliteUserDAO();
         ApplicationState.login(userDAO.getUser("waDa"));
@@ -42,4 +45,9 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
+
+    public static Stage getStage() { // NEW
+        return primaryStage;
+    }
+
 }

@@ -1,22 +1,24 @@
 package com.cab302.cab302project.controller.card;
 
+import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.model.card.Card;
 import com.cab302.cab302project.model.card.ICardDAO;
 import com.cab302.cab302project.model.card.SqliteCardDAO;
 import com.cab302.cab302project.model.deck.Deck;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
 
 public class CardController {
 
-    @FXML private TextField questionField;
-    @FXML private TextArea answerField;
-    @FXML private TextField tagsField;
-    @FXML private ListView<Card> cardListView;
-    @FXML private Button saveButton;
-    @FXML private Button deleteButton;
+    @FXML private ListView<Card> cardsList;
+    @FXML private TextField cardName;
+    @FXML private TextArea cardAnswer;
 
     private final ICardDAO cardDAO = new SqliteCardDAO();
     private Deck currentDeck;
@@ -29,73 +31,99 @@ public class CardController {
 
     @FXML
     public void initialize() {
-        cardListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        cardsList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 selectedCard = newSelection;
-                questionField.setText(newSelection.getQuestion());
-                answerField.setText(newSelection.getAnswer());
-                tagsField.setText(newSelection.getTags());
+                cardName.setText(selectedCard.getQuestion());
+                cardAnswer.setText(selectedCard.getAnswer());
             }
         });
     }
 
     @FXML
-    private void onSave() {
-        if (questionField.getText().isEmpty() || answerField.getText().isEmpty()) {
-            showAlert("Missing Fields", "Please fill in both the question and answer fields.");
+    private void saveCard() {
+        if (cardName.getText().isEmpty() || cardAnswer.getText().isEmpty()) {
+            showAlert("Missing Fields", "Both question and answer must be filled in.");
             return;
         }
 
         if (selectedCard == null) {
-            Card newCard = new Card(currentDeck, questionField.getText(), answerField.getText(), tagsField.getText());
+            Card newCard = new Card(currentDeck, cardName.getText(), cardAnswer.getText(), null);
             cardDAO.addCard(newCard);
         } else {
-            selectedCard.setQuestion(questionField.getText());
-            selectedCard.setAnswer(answerField.getText());
-            selectedCard.setTags(tagsField.getText());
+            selectedCard.setQuestion(cardName.getText());
+            selectedCard.setAnswer(cardAnswer.getText());
             cardDAO.updateCard(selectedCard);
         }
 
-        clearForm();
+        clearCard();
         loadCards();
     }
 
     @FXML
-    private void onDelete() {
+    private void editCard() {
+        selectedCard = cardsList.getSelectionModel().getSelectedItem();
+        if (selectedCard != null) {
+            cardName.setText(selectedCard.getQuestion());
+            cardAnswer.setText(selectedCard.getAnswer());
+        }
+    }
+
+    @FXML
+    private void deleteCard() {
         if (selectedCard != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirm Delete");
+            alert.setTitle("Delete Flashcard");
             alert.setHeaderText("Are you sure you want to delete this card?");
-            alert.setContentText("This will remove the card from this deck.");
+            alert.setContentText("This action will hide the card from your deck (soft delete).");
 
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
                     cardDAO.softDeleteCard(selectedCard);
-                    clearForm();
+                    clearCard();
                     loadCards();
                 }
             });
         }
     }
 
-    private void loadCards() {
-        if (currentDeck != null) {
-            List<Card> cards = cardDAO.getCardsForDeck(currentDeck);
-            cardListView.getItems().setAll(cards);
-        }
-    }
-
-    private void clearForm() {
-        questionField.clear();
-        answerField.clear();
-        tagsField.clear();
+    @FXML
+    private void clearCard() {
+        cardName.clear();
+        cardAnswer.clear();
         selectedCard = null;
     }
 
-    private void showAlert(String title, String message) {
+    @FXML
+    private void backButton() throws IOException {
+        Stage stage = (Stage) cardsList.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("deck-view.fxml"));
+        Scene scene = new Scene(loader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    private void loadCards() {
+        if (currentDeck != null) {
+            List<Card> cards = cardDAO.getCardsForDeck(currentDeck);
+            cardsList.getItems().setAll(cards);
+        }
+    }
+
+    private void showAlert(String title, String msg) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
-        alert.setContentText(message);
+        alert.setContentText(msg);
         alert.showAndWait();
     }
+
+    @FXML
+    private void selectListViewItem() {
+        selectedCard = cardsList.getSelectionModel().getSelectedItem();
+        if (selectedCard != null) {
+            cardName.setText(selectedCard.getQuestion());
+            cardAnswer.setText(selectedCard.getAnswer());
+        }
+    }
+
+
 }

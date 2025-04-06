@@ -10,13 +10,22 @@
             fx:controller="com.cab302.cab302project.controller.menubar.MenuBarController">
   <MenuBar prefHeight="25.0" prefWidth="640.0">
     <Menu mnemonicParsing="false" text="File">
-      <MenuItem mnemonicParsing="false" text="Close" fx:id="close" onAction="#closeProgram"/>
+      <Menu text="New">
+        <MenuItem fx:id="newDeckMenuItem" text="Deck" onAction="#openDeckView"/>
+        <MenuItem fx:id="newCardMenuItem" text="Card" onAction="#openCardView"/>
+      </Menu>
+
+      <MenuItem fx:id="close" mnemonicParsing="false" text="Exit" onAction="#closeProgram"/>
+
     </Menu>
+
     <Menu mnemonicParsing="false" text="Edit">
       <MenuItem mnemonicParsing="false" text="Delete"/>
     </Menu>
+
     <Menu mnemonicParsing="false" text="Help">
       <MenuItem mnemonicParsing="false" text="About"/>
     </Menu>
+
   </MenuBar>
 </AnchorPane>
