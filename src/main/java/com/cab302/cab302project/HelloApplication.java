@@ -31,7 +31,7 @@ public class HelloApplication extends Application {
 //        User user = new User("Andrew", "Clarke", "thegoat@qut.edu.au", "Password");
 //        user.setId(1);
         // <--- End --->
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.resizableProperty().setValue(Boolean.FALSE);
         stage.setTitle(TITLE);
