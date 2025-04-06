@@ -21,15 +21,19 @@ public class RegisterController {
     @FXML
     private TextField EmailAddressTextField;
     @FXML
-    private TextField SetPasswordField;
+    private Label EmailTypeLabel;
     @FXML
-    private TextField ConfirmPasswordField;
+    private PasswordField SetPasswordField;
+    @FXML
+    private PasswordField ConfirmPasswordField;
+    @FXML
+    private Label ConfirmPasswordLabel;
     @FXML
     private Button NextButton;
     @FXML
     private Button CloseButton;
     @FXML
-    private  Button BackButton;
+    private Button BackButton;
 
     @FXML
     public void CloseButtonAction () {
@@ -45,9 +49,47 @@ public class RegisterController {
     }
 
     public void NextButtonAction () throws IOException {
-        Stage stage = (Stage) NextButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-questions-security-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
+        if (registerUser()) {
+            Stage stage = (Stage) NextButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-questions-security-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            stage.setScene(scene);
+        }
+    }
+
+    public boolean registerUser () {
+        String email = EmailAddressTextField.getText();
+        String password = SetPasswordField.getText();
+        String confirmPassword = ConfirmPasswordField.getText();
+
+        String passwordRegex = "^(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$";
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+
+        boolean isValid = true;
+
+        if(!email.matches(emailRegex)) {
+            EmailTypeLabel.setText("Invalid email format");
+            EmailTypeLabel.setVisible(true);
+            isValid = false;
+        }
+        if (!password.matches(passwordRegex)) {
+            ConfirmPasswordLabel.setText("Password must be at least 8 characters, include 1 number and 1 special character.");
+            ConfirmPasswordLabel.setTextFill(javafx.scene.paint.Color.RED);
+            ConfirmPasswordLabel.setVisible(true);
+            isValid = false;
+        }
+        else if (!password.equals(confirmPassword)) {
+            ConfirmPasswordLabel.setText("Password does not match!");
+            ConfirmPasswordLabel.setTextFill(javafx.scene.paint.Color.RED);
+            ConfirmPasswordLabel.setVisible(true);
+            isValid = false;
+        }
+        else {
+            ConfirmPasswordLabel.setText("You are set");
+            ConfirmPasswordLabel.setTextFill(javafx.scene.paint.Color.GREEN);
+            ConfirmPasswordLabel.setVisible(true);
+            isValid = true ;
+        }
+        return isValid;
     }
 }

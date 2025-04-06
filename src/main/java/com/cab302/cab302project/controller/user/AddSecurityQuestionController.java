@@ -26,8 +26,11 @@ public class AddSecurityQuestionController {
     private Button RegisterButton;
 
     @FXML
-    public void RegisterButtonAction () {
-
+    public void RegisterButtonAction () throws IOException {
+        Stage stage = (Stage) RegisterButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
     }
 
     @FXML
