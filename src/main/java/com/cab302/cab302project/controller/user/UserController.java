@@ -5,8 +5,11 @@ import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class UserController {
+    private static final Logger logger = LogManager.getLogger(UserController.class);
     public static boolean authenticate (String email, String password, SqliteUserDAO userDAO) {
         if (email.trim().isEmpty() || password.trim().isEmpty()) {
             return false;
@@ -73,15 +76,9 @@ public class UserController {
         if (questions == null) {
             return false;
         }
-        boolean validAnswers = (
-                questions.getAnswerOne().equalsIgnoreCase(answerOne.trim()) &&
+        return  questions.getAnswerOne().equalsIgnoreCase(answerOne.trim()) &&
                 questions.getAnswerTwo().equalsIgnoreCase(answerTwo.trim()) &&
-                questions.getAnswerThree().equalsIgnoreCase(answerThree.trim())
-        );
-        if (validAnswers) {
-            return true;
-        }
-        return false;
+                questions.getAnswerThree().equalsIgnoreCase(answerThree.trim());
     }
 
     public static void logout() {
