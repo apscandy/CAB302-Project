@@ -49,7 +49,7 @@ public class SqliteDeckDAO implements IDeckDAO {
                 logger.info("Created Deck transaction completed successfully.");
             } catch (SQLException  e) {
                 con.rollback();
-                logger.error("Created Deck transaction failed.");
+                logger.error("Created Deck transaction failed: {}", e.getMessage());
                 logger.fatal(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
@@ -78,7 +78,7 @@ public class SqliteDeckDAO implements IDeckDAO {
                 logger.info("Update Deck transaction completed successfully.");
             }catch (SQLException  e) {
                 con.rollback();
-                logger.error("Update Deck transaction failed.");
+                logger.error("Update Deck transaction failed : {}", e.getMessage());
                 logger.fatal(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
@@ -107,7 +107,7 @@ public class SqliteDeckDAO implements IDeckDAO {
                logger.info("Delete Deck transaction completed successfully.");
            }catch (SQLException  e) {
                con.rollback();
-               logger.error("Delete Deck transaction failed.");
+               logger.error("Delete Deck transaction failed: {}", e.getMessage());
                logger.fatal(e.getMessage());
            }finally {
                con.setAutoCommit(true);
@@ -145,7 +145,7 @@ public class SqliteDeckDAO implements IDeckDAO {
                 logger.info("Get Decks transaction completed successfully.");
             }catch (SQLException e) {
                 con.rollback();
-                logger.error("Get Decks Deck transaction failed.");
+                logger.error("Get Decks Deck transaction failed: {}", e.getMessage());
                 logger.fatal(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
@@ -181,7 +181,7 @@ public class SqliteDeckDAO implements IDeckDAO {
                 logger.info("Get Deck transaction completed successfully.");
             } catch (SQLException  e) {
                 con.rollback();
-                logger.error("Get Deck Deck transaction failed.");
+                logger.error("Get Deck Deck transaction failed: {}", e.getMessage());
                 logger.fatal(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
