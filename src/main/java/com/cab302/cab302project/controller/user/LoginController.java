@@ -44,14 +44,4 @@ public class LoginController {
     public void login() {
 
     }
-    
-    public static void authenticate (String email, String password, SqliteUserDAO userDAO) {
-        User user = userDAO.getUser(email);
-        if (user == null) {
-            return;
-        }
-        if (user.getPassword().equals(password)) {
-            ApplicationState.login(user);
-        }
-    }
 }
