@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.user.AddSecurityQuestionController">
+<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.user.AddSecurityQuestionController">
    <children>
       <Label layoutX="250.0" layoutY="28.0" text="Security Question">
          <font>
