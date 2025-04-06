@@ -19,12 +19,13 @@
       <Label layoutX="224.0" layoutY="163.0" text="Email Address:" />
       <Label layoutX="223.0" layoutY="211.0" text="Password:" />
       <Label layoutX="223.0" layoutY="258.0" text="Confirm Password:" />
-      <Button fx:id="NextButton" layoutX="377.0" layoutY="317.0" mnemonicParsing="false" style="-fx-background-color: #00FF00;" text="Next" />
+      <Button fx:id="NextButton" layoutX="377.0" layoutY="317.0" mnemonicParsing="false" onAction="#NextButtonAction" style="-fx-background-color: #00FF00;" text="Next" />
       <Button fx:id="CloseButton" layoutX="223.0" layoutY="317.0" mnemonicParsing="false" onAction="#CloseButtonAction" style="-fx-background-color: #FF0000;" text="Close" />
       <Label layoutX="252.0" layoutY="14.0" text="User Registration">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <Button fx:id="BackButton" layoutX="302.0" layoutY="317.0" mnemonicParsing="false" text="Back" onAction="#BackButtonAction" />
    </children>
 </AnchorPane>
