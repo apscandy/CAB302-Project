@@ -17,15 +17,15 @@ public class UserController {
         }
         User user = userDAO.getUser(email);
         if (user == null) {
-            logger.warn("Authentication failed: user not found for email: {}", email);
+            logger.warn("Authentication failed: user not found");
             return false;
         }
         if (user.getPassword().equals(password)) {
-            logger.info("Authentication successful for user: {}", email);
+            logger.info("Authentication successful");
             ApplicationState.login(user);
             return true;
         } else {
-            logger.warn("Authentication failed: incorrect password for email: {}", email);
+            logger.warn("Authentication failed: incorrect password for email");
         }
         return false;
     }
@@ -37,7 +37,7 @@ public class UserController {
         }
         User user = userDAO.getUser(email);
         if (user != null) {
-            logger.info("Email check successful for user: {}", email);
+            logger.info("Email check successful");
             return true;
         } else {
             logger.warn("Email check failed");
@@ -54,10 +54,10 @@ public class UserController {
         }
         if (userDAO.getUser(user.getEmail()) == null) {
             userDAO.addUser(user);
-            logger.info("Registration successful for user: {}", user.getEmail());
+            logger.info("User registration successful");
             return true;
         } else {
-            logger.warn("Registration failed: user already exists with email: {}", user.getEmail());
+            logger.warn("Registration failed: user already exists");
         }
         return false;
     }
@@ -71,10 +71,10 @@ public class UserController {
         if (checkUser != null) {
             checkUser.setPassword(newPassword);
             userDAO.updateUser(checkUser);
-            logger.info("Password reset successful for user: {}", email);
+            logger.info("Password reset successful");
             return true;
         } else {
-            logger.warn("Password reset failed: user not found for email: {}", email);
+            logger.warn("Password reset failed: user not found");
         }
         return false;
     }
@@ -107,7 +107,6 @@ public class UserController {
     }
 
     public static User getUserProfile (String email, SqliteUserDAO userDAO) {
-        logger.info("Fetching user profile for: {}", email);
         return userDAO.getUser(email);
     }
 }
