@@ -12,26 +12,35 @@ public class UserController {
     private static final Logger logger = LogManager.getLogger(UserController.class);
     public static boolean authenticate (String email, String password, SqliteUserDAO userDAO) {
         if (email.trim().isEmpty() || password.trim().isEmpty()) {
+            logger.warn("Authentication failed: email or password is empty");
             return false;
         }
         User user = userDAO.getUser(email);
         if (user == null) {
+            logger.warn("Authentication failed: user not found for email: {}", email);
             return false;
         }
         if (user.getPassword().equals(password)) {
+            logger.info("Authentication successful for user: {}", email);
             ApplicationState.login(user);
             return true;
+        } else {
+            logger.warn("Authentication failed: incorrect password for email: {}", email);
         }
         return false;
     }
 
     public static boolean emailCheck (String email, SqliteUserDAO userDAO) {
         if (email.trim().isEmpty()) {
+            logger.warn("Email check failed: empty email provided");
             return false;
         }
         User user = userDAO.getUser(email);
         if (user != null) {
+            logger.info("Email check successful for user: {}", email);
             return true;
+        } else {
+            logger.warn("Email check failed");
         }
         return false;
     }
@@ -40,24 +49,32 @@ public class UserController {
         if (user.getEmail().trim().isEmpty() || user.getPassword().trim().isEmpty() ||
                 user.getFirstName().trim().isEmpty() || user.getLastName().trim().isEmpty() ||
                     user == null) {
+            logger.warn("Registration failed: missing or invalid user data");
             return false;
         }
         if (userDAO.getUser(user.getEmail()) == null) {
             userDAO.addUser(user);
+            logger.info("Registration successful for user: {}", user.getEmail());
             return true;
+        } else {
+            logger.warn("Registration failed: user already exists with email: {}", user.getEmail());
         }
         return false;
     }
 
     public boolean resetPassword (String email, String newPassword, SqliteUserDAO userDAO) {
         if (email.trim().isEmpty() || newPassword.trim().isEmpty()) {
+            logger.warn("Password reset failed: email or new password is empty");
             return false;
         }
         User checkUser = userDAO.getUser(email);
         if (checkUser != null) {
             checkUser.setPassword(newPassword);
             userDAO.updateUser(checkUser);
+            logger.info("Password reset successful for user: {}", email);
             return true;
+        } else {
+            logger.warn("Password reset failed: user not found for email: {}", email);
         }
         return false;
     }
@@ -66,14 +83,17 @@ public class UserController {
                                  SqliteUserSecurityQuestionDAO questionDAO, SqliteUserDAO userDAO) {
         if (answerOne.trim().isEmpty() || answerTwo.trim().isEmpty() || answerThree.trim().isEmpty()
         || email.trim().isEmpty()) {
+            logger.warn("Security question validation failed: missing input");
             return false;
         }
         User user = userDAO.getUser(email);
         if (user == null) {
+            logger.warn("Security question validation failed: user not found");
             return false;
         }
         UserSecurityQuestion questions = questionDAO.getQuestions(user);
         if (questions == null) {
+            logger.warn("Security question validation failed: security questions for user not found");
             return false;
         }
         return  questions.getAnswerOne().equalsIgnoreCase(answerOne.trim()) &&
@@ -82,10 +102,12 @@ public class UserController {
     }
 
     public static void logout() {
+        logger.info("Logging out current user.");
         ApplicationState.logout();
     }
 
     public static User getUserProfile (String email, SqliteUserDAO userDAO) {
+        logger.info("Fetching user profile for: {}", email);
         return userDAO.getUser(email);
     }
 }
