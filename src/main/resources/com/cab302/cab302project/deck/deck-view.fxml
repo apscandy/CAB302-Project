@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0"
+            prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.cab302.cab302project.controller.deck.DeckCreateController">
+    <fx:include source="../base-view.fxml"/>
+    <ListView fx:id="decks" layoutX="14.0" layoutY="36.0" onMouseClicked="#selectListViewItem" prefHeight="307.0"
+              prefWidth="200.0"/>
+    <TextArea fx:id="deckDescription" layoutX="225.0" layoutY="77.0" prefHeight="112.0" prefWidth="395.0"
+              promptText="Deck Description">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </TextArea>
+    <TextField fx:id="deckName" layoutX="225.0" layoutY="36.0" prefHeight="35.0" prefWidth="395.0"
+               promptText="Deck Title"/>
+
+    <Button fx:id="backButton" layoutX="225.0" layoutY="315.0" mnemonicParsing="false" onAction="#backButton"
+            prefHeight="28.0" prefWidth="30.0" text="←"/>
+    <Button layoutX="267.0" layoutY="315.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="28.0"
+            prefWidth="48.0" text="Add"/>
+    <Button layoutX="319.0" layoutY="315.0" mnemonicParsing="false" onAction="#editDeck" prefHeight="28.0"
+            prefWidth="48.0" text="Save"/>
+    <Button fx:id="clearButton" layoutX="423.0" layoutY="315.0" mnemonicParsing="false" onAction="#clearButton"
+            prefHeight="28.0" prefWidth="48.0" text="Clear"/>
+<!--    <Button fx:id="undoButton" layoutX="371.0" layoutY="315.0" mnemonicParsing="false" onAction="#undoChange"-->
+<!--            prefHeight="28.0" prefWidth="48.0" text="Undo"/>-->
+    <Button layoutX="531.0" layoutY="315.0" mnemonicParsing="false" onAction="#deleteDeck" prefHeight="28.0"
+            prefWidth="89.0" text="Delete Deck"/>
+
+
+    <ListView fx:id="cardsList" layoutX="225.0" layoutY="196.0" onMouseClicked="#selectListViewItem" prefHeight="112.0"
+              prefWidth="395.0"/>
+</AnchorPane>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.user.PromptEmailController">
+<children>
+    <Label alignment="CENTER" layoutX="205.0" layoutY="43.0" prefHeight="17.0" prefWidth="229.0" text="Damn it! I didn't study. Time to ..">
+        <font>
+            <Font name="System Italic" size="13.0" />
+        </font>
+    </Label>
+    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="207.0" layoutY="68.0" prefHeight="26.0" prefWidth="229.0" text="CRAM IT!" textAlignment="CENTER">
+        <font>
+            <Font name="System Bold" size="25.0" />
+        </font>
+    </Label>
+    <Label alignment="CENTER" layoutX="207.0" layoutY="144.0" prefHeight="17.0" prefWidth="229.0" text="Please enter your email to login" textAlignment="RIGHT" />
+    <TextField fx:id="userEmail" layoutX="206.0" layoutY="167.0" prefHeight="25.0" prefWidth="229.0" />
+    <Button fx:id="goToRegisterPageBtn" layoutX="256.0" layoutY="285.0" mnemonicParsing="false" onAction="#goToRegisterPage" prefHeight="25.0" prefWidth="129.0" text="Create Account" />
+    <Button fx:id="goToPromptPasswordPageBtn" layoutX="220.0" layoutY="207.0" mnemonicParsing="false" onAction="#goToPromptPasswordPage" prefHeight="26.0" prefWidth="200.0" text="Next" />
+    <Label alignment="CENTER" layoutX="291.0" layoutY="262.0" text="New here?" />
+
+</children>
+</AnchorPane>
