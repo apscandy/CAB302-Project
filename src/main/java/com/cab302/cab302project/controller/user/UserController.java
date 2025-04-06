@@ -46,9 +46,11 @@ public class UserController {
     }
 
     public static boolean register (User user, SqliteUserDAO userDAO) {
+        if (user == null) {
+            logger.warn("Registration failed: user is null");
+        }
         if (user.getEmail().trim().isEmpty() || user.getPassword().trim().isEmpty() ||
-                user.getFirstName().trim().isEmpty() || user.getLastName().trim().isEmpty() ||
-                    user == null) {
+                user.getFirstName().trim().isEmpty() || user.getLastName().trim().isEmpty()) {
             logger.warn("Registration failed: missing or invalid user data");
             return false;
         }
