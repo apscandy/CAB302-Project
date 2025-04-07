@@ -84,5 +84,14 @@ public class UserControllerTest {
         assertNull(ApplicationState.getCurrentUser());
     }
 
+    @Test
+    @Order(3)
+    void testEmailCheck() {
+        boolean checkExistEmail = UserController.emailCheck(testUser.getEmail(), userDAO);
+        assertTrue(checkExistEmail);
+        boolean checkNonExistEmail = UserController.emailCheck("hacker@test.ru", userDAO);
+        assertFalse(checkNonExistEmail);
+    }
 
+    
 }
