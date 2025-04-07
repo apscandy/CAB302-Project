@@ -9,6 +9,7 @@ import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
 import org.junit.jupiter.api.*;
 
 import java.sql.Connection;
+import java.sql.Statement;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserControllerTest {
@@ -35,5 +36,20 @@ public class UserControllerTest {
         testQuestions.setAnswerOne("Tomorrow");
         testQuestions.setAnswerTwo("1234 5678 9101 1121");
         testQuestions.setAnswerThree("MyDogBirthday");
+    }
+
+    @AfterAll
+    static void tearDownAfterClass() throws Exception {
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("DELETE FROM user");
+            stmt.executeUpdate("DELETE FROM user_security_question");
+            stmt.executeUpdate("DELETE FROM sqlite_sequence WHERE name='user'");
+            stmt.executeUpdate("DELETE FROM sqlite_sequence WHERE name='user_security_question'");
+            stmt.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
