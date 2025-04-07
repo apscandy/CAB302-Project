@@ -93,5 +93,12 @@ public class UserControllerTest {
         assertFalse(checkNonExistEmail);
     }
 
-    
+    @Test
+    @Order(4)
+    void testResetPassword() {
+        String newPassword = "newPassword";
+        boolean success = UserController.resetPassword (
+
+        )
+    }
 }
