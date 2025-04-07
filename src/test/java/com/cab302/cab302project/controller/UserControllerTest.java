@@ -97,8 +97,15 @@ public class UserControllerTest {
     @Order(4)
     void testResetPassword() {
         String newPassword = "newPassword";
-        boolean success = UserController.resetPassword (
-
-        )
+        boolean successReset = UserController.resetPassword (
+            testUser.getEmail(), newPassword, userDAO
+        );
+        assertTrue(successReset);
+        boolean successAuth = UserController.authenticate (
+                testUser.getEmail(), newPassword, userDAO
+        );
+        assertTrue(successAuth);
     }
+
+
 }

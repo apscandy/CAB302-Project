@@ -68,7 +68,7 @@ public class UserController {
         return false;
     }
 
-    public boolean resetPassword (String email, String newPassword, SqliteUserDAO userDAO) {
+    public static boolean resetPassword (String email, String newPassword, SqliteUserDAO userDAO) {
         if (email.trim().isEmpty() || newPassword.trim().isEmpty()) {
             logger.warn("Password reset failed: email or new password is empty");
             return false;
