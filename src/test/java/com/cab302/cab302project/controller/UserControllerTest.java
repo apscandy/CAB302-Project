@@ -107,5 +107,19 @@ public class UserControllerTest {
         assertTrue(successAuth);
     }
 
-
+    @Test
+    @Order(5)
+    void testCheckSecurityQuestion() {
+        questionDAO.createQuestion(testQuestions);
+        boolean goodAnswer = UserController.checkSecurityQuestion (
+                testUser.getEmail(), "Tomorrow", "1234 5678 9101 1121", "MyDogBirthday",
+                questionDAO, userDAO
+        );
+        assertTrue(goodAnswer);
+        boolean badAnswer = UserController.checkSecurityQuestion (
+                testUser.getEmail(), "adsf", "asfasd", "asdfasdf",
+                questionDAO, userDAO
+        );
+        assertFalse(badAnswer);
+    }
 }
