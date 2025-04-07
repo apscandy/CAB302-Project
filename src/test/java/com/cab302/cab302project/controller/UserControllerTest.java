@@ -1,5 +1,7 @@
 package com.cab302.cab302project.controller;
 
+import com.cab302.cab302project.ApplicationState;
+import com.cab302.cab302project.controller.user.UserController;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.SqliteCreateTables;
 import com.cab302.cab302project.model.user.SqliteUserDAO;
@@ -7,6 +9,7 @@ import com.cab302.cab302project.model.user.User;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
 import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 import java.sql.Statement;
@@ -52,4 +55,34 @@ public class UserControllerTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    @Order(1)
+    void testRegisterUser() {
+        boolean result = UserController.register(testUser, userDAO);
+        assertTrue(result);
+        User dbUserCheck = userDAO.getUser(testUser.getEmail());
+        assertNotNull(dbUserCheck);
+        assertEquals(testUser.getEmail(), dbUserCheck.getEmail());
+    }
+
+    @Test
+    @Order(2)
+    void testAuthenticateUser() {
+        boolean success = UserController.authenticate (
+                testUser.getEmail(), "MyDogBirthday", userDAO
+        );
+        assertTrue(success);
+        assertTrue(ApplicationState.isUserLoggedIn());
+        assertEquals(testUser.getEmail(), ApplicationState.getCurrentUser().getEmail());
+        ApplicationState.logout();
+        boolean fail = UserController.authenticate (
+                testUser.getEmail(), "WrongPassword", userDAO
+        );
+        assertFalse(fail);
+        assertFalse(ApplicationState.isUserLoggedIn());
+        assertNull(ApplicationState.getCurrentUser());
+    }
+
+
 }
