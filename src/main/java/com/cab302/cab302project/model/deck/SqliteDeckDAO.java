@@ -1,6 +1,7 @@
 package com.cab302.cab302project.model.deck;
 
 import com.cab302.cab302project.ApplicationState;
+import com.cab302.cab302project.error.deck.*;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.user.User;
 import org.apache.logging.log4j.LogManager;
@@ -51,17 +52,19 @@ public class SqliteDeckDAO implements IDeckDAO {
                 con.rollback();
                 logger.error("Created Deck transaction failed: {}", e.getMessage());
                 logger.fatal(e.getMessage());
+                throw new FailedToDeleteDeckException("Transaction rolled back: " + e.getMessage());
             }finally {
                 con.setAutoCommit(true);
             }
         } catch (Exception e) {
             logger.fatal(e.getMessage());
+            throw new FailedToCreateDeckException(e.getMessage(), e);
         }
     }
 
 
     @Override
-    public void updateDeck(Deck deck) {
+    public void updateDeck(Deck deck)  {
         if (deck == null || deck.getUserId() == 0) {
             logger.error("Deck is null or empty {updateDeck}");
         }
@@ -80,11 +83,13 @@ public class SqliteDeckDAO implements IDeckDAO {
                 con.rollback();
                 logger.error("Update Deck transaction failed : {}", e.getMessage());
                 logger.fatal(e.getMessage());
+                throw new FailedToDeleteDeckException("Transaction rolled back: " + e.getMessage());
             }finally {
                 con.setAutoCommit(true);
             }
         } catch (Exception e) {
             logger.fatal(e.getMessage());
+            throw new FailedToUpdateDeckException(e.getMessage(), e);
         }
     }
 
@@ -109,11 +114,13 @@ public class SqliteDeckDAO implements IDeckDAO {
                con.rollback();
                logger.error("Delete Deck transaction failed: {}", e.getMessage());
                logger.fatal(e.getMessage());
+               throw new FailedToDeleteDeckException("Transaction rolled back: " + e.getMessage());
            }finally {
                con.setAutoCommit(true);
            }
        } catch (Exception e) {
            logger.fatal(e.getMessage());
+           throw new FailedToDeleteDeckException(e.getMessage(), e);
        }
     }
 
@@ -147,12 +154,14 @@ public class SqliteDeckDAO implements IDeckDAO {
                 con.rollback();
                 logger.error("Get Decks Deck transaction failed: {}", e.getMessage());
                 logger.fatal(e.getMessage());
+                throw new FailedToGetListOfDecksException("Transaction rolled back: " + e.getMessage());
             }finally {
                 con.setAutoCommit(true);
 
             }
         } catch (Exception e) {
             logger.fatal(e.getMessage());
+            throw new FailedToGetListOfDecksException(e.getMessage(), e);
         }
         return decks;
     }
@@ -183,11 +192,13 @@ public class SqliteDeckDAO implements IDeckDAO {
                 con.rollback();
                 logger.error("Get Deck Deck transaction failed: {}", e.getMessage());
                 logger.fatal(e.getMessage());
+                throw new FailedToGetDeckException("Transaction rolled back: " + e.getMessage());
             }finally {
                 con.setAutoCommit(true);
             }
         }catch (Exception e) {
             logger.fatal(e.getMessage());
+            throw new FailedToGetDeckException(e.getMessage(), e);
         }
         return deck;
     }
