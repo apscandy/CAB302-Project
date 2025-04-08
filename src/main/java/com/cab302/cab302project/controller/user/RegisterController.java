@@ -13,7 +13,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class RegisterController {
-
+    @FXML
+    private Label LastNameLabel;
+    @FXML
+    private Label FirstNameLabel;
     @FXML
     private TextField FirstNameTextField;
     @FXML
@@ -26,6 +29,8 @@ public class RegisterController {
     private PasswordField SetPasswordField;
     @FXML
     private PasswordField ConfirmPasswordField;
+    @FXML
+    private Label SetPasswordLabel;
     @FXML
     private Label ConfirmPasswordLabel;
     @FXML
@@ -58,24 +63,47 @@ public class RegisterController {
     }
 
     public boolean registerUser () {
+        String firstName = FirstNameTextField.getText();
+        String lastName = LastNameTextField.getText();
         String email = EmailAddressTextField.getText();
         String password = SetPasswordField.getText();
         String confirmPassword = ConfirmPasswordField.getText();
+
+        // Reset error labels
+        EmailTypeLabel.setText("");
+        SetPasswordLabel.setText("");
+        ConfirmPasswordLabel.setText("");
 
         String passwordRegex = "^(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$";
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
 
         boolean isValid = true;
 
+        if (firstName == null || firstName.isBlank()) {
+            FirstNameLabel.setText("First name cannot be empty.");
+            FirstNameLabel.setTextFill(javafx.scene.paint.Color.RED);
+            FirstNameLabel.setVisible(true);
+            isValid = false;
+        }
+
+        // Last name validation
+        if (lastName == null || lastName.isBlank()) {
+            LastNameLabel.setText("Last name cannot be empty.");
+            LastNameLabel.setTextFill(javafx.scene.paint.Color.RED);
+            LastNameLabel.setVisible(true);
+            isValid = false;
+        }
+
         if(!email.matches(emailRegex)) {
             EmailTypeLabel.setText("Invalid email format");
+            EmailTypeLabel.setTextFill(javafx.scene.paint.Color.RED);
             EmailTypeLabel.setVisible(true);
             isValid = false;
         }
         if (!password.matches(passwordRegex)) {
-            ConfirmPasswordLabel.setText("Password must be at least 8 characters, include 1 number and 1 special character.");
-            ConfirmPasswordLabel.setTextFill(javafx.scene.paint.Color.RED);
-            ConfirmPasswordLabel.setVisible(true);
+            SetPasswordLabel.setText("Password must be at least 8 characters, include 1 number and 1 special character.");
+            SetPasswordLabel.setTextFill(javafx.scene.paint.Color.RED);
+            SetPasswordLabel.setVisible(true);
             isValid = false;
         }
         else if (!password.equals(confirmPassword)) {
@@ -84,11 +112,10 @@ public class RegisterController {
             ConfirmPasswordLabel.setVisible(true);
             isValid = false;
         }
-        else {
-            ConfirmPasswordLabel.setText("You are set");
+        if (isValid) {
+            ConfirmPasswordLabel.setText("Registration info is valid!");
             ConfirmPasswordLabel.setTextFill(javafx.scene.paint.Color.GREEN);
             ConfirmPasswordLabel.setVisible(true);
-            isValid = true ;
         }
         return isValid;
     }
