@@ -31,6 +31,7 @@ public class SqliteDeckDAO implements IDeckDAO {
     public void createDeck(Deck deck) {
         if (deck == null || deck.getUserId() == 0) {
             logger.error("Deck is null or empty {createDeck}");
+            throw new DeckIsNullException("Deck cannot be null");
         }
         try {
             // Transaction try/catch block
@@ -67,6 +68,7 @@ public class SqliteDeckDAO implements IDeckDAO {
     public void updateDeck(Deck deck)  {
         if (deck == null || deck.getUserId() == 0) {
             logger.error("Deck is null or empty {updateDeck}");
+            throw new DeckIsNullException("Deck cannot be null");
         }
         try {
             // Transaction try/catch block
@@ -96,10 +98,7 @@ public class SqliteDeckDAO implements IDeckDAO {
     @Override
     public void deleteDeck(Deck deck) {
         if (deck == null || deck.getUserId() == 0) {
-            logger.error("Deck is null or empty {deleteDeck}");
-        }
-        if (deck.getId() <= 0) {
-            logger.error("Deck ID is less than or equal to 0 {deleteDeck}");
+            throw new DeckIsNullException("Deck cannot be null");
         }
        try{
            // Transaction try/catch block
@@ -132,6 +131,7 @@ public class SqliteDeckDAO implements IDeckDAO {
         List<Deck> decks = new ArrayList<>();
         if (user == null || user.getId() == 0) {
             logger.error("User is null or empty {getDecks}");
+            throw new DeckIsNullException("Deck cannot be null");
         }
         try{
             con.setAutoCommit(false);
@@ -171,6 +171,7 @@ public class SqliteDeckDAO implements IDeckDAO {
         Deck deck = null;
         if (id <= 0) {
             logger.error("id is less then or equal to 0 {getDeck}");
+            throw new DeckIsNullException("Deck cannot be null");
         }
         try{
             con.setAutoCommit(false);
