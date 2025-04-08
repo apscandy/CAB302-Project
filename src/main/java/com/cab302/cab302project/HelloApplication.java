@@ -2,7 +2,6 @@ package com.cab302.cab302project;
 
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.SqliteCreateTables;
-import com.cab302.cab302project.model.user.IUserDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,8 +13,6 @@ public class HelloApplication extends Application {
     public static final String TITLE = "Flashcard app";
     public static final int WIDTH = 640;
     public static final int HEIGHT = 360;
-
-    private IUserDAO userDAO;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -36,10 +33,7 @@ public class HelloApplication extends Application {
             if (args[0].equals("-t")) {
                 SqliteConnection.setTestingModeTrue();
             }
-        }catch (Exception ignored) {
-
-        }
-
+        }catch (Exception ignored) {}
         new SqliteCreateTables();
         launch();
     }
