@@ -70,6 +70,8 @@ public class RegisterController {
         String confirmPassword = ConfirmPasswordField.getText();
 
         // Reset error labels
+        FirstNameLabel.setText("");
+        LastNameLabel.setText("");
         EmailTypeLabel.setText("");
         SetPasswordLabel.setText("");
         ConfirmPasswordLabel.setText("");
