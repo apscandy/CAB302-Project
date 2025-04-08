@@ -10,9 +10,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
-    public static final String TITLE = "Flashcard app";
+    public static final String TITLE = "CRAM IT!";
     public static final int WIDTH = 640;
     public static final int HEIGHT = 360;
+    private static Stage primaryStage; // NEW
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -37,4 +38,9 @@ public class HelloApplication extends Application {
         new SqliteCreateTables();
         launch();
     }
+
+    public static Stage getStage() { // NEW
+        return primaryStage;
+    }
+
 }

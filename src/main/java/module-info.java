@@ -14,8 +14,6 @@ module com.cab302.cab302project {
 
     opens com.cab302.cab302project to javafx.fxml;
     exports com.cab302.cab302project;
-    exports com.cab302.cab302project.controller;
-    opens com.cab302.cab302project.controller to javafx.fxml;
     exports com.cab302.cab302project.model;
     opens com.cab302.cab302project.model to javafx.fxml;
     opens com.cab302.cab302project.controller.deck to javafx.fxml;
