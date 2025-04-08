@@ -46,27 +46,17 @@ public class DeckCreateController implements Initializable {
         deckDAO = new SqliteDeckDAO();
     }
 
-    private static boolean userIsLoggedIn() {
-        if (ApplicationState.getCurrentUser() == null || !ApplicationState.isUserLoggedIn()) {
-            logger.warn("ApplicationState.getCurrentUser() is null");
-            logger.warn("ApplicationState.isUserLoggedIn() equals false");
-            logger.warn("Make sure the user is logged in");
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
         logger.info("initializing DeckCreateController listView");
-        if (!userIsLoggedIn()) return;
+        if (!ApplicationState.isUserLoggedIn()) return;
         loadDecks();
     }
 
     @FXML
     private void selectListViewItem() {
         logger.debug("Select ListView item");
-        if (!userIsLoggedIn()) return;
+        if (!ApplicationState.isUserLoggedIn()) return;
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) return;
         deckName.setText(deck.getName());
@@ -93,7 +83,7 @@ public class DeckCreateController implements Initializable {
     @FXML
     private void createDeck() {
         logger.debug("Create deck button pressed");
-        if (!userIsLoggedIn()) return;
+        if (!ApplicationState.isUserLoggedIn()) return;
         if (deckName.getText().isEmpty()) {
             deckName.setText("New Deck");
         }
@@ -106,7 +96,7 @@ public class DeckCreateController implements Initializable {
     @FXML
     private void deleteDeck() {
         logger.debug("Delete deck button pressed");
-        if (!userIsLoggedIn()) return;
+        if (!ApplicationState.isUserLoggedIn()) return;
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) return;
         deckDAO.deleteDeck(deck);
@@ -118,7 +108,7 @@ public class DeckCreateController implements Initializable {
     @FXML
     private void editDeck() {
         logger.debug("Edit deck button pressed");
-        if (!userIsLoggedIn()) return;
+        if (!ApplicationState.isUserLoggedIn()) return;
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) return;
         deck.setName(deckName.getText());
@@ -131,7 +121,7 @@ public class DeckCreateController implements Initializable {
 
     private void loadDecks() {
         logger.debug("Load deck");
-        if (!userIsLoggedIn()) return;
+        if (!ApplicationState.isUserLoggedIn()) return;
         decks.getItems().clear();
         decks.getItems().addAll(deckDAO.getDecks(ApplicationState.getCurrentUser()));
         decks.refresh();
