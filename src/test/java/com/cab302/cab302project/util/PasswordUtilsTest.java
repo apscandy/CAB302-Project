@@ -3,6 +3,7 @@ package com.cab302.cab302project.util;
 import org.junit.jupiter.api.*;
 
 public class PasswordUtilsTest {
+
     @Test
     void testHashKnownValue() {
         String expectedHash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8";

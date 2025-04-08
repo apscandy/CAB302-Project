@@ -22,8 +22,9 @@ public class UserControllerTest {
     private static SqliteUserSecurityQuestionDAO questionDAO;
     private static User testUser;
     private static UserSecurityQuestion testQuestions;
+
     @BeforeAll
-    static void setUpBeforeClass() throws Exception {
+    static void setUpBeforeClass(){
         SqliteConnection.setTestingModeTrue();
         new SqliteCreateTables();
         con = SqliteConnection.getInstance();
@@ -42,13 +43,17 @@ public class UserControllerTest {
     }
 
     @AfterAll
-    static void tearDownAfterClass() throws Exception {
+    static void tearDownAfterClass(){
         try {
             Statement stmt = con.createStatement();
             stmt.executeUpdate("DELETE FROM user");
             stmt.executeUpdate("DELETE FROM user_security_question");
-            stmt.executeUpdate("DELETE FROM sqlite_sequence WHERE name='user'");
-            stmt.executeUpdate("DELETE FROM sqlite_sequence WHERE name='user_security_question'");
+            stmt.executeUpdate("DELETE FROM deck");
+            stmt.executeUpdate("DELETE FROM card");
+            stmt.executeUpdate("delete from sqlite_sequence where name='user'");
+            stmt.executeUpdate("delete from sqlite_sequence where name='user_security_question'");
+            stmt.executeUpdate("delete from sqlite_sequence where name='deck'");
+            stmt.executeUpdate("delete from sqlite_sequence where name='card'");
             stmt.close();
         }
         catch (Exception e) {

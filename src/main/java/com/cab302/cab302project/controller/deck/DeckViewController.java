@@ -40,20 +40,10 @@ public class DeckViewController implements Initializable {
         deckDAO = new SqliteDeckDAO();
     }
 
-    private static boolean userIsLoggedIn() {
-        if (ApplicationState.getCurrentUser() == null || !ApplicationState.isUserLoggedIn()) {
-            logger.warn("ApplicationState.getCurrentUser() is null");
-            logger.warn("ApplicationState.isUserLoggedIn() equals false");
-            logger.warn("Make sure the user is logged in");
-            return false;
-        }
-        return true;
-    }
-
     @FXML
     private void createDeck() throws IOException {
         logger.debug("Create deck button pressed");
-        if (!userIsLoggedIn()) return;
+        if (!ApplicationState.isUserLoggedIn()) return;
         Stage stage = (Stage) createDeckButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("deck/deck-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -64,14 +54,14 @@ public class DeckViewController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
         logger.info("initializing DeckController listView");
-        if (!userIsLoggedIn()) return;
+        if (!ApplicationState.isUserLoggedIn()) return;
         loadDecks();
     }
 
     @FXML
     public void selectListViewItem() {
         logger.debug("Select ListView item");
-        if (!userIsLoggedIn()) return;
+        if (!ApplicationState.isUserLoggedIn()) return;
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) return;
         deckName.setVisible(true);
@@ -82,7 +72,7 @@ public class DeckViewController implements Initializable {
 
     private void loadDecks() {
         logger.debug("Load deck");
-        if (!userIsLoggedIn()) return;
+        if (!ApplicationState.isUserLoggedIn()) return;
         decks.getItems().clear();
         decks.getItems().addAll(deckDAO.getDecks(ApplicationState.getCurrentUser()));
         decks.refresh();

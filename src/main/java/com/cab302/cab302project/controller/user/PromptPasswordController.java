@@ -1,6 +1,7 @@
 package com.cab302.cab302project.controller.user;
 
 import com.cab302.cab302project.HelloApplication;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +13,8 @@ import java.io.IOException;
 
 public class PromptPasswordController {
 
+    public Button resetPasswordBtn;
+
     @FXML
     private TextField userPassword;
 
@@ -20,9 +23,6 @@ public class PromptPasswordController {
 
     @FXML
     private Button backToPromptEmailPageBtn;
-
-    @FXML
-    private Button goToAnswerSecurityQuestionBtn;
 
     @FXML
     public void login() throws IOException {
@@ -42,7 +42,7 @@ public class PromptPasswordController {
 
     @FXML
     public void goToAnswerSecurityQuestion() throws IOException {
-        Stage stage = (Stage) goToAnswerSecurityQuestionBtn.getScene().getWindow();
+        Stage stage = (Stage) resetPasswordBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("answer-security-questions-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
