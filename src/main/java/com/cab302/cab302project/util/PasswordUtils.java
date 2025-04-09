@@ -1,6 +1,6 @@
 package com.cab302.cab302project.util;
 
-import com.cab302.cab302project.controller.user.UserController;
+import com.cab302.cab302project.controller.user.AuthController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
