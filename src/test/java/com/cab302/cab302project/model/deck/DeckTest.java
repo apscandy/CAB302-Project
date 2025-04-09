@@ -68,9 +68,9 @@ class DeckTest {
     @Test
     void setCards() {
         List<Card> cards = new ArrayList<>();
-        cards.add(new Card());
-        cards.add(new Card());
-        cards.add(new Card());
+        cards.add(new Card(deck, "What is the square root of the sun", "No clue", "science,math"));
+        cards.add(new Card(deck, "Why is the sun yellow", "Also no clue", "science,math"));
+        cards.add(new Card(deck, "Are photons light", "Yes", "science,psychics"));
         deck.setCards(cards);
         assertEquals(3, deck.getCards().size());
 

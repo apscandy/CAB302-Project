@@ -57,6 +57,7 @@ class SqliteDeckDAOTest {
         catch(Exception e){
             e.printStackTrace();
         }
+        ApplicationState.logout();
     }
 
     @Test

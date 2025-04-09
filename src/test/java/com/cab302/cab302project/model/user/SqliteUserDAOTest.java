@@ -1,5 +1,6 @@
 package com.cab302.cab302project.model.user;
 
+import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.model.SqliteConnection;
 import org.junit.jupiter.api.*;
 import com.cab302.cab302project.model.SqliteCreateTables;
@@ -41,6 +42,7 @@ public class SqliteUserDAOTest {
         catch(Exception e){
             e.printStackTrace();
         }
+        ApplicationState.logout();
     }
 
     @Test

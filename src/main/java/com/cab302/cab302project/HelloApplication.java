@@ -2,9 +2,13 @@ package com.cab302.cab302project;
 
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.SqliteCreateTables;
+import com.cab302.cab302project.model.user.IUserDAO;
+import com.cab302.cab302project.model.user.SqliteUserDAO;
+import com.cab302.cab302project.model.user.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -35,6 +39,11 @@ public class HelloApplication extends Application {
         try {
             if (args[0].equals("-t")) {
                 SqliteConnection.setTestingModeTrue();
+                new SqliteCreateTables();
+                User user = new User("Monica", "Borg", "awhvdkyawvdky", "awudoguaywdv");
+                IUserDAO userDAO = new SqliteUserDAO();
+                userDAO.addUser(user);
+                ApplicationState.login(user);
             }
         }catch (Exception ignored) {}
         new SqliteCreateTables();
