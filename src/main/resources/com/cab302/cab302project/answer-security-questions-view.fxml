@@ -4,43 +4,29 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0"
-            prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.cab302.cab302project.controller.user.AnswerSecurityQuestionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.user.AnswerSecurityQuestionController">
     <children>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="35.0" prefHeight="26.0"
-               prefWidth="229.0" text="CRAM IT!" textAlignment="CENTER" textFill="#d90429">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="35.0" prefHeight="26.0" prefWidth="229.0" text="CRAM IT!" textAlignment="CENTER" textFill="#d90429">
             <font>
-                <Font name="System Bold" size="25.0"/>
+                <Font name="System Bold" size="25.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" layoutX="199.0" layoutY="69.0" prefHeight="19.0" prefWidth="243.0"
-               text="Password Reset">
+        <Label alignment="CENTER" layoutX="199.0" layoutY="69.0" prefHeight="19.0" prefWidth="243.0" text="Password Reset">
             <font>
-                <Font name="System Italic" size="15.0"/>
+                <Font name="System Italic" size="15.0" />
             </font>
         </Label>
-        <Button fx:id="backToPromptPasswordPageBtn" layoutX="25.0" layoutY="26.0" mnemonicParsing="false"
-                onAction="#backToPromptPasswordPage" text="←"/>
+        <Label alignment="CENTER" layoutX="199.0" layoutY="105.0" prefHeight="42.0" prefWidth="243.0" text="Please complete the following security&#10;questions to reset your password." textAlignment="CENTER" />
+
+        <Button fx:id="backToPromptPasswordPageBtn" layoutX="25.0" layoutY="26.0" mnemonicParsing="false" onAction="#backToPromptPasswordPage" text="←" />
+        <Button fx:id="goToResetPasswordPageBtn" layoutX="584.0" layoutY="25.0" mnemonicParsing="false" onAction="#goToResetPasswordPage" text="→" />
 
 
-        <Label layoutX="176.0" layoutY="149.0" text="Question One"/>
-        <TextField fx:id="AnswerOneTextField" layoutX="290.0" layoutY="145.0" prefHeight="25.0" prefWidth="195.0"
-                   promptText="Answer One"/>
+        <ComboBox fx:id="securityQuestionOne" layoutX="171.0" layoutY="164.0" prefHeight="25.0" prefWidth="300.0" promptText="Select Security Question 1" />
+        <ComboBox fx:id="securityQuestionTwo" layoutX="171.0" layoutY="241.0" prefHeight="25.0" prefWidth="300.0" promptText="Select Security Question 2"/>
 
-        <Label layoutX="175.0" layoutY="189.0" text="Question Two"/>
-        <TextField fx:id="AnswerTwoTextField" layoutX="290.0" layoutY="185.0" prefHeight="25.0" prefWidth="195.0"
-                   promptText="Answer Two"/>
+        <TextField fx:id="AnswerOneTextField" layoutX="171.0" layoutY="196.0" prefHeight="25.0" prefWidth="300.0" promptText="Please input your answer here" />
+        <TextField fx:id="AnswerTwoTextField" layoutX="171.0" layoutY="273.0" prefHeight="25.0" prefWidth="300.0" promptText="Please input your answer here" />
 
-        <Label layoutX="176.0" layoutY="229.0" text="Question Three"/>
-        <TextField fx:id="AnswerThreeTextField" layoutX="290.0" layoutY="225.0" prefHeight="25.0" prefWidth="195.0"
-                   promptText="Answer Three"/>
-
-        <Label fx:id="errorMessageLabel" layoutX="290.0" layoutY="255.0" prefHeight="25.0" prefWidth="195.0"
-               textFill="red" visible="false"/>
-
-
-        <Label alignment="CENTER" layoutX="199.0" layoutY="105.0" prefHeight="42.0" prefWidth="243.0"
-               text="Please complete the following security&#10; questions to reset your password."/>
     </children>
 </AnchorPane>
