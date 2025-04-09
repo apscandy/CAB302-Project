@@ -9,11 +9,14 @@
 
     <ListView fx:id="cardsList" layoutX="14.0" layoutY="36.0" onMouseClicked="#selectListViewItem" prefHeight="307.0" prefWidth="200.0" />
 
-    <TextField fx:id="cardName" layoutX="225.0" layoutY="36.0" prefHeight="35.0" prefWidth="395.0" promptText="Card Question" />
+    <TextField fx:id="cardName" alignment="TOP_LEFT" layoutX="225.0" layoutY="36.0" prefHeight="83.0" prefWidth="395.0" promptText="Card Question">
+      <font>
+         <Font size="14.0" />
+      </font></TextField>
 
-    <TextArea fx:id="cardAnswer" layoutX="225.0" layoutY="87.0" prefHeight="228.0" prefWidth="395.0" promptText="Card Answer">
+    <TextArea fx:id="cardAnswer" layoutX="225.0" layoutY="122.0" prefHeight="185.0" prefWidth="395.0" promptText="Card Answer">
         <font>
-            <Font size="14.0" />
+            <Font size="12.0" />
         </font>
     </TextArea>
 

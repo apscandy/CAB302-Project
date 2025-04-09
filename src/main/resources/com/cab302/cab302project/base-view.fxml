@@ -15,7 +15,7 @@
         <MenuItem fx:id="newCardMenuItem" text="Card" onAction="#openCardView"/>
       </Menu>
 
-      <MenuItem fx:id="logOut" mnemonicParsing="false" text="Log Out" onAction="#closeProgram"/>
+      <MenuItem fx:id="logOut" mnemonicParsing="false" text="Log Out" onAction="#logOut"/>
       <MenuItem fx:id="close" mnemonicParsing="false" text="Exit" onAction="#closeProgram"/>
 
     </Menu>

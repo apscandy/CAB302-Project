@@ -8,8 +8,8 @@
             prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.cab302.cab302project.controller.deck.DeckCreateController">
     <fx:include source="../base-view.fxml"/>
-    <ListView fx:id="decks" layoutX="14.0" layoutY="36.0" onMouseClicked="#selectListViewItem" prefHeight="307.0"
-              prefWidth="200.0"/>
+    <ListView fx:id="decks" layoutX="14.0" layoutY="36.0" prefHeight="307.0"
+              prefWidth="200.0" onMouseClicked="#selectListViewItem"/>
     <TextArea fx:id="deckDescription" layoutX="225.0" layoutY="77.0" prefHeight="112.0" prefWidth="395.0"
               promptText="Deck Description">
         <font>
@@ -27,8 +27,8 @@
             prefWidth="48.0" text="Save"/>
     <Button fx:id="clearButton" layoutX="423.0" layoutY="315.0" mnemonicParsing="false" onAction="#clearButton"
             prefHeight="28.0" prefWidth="48.0" text="Clear"/>
-<!--    <Button fx:id="undoButton" layoutX="371.0" layoutY="315.0" mnemonicParsing="false" onAction="#undoChange"-->
-<!--            prefHeight="28.0" prefWidth="48.0" text="Undo"/>-->
+    <!--    <Button fx:id="undoButton" layoutX="371.0" layoutY="315.0" mnemonicParsing="false" onAction="#undoChange"-->
+    <!--            prefHeight="28.0" prefWidth="48.0" text="Undo"/>-->
     <Button layoutX="531.0" layoutY="315.0" mnemonicParsing="false" onAction="#deleteDeck" prefHeight="28.0"
             prefWidth="89.0" text="Delete Deck"/>
 

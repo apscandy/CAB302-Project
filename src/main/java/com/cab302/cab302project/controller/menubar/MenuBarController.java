@@ -1,5 +1,6 @@
 package com.cab302.cab302project.controller.menubar;
 
+import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +30,7 @@ public class MenuBarController {
         logger.info("New -> Deck clicked");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(HelloApplication.class.getResource("deck/deck-view.fxml")); // ✅ FIXED
+            fxmlLoader.setLocation(HelloApplication.class.getResource("deck/deck-view.fxml"));
 
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
             HelloApplication.getStage().setScene(scene);
@@ -43,11 +44,30 @@ public class MenuBarController {
         logger.info("New -> Card clicked");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(HelloApplication.class.getResource("card/card-view.fxml")); // ✅ Adjust path
+            fxmlLoader.setLocation(HelloApplication.class.getResource("card/card-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
             HelloApplication.getStage().setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void logOut() {
+        logger.info("Log Out clicked");
+
+        // Clear the current session
+        ApplicationState.logout();
+
+        // Return to login screen
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(HelloApplication.class.getResource("prompt-email-view.fxml")); // adjust path if needed
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            HelloApplication.getStage().setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

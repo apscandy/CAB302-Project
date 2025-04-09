@@ -2,22 +2,15 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.deck.DeckViewController">
-   <children>
-       <fx:include source="../base-view.fxml" />
-      <ListView fx:id="decks" layoutX="14.0" layoutY="36.0" onMouseClicked="#selectListViewItem" prefHeight="262.0" prefWidth="200.0" />
-      <Button fx:id="createDeckButton" layoutX="14.0" layoutY="311.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="35.0" prefWidth="200.0" text="Create/Edit Decks" />
-      <Label fx:id="deckName" layoutX="230.0" layoutY="36.0" prefHeight="35.0" prefWidth="395.0">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <TextArea fx:id="deckDescription" editable="false" layoutX="230.0" layoutY="36.0" prefHeight="262.0" prefWidth="395.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </TextArea>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0"
+            prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.cab302.cab302project.controller.deck.DeckViewController">
+    <children>
+        <fx:include source="../base-view.fxml"/>
+        <ListView fx:id="decks" layoutX="14.0" layoutY="36.0" onMouseClicked="#selectListViewItem" prefHeight="307.0"
+                  prefWidth="200.0"/>
+        <ListView fx:id="cards" layoutX="227.0" layoutY="36.0" onMouseClicked="#selectListViewItem" prefHeight="307.0"
+                  prefWidth="400.0"/>
+    </children>
 </AnchorPane>
