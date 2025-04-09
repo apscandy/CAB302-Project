@@ -1,0 +1,132 @@
+package com.cab302.cab302project.controller;
+
+import com.cab302.cab302project.ApplicationState;
+import com.cab302.cab302project.controller.user.UserController;
+import com.cab302.cab302project.error.state.UserIsNullException;
+import com.cab302.cab302project.model.SqliteConnection;
+import com.cab302.cab302project.model.SqliteCreateTables;
+import com.cab302.cab302project.model.user.SqliteUserDAO;
+import com.cab302.cab302project.model.user.User;
+import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
+import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.sql.Connection;
+import java.sql.Statement;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class UserControllerTest {
+
+    private static Connection con;
+    private static SqliteUserDAO userDAO;
+    private static SqliteUserSecurityQuestionDAO questionDAO;
+    private static User testUser;
+    private static UserSecurityQuestion testQuestions;
+
+    @BeforeAll
+    static void setUpBeforeClass(){
+        SqliteConnection.setTestingModeTrue();
+        new SqliteCreateTables();
+        con = SqliteConnection.getInstance();
+        userDAO = new SqliteUserDAO();
+        testUser = new User (
+                "Testing", "Still Testing", "myCodeIsTestingMe@malicious.ru", "MyDogBirthday"
+        );
+        questionDAO = new SqliteUserSecurityQuestionDAO();
+        testQuestions = new UserSecurityQuestion(testUser);
+        testQuestions.setQuestionOne("What is credit card expiry date?");
+        testQuestions.setQuestionTwo("What is your credit card number?");
+        testQuestions.setQuestionThree("What is your credit card pin?");
+        testQuestions.setAnswerOne("Tomorrow");
+        testQuestions.setAnswerTwo("1234 5678 9101 1121");
+        testQuestions.setAnswerThree("MyDogBirthday");
+    }
+
+    @AfterAll
+    static void tearDownAfterClass(){
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("DELETE FROM user");
+            stmt.executeUpdate("DELETE FROM user_security_question");
+            stmt.executeUpdate("DELETE FROM deck");
+            stmt.executeUpdate("DELETE FROM card");
+            stmt.executeUpdate("delete from sqlite_sequence where name='user'");
+            stmt.executeUpdate("delete from sqlite_sequence where name='user_security_question'");
+            stmt.executeUpdate("delete from sqlite_sequence where name='deck'");
+            stmt.executeUpdate("delete from sqlite_sequence where name='card'");
+            stmt.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        ApplicationState.logout();
+    }
+
+    @Test
+    @Order(1)
+    void testRegisterUser() {
+        boolean result = UserController.register(testUser, userDAO);
+        assertTrue(result);
+        User dbUserCheck = userDAO.getUser(testUser.getEmail());
+        assertNotNull(dbUserCheck);
+        assertEquals(testUser.getEmail(), dbUserCheck.getEmail());
+    }
+
+    @Test
+    @Order(2)
+    void testAuthenticateUser() {
+        boolean success = UserController.authenticate (
+                testUser.getEmail(), "MyDogBirthday", userDAO
+        );
+        assertTrue(success);
+        assertTrue(ApplicationState.isUserLoggedIn());
+        assertEquals(testUser.getEmail(), ApplicationState.getCurrentUser().getEmail());
+        ApplicationState.logout();
+        boolean fail = UserController.authenticate (
+                testUser.getEmail(), "WrongPassword", userDAO
+        );
+        assertFalse(fail);
+        assertDoesNotThrow(()->ApplicationState.isUserLoggedIn());
+        assertThrows(UserIsNullException.class,()->ApplicationState.getCurrentUser());
+    }
+
+    @Test
+    @Order(3)
+    void testEmailCheck() {
+        boolean checkExistEmail = UserController.emailCheck(testUser.getEmail(), userDAO);
+        assertTrue(checkExistEmail);
+        boolean checkNonExistEmail = UserController.emailCheck("hacker@test.ru", userDAO);
+        assertFalse(checkNonExistEmail);
+    }
+
+    @Test
+    @Order(4)
+    void testResetPassword() {
+        String newPassword = "newPassword";
+        boolean successReset = UserController.resetPassword (
+            testUser.getEmail(), newPassword, userDAO
+        );
+        assertTrue(successReset);
+        boolean successAuth = UserController.authenticate (
+                testUser.getEmail(), newPassword, userDAO
+        );
+        assertTrue(successAuth);
+    }
+
+    @Test
+    @Order(5)
+    void testCheckSecurityQuestion() {
+        questionDAO.createQuestion(testQuestions);
+        boolean goodAnswer = UserController.checkSecurityQuestion (
+                testUser.getEmail(), "Tomorrow", "1234 5678 9101 1121", "MyDogBirthday",
+                questionDAO, userDAO
+        );
+        assertTrue(goodAnswer);
+        boolean badAnswer = UserController.checkSecurityQuestion (
+                testUser.getEmail(), "adsf", "asfasd", "asdfasdf",
+                questionDAO, userDAO
+        );
+        assertFalse(badAnswer);
+    }
+}

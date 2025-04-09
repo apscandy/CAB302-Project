@@ -5,6 +5,7 @@ import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
+import com.cab302.cab302project.util.PasswordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,15 +18,16 @@ public class UserController {
         }
         User user = userDAO.getUser(email);
         if (user == null) {
-            logger.warn("Authentication failed: user not found for email: {}", email);
+            logger.warn("Authentication failed: user not found");
             return false;
         }
-        if (user.getPassword().equals(password)) {
-            logger.info("Authentication successful for user: {}", email);
+        String pwdHash = PasswordUtils.hashSHA256(password);
+        if (user.getPassword().equals(pwdHash)) {
+            logger.info("Authentication successful");
             ApplicationState.login(user);
             return true;
         } else {
-            logger.warn("Authentication failed: incorrect password for email: {}", email);
+            logger.warn("Authentication failed: incorrect password for email");
         }
         return false;
     }
@@ -37,7 +39,7 @@ public class UserController {
         }
         User user = userDAO.getUser(email);
         if (user != null) {
-            logger.info("Email check successful for user: {}", email);
+            logger.info("Email check successful");
             return true;
         } else {
             logger.warn("Email check failed");
@@ -46,35 +48,40 @@ public class UserController {
     }
 
     public static boolean register (User user, SqliteUserDAO userDAO) {
+        if (user == null) {
+            logger.warn("Registration failed: user is null");
+        }
         if (user.getEmail().trim().isEmpty() || user.getPassword().trim().isEmpty() ||
-                user.getFirstName().trim().isEmpty() || user.getLastName().trim().isEmpty() ||
-                    user == null) {
+                user.getFirstName().trim().isEmpty() || user.getLastName().trim().isEmpty()) {
             logger.warn("Registration failed: missing or invalid user data");
             return false;
         }
         if (userDAO.getUser(user.getEmail()) == null) {
+            String pwdHash = PasswordUtils.hashSHA256(user.getPassword());
+            user.setPassword(pwdHash);
             userDAO.addUser(user);
-            logger.info("Registration successful for user: {}", user.getEmail());
+            logger.info("User registration successful");
             return true;
         } else {
-            logger.warn("Registration failed: user already exists with email: {}", user.getEmail());
+            logger.warn("Registration failed: user already exists");
         }
         return false;
     }
 
-    public boolean resetPassword (String email, String newPassword, SqliteUserDAO userDAO) {
+    public static boolean resetPassword (String email, String newPassword, SqliteUserDAO userDAO) {
         if (email.trim().isEmpty() || newPassword.trim().isEmpty()) {
             logger.warn("Password reset failed: email or new password is empty");
             return false;
         }
         User checkUser = userDAO.getUser(email);
         if (checkUser != null) {
-            checkUser.setPassword(newPassword);
+            String pwdHash = PasswordUtils.hashSHA256(newPassword);
+            checkUser.setPassword(pwdHash);
             userDAO.updateUser(checkUser);
-            logger.info("Password reset successful for user: {}", email);
+            logger.info("Password reset successful");
             return true;
         } else {
-            logger.warn("Password reset failed: user not found for email: {}", email);
+            logger.warn("Password reset failed: user not found");
         }
         return false;
     }
@@ -104,10 +111,5 @@ public class UserController {
     public static void logout() {
         logger.info("Logging out current user.");
         ApplicationState.logout();
-    }
-
-    public static User getUserProfile (String email, SqliteUserDAO userDAO) {
-        logger.info("Fetching user profile for: {}", email);
-        return userDAO.getUser(email);
     }
 }

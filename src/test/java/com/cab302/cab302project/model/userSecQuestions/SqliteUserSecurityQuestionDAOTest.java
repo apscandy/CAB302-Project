@@ -1,5 +1,6 @@
 package com.cab302.cab302project.model.userSecQuestions;
 
+import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.SqliteCreateTables;
 import com.cab302.cab302project.model.user.IUserDAO;
@@ -39,22 +40,21 @@ class SqliteUserSecurityQuestionDAOTest {
     @AfterAll
     static void tearDownAfterClass() throws Exception {
         try{
-            String sql = "DELETE FROM user";
             Statement stmt = con.createStatement();
-            stmt.executeUpdate(sql);
-            sql = "DELETE FROM deck";
-            stmt.executeUpdate(sql);
-            // below resets the sqlite auto inc id
-            // https://stackoverflow.com/questions/1601697/sqlite-reset-primary-key-field
-            sql = "delete from sqlite_sequence where name='user'";
-            stmt.executeUpdate(sql);
-            sql = "delete from sqlite_sequence where name='deck'";
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate("DELETE FROM user");
+            stmt.executeUpdate("DELETE FROM user_security_question");
+            stmt.executeUpdate("DELETE FROM deck");
+            stmt.executeUpdate("DELETE FROM card");
+            stmt.executeUpdate("delete from sqlite_sequence where name='user'");
+            stmt.executeUpdate("delete from sqlite_sequence where name='user_security_question'");
+            stmt.executeUpdate("delete from sqlite_sequence where name='deck'");
+            stmt.executeUpdate("delete from sqlite_sequence where name='card'");
             stmt.close();
         }
         catch(Exception e){
             e.printStackTrace();
         }
+        ApplicationState.logout();
     }
 
 
