@@ -65,10 +65,10 @@ public class Authentication {
             logger.warn("Email check failed: empty email provided");
             throw new EmailEmptyException();
         }
-        if (!RegexValidator.validEmailAddress(email)) {
-            logger.warn("Invalid email format provided");
-            throw new InvalidEmailFormatException("invalid email format");
-        }
+//        if (!RegexValidator.validEmailAddress(email)) {
+//            logger.warn("Invalid email format provided");
+//            throw new InvalidEmailFormatException("invalid email format");
+//        }
         try {
             user = userDAO.getUser(email);
             Objects.requireNonNull(user);
@@ -101,10 +101,10 @@ public class Authentication {
             logger.info("Email empty");
             throw new EmailEmptyException("Email empty");
         }
-        if (!RegexValidator.validPassword(user.getPassword())) {
-            logger.warn("Password provided did not meet the requirement");
-            throw new InvalidPasswordFormatException("password did not meet the requirement");
-        }
+//        if (!RegexValidator.validPassword(user.getPassword())) {
+//            logger.warn("Password provided did not meet the requirement");
+//            throw new InvalidPasswordFormatException("password did not meet the requirement");
+//        }
         String hashedPassword = PasswordUtils.hashSHA256(user.getPassword());
         user.setPassword(hashedPassword);
         userDAO.addUser(user);
@@ -121,6 +121,10 @@ public class Authentication {
             logger.warn("Reset password failed: password is empty");
             throw new PasswordEmptyException("password is empty");
         }
+//        if (!RegexValidator.validPassword(newPassword)) {
+//            logger.warn("Password provided did not meet the requirement");
+//            throw new InvalidPasswordFormatException("password did not meet the requirement");
+//        }
         boolean result = false;
         try {
             result = emailCheck(email);
