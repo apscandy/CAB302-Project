@@ -14,7 +14,12 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <TextField fx:id="FirstNameTextField" layoutX="199.0" layoutY="96.0" prefHeight="25.0" prefWidth="243.0" promptText="First Name" />
+       <Label alignment="CENTER" layoutX="199.0" layoutY="69.0" prefHeight="19.0" prefWidth="243.0" text="User Registration">
+           <font>
+               <Font name="System Italic" size="15.0" />
+           </font>
+       </Label>
+       <TextField fx:id="FirstNameTextField" layoutX="199.0" layoutY="96.0" prefHeight="25.0" prefWidth="243.0" promptText="First Name" />
       <TextField fx:id="LastNameTextField" layoutX="199.0" layoutY="130.0" prefHeight="25.0" prefWidth="243.0" promptText="Last Name" />
       <TextField fx:id="EmailAddressTextField" layoutX="199.0" layoutY="163.0" prefHeight="25.0" prefWidth="243.0" promptText="Email Address" />
       <PasswordField fx:id="SetPasswordField" layoutX="199.0" layoutY="196.0" prefHeight="25.0" prefWidth="243.0" promptText="Password" />
@@ -23,11 +28,7 @@
          <font>
             <Font size="10.0" />
          </font></Label>
-      <Label alignment="CENTER" layoutX="199.0" layoutY="69.0" prefHeight="19.0" prefWidth="243.0" text="User Registration">
-         <font>
-            <Font name="System Italic" size="15.0" />
-         </font>
-      </Label>
+
 
 
    </children>

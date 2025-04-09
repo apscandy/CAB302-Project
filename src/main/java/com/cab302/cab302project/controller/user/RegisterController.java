@@ -56,7 +56,7 @@ public class RegisterController {
     public void NextButtonAction() throws IOException {
         System.out.println("Next button clicked");
         if (registerUser()) {
-            System.out.println("User registration is valid, loading next scene...");
+            System.out.println("User registration is valid, loading next scene");
             Stage stage = (Stage) NextButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-questions-security-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
