@@ -53,14 +53,19 @@ public class RegisterController {
         stage.setScene(scene);
     }
 
-    public void NextButtonAction () throws IOException {
+    public void NextButtonAction() throws IOException {
+        System.out.println("Next button clicked");
         if (registerUser()) {
+            System.out.println("User registration is valid, loading next scene...");
             Stage stage = (Stage) NextButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-questions-security-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
             stage.setScene(scene);
+        } else {
+            System.out.println("Registration failed, not changing scene");
         }
     }
+
 
     public boolean registerUser () {
         String firstName = FirstNameTextField.getText();
@@ -69,12 +74,12 @@ public class RegisterController {
         String password = SetPasswordField.getText();
         String confirmPassword = ConfirmPasswordField.getText();
 
-        // Reset error labels
-        FirstNameLabel.setText("");
-        LastNameLabel.setText("");
-        EmailTypeLabel.setText("");
-        SetPasswordLabel.setText("");
-        ConfirmPasswordLabel.setText("");
+        // Reset text fields' prompt text
+        FirstNameTextField.setPromptText("First Name");
+        LastNameTextField.setPromptText("Last Name");
+        EmailAddressTextField.setPromptText("Email Address");
+        SetPasswordField.setPromptText("Password");
+        ConfirmPasswordField.setPromptText("Confirm Password");
 
         String passwordRegex = "^(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$";
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
@@ -82,43 +87,38 @@ public class RegisterController {
         boolean isValid = true;
 
         if (firstName == null || firstName.isBlank()) {
-            FirstNameLabel.setText("First name cannot be empty.");
-            FirstNameLabel.setTextFill(javafx.scene.paint.Color.RED);
-            FirstNameLabel.setVisible(true);
+            FirstNameTextField.setPromptText("First name cannot be empty.");
+            FirstNameTextField.setStyle("-fx-prompt-text-fill: red;");
             isValid = false;
         }
 
-        // Last name validation
         if (lastName == null || lastName.isBlank()) {
-            LastNameLabel.setText("Last name cannot be empty.");
-            LastNameLabel.setTextFill(javafx.scene.paint.Color.RED);
-            LastNameLabel.setVisible(true);
+            LastNameTextField.setPromptText("Last name cannot be empty.");
+            LastNameTextField.setStyle("-fx-prompt-text-fill: red;");
             isValid = false;
         }
 
-        if(!email.matches(emailRegex)) {
-            EmailTypeLabel.setText("Invalid email format");
-            EmailTypeLabel.setTextFill(javafx.scene.paint.Color.RED);
-            EmailTypeLabel.setVisible(true);
+        if (!email.matches(emailRegex)) {
+            EmailAddressTextField.setPromptText("Invalid email format");
+            EmailAddressTextField.setStyle("-fx-prompt-text-fill: red;");
             isValid = false;
         }
+
         if (!password.matches(passwordRegex)) {
-            SetPasswordLabel.setText("Password must be at least 8 characters, include 1 number and 1 special character.");
-            SetPasswordLabel.setTextFill(javafx.scene.paint.Color.RED);
-            SetPasswordLabel.setVisible(true);
+            SetPasswordField.setPromptText("Password must be at least 8 characters, include 1 number and 1 special character.");
+            SetPasswordField.setStyle("-fx-prompt-text-fill: red;");
+            isValid = false;
+        } else if (!password.equals(confirmPassword)) {
+            ConfirmPasswordField.setPromptText("Password does not match!");
+            ConfirmPasswordField.setStyle("-fx-prompt-text-fill: red;");
             isValid = false;
         }
-        else if (!password.equals(confirmPassword)) {
-            ConfirmPasswordLabel.setText("Password does not match!");
-            ConfirmPasswordLabel.setTextFill(javafx.scene.paint.Color.RED);
-            ConfirmPasswordLabel.setVisible(true);
-            isValid = false;
-        }
+
         if (isValid) {
-            ConfirmPasswordLabel.setText("Registration info is valid!");
-            ConfirmPasswordLabel.setTextFill(javafx.scene.paint.Color.GREEN);
-            ConfirmPasswordLabel.setVisible(true);
+            ConfirmPasswordField.setPromptText("Registration info is valid!");
+            ConfirmPasswordField.setStyle("-fx-prompt-text-fill: green;");
         }
         return isValid;
     }
+
 }
