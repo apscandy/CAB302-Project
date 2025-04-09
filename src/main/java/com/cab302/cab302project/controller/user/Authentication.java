@@ -15,14 +15,14 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Objects;
 
-public class UserController {
+public class Authentication {
 
-    private static final Logger logger = LogManager.getLogger(UserController.class);
+    private static final Logger logger = LogManager.getLogger(Authentication.class);
 
     private IUserDAO userDAO;
     private IUserSecurityQuestionDAO userSecurityQuestionDAO;
 
-    public UserController() {
+    public Authentication() {
         this.userDAO = new SqliteUserDAO();
         this.userSecurityQuestionDAO = new SqliteUserSecurityQuestionDAO();
     }
