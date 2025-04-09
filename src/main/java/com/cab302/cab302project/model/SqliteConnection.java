@@ -65,15 +65,10 @@ public class SqliteConnection {
         logger.debug("Setting database pragma");
         try {
             Statement stmt = instance.createStatement();
-            String sql;
-            sql = "PRAGMA strict = ON;";
-            stmt.executeUpdate(sql);
-            sql = "PRAGMA foreign_keys = ON;";
-            stmt.executeUpdate(sql);
-            sql = "PRAGMA synchronous = FULL;";
-            stmt.executeUpdate(sql);
-            sql = "PRAGMA locking_mode = EXCLUSIVE;";
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate("PRAGMA strict = ON;");
+            stmt.executeUpdate( "PRAGMA foreign_keys = ON;");
+            stmt.executeUpdate("PRAGMA synchronous = FULL;");
+            stmt.executeUpdate("PRAGMA locking_mode = EXCLUSIVE;");
             stmt.close();
             logger.debug("database pragma set successfully.");
         }catch (SQLException e){

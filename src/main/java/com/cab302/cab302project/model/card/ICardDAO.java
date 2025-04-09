@@ -10,5 +10,5 @@ public interface ICardDAO {
     List<Card> getCardsForDeck(Deck deck);
 
     // Optional: used when deleting a deck
-    void softDeleteCardsByDeck(int deckId);
+    void softDeleteCardsByDeck(Deck deck);
 }

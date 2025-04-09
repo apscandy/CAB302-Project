@@ -95,6 +95,8 @@ public class SqliteCreateTables {
                     + "deck_id INTEGER NOT NULL,"
                     + "question TEXT NOT NULL,"
                     + "answer TEXT NOT NULL,"
+                    + "tags TEXT,"
+                    + "is_deleted BOOLEAN DEFAULT 0,"
                     + "FOREIGN KEY (deck_id) REFERENCES deck(id) ON DELETE CASCADE"
                     + ")";
             stmt.executeUpdate(sql);
