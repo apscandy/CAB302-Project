@@ -9,8 +9,8 @@ import com.cab302.cab302project.util.PasswordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class AuthController {
-    private static final Logger logger = LogManager.getLogger(AuthController.class);
+public class UserController {
+    private static final Logger logger = LogManager.getLogger(UserController.class);
     public static boolean authenticate (String email, String password, SqliteUserDAO userDAO) {
         if (email.trim().isEmpty() || password.trim().isEmpty()) {
             logger.warn("Authentication failed: email or password is empty");
