@@ -41,7 +41,7 @@ public class Card {
         return isDeleted;
     }
 
-    public void setId(int id) {
+    protected void setId(int id) {
         this.id = id;
     }
 
@@ -61,7 +61,7 @@ public class Card {
         this.tags = tags;
     }
 
-    public void setDeleted(boolean deleted) {
+    protected void setDeleted(boolean deleted) {
         isDeleted = deleted;
     }
 

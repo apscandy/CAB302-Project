@@ -13,11 +13,16 @@ public class SqliteCreateTables {
 
     public SqliteCreateTables() {
         con = SqliteConnection.getInstance();
-        createUserTable();
-        createUserEmailIndex();
-        createUserSecurityQuestionTable();
-        createDeckTable();
-        createCardTable();
+        try {
+            createUserTable();
+            createUserEmailIndex();
+            createUserSecurityQuestionTable();
+            createDeckTable();
+            createCardTable();
+        }catch (RuntimeException e) {
+            logger.error(e.getMessage());
+            logger.error("SqliteCreateTables error");
+        }
     }
 
     /**
@@ -39,12 +44,8 @@ public class SqliteCreateTables {
                     + ")";
             stmt.executeUpdate(sql);
             stmt.close();
-        } catch (SQLException sqlE){
-            logger.fatal("Error creating user table: {}", sqlE.getMessage());
-            throw new RuntimeException(sqlE.getMessage());
-        }
-        catch (Exception e){
-            logger.fatal("Something went wrong: {}", e.getMessage());
+        } catch (Exception e){
+            logger.error(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -57,16 +58,14 @@ public class SqliteCreateTables {
                     + "user_id INTEGER NOT NULL,"
                     + "name TEXT NOT NULL,"
                     + "description TEXT NOT NULL,"
+                    + "is_deleted BOOLEAN NOT NULL DEFAULT false,"
+                    + "is_bookmarked BOOLEAN NOT NULL DEFAULT false,"
                     + "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE"
                     + ")";
             stmt.executeUpdate(sql);
             stmt.close();
-        } catch (SQLException sqlE){
-            logger.fatal("Error creating deck table: {}", sqlE.getMessage());
-            throw new RuntimeException(sqlE.getMessage());
-        }
-        catch (Exception e){
-            logger.fatal("Something went wrong: {}", e.getMessage());
+        } catch (Exception e){
+            logger.error( e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -77,12 +76,8 @@ public class SqliteCreateTables {
             String sql = "CREATE UNIQUE INDEX IF NOT EXISTS idx_user_email ON user (email)";
             stmt.executeUpdate(sql);
             stmt.close();
-        }catch (SQLException sqlE){
-            logger.fatal("Error creating user email index: {}", sqlE.getMessage());
-            throw new RuntimeException(sqlE.getMessage());
-        }
-        catch (Exception e){
-            logger.fatal("Something went wrong: {}", e.getMessage());
+        } catch (Exception e){
+            logger.error(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -96,17 +91,13 @@ public class SqliteCreateTables {
                     + "question TEXT NOT NULL,"
                     + "answer TEXT NOT NULL,"
                     + "tags TEXT,"
-                    + "is_deleted BOOLEAN DEFAULT 0,"
+                    + "is_deleted BOOLEAN NOT NULL DEFAULT false,"
                     + "FOREIGN KEY (deck_id) REFERENCES deck(id) ON DELETE CASCADE"
                     + ")";
             stmt.executeUpdate(sql);
             stmt.close();
-        }catch (SQLException sqlE){
-            logger.fatal("Error creating card table: {}",sqlE.getMessage());
-            throw new RuntimeException(sqlE.getMessage());
-        }
-        catch (Exception e){
-            logger.fatal("Something went wrong: {}", e.getMessage());
+        } catch (Exception e){
+            logger.error( e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -126,12 +117,8 @@ public class SqliteCreateTables {
                     + ")";
             stmt.executeUpdate(sql);
             stmt.close();
-        }catch (SQLException sqlE){
-            logger.fatal("Error creating user security question: {}", sqlE.getMessage());
-            throw new RuntimeException(sqlE.getMessage());
-        }
-        catch (Exception e){
-            logger.fatal("Something went wrong: {}", e.getMessage());
+        } catch (Exception e){
+            logger.error(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }

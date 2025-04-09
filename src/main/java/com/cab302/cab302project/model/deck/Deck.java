@@ -3,6 +3,7 @@ package com.cab302.cab302project.model.deck;
 import com.cab302.cab302project.model.card.Card;
 import com.cab302.cab302project.model.user.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -10,6 +11,7 @@ public class Deck {
     private int id;
     private String name;
     private String description;
+    private Boolean isBookmarked = false;
     private final User user;
     private List<Card> cards;
 
@@ -31,7 +33,7 @@ public class Deck {
         return id;
     }
 
-    public void setId(int id) {
+    protected void setId(int id) {
         this.id = id;
     }
 
@@ -55,13 +57,20 @@ public class Deck {
         this.description = description;
     }
 
-
     public List<Card> getCards() {
         return cards;
     }
 
     public void setCards(List<Card> cards) {
         this.cards = cards;
+    }
+
+    public Boolean getIsBookmarked() {
+        return isBookmarked;
+    }
+
+    protected void setIsBookmarked(Boolean isBookmarked) {
+        this.isBookmarked = isBookmarked;
     }
 
     @Override

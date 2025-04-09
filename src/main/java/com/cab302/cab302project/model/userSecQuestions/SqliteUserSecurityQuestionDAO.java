@@ -35,16 +35,14 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
                 stmt.executeUpdate();
                 conn.commit();
                 stmt.close();
-                logger.info("Delete user security questions transaction completed successfully.");
             }catch (SQLException  e) {
                 conn.rollback();
-                logger.error("Created user security question transaction failed: {}", e.getMessage());
-                logger.fatal(e.getMessage());
+                logger.error(e.getMessage());
             }finally {
                 conn.setAutoCommit(true);
             }
         }catch (Exception e) {
-            logger.fatal(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
@@ -75,14 +73,12 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
                 statement.close();
             }catch (SQLException e) {
                 conn.rollback();
-                logger.error("Get user security question transaction failed: {}", e.getMessage());
-                logger.fatal(e.getMessage());
-
+                logger.error(e.getMessage());
             }finally {
                 conn.setAutoCommit(true);
             }
         }catch (Exception e) {
-            logger.fatal(e.getMessage());
+            logger.error(e.getMessage());
         }
         return userQuestions;
     }
@@ -103,13 +99,12 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
                 conn.commit();
             } catch (SQLException e) {
                 conn.rollback();
-                logger.error("update user security question transaction failed: {}", e.getMessage());
-                logger.fatal(e.getMessage());
+                logger.error(e.getMessage());
             }finally {
                 conn.setAutoCommit(true);
             }
         }catch (Exception e) {
-            logger.fatal(e.getMessage());
+            logger.error(e.getMessage());
         }
 
     }
