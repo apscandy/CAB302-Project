@@ -1,7 +1,7 @@
 package com.cab302.cab302project.controller;
 
 import com.cab302.cab302project.ApplicationState;
-import com.cab302.cab302project.controller.user.UserController;
+import com.cab302.cab302project.controller.user.AuthController;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.SqliteCreateTables;
 import com.cab302.cab302project.model.user.SqliteUserDAO;
@@ -15,7 +15,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class UserControllerTest {
+public class AuthControllerTest {
 
     private static Connection con;
     private static SqliteUserDAO userDAO;
@@ -64,7 +64,7 @@ public class UserControllerTest {
     @Test
     @Order(1)
     void testRegisterUser() {
-        boolean result = UserController.register(testUser, userDAO);
+        boolean result = AuthController.register(testUser, userDAO);
         assertTrue(result);
         User dbUserCheck = userDAO.getUser(testUser.getEmail());
         assertNotNull(dbUserCheck);
@@ -74,14 +74,14 @@ public class UserControllerTest {
     @Test
     @Order(2)
     void testAuthenticateUser() {
-        boolean success = UserController.authenticate (
+        boolean success = AuthController.authenticate (
                 testUser.getEmail(), "MyDogBirthday", userDAO
         );
         assertTrue(success);
         assertTrue(ApplicationState.isUserLoggedIn());
         assertEquals(testUser.getEmail(), ApplicationState.getCurrentUser().getEmail());
         ApplicationState.logout();
-        boolean fail = UserController.authenticate (
+        boolean fail = AuthController.authenticate (
                 testUser.getEmail(), "WrongPassword", userDAO
         );
         assertFalse(fail);
@@ -92,9 +92,9 @@ public class UserControllerTest {
     @Test
     @Order(3)
     void testEmailCheck() {
-        boolean checkExistEmail = UserController.emailCheck(testUser.getEmail(), userDAO);
+        boolean checkExistEmail = AuthController.emailCheck(testUser.getEmail(), userDAO);
         assertTrue(checkExistEmail);
-        boolean checkNonExistEmail = UserController.emailCheck("hacker@test.ru", userDAO);
+        boolean checkNonExistEmail = AuthController.emailCheck("hacker@test.ru", userDAO);
         assertFalse(checkNonExistEmail);
     }
 
@@ -102,11 +102,11 @@ public class UserControllerTest {
     @Order(4)
     void testResetPassword() {
         String newPassword = "newPassword";
-        boolean successReset = UserController.resetPassword (
+        boolean successReset = AuthController.resetPassword (
             testUser.getEmail(), newPassword, userDAO
         );
         assertTrue(successReset);
-        boolean successAuth = UserController.authenticate (
+        boolean successAuth = AuthController.authenticate (
                 testUser.getEmail(), newPassword, userDAO
         );
         assertTrue(successAuth);
@@ -116,12 +116,12 @@ public class UserControllerTest {
     @Order(5)
     void testCheckSecurityQuestion() {
         questionDAO.createQuestion(testQuestions);
-        boolean goodAnswer = UserController.checkSecurityQuestion (
+        boolean goodAnswer = AuthController.checkSecurityQuestion (
                 testUser.getEmail(), "Tomorrow", "1234 5678 9101 1121", "MyDogBirthday",
                 questionDAO, userDAO
         );
         assertTrue(goodAnswer);
-        boolean badAnswer = UserController.checkSecurityQuestion (
+        boolean badAnswer = AuthController.checkSecurityQuestion (
                 testUser.getEmail(), "adsf", "asfasd", "asdfasdf",
                 questionDAO, userDAO
         );
