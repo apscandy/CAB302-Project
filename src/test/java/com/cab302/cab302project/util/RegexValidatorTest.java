@@ -33,8 +33,8 @@ class RegexValidatorTest {
         assertFalse(RegexValidator.validEmailAddress(".user@domain.com"));
         assertFalse(RegexValidator.validEmailAddress("user.@domain.com"));
         assertFalse(RegexValidator.validEmailAddress("us!er@domain.com"));
-
-
+//        assertTrue(RegexValidator.validEmailAddress("johnwick@gmail.com"));
+//        assertTrue(RegexValidator.validEmailAddress("maverickdoan@qut.edu.au"));
     }
 
     @Test

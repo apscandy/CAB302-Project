@@ -52,7 +52,7 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
         try {
             conn.setAutoCommit(false);
             try(PreparedStatement statement = conn.prepareStatement(getUserSecurityQuestionSQL)){
-                statement.setInt(1, user.getId());
+                statement.setInt(1, userQuestions.getUserId());
                 conn.commit();
                 ResultSet rs = statement.executeQuery();
                 if(rs.next()) {
@@ -68,6 +68,7 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
                     userQuestions.setAnswerOne(answerOne);
                     userQuestions.setAnswerTwo(answerTwo);
                     userQuestions.setAnswerThree(answerThree);
+
                 }
                 rs.close();
                 statement.close();
