@@ -130,24 +130,6 @@ public class Authentication {
         return true;
     }
 
-//    public static boolean resetPassword (String email, String newPassword, SqliteUserDAO userDAO) {
-//        if (email.trim().isEmpty() || newPassword.trim().isEmpty()) {
-//            logger.warn("Password reset failed: email or new password is empty");
-//            return false;
-//        }
-//        User checkUser = userDAO.getUser(email);
-//        if (checkUser != null) {
-//            String pwdHash = PasswordUtils.hashSHA256(newPassword);
-//            checkUser.setPassword(pwdHash);
-//            userDAO.updateUser(checkUser);
-//            logger.info("Password reset successful");
-//            return true;
-//        } else {
-//            logger.warn("Password reset failed: user not found");
-//        }
-//        return false;
-//    }
-
     public boolean checkSecurityQuestion(User user,String answerOne, String answerTwo, String answerThree) throws RuntimeException {
         if (answerOne == null || answerOne.trim().isEmpty()) {
             logger.warn("Security question check failed: answerOne is empty");
@@ -184,33 +166,4 @@ public class Authentication {
         }
         return true;
     }
-
-
-//    public static boolean checkSecurityQuestion (String email, String answerOne, String answerTwo, String answerThree,
-//                                 SqliteUserSecurityQuestionDAO questionDAO, SqliteUserDAO userDAO) {
-//        if (answerOne.trim().isEmpty() || answerTwo.trim().isEmpty() || answerThree.trim().isEmpty()
-//        || email.trim().isEmpty()) {
-//            logger.warn("Security question validation failed: missing input");
-//            return false;
-//        }
-//        User user = userDAO.getUser(email);
-//        if (user == null) {
-//            logger.warn("Security question validation failed: user not found");
-//            return false;
-//        }
-//        UserSecurityQuestion questions = questionDAO.getQuestions(user);
-//        if (questions == null) {
-//            logger.warn("Security question validation failed: security questions for user not found");
-//            return false;
-//        }
-//        return  questions.getAnswerOne().equalsIgnoreCase(answerOne.trim()) &&
-//                questions.getAnswerTwo().equalsIgnoreCase(answerTwo.trim()) &&
-//                questions.getAnswerThree().equalsIgnoreCase(answerThree.trim());
-//    }
-//
-//    This is just redundant
-//    public static void logout() {
-//        logger.info("Logging out current user.");
-//        ApplicationState.logout();
-//    }
 }
