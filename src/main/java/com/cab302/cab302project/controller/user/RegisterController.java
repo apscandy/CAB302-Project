@@ -1,4 +1,5 @@
 package com.cab302.cab302project.controller.user;
+import com.cab302.cab302project.util.RegexValidator;
 
 import com.cab302.cab302project.HelloApplication;
 import javafx.fxml.FXML;
@@ -76,9 +77,6 @@ public class RegisterController {
         SetPasswordLabel.setText("");
         ConfirmPasswordLabel.setText("");
 
-        String passwordRegex = "^(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$";
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-
         boolean isValid = true;
 
         if (firstName == null || firstName.isBlank()) {
@@ -96,13 +94,13 @@ public class RegisterController {
             isValid = false;
         }
 
-        if(!email.matches(emailRegex)) {
+        if(!RegexValidator.validEmailAddress(email)) {
             EmailTypeLabel.setText("Invalid email format");
             EmailTypeLabel.setTextFill(javafx.scene.paint.Color.RED);
             EmailTypeLabel.setVisible(true);
             isValid = false;
         }
-        if (!password.matches(passwordRegex)) {
+        if (!RegexValidator.validPassword(password)) {
             SetPasswordLabel.setText("Password must be at least 8 characters, include 1 number and 1 special character.");
             SetPasswordLabel.setTextFill(javafx.scene.paint.Color.RED);
             SetPasswordLabel.setVisible(true);
