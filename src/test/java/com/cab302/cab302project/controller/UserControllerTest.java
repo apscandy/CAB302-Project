@@ -2,6 +2,7 @@ package com.cab302.cab302project.controller;
 
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.controller.user.UserController;
+import com.cab302.cab302project.error.state.UserIsNullException;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.SqliteCreateTables;
 import com.cab302.cab302project.model.user.SqliteUserDAO;
@@ -59,6 +60,7 @@ public class UserControllerTest {
         catch (Exception e) {
             e.printStackTrace();
         }
+        ApplicationState.logout();
     }
 
     @Test
@@ -85,8 +87,8 @@ public class UserControllerTest {
                 testUser.getEmail(), "WrongPassword", userDAO
         );
         assertFalse(fail);
-        assertFalse(ApplicationState.isUserLoggedIn());
-        assertNull(ApplicationState.getCurrentUser());
+        assertDoesNotThrow(()->ApplicationState.isUserLoggedIn());
+        assertThrows(UserIsNullException.class,()->ApplicationState.getCurrentUser());
     }
 
     @Test

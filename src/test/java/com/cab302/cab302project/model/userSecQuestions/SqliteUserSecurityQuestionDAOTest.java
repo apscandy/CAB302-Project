@@ -1,5 +1,6 @@
 package com.cab302.cab302project.model.userSecQuestions;
 
+import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.SqliteCreateTables;
 import com.cab302.cab302project.model.user.IUserDAO;
@@ -53,6 +54,7 @@ class SqliteUserSecurityQuestionDAOTest {
         catch(Exception e){
             e.printStackTrace();
         }
+        ApplicationState.logout();
     }
 
 
