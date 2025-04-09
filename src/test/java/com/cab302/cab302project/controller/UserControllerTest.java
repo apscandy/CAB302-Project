@@ -2,12 +2,15 @@ package com.cab302.cab302project.controller;
 
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.controller.user.UserController;
+import com.cab302.cab302project.error.UserAlreadyLoggedInException;
+import com.cab302.cab302project.error.authenicaton.*;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.SqliteCreateTables;
 import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
+import com.cab302.cab302project.util.PasswordUtils;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,6 +25,7 @@ public class UserControllerTest {
     private static SqliteUserSecurityQuestionDAO questionDAO;
     private static User testUser;
     private static UserSecurityQuestion testQuestions;
+    private static UserController userController;
 
     @BeforeAll
     static void setUpBeforeClass(){
@@ -29,10 +33,8 @@ public class UserControllerTest {
         new SqliteCreateTables();
         con = SqliteConnection.getInstance();
         userDAO = new SqliteUserDAO();
-        testUser = new User (
-                "Testing", "Still Testing", "myCodeIsTestingMe@malicious.ru", "MyDogBirthday"
-        );
         questionDAO = new SqliteUserSecurityQuestionDAO();
+        testUser = new User ("Testing", "Still Testing", "myCodeIsTestingMe@malicious.ru", "MyDogBirthday");
         testQuestions = new UserSecurityQuestion(testUser);
         testQuestions.setQuestionOne("What is credit card expiry date?");
         testQuestions.setQuestionTwo("What is your credit card number?");
@@ -40,6 +42,7 @@ public class UserControllerTest {
         testQuestions.setAnswerOne("Tomorrow");
         testQuestions.setAnswerTwo("1234 5678 9101 1121");
         testQuestions.setAnswerThree("MyDogBirthday");
+        userController = new UserController();
     }
 
     @AfterAll
@@ -61,70 +64,67 @@ public class UserControllerTest {
         }
     }
 
+
     @Test
     @Order(1)
     void testRegisterUser() {
-        boolean result = UserController.register(testUser, userDAO);
+
+        testUser.setPassword("");
+        assertThrows(PasswordEmptyException.class, ()-> userController.register(testUser));
+
+        testUser.setEmail("");
+        assertThrows(EmailEmptyException.class, ()-> userController.register(testUser));
+
+
+        testUser.setPassword("MyDogBirthday");
+        testUser.setEmail("myCodeIsTestingMe@malicious.ru");
+
+        boolean result = userController.register(testUser);
         assertTrue(result);
-        User dbUserCheck = userDAO.getUser(testUser.getEmail());
-        assertNotNull(dbUserCheck);
-        assertEquals(testUser.getEmail(), dbUserCheck.getEmail());
+
+        assertThrows(EmailAlreadyInUseException.class, ()-> userController.register(testUser));
     }
 
     @Test
     @Order(2)
     void testAuthenticateUser() {
-        boolean success = UserController.authenticate (
-                testUser.getEmail(), "MyDogBirthday", userDAO
-        );
-        assertTrue(success);
-        assertTrue(ApplicationState.isUserLoggedIn());
-        assertEquals(testUser.getEmail(), ApplicationState.getCurrentUser().getEmail());
-        ApplicationState.logout();
-        boolean fail = UserController.authenticate (
-                testUser.getEmail(), "WrongPassword", userDAO
-        );
-        assertFalse(fail);
         assertFalse(ApplicationState.isUserLoggedIn());
-        assertNull(ApplicationState.getCurrentUser());
+        assertThrows(PasswordEmptyException.class, () -> userController.authenticate(testUser.getEmail(), ""));
+        assertThrows(EmailEmptyException.class, () -> userController.authenticate("", testUser.getPassword()));
+        assertThrows(UserNotFoundException.class, () -> userController.authenticate("jimbob@emails.com", testUser.getPassword()));
+        assertThrows(PasswordComparisonException.class, ()-> userController.authenticate(testUser.getEmail(), "hjkawbdkjha"));
+        assertDoesNotThrow(()->userController.authenticate(testUser.getEmail(), "MyDogBirthday"));
+        assertTrue(ApplicationState.isUserLoggedIn());
+        assertThrows(UserAlreadyLoggedInException.class, ()-> userController.authenticate(testUser.getEmail(), testUser.getPassword()));
     }
 
     @Test
     @Order(3)
     void testEmailCheck() {
-        boolean checkExistEmail = UserController.emailCheck(testUser.getEmail(), userDAO);
-        assertTrue(checkExistEmail);
-        boolean checkNonExistEmail = UserController.emailCheck("hacker@test.ru", userDAO);
-        assertFalse(checkNonExistEmail);
+        assertThrows(EmailEmptyException.class, ()-> userController.emailCheck(" "));
+        assertThrows(EmailAlreadyInUseException.class, ()-> userController.emailCheck(testUser.getEmail()));
+        assertDoesNotThrow(() -> userController.emailCheck("new-email@emails.com"));
     }
 
     @Test
     @Order(4)
     void testResetPassword() {
-        String newPassword = "newPassword";
-        boolean successReset = UserController.resetPassword (
-            testUser.getEmail(), newPassword, userDAO
-        );
-        assertTrue(successReset);
-        boolean successAuth = UserController.authenticate (
-                testUser.getEmail(), newPassword, userDAO
-        );
-        assertTrue(successAuth);
+        assertThrows(EmailEmptyException.class, ()-> userController.resetPassword(" ", testUser.getPassword()));
+        assertThrows(PasswordEmptyException.class, ()-> userController.resetPassword(testUser.getEmail(), " "));
+        assertThrows(UserNotFoundException.class, ()-> userController.resetPassword("HelloAndyOneThere", testUser.getPassword()));
+        assertDoesNotThrow(()->userController.resetPassword(testUser.getEmail(), "New password 123"));
+        User user = userDAO.getUser(testUser.getEmail());
+        assertEquals(PasswordUtils.hashSHA256("New password 123"), user.getPassword());
     }
 
     @Test
     @Order(5)
     void testCheckSecurityQuestion() {
-        questionDAO.createQuestion(testQuestions);
-        boolean goodAnswer = UserController.checkSecurityQuestion (
-                testUser.getEmail(), "Tomorrow", "1234 5678 9101 1121", "MyDogBirthday",
-                questionDAO, userDAO
-        );
-        assertTrue(goodAnswer);
-        boolean badAnswer = UserController.checkSecurityQuestion (
-                testUser.getEmail(), "adsf", "asfasd", "asdfasdf",
-                questionDAO, userDAO
-        );
-        assertFalse(badAnswer);
+       assertThrows(EmptyAnswerException.class, ()-> userController.checkSecurityQuestion(testUser, " ", testQuestions.getAnswerTwo(),testQuestions.getAnswerThree()));
+       assertThrows(EmptyAnswerException.class, ()-> userController.checkSecurityQuestion(testUser, testQuestions.getAnswerOne(), " ",testQuestions.getAnswerThree()));
+       assertThrows(EmptyAnswerException.class, ()-> userController.checkSecurityQuestion(testUser, testQuestions.getAnswerOne(), testQuestions.getAnswerTwo()," "));
+       questionDAO.createQuestion(testQuestions);
+       assertDoesNotThrow(()-> userController.checkSecurityQuestion(ApplicationState.getCurrentUser(), testQuestions.getAnswerOne(), testQuestions.getAnswerTwo(),testQuestions.getAnswerThree()));
+       assertThrows(FailedQuestionException.class, ()-> userController.checkSecurityQuestion(testUser, testQuestions.getAnswerOne(), " awdawd",testQuestions.getAnswerThree()));
     }
 }

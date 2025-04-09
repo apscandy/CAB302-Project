@@ -8,7 +8,7 @@ public class Card {
     private String question;
     private String answer;
     private String tags;
-    private boolean isDeleted;
+    private boolean isDeleted = false;
 
     public Card() {
         // No-arg constructor for testing
@@ -19,7 +19,6 @@ public class Card {
         this.question = question;
         this.answer = answer;
         this.tags = tags;
-        this.isDeleted = false;
     }
 
     public int getId() {

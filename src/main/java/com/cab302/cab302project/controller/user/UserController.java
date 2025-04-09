@@ -1,115 +1,216 @@
 package com.cab302.cab302project.controller.user;
 
 import com.cab302.cab302project.ApplicationState;
+import com.cab302.cab302project.error.UserAlreadyLoggedInException;
+import com.cab302.cab302project.error.authenicaton.*;
+import com.cab302.cab302project.model.user.IUserDAO;
 import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
+import com.cab302.cab302project.model.userSecQuestions.IUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
 import com.cab302.cab302project.util.PasswordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Objects;
+
 public class UserController {
+
     private static final Logger logger = LogManager.getLogger(UserController.class);
-    public static boolean authenticate (String email, String password, SqliteUserDAO userDAO) {
-        if (email.trim().isEmpty() || password.trim().isEmpty()) {
-            logger.warn("Authentication failed: email or password is empty");
-            return false;
+
+    private IUserDAO userDAO;
+    private IUserSecurityQuestionDAO userSecurityQuestionDAO;
+
+    public UserController() {
+        this.userDAO = new SqliteUserDAO();
+        this.userSecurityQuestionDAO = new SqliteUserSecurityQuestionDAO();
+    }
+
+    public boolean authenticate(String email, String password) throws RuntimeException {
+        if(ApplicationState.isUserLoggedIn()){
+            logger.info("User is already logged in");
+            throw new UserAlreadyLoggedInException();
         }
+        if (password == null || password.trim().isEmpty()) {
+            logger.warn("Authentication failed: email or password is empty");
+            throw new PasswordEmptyException("password is empty");
+        }
+        if (email == null || email.trim().isEmpty()) {
+            logger.warn("Authentication failed: email is empty");
+            throw new EmailEmptyException("email is empty");
+        }
+        try {
+            emailCheck(email);
+        }catch (EmailAlreadyInUseException ignored){}
         User user = userDAO.getUser(email);
         if (user == null) {
             logger.warn("Authentication failed: user not found");
-            return false;
+            throw new UserNotFoundException("user not found");
         }
-        String pwdHash = PasswordUtils.hashSHA256(password);
-        if (user.getPassword().equals(pwdHash)) {
-            logger.info("Authentication successful");
-            ApplicationState.login(user);
-            return true;
-        } else {
+        String userPassword = user.getPassword();
+        String hashedPassword = PasswordUtils.hashSHA256(password);
+        if (!userPassword.equals(hashedPassword)) {
             logger.warn("Authentication failed: incorrect password for email");
+            throw new PasswordComparisonException("incorrect password provided");
         }
-        return false;
+        ApplicationState.login(user);
+        return true;
     }
 
-    public static boolean emailCheck (String email, SqliteUserDAO userDAO) {
+    public boolean emailCheck (String email) throws RuntimeException {
+        User user;
         if (email.trim().isEmpty()) {
             logger.warn("Email check failed: empty email provided");
-            return false;
+            throw new EmailEmptyException();
         }
+        try {
+            user = userDAO.getUser(email);
+            Objects.requireNonNull(user);
+        }catch (NullPointerException nullPointerException){
+            return true;
+        }
+        if (Objects.equals(user.getEmail(), email)) {
+            logger.warn("Email check failed: user not found");
+            throw new EmailAlreadyInUseException();
+        }
+        return true;
+    }
+
+    public boolean register (User user) throws RuntimeException {
+
+        if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
+            logger.warn("Registration failed: user is email empty");
+            throw new EmailEmptyException("email is empty");
+        }
+        if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
+            logger.warn("Registration failed: password is empty");
+            throw new PasswordEmptyException("password is empty");
+        }
+        try {
+            emailCheck(user.getEmail());
+        }catch (EmailAlreadyInUseException emailAlreadyInUseException) {
+            logger.info("Email already in use");
+            throw new EmailAlreadyInUseException("Email already in use");
+        }catch (EmailEmptyException emailEmptyException) {
+            logger.info("Email empty");
+            throw new EmailEmptyException("Email empty");
+        }
+        String hashedPassword = PasswordUtils.hashSHA256(user.getPassword());
+        user.setPassword(hashedPassword);
+        userDAO.addUser(user);
+        return true;
+    }
+
+
+    public boolean resetPassword (String email, String newPassword) throws RuntimeException {
+        if (email == null || email.trim().isEmpty()) {
+            logger.warn("Reset password failed: email is empty");
+            throw new EmailEmptyException("email is empty");
+        }
+        if (newPassword == null || newPassword.trim().isEmpty()) {
+            logger.warn("Reset password failed: password is empty");
+            throw new PasswordEmptyException("password is empty");
+        }
+        boolean result = false;
+        try {
+            result = emailCheck(email);
+        }catch (UserNotFoundException notFoundException) {
+            logger.warn("Reset password failed: user not found");
+            throw new UserNotFoundException();
+        }catch (EmailAlreadyInUseException ignored) {}
+        if (result) {
+            logger.warn("Reset password failed: user not found");
+            throw new UserNotFoundException();
+        }
+        String hashedPassword = PasswordUtils.hashSHA256(newPassword);
         User user = userDAO.getUser(email);
-        if (user != null) {
-            logger.info("Email check successful");
-            return true;
-        } else {
-            logger.warn("Email check failed");
-        }
-        return false;
+        user.setPassword(hashedPassword);
+        userDAO.updateUser(user);
+        return true;
     }
 
-    public static boolean register (User user, SqliteUserDAO userDAO) {
-        if (user == null) {
-            logger.warn("Registration failed: user is null");
+//    public static boolean resetPassword (String email, String newPassword, SqliteUserDAO userDAO) {
+//        if (email.trim().isEmpty() || newPassword.trim().isEmpty()) {
+//            logger.warn("Password reset failed: email or new password is empty");
+//            return false;
+//        }
+//        User checkUser = userDAO.getUser(email);
+//        if (checkUser != null) {
+//            String pwdHash = PasswordUtils.hashSHA256(newPassword);
+//            checkUser.setPassword(pwdHash);
+//            userDAO.updateUser(checkUser);
+//            logger.info("Password reset successful");
+//            return true;
+//        } else {
+//            logger.warn("Password reset failed: user not found");
+//        }
+//        return false;
+//    }
+
+    public boolean checkSecurityQuestion(User user,String answerOne, String answerTwo, String answerThree) throws RuntimeException {
+        if (answerOne == null || answerOne.trim().isEmpty()) {
+            logger.warn("Security question check failed: answerOne is empty");
+            throw new EmptyAnswerException("answerOne is empty");
         }
-        if (user.getEmail().trim().isEmpty() || user.getPassword().trim().isEmpty() ||
-                user.getFirstName().trim().isEmpty() || user.getLastName().trim().isEmpty()) {
-            logger.warn("Registration failed: missing or invalid user data");
-            return false;
+        if (answerTwo == null || answerTwo.trim().isEmpty()) {
+            logger.warn("Security question check failed: answerTwo is empty");
+            throw new EmptyAnswerException("answerTwo is empty");
         }
-        if (userDAO.getUser(user.getEmail()) == null) {
-            String pwdHash = PasswordUtils.hashSHA256(user.getPassword());
-            user.setPassword(pwdHash);
-            userDAO.addUser(user);
-            logger.info("User registration successful");
-            return true;
-        } else {
-            logger.warn("Registration failed: user already exists");
+        if (answerThree == null || answerThree.trim().isEmpty()) {
+            logger.warn("Security question check failed: answerThree is empty");
+            throw new EmptyAnswerException("answerThree is empty");
         }
-        return false;
+        boolean result = false;
+        try {
+            result = emailCheck(user.getEmail());
+        }catch (RuntimeException ignored) {}
+        if (result) {
+            logger.warn("Security question check failed: user not found");
+            throw new UserNotFoundException();
+        }
+        UserSecurityQuestion usq = userSecurityQuestionDAO.getQuestions(user);
+        if (!usq.getAnswerOne().equals(answerOne)) {
+            logger.warn("Check security question failed: answerOne does not match");
+            throw new FailedQuestionException("Answer one does not match");
+        }
+        if (!usq.getAnswerTwo().equals(answerTwo)) {
+            logger.warn("Check security question failed: answerTwo does not match");
+            throw new FailedQuestionException("Answer two does not match");
+        }
+        if (!usq.getAnswerThree().equals(answerThree)) {
+            logger.warn("Check security question failed: answerThree does not match");
+            throw new FailedQuestionException("Answer three does not match");
+        }
+        return true;
     }
 
-    public static boolean resetPassword (String email, String newPassword, SqliteUserDAO userDAO) {
-        if (email.trim().isEmpty() || newPassword.trim().isEmpty()) {
-            logger.warn("Password reset failed: email or new password is empty");
-            return false;
-        }
-        User checkUser = userDAO.getUser(email);
-        if (checkUser != null) {
-            String pwdHash = PasswordUtils.hashSHA256(newPassword);
-            checkUser.setPassword(pwdHash);
-            userDAO.updateUser(checkUser);
-            logger.info("Password reset successful");
-            return true;
-        } else {
-            logger.warn("Password reset failed: user not found");
-        }
-        return false;
-    }
 
-    public static boolean checkSecurityQuestion (String email, String answerOne, String answerTwo, String answerThree,
-                                 SqliteUserSecurityQuestionDAO questionDAO, SqliteUserDAO userDAO) {
-        if (answerOne.trim().isEmpty() || answerTwo.trim().isEmpty() || answerThree.trim().isEmpty()
-        || email.trim().isEmpty()) {
-            logger.warn("Security question validation failed: missing input");
-            return false;
-        }
-        User user = userDAO.getUser(email);
-        if (user == null) {
-            logger.warn("Security question validation failed: user not found");
-            return false;
-        }
-        UserSecurityQuestion questions = questionDAO.getQuestions(user);
-        if (questions == null) {
-            logger.warn("Security question validation failed: security questions for user not found");
-            return false;
-        }
-        return  questions.getAnswerOne().equalsIgnoreCase(answerOne.trim()) &&
-                questions.getAnswerTwo().equalsIgnoreCase(answerTwo.trim()) &&
-                questions.getAnswerThree().equalsIgnoreCase(answerThree.trim());
-    }
-
-    public static void logout() {
-        logger.info("Logging out current user.");
-        ApplicationState.logout();
-    }
+//    public static boolean checkSecurityQuestion (String email, String answerOne, String answerTwo, String answerThree,
+//                                 SqliteUserSecurityQuestionDAO questionDAO, SqliteUserDAO userDAO) {
+//        if (answerOne.trim().isEmpty() || answerTwo.trim().isEmpty() || answerThree.trim().isEmpty()
+//        || email.trim().isEmpty()) {
+//            logger.warn("Security question validation failed: missing input");
+//            return false;
+//        }
+//        User user = userDAO.getUser(email);
+//        if (user == null) {
+//            logger.warn("Security question validation failed: user not found");
+//            return false;
+//        }
+//        UserSecurityQuestion questions = questionDAO.getQuestions(user);
+//        if (questions == null) {
+//            logger.warn("Security question validation failed: security questions for user not found");
+//            return false;
+//        }
+//        return  questions.getAnswerOne().equalsIgnoreCase(answerOne.trim()) &&
+//                questions.getAnswerTwo().equalsIgnoreCase(answerTwo.trim()) &&
+//                questions.getAnswerThree().equalsIgnoreCase(answerThree.trim());
+//    }
+//
+//    This is just redundant
+//    public static void logout() {
+//        logger.info("Logging out current user.");
+//        ApplicationState.logout();
+//    }
 }

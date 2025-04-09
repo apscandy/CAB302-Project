@@ -35,12 +35,12 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
                 stmt.executeUpdate();
                 conn.commit();
                 stmt.close();
-                logger.info("Delete user security questions transaction completed successfully.");
+                logger.info("Create user security questions transaction completed successfully.");
             }catch (SQLException  e) {
                 conn.rollback();
                 logger.error("Created user security question transaction failed: {}", e.getMessage());
                 logger.fatal(e.getMessage());
-            }finally {
+            } finally {
                 conn.setAutoCommit(true);
             }
         }catch (Exception e) {
@@ -54,7 +54,7 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
         try {
             conn.setAutoCommit(false);
             try(PreparedStatement statement = conn.prepareStatement(getUserSecurityQuestionSQL)){
-                statement.setInt(1, user.getId());
+                statement.setInt(1, userQuestions.getUserId());
                 conn.commit();
                 ResultSet rs = statement.executeQuery();
                 if(rs.next()) {
@@ -70,6 +70,7 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
                     userQuestions.setAnswerOne(answerOne);
                     userQuestions.setAnswerTwo(answerTwo);
                     userQuestions.setAnswerThree(answerThree);
+
                 }
                 rs.close();
                 statement.close();
