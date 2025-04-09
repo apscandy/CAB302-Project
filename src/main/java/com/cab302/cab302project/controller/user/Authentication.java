@@ -10,6 +10,7 @@ import com.cab302.cab302project.model.userSecQuestions.IUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
 import com.cab302.cab302project.util.PasswordUtils;
+import com.cab302.cab302project.util.RegexValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,7 +29,7 @@ public class Authentication {
     }
 
     public boolean authenticate(String email, String password) throws RuntimeException {
-        if(ApplicationState.isUserLoggedIn()){
+        if (ApplicationState.isUserLoggedIn()){
             logger.info("User is already logged in");
             throw new UserAlreadyLoggedInException();
         }
@@ -42,7 +43,7 @@ public class Authentication {
         }
         try {
             emailCheck(email);
-        }catch (EmailAlreadyInUseException ignored){}
+        } catch (EmailAlreadyInUseException ignored){}
         User user = userDAO.getUser(email);
         if (user == null) {
             logger.warn("Authentication failed: user not found");
@@ -64,10 +65,13 @@ public class Authentication {
             logger.warn("Email check failed: empty email provided");
             throw new EmailEmptyException();
         }
+        if (!RegexValidator.validEmailAddress(email)) {
+            logger.warn("Invalid email format provided");
+        }
         try {
             user = userDAO.getUser(email);
             Objects.requireNonNull(user);
-        }catch (NullPointerException nullPointerException){
+        } catch (NullPointerException nullPointerException){
             return true;
         }
         if (Objects.equals(user.getEmail(), email)) {
@@ -89,12 +93,15 @@ public class Authentication {
         }
         try {
             emailCheck(user.getEmail());
-        }catch (EmailAlreadyInUseException emailAlreadyInUseException) {
+        } catch (EmailAlreadyInUseException emailAlreadyInUseException) {
             logger.info("Email already in use");
             throw new EmailAlreadyInUseException("Email already in use");
-        }catch (EmailEmptyException emailEmptyException) {
+        } catch (EmailEmptyException emailEmptyException) {
             logger.info("Email empty");
             throw new EmailEmptyException("Email empty");
+        }
+        if (!RegexValidator.validPassword(user.getPassword())) {
+            logger.warn("Password provided did not meet the requirement");
         }
         String hashedPassword = PasswordUtils.hashSHA256(user.getPassword());
         user.setPassword(hashedPassword);
@@ -115,10 +122,10 @@ public class Authentication {
         boolean result = false;
         try {
             result = emailCheck(email);
-        }catch (UserNotFoundException notFoundException) {
+        } catch (UserNotFoundException notFoundException) {
             logger.warn("Reset password failed: user not found");
             throw new UserNotFoundException();
-        }catch (EmailAlreadyInUseException ignored) {}
+        } catch (EmailAlreadyInUseException ignored) {}
         if (result) {
             logger.warn("Reset password failed: user not found");
             throw new UserNotFoundException();
@@ -146,7 +153,7 @@ public class Authentication {
         boolean result = false;
         try {
             result = emailCheck(user.getEmail());
-        }catch (RuntimeException ignored) {}
+        } catch (RuntimeException ignored) {}
         if (result) {
             logger.warn("Security question check failed: user not found");
             throw new UserNotFoundException();
