@@ -67,6 +67,7 @@ public class Authentication {
         }
         if (!RegexValidator.validEmailAddress(email)) {
             logger.warn("Invalid email format provided");
+            throw new InvalidEmailFormatException("invalid email format");
         }
         try {
             user = userDAO.getUser(email);
@@ -102,6 +103,7 @@ public class Authentication {
         }
         if (!RegexValidator.validPassword(user.getPassword())) {
             logger.warn("Password provided did not meet the requirement");
+            throw new InvalidPasswordFormatException("password did not meet the requirement");
         }
         String hashedPassword = PasswordUtils.hashSHA256(user.getPassword());
         user.setPassword(hashedPassword);
