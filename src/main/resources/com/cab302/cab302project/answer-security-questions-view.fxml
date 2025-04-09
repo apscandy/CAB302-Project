@@ -1,25 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.user.AnswerSecurityQuestionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0"
+            prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.cab302.cab302project.controller.user.AnswerSecurityQuestionController">
     <children>
-        <Label layoutX="251.0" layoutY="14.0" prefHeight="27.0" prefWidth="152.0" text="Security Question" textAlignment="CENTER">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="35.0" prefHeight="26.0"
+               prefWidth="229.0" text="CRAM IT!" textAlignment="CENTER" textFill="#d90429">
             <font>
-                <Font size="18.0" />
+                <Font name="System Bold" size="25.0"/>
             </font>
         </Label>
-        <Button fx:id="backToPromptPasswordPageBtn" layoutX="34.0" layoutY="29.0" mnemonicParsing="false" text="Back" onAction="#backToPromptPasswordPage"/>
-        <Label layoutX="187.0" layoutY="78.0" text="Question One" />
-        <TextField fx:id="AnswerOneTextField" layoutX="301.0" layoutY="74.0" prefHeight="25.0" prefWidth="195.0" promptText="Answer One" />
-        <Label layoutX="186.0" layoutY="118.0" text="Question Two" />
-        <TextField fx:id="AnswerTwoTextField" layoutX="301.0" layoutY="114.0" prefHeight="25.0" prefWidth="195.0" promptText="Answer Two" />
-        <Label layoutX="187.0" layoutY="158.0" text="Question Three" />
-        <TextField fx:id="AnswerThreeTextField" layoutX="301.0" layoutY="154.0" prefHeight="25.0" prefWidth="195.0" promptText="Answer Three" />
-        <Button fx:id="goToResetPasswordPageBtn" layoutX="297.0" layoutY="244.0" mnemonicParsing="false" style="-fx-background-color: #00FF00;" text="Next" onAction="#goToResetPasswordPage"/>
+        <Label alignment="CENTER" layoutX="199.0" layoutY="69.0" prefHeight="19.0" prefWidth="243.0"
+               text="Password Reset">
+            <font>
+                <Font name="System Italic" size="15.0"/>
+            </font>
+        </Label>
+        <Button fx:id="backToPromptPasswordPageBtn" layoutX="25.0" layoutY="26.0" mnemonicParsing="false"
+                onAction="#backToPromptPasswordPage" text="←"/>
+
+
+        <Label layoutX="176.0" layoutY="149.0" text="Question One"/>
+        <TextField fx:id="AnswerOneTextField" layoutX="290.0" layoutY="145.0" prefHeight="25.0" prefWidth="195.0"
+                   promptText="Answer One"/>
+
+        <Label layoutX="175.0" layoutY="189.0" text="Question Two"/>
+        <TextField fx:id="AnswerTwoTextField" layoutX="290.0" layoutY="185.0" prefHeight="25.0" prefWidth="195.0"
+                   promptText="Answer Two"/>
+
+        <Label layoutX="176.0" layoutY="229.0" text="Question Three"/>
+        <TextField fx:id="AnswerThreeTextField" layoutX="290.0" layoutY="225.0" prefHeight="25.0" prefWidth="195.0"
+                   promptText="Answer Three"/>
+
+        <Label fx:id="errorMessageLabel" layoutX="290.0" layoutY="255.0" prefHeight="25.0" prefWidth="195.0"
+               textFill="red" visible="false"/>
+
+
+        <Label alignment="CENTER" layoutX="199.0" layoutY="105.0" prefHeight="42.0" prefWidth="243.0"
+               text="Please complete the following security&#10; questions to reset your password."/>
     </children>
 </AnchorPane>

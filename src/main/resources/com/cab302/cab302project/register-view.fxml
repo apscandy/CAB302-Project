@@ -24,11 +24,13 @@
       <TextField fx:id="EmailAddressTextField" layoutX="199.0" layoutY="163.0" prefHeight="25.0" prefWidth="243.0" promptText="Email Address" />
       <PasswordField fx:id="SetPasswordField" layoutX="199.0" layoutY="196.0" prefHeight="25.0" prefWidth="243.0" promptText="Password" />
       <PasswordField fx:id="ConfirmPasswordField" layoutX="199.0" layoutY="228.0" prefHeight="25.0" prefWidth="243.0" promptText="Confirm Password" />
-       <Label alignment="CENTER" layoutX="199.0" layoutY="247.0" prefHeight="102.0" prefWidth="243.0" text="Password must contain:&#10;- Minimum 8 characters in length&#10;- At least one uppercase letter&#10;- At least one lowercase letter&#10;- At least one digit&#10;- At least one special character" wrapText="true">
-         <font>
-            <Font size="10.0" />
-         </font></Label>
-
+       <Label alignment="CENTER" layoutX="199.0" layoutY="247.0" prefHeight="102.0" prefWidth="243.0"
+              text="Password must contain:&#10;- Minimum 8 characters in length&#10;- At least one uppercase letter&#10;- At least one lowercase letter&#10;- At least one digit&#10;- At least one special character"
+              wrapText="true">
+           <font>
+               <Font size="10.0"/>
+           </font>
+       </Label>
 
 
    </children>

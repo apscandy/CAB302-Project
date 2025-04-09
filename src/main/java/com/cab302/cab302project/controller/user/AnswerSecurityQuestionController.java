@@ -32,6 +32,10 @@ public class AnswerSecurityQuestionController {
     @FXML
     private Button goToResetPasswordPageBtn;
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @FXML
     public void backToPromptPasswordPage() throws IOException {
         Stage stage = (Stage) backToPromptPasswordPageBtn.getScene().getWindow();
@@ -48,15 +52,35 @@ public class AnswerSecurityQuestionController {
         stage.setScene(scene);
     }
 
+    private boolean validateAnswers() {
+        if (user != null) {
+            IUserSecurityQuestionDAO dao = new SqliteUserSecurityQuestionDAO();
+            UserSecurityQuestion userSecQuestions = dao.getQuestions(user);
+
+            String answerOne = AnswerOneTextField.getText().trim();
+            String answerTwo = AnswerTwoTextField.getText().trim();
+            String answerThree = AnswerThreeTextField.getText().trim();
+
+            return answerOne.equals(userSecQuestions.getAnswerOne()) &&
+                    answerTwo.equals(userSecQuestions.getAnswerTwo()) &&
+                    answerThree.equals(userSecQuestions.getAnswerThree());
+        }
+        return false;
+    }
+
     @FXML
     public void initialize() {
-        // Retrieve the security questions and display them
-        IUserSecurityQuestionDAO dao = new SqliteUserSecurityQuestionDAO();
-        UserSecurityQuestion userSecQuestions = dao.getQuestions(user);
+        if (user != null) {
+            IUserSecurityQuestionDAO dao = new SqliteUserSecurityQuestionDAO();
+            UserSecurityQuestion userSecQuestions = dao.getQuestions(user);
 
-        // Populate the answer fields with security question answers
-        AnswerOneTextField.setPromptText(userSecQuestions.getQuestionOne());
-        AnswerTwoTextField.setPromptText(userSecQuestions.getQuestionTwo());
-        AnswerThreeTextField.setPromptText(userSecQuestions.getQuestionThree());
+            AnswerOneTextField.setPromptText(userSecQuestions.getQuestionOne());
+            AnswerTwoTextField.setPromptText(userSecQuestions.getQuestionTwo());
+            AnswerThreeTextField.setPromptText(userSecQuestions.getQuestionThree());
+        } else {
+            System.out.println("Error: User object is null");
+        }
     }
+
+
 }
