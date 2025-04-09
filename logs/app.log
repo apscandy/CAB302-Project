@@ -1,0 +1,660 @@
+2025-04-06 15:08:25 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 15:08:26 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 15:08:26 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 15:08:26 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 15:08:26 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 15:08:26 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 15:08:26 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 15:08:26 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 15:08:26 [JavaFX Application Thread] WARN  com.cab302.cab302project.ApplicationState - currentUser is null
+2025-04-06 15:08:26 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - ApplicationState.getCurrentUser() is null
+2025-04-06 15:08:26 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - ApplicationState.isUserLoggedIn() equals false
+2025-04-06 15:08:26 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - Make sure the user is logged in
+2025-04-06 15:09:15 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 15:09:16 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 15:09:16 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 15:09:16 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 15:09:16 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 15:09:16 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 15:09:16 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 15:09:16 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 15:09:16 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 15:09:16 [JavaFX Application Thread] WARN  com.cab302.cab302project.ApplicationState - currentUser is null
+2025-04-06 15:09:16 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - ApplicationState.getCurrentUser() is null
+2025-04-06 15:09:16 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - ApplicationState.isUserLoggedIn() equals false
+2025-04-06 15:09:16 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - Make sure the user is logged in
+2025-04-06 15:09:24 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.menubar.MenuBarController - Close application button clicked
+2025-04-06 15:11:06 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 15:11:06 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 15:11:06 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 15:11:06 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 15:11:06 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 15:11:06 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 15:11:06 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 15:11:06 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 15:11:06 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 15:11:06 [JavaFX Application Thread] WARN  com.cab302.cab302project.ApplicationState - currentUser is null
+2025-04-06 15:11:06 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - ApplicationState.getCurrentUser() is null
+2025-04-06 15:11:06 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - ApplicationState.isUserLoggedIn() equals false
+2025-04-06 15:11:06 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - Make sure the user is logged in
+2025-04-06 15:12:09 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 15:12:09 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 15:12:09 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 15:12:09 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 15:12:09 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 15:12:09 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 15:12:09 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 15:12:09 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 15:12:09 [JavaFX Application Thread] WARN  com.cab302.cab302project.ApplicationState - currentUser is null
+2025-04-06 15:12:09 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - ApplicationState.getCurrentUser() is null
+2025-04-06 15:12:09 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - ApplicationState.isUserLoggedIn() equals false
+2025-04-06 15:12:09 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - Make sure the user is logged in
+2025-04-06 15:12:52 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 15:12:52 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 15:12:52 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 15:12:52 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 15:12:52 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 15:12:52 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 15:12:52 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 15:12:52 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 15:12:52 [JavaFX Application Thread] WARN  com.cab302.cab302project.ApplicationState - currentUser is null
+2025-04-06 15:12:52 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - ApplicationState.getCurrentUser() is null
+2025-04-06 15:12:52 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - ApplicationState.isUserLoggedIn() equals false
+2025-04-06 15:12:52 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - Make sure the user is logged in
+2025-04-06 15:14:19 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 15:14:20 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 15:14:20 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 15:14:20 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 15:14:20 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 15:14:20 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 15:14:20 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 15:14:20 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 15:14:20 [JavaFX Application Thread] WARN  com.cab302.cab302project.ApplicationState - currentUser is null
+2025-04-06 15:14:20 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - ApplicationState.getCurrentUser() is null
+2025-04-06 15:14:20 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - ApplicationState.isUserLoggedIn() equals false
+2025-04-06 15:14:20 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - Make sure the user is logged in
+2025-04-06 15:15:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 15:15:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 15:15:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 15:15:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 15:15:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 15:15:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 15:15:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 15:15:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 15:15:43 [JavaFX Application Thread] WARN  com.cab302.cab302project.ApplicationState - currentUser is null
+2025-04-06 15:15:43 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - ApplicationState.getCurrentUser() is null
+2025-04-06 15:15:43 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - ApplicationState.isUserLoggedIn() equals false
+2025-04-06 15:15:43 [JavaFX Application Thread] WARN  com.cab302.cab302project.controller.deck.DeckViewController - Make sure the user is logged in
+2025-04-06 15:16:04 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 15:16:04 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 15:16:04 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 15:16:04 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 15:16:04 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 15:16:04 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 15:16:04 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 15:16:04 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 15:16:04 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 15:16:04 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 15:16:04 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 15:16:13 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 15:16:13 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 15:16:13 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 15:16:13 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 15:16:13 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - User on deck view screen
+2025-04-06 15:16:15 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:16:16 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:16:17 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:16:19 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:16:23 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Create deck button pressed
+2025-04-06 15:16:23 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Created Deck transaction completed successfully.
+2025-04-06 15:16:23 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 15:16:23 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 15:16:23 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Clear button pressed
+2025-04-06 15:16:24 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:16:26 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:16:26 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:16:27 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:16:28 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:16:28 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:16:30 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:16:30 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:16:32 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Back button pressed
+2025-04-06 15:16:32 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 15:16:32 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 15:16:32 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 15:16:32 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - User on main screen
+2025-04-06 15:16:33 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:16:52 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 15:16:52 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 15:16:52 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 15:16:52 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 15:16:52 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - User on deck view screen
+2025-04-06 15:16:56 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:17:00 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Edit deck button pressed
+2025-04-06 15:17:00 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Update Deck transaction completed successfully.
+2025-04-06 15:17:00 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 15:17:00 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 15:17:02 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Back button pressed
+2025-04-06 15:17:02 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 15:17:02 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 15:17:02 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 15:17:02 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - User on main screen
+2025-04-06 15:17:02 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:17:09 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:17:09 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:17:14 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:17:14 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:17:15 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:17:15 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:17:17 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 15:17:17 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 15:17:17 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 15:17:17 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 15:17:17 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - User on deck view screen
+2025-04-06 15:17:18 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:17:39 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Edit deck button pressed
+2025-04-06 15:17:39 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Update Deck transaction completed successfully.
+2025-04-06 15:17:39 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 15:17:39 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 15:17:40 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Back button pressed
+2025-04-06 15:17:40 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 15:17:40 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 15:17:40 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 15:17:40 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - User on main screen
+2025-04-06 15:17:41 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:17:41 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:17:53 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:17:53 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:17:54 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:17:56 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:17:58 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:17:59 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:18:00 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:18:02 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 15:18:02 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 15:18:02 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 15:18:02 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 15:18:02 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - User on deck view screen
+2025-04-06 15:18:03 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Back button pressed
+2025-04-06 15:18:03 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 15:18:03 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 15:18:03 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 15:18:03 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - User on main screen
+2025-04-06 15:18:07 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 15:18:07 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 15:18:07 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 15:18:07 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 15:18:07 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - User on deck view screen
+2025-04-06 15:18:14 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:18:26 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:18:27 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:18:27 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 15:18:30 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Back button pressed
+2025-04-06 15:18:30 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 15:18:30 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 15:18:30 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 15:18:30 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - User on main screen
+2025-04-06 15:18:32 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:18:42 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 15:18:42 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 16:05:55 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 16:05:55 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 16:05:55 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 16:05:55 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 16:05:55 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 16:05:55 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 16:05:55 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 16:05:55 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 16:05:55 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 16:05:55 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 16:05:55 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 16:06:02 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 16:07:50 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 16:07:51 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 16:07:51 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 16:07:51 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 16:07:51 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 16:07:51 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 16:07:51 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 16:07:51 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 16:07:51 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 16:07:51 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 16:07:51 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 16:07:56 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 16:07:56 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 16:07:57 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 16:07:57 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 16:07:57 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 16:07:57 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 16:07:57 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - User on deck view screen
+2025-04-06 16:07:58 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 16:07:58 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 16:08:01 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Back button pressed
+2025-04-06 16:08:01 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 16:08:01 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 16:08:01 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 16:08:01 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - User on main screen
+2025-04-06 16:08:13 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 16:08:13 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 16:08:13 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 16:08:13 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 16:08:13 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 16:08:13 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 16:08:13 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 16:08:13 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 16:08:14 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 16:08:14 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 16:08:14 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 16:53:40 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 16:53:40 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 16:53:40 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 16:53:40 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 16:53:40 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 16:53:40 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 16:53:40 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 16:53:40 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 16:53:40 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 16:53:40 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 16:53:40 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 19:08:08 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 19:08:09 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 19:08:09 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 19:08:09 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 19:08:09 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 19:08:09 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 19:08:09 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 19:08:09 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 19:08:09 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 19:08:09 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 19:08:09 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:03:50 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 20:03:50 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 20:03:50 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 20:03:50 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 20:03:50 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 20:03:50 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 20:03:50 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 20:03:50 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 20:03:50 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 20:03:50 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 20:03:50 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:04:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 20:04:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 20:04:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 20:04:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 20:04:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 20:04:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 20:04:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 20:04:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 20:04:44 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 20:04:44 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 20:04:44 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:14:21 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 20:14:21 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 20:14:21 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 20:14:21 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 20:14:21 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 20:14:21 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 20:14:21 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 20:14:21 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 20:14:21 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 20:14:21 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 20:14:21 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:14:24 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:14:24 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:14:26 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:14:26 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:14:27 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:14:32 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:14:34 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:14:39 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 20:14:40 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:15:05 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:15:06 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 20:15:07 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 20:15:15 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 20:20:02 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 20:20:03 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 20:20:03 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 20:20:03 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 20:20:03 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 20:20:03 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 20:20:03 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 20:20:03 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 20:20:03 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 20:20:03 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 20:20:03 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:20:09 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 20:22:42 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 20:22:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 20:22:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 20:22:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 20:22:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 20:22:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 20:22:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 20:22:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 20:22:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 20:22:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 20:22:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:22:45 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 20:22:45 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 20:22:45 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:22:45 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:22:45 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - User on deck view screen
+2025-04-06 20:29:28 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 20:29:29 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 20:29:29 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 20:29:29 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 20:29:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 20:29:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 20:29:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 20:29:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 20:29:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 20:29:29 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 20:29:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:29:33 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:29:33 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:29:36 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 20:29:36 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 20:29:36 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:29:36 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:29:36 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - User on deck view screen
+2025-04-06 20:29:38 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:29:39 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:29:51 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Create deck button pressed
+2025-04-06 20:29:51 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Created Deck transaction completed successfully.
+2025-04-06 20:29:51 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:29:51 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:29:51 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Clear button pressed
+2025-04-06 20:29:53 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:29:54 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:29:54 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:29:59 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:32:28 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:32:31 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:32:31 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:32:31 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:32:34 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:32:35 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:32:36 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:32:51 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Create deck button pressed
+2025-04-06 20:32:51 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Created Deck transaction completed successfully.
+2025-04-06 20:32:51 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:32:51 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:32:51 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Clear button pressed
+2025-04-06 20:32:52 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:32:53 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Edit deck button pressed
+2025-04-06 20:32:53 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Update Deck transaction completed successfully.
+2025-04-06 20:32:53 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:32:53 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:32:54 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Clear button pressed
+2025-04-06 20:32:59 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Create deck button pressed
+2025-04-06 20:32:59 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Created Deck transaction completed successfully.
+2025-04-06 20:32:59 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:32:59 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:32:59 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Clear button pressed
+2025-04-06 20:33:00 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:33:35 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:33:42 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Create deck button pressed
+2025-04-06 20:33:42 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Created Deck transaction completed successfully.
+2025-04-06 20:33:42 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:33:42 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:33:42 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Clear button pressed
+2025-04-06 20:33:44 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:33:45 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Edit deck button pressed
+2025-04-06 20:33:45 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Update Deck transaction completed successfully.
+2025-04-06 20:33:45 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:33:45 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:33:50 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Create deck button pressed
+2025-04-06 20:33:50 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Created Deck transaction completed successfully.
+2025-04-06 20:33:50 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:33:50 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:33:50 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Clear button pressed
+2025-04-06 20:35:00 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:35:01 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:35:01 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:35:05 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Edit deck button pressed
+2025-04-06 20:35:05 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Update Deck transaction completed successfully.
+2025-04-06 20:35:05 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:35:05 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:35:08 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:35:08 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:35:08 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:35:09 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:35:09 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:35:09 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:35:10 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:35:10 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:35:11 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:36:19 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:36:19 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:36:20 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:36:20 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:36:20 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:36:21 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:36:21 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:36:22 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:36:30 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:37:10 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:37:11 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:37:11 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Delete deck button pressed
+2025-04-06 20:37:11 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Delete Deck transaction completed successfully.
+2025-04-06 20:37:11 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:37:11 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:37:12 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:37:13 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:37:13 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:37:14 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:37:18 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Create deck button pressed
+2025-04-06 20:37:18 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Created Deck transaction completed successfully.
+2025-04-06 20:37:18 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:37:18 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:37:18 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Clear button pressed
+2025-04-06 20:37:18 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:37:19 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:37:19 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:37:20 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:37:21 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Back button pressed
+2025-04-06 20:37:21 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 20:37:21 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 20:37:21 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:37:21 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - User on main screen
+2025-04-06 20:37:22 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:37:22 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:37:22 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:37:23 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:37:23 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:37:24 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:37:25 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 20:37:25 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 20:37:25 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:37:25 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:37:25 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - User on deck view screen
+2025-04-06 20:37:31 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:37:31 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:37:32 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:37:34 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Back button pressed
+2025-04-06 20:37:34 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 20:37:34 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 20:37:34 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:37:34 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - User on main screen
+2025-04-06 20:37:35 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:37:52 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:37:53 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:37:57 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 20:37:57 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 20:37:57 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 20:37:57 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 20:37:57 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 20:37:57 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 20:37:57 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 20:37:57 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 20:37:57 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 20:37:57 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 20:37:57 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:38:00 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:41:29 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 20:41:29 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 20:41:29 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 20:41:29 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 20:41:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 20:41:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 20:41:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 20:41:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 20:41:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 20:41:29 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 20:41:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:50:58 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 20:50:58 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 20:50:58 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 20:50:58 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 20:50:58 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 20:50:58 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 20:50:58 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 20:50:58 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 20:50:58 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 20:50:58 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 20:50:58 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:51:01 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.menubar.MenuBarController - New -> Deck clicked
+2025-04-06 20:51:07 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:51:07 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 20:51:07 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 20:51:07 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:51:07 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:51:07 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - User on deck view screen
+2025-04-06 20:51:09 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.menubar.MenuBarController - New -> Card clicked
+2025-04-06 20:51:12 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.menubar.MenuBarController - New -> Deck clicked
+2025-04-06 20:52:46 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 20:52:46 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 20:52:46 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 20:52:46 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 20:52:46 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 20:52:46 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 20:52:46 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 20:52:46 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 20:52:46 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 20:52:46 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 20:52:46 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:52:48 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.menubar.MenuBarController - New -> Deck clicked
+2025-04-06 20:52:48 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 20:52:48 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:52:48 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:52:50 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.menubar.MenuBarController - New -> Card clicked
+2025-04-06 20:52:50 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:52:57 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:52:57 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:52:58 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:52:58 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:52:58 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:52:59 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:53:01 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:53:01 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:53:05 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.menubar.MenuBarController - New -> Card clicked
+2025-04-06 20:58:22 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 20:58:22 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 20:58:22 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 20:58:22 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 20:58:22 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 20:58:22 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 20:58:22 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 20:58:22 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 20:58:22 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 20:58:22 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 20:58:23 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:58:24 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 20:58:25 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Create deck button pressed
+2025-04-06 20:58:25 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 20:58:25 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:58:25 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:58:25 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - User on deck view screen
+2025-04-06 20:58:26 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:58:27 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.menubar.MenuBarController - New -> Deck clicked
+2025-04-06 20:58:27 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 20:58:27 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:58:27 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:58:28 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:58:30 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:58:30 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:58:31 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:58:31 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:58:32 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:58:32 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:58:34 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.menubar.MenuBarController - New -> Deck clicked
+2025-04-06 20:58:34 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 20:58:34 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 20:58:34 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 20:58:49 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Select ListView item
+2025-04-06 20:58:52 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.menubar.MenuBarController - Close application button clicked
+2025-04-06 20:59:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 20:59:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 20:59:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 20:59:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 20:59:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 20:59:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 20:59:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 20:59:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 20:59:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 20:59:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 20:59:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 21:01:01 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 21:01:02 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 21:01:02 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 21:01:02 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 21:01:02 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 21:01:02 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 21:01:02 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 21:01:02 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 21:01:02 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 21:01:02 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 21:01:02 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 21:01:39 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 21:01:40 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 21:01:40 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 21:01:40 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 21:01:40 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 21:01:40 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 21:01:40 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 21:01:40 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 21:01:40 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 21:01:40 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 21:01:40 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 21:01:54 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 21:01:54 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 21:01:54 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 21:01:54 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 21:01:54 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 21:01:54 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 21:01:54 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 21:01:54 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 21:01:54 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 21:01:54 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 21:01:54 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 21:02:19 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Select ListView item
+2025-04-06 21:02:22 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.menubar.MenuBarController - New -> Deck clicked
+2025-04-06 21:02:22 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckCreateController - initializing DeckCreateController listView
+2025-04-06 21:02:22 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckCreateController - Load deck
+2025-04-06 21:02:22 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 21:02:26 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.menubar.MenuBarController - Close application button clicked
+2025-04-06 21:02:29 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 21:02:29 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 21:02:29 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 21:02:29 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 21:02:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 21:02:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 21:02:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 21:02:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 21:02:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 21:02:29 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 21:02:29 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
+2025-04-06 21:02:34 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.menubar.MenuBarController - Close application button clicked
+2025-04-06 21:02:42 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Database connection string is: jdbc:sqlite:flashCards.db
+2025-04-06 21:02:42 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Setting database pragma
+2025-04-06 21:02:42 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - database pragma set successfully.
+2025-04-06 21:02:42 [JavaFX Application Thread] DEBUG com.cab302.cab302project.model.SqliteConnection - Foreign keys enabled: 1
+2025-04-06 21:02:42 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Synchronous Mode: 2
+2025-04-06 21:02:42 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Locking Mode: exclusive
+2025-04-06 21:02:42 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.SqliteConnection - Database connection established.
+2025-04-06 21:02:42 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.user.SqliteUserDAO - Get user transaction completed successfully.
+2025-04-06 21:02:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.controller.deck.DeckViewController - initializing DeckController listView
+2025-04-06 21:02:43 [JavaFX Application Thread] DEBUG com.cab302.cab302project.controller.deck.DeckViewController - Load deck
+2025-04-06 21:02:43 [JavaFX Application Thread] INFO  com.cab302.cab302project.model.deck.SqliteDeckDAO - Get Decks transaction completed successfully.
