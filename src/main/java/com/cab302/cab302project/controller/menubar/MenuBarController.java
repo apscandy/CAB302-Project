@@ -26,6 +26,21 @@ public class MenuBarController {
     }
 
     @FXML
+    private void home() {
+        logger.info("Home button clicked");
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(HelloApplication.class.getResource("main/main.fxml"));
+
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            HelloApplication.getStage().setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
     private void openDeckView() {
         logger.info("New -> Deck clicked");
         try {

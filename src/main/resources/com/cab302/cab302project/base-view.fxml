@@ -10,6 +10,8 @@
             fx:controller="com.cab302.cab302project.controller.menubar.MenuBarController">
   <MenuBar prefHeight="25.0" prefWidth="640.0">
     <Menu mnemonicParsing="false" text="File">
+      <MenuItem fx:id="home" mnemonicParsing="false" text="Home" onAction="#home"/>
+
       <Menu text="New">
         <MenuItem fx:id="newDeckMenuItem" text="Deck" onAction="#openDeckView"/>
         <MenuItem fx:id="newCardMenuItem" text="Card" onAction="#openCardView"/>
