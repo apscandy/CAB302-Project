@@ -67,13 +67,12 @@ class DeckTest {
 
     @Test
     void setCards() {
-        // Disabled for now
-//        List<Card> cards = new ArrayList<>();
-//        cards.add(new Card());
-//        cards.add(new Card());
-//        cards.add(new Card());
-//        deck.setCards(cards);
-//        assertEquals(3, deck.getCards().size());
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(deck, "What is the square root of the sun", "No clue", "science,math"));
+        cards.add(new Card(deck, "Why is the sun yellow", "Also no clue", "science,math"));
+        cards.add(new Card(deck, "Are photons light", "Yes", "science,psychics"));
+        deck.setCards(cards);
+        assertEquals(3, deck.getCards().size());
 
     }
 }
