@@ -64,7 +64,7 @@ public class MenuBarController {
         logger.info("New -> Card clicked");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(HelloApplication.class.getResource("card/card-view.fxml"));
+            fxmlLoader.setLocation(HelloApplication.class.getResource("card/new-card-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
             Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
             primaryStage.setScene(scene);

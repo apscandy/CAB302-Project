@@ -24,9 +24,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CardController implements Initializable {
+public class CardCreateController implements Initializable {
 
-    private static final Logger logger = LogManager.getLogger(CardController.class);
+    private static final Logger logger = LogManager.getLogger(CardCreateController.class);
 
     @FXML private ComboBox<Deck> deckComboBox;
     @FXML private ListView<Card> cardsList;
