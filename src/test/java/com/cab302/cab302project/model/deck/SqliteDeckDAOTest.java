@@ -53,6 +53,7 @@ class SqliteDeckDAOTest {
             stmt.executeUpdate("delete from sqlite_sequence where name='deck'");
             stmt.executeUpdate("delete from sqlite_sequence where name='card'");
             stmt.close();
+            ApplicationState.logout();
         }
         catch(Exception e){
             e.printStackTrace();

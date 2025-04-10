@@ -1,6 +1,10 @@
 package com.cab302.cab302project.controller.user;
+import com.cab302.cab302project.util.RegexValidator;
 
 import com.cab302.cab302project.HelloApplication;
+import com.cab302.cab302project.error.authentication.*;
+import com.cab302.cab302project.model.user.User;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -40,6 +44,12 @@ public class RegisterController {
     @FXML
     private Button BackButton;
 
+    private static User tempUser;
+
+    public static void setTempUser(User user) {
+        tempUser = user;
+    }
+
     @FXML
     public void CloseButtonAction () {
         Stage stage = (Stage) CloseButton.getScene().getWindow();
@@ -53,19 +63,17 @@ public class RegisterController {
         stage.setScene(scene);
     }
 
-    public void NextButtonAction() throws IOException {
-        System.out.println("Next button clicked");
+    public void NextButtonAction () throws IOException {
         if (registerUser()) {
-            System.out.println("User registration is valid, loading next scene");
             Stage stage = (Stage) NextButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-questions-security-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
             stage.setScene(scene);
-        } else {
-            System.out.println("Registration failed, not changing scene");
+
+            AddSecurityQuestionController addSecurityQuestionController = fxmlLoader.getController();
+            addSecurityQuestionController.setTempUser(tempUser);
         }
     }
-
 
     public boolean registerUser () {
         String firstName = FirstNameTextField.getText();
@@ -74,51 +82,71 @@ public class RegisterController {
         String password = SetPasswordField.getText();
         String confirmPassword = ConfirmPasswordField.getText();
 
-        // Reset text fields' prompt text
-        FirstNameTextField.setPromptText("First Name");
-        LastNameTextField.setPromptText("Last Name");
-        EmailAddressTextField.setPromptText("Email Address");
-        SetPasswordField.setPromptText("Password");
-        ConfirmPasswordField.setPromptText("Confirm Password");
 
-        String passwordRegex = "^(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$";
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
 
+        // Reset error labels
+        clearErrorLabels();
         boolean isValid = true;
 
-        if (firstName == null || firstName.isBlank()) {
-            FirstNameTextField.setPromptText("First name cannot be empty.");
-            FirstNameTextField.setStyle("-fx-prompt-text-fill: red;");
+        if (firstName.isEmpty()) {
+            setError(FirstNameLabel, "First name cannot be empty.");
             isValid = false;
         }
 
-        if (lastName == null || lastName.isBlank()) {
-            LastNameTextField.setPromptText("Last name cannot be empty.");
-            LastNameTextField.setStyle("-fx-prompt-text-fill: red;");
+        if (lastName.isEmpty()) {
+            setError(LastNameLabel, "Last name cannot be empty.");
             isValid = false;
         }
 
-        if (!email.matches(emailRegex)) {
-            EmailAddressTextField.setPromptText("Invalid email format");
-            EmailAddressTextField.setStyle("-fx-prompt-text-fill: red;");
+        if (!RegexValidator.validEmailAddress(email)) {
+            setError(EmailTypeLabel, "Invalid email format.");
             isValid = false;
         }
 
-        if (!password.matches(passwordRegex)) {
-            SetPasswordField.setPromptText("Password must be at least 8 characters, include 1 number and 1 special character.");
-            SetPasswordField.setStyle("-fx-prompt-text-fill: red;");
+        if (!RegexValidator.validPassword(password)) {
+            setError(SetPasswordLabel, "Password must be at least 8 characters, include 1 number and 1 special character.");
             isValid = false;
         } else if (!password.equals(confirmPassword)) {
-            ConfirmPasswordField.setPromptText("Password does not match!");
-            ConfirmPasswordField.setStyle("-fx-prompt-text-fill: red;");
+            setError(ConfirmPasswordLabel, "Passwords do not match.");
             isValid = false;
         }
 
-        if (isValid) {
-            ConfirmPasswordField.setPromptText("Registration info is valid!");
-            ConfirmPasswordField.setStyle("-fx-prompt-text-fill: green;");
+        if (!isValid) return false;
+
+
+
+        try {
+            User newUser = new User(firstName, lastName, email, password);
+            setTempUser(newUser);
+            ConfirmPasswordLabel.setText("Registration successful!");
+            return true;
+        } catch (EmailAlreadyInUseException e) {
+            setError(EmailTypeLabel, "Email is already in use.");
+        } catch (EmailEmptyException e) {
+            setError(EmailTypeLabel, "Email cannot be empty.");
+        } catch (InvalidEmailFormatException e) {
+            setError(EmailTypeLabel, "Invalid email format.");
+        } catch (PasswordEmptyException e) {
+            setError(SetPasswordLabel, "Password cannot be empty.");
+        } catch (InvalidPasswordFormatException e) {
+            setError(SetPasswordLabel, "Password does not meet requirements.");
+        } catch (RuntimeException e) {
+            setError(ConfirmPasswordLabel, "Unexpected error: " + e.getMessage());
         }
-        return isValid;
+
+        return false;
     }
 
+    private void setError(Label label, String message) {
+        label.setText(message);
+        label.setVisible(true);
+    }
+
+    private void clearErrorLabels() {
+        FirstNameLabel.setText("");
+        LastNameLabel.setText("");
+        EmailTypeLabel.setText("");
+        SetPasswordLabel.setText("");
+        ConfirmPasswordLabel.setText("");
+    }
 }

@@ -21,15 +21,14 @@ public class RegexValidator {
      * I looked up implementations of regex rather than building it
      * because there are much smarter people then me that spent
      * the time and effort to make a regex patten.
-     * <a href="https://uibakery.io/regex-library/email-regex-java">Regex found here</a>
+     * <a href="https://www.baeldung.com/java-email-validation-regex">Regex found here</a>
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
      * @param emailAddress email to be validated
      * @return true if the email is a valid email address otherwise returns false
      */
     public static boolean validEmailAddress(String emailAddress) {
-        Pattern pattern = Pattern.compile("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
-        Matcher target = pattern.matcher(emailAddress);
-        return target.find();
+        var patternRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return Pattern.matches(patternRegex, emailAddress);
     }
 
     /**
@@ -48,8 +47,7 @@ public class RegexValidator {
      * @return true if the password meet requirements else returns false
      */
     public static boolean validPassword(String password) {
-        Pattern pattern = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
-        Matcher target = pattern.matcher(password);
-        return target.find();
+        var patternRegex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+        return Pattern.matches(patternRegex, password);
     }
 }

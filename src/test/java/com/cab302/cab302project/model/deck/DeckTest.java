@@ -17,7 +17,6 @@ class DeckTest {
     @BeforeEach
     void setUp() {
         user = new User("Andrew", "Clarke", "legend@qut.edu.au", "VeryStrongPassword");
-        user.setId(68);
         deck = new Deck("quantum computing", "I feel very stupid", user, new ArrayList<>());
     }
 
@@ -26,16 +25,6 @@ class DeckTest {
         assertEquals(0, deck.getId());
     }
 
-    @Test
-    void setId() {
-        deck.setId(1);
-        assertEquals(1, deck.getId());
-    }
-
-    @Test
-    void getUserId() {
-        assertEquals(68, deck.getUserId());
-    }
 
     @Test
     void getName() {

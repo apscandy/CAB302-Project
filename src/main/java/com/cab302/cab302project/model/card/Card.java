@@ -85,12 +85,7 @@ public class Card {
         return isDeleted;
     }
 
-    /**
-     * Sets the card's id.
-     *
-     * @param id the new id
-     */
-    public void setId(int id) {
+    protected void setId(int id) {
         this.id = id;
     }
 
@@ -130,12 +125,7 @@ public class Card {
         this.tags = tags;
     }
 
-    /**
-     * Sets the deletion flag of the card.
-     *
-     * @param deleted true to mark as deleted, false otherwise
-     */
-    public void setDeleted(boolean deleted) {
+    protected void setDeleted(boolean deleted) {
         isDeleted = deleted;
     }
 
