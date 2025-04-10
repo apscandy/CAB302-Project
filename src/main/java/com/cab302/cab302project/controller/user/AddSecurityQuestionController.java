@@ -102,8 +102,6 @@ public class AddSecurityQuestionController {
                 .filter(q -> !filteredUsed.contains(q))
                 .toList();
 
-
-        List<String> currentItems = box.getItems();
         if (!box.getItems().equals(available)) {
             box.setItems(FXCollections.observableArrayList(available));
         }
