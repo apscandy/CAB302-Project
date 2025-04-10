@@ -8,26 +8,40 @@ import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.deck.Deck;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of ICardDAO for SQLite.
+ * Handles insertion, update, and soft deletion of cards, as well as retrieval of cards for a given deck.
+ *
+ * @author Monica Borg (n9802045)
+ */
 public class SqliteCardDAO implements ICardDAO {
 
     private Logger logger = LogManager.getLogger(this.getClass());
     private final Connection con;
     private final String insertCardSQL = "INSERT INTO card (deck_id, question, answer, tags) VALUES (?, ?, ?, ?)";
-    // Correct SQL: setting question, answer, tags, where id = ?
     private final String updateCardSQL = "UPDATE card SET question = ?, answer = ?, tags = ? WHERE id = ?";
     private final String softDeleteSQL = "UPDATE card SET is_deleted = 1 WHERE id = ?";
     private final String softDelefByDeckSQL = "UPDATE card SET is_updated = 1 WHERE deck_id = ?";
     private final String getCardsForDeckSQL = "SELECT * FROM card WHERE deck_id = ? AND is_deleted = 0";
 
+    /**
+     * Constructs a new SqliteCardDAO, obtaining a connection from SqliteConnection.
+     */
     public SqliteCardDAO() {
         this.con = SqliteConnection.getInstance();
     }
 
+    /**
+     * Adds a card to the database.
+     * Uses a transaction to ensure the operation is atomic.
+     *
+     * @param card the card to add
+     * @throws RuntimeException if an error occurs during insertion
+     */
     @Override
     public void addCard(Card card) throws RuntimeException {
         try {
@@ -52,6 +66,12 @@ public class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Updates an existing card in the database.
+     * Uses a transaction to ensure the operation is atomic.
+     *
+     * @param card the card to update
+     */
     @Override
     public void updateCard(Card card) {
         try {
@@ -76,6 +96,12 @@ public class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Soft deletes a card from the database by setting its is_deleted flag.
+     * Uses a transaction to ensure the operation is atomic.
+     *
+     * @param card the card to soft delete
+     */
     @Override
     public void softDeleteCard(Card card) {
         try {
@@ -97,6 +123,11 @@ public class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Soft deletes all cards associated with a given deck by setting their is_updated flag.
+     *
+     * @param deck the deck whose cards will be soft deleted
+     */
     @Override
     public void softDeleteCardsByDeck(Deck deck) {
         try {
@@ -115,6 +146,12 @@ public class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Retrieves all non-deleted cards for the given deck.
+     *
+     * @param deck the deck for which cards are retrieved
+     * @return a List of cards in the deck
+     */
     @Override
     public List<Card> getCardsForDeck(Deck deck) {
         List<Card> cards = new ArrayList<>();
