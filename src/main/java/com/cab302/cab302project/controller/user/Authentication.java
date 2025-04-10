@@ -73,6 +73,7 @@ public class Authentication {
             user = userDAO.getUser(email);
             Objects.requireNonNull(user);
         } catch (NullPointerException nullPointerException){
+//            throw new EmailAlreadyInUseException();
             return true;
         }
         if (Objects.equals(user.getEmail(), email)) {
@@ -110,7 +111,6 @@ public class Authentication {
         userDAO.addUser(user);
         return true;
     }
-
 
     public boolean resetPassword (String email, String newPassword) throws RuntimeException {
         if (email == null || email.trim().isEmpty()) {
