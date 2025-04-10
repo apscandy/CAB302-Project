@@ -1,4 +1,4 @@
-package com.cab302.cab302project.error.deck;
+package com.cab302.cab302project.error.model.deck;
 
 public class FailedToGetListOfDecksException extends RuntimeException {
     public FailedToGetListOfDecksException() {}

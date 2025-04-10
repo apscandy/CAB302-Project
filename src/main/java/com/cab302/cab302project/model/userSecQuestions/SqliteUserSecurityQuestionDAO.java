@@ -1,5 +1,8 @@
 package com.cab302.cab302project.model.userSecQuestions;
 
+import com.cab302.cab302project.error.model.question.FailedToCreateQuestionsException;
+import com.cab302.cab302project.error.model.question.FailedToGetQuestionsException;
+import com.cab302.cab302project.error.model.question.FailedToUpdateQuestionsException;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.user.User;
 import org.apache.logging.log4j.LogManager;
@@ -38,11 +41,13 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
             }catch (SQLException  e) {
                 conn.rollback();
                 logger.error(e.getMessage());
+                throw new FailedToCreateQuestionsException(e.getMessage());
             }finally {
                 conn.setAutoCommit(true);
             }
         }catch (Exception e) {
             logger.error(e.getMessage());
+            throw new FailedToCreateQuestionsException(e.getMessage());
         }
     }
 
@@ -70,22 +75,25 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
                     userQuestions.setAnswerThree(answerThree);
 
                 }
-                rs.close();
+                conn.commit();
                 statement.close();
+                rs.close();
             }catch (SQLException e) {
                 conn.rollback();
                 logger.error(e.getMessage());
+                throw new FailedToGetQuestionsException(e.getMessage());
             }finally {
                 conn.setAutoCommit(true);
             }
         }catch (Exception e) {
             logger.error(e.getMessage());
+            throw new FailedToGetQuestionsException(e.getMessage());
         }
         return userQuestions;
     }
 
     @Override
-    public void updateQuestions(UserSecurityQuestion updatedQuestion) {
+    public void updateQuestions(UserSecurityQuestion updatedQuestion){
         try {
             conn.setAutoCommit(false);
             try (PreparedStatement pstmt = conn.prepareStatement(updateUserSecurityQuestionSQL)) {
@@ -101,11 +109,13 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
             } catch (SQLException e) {
                 conn.rollback();
                 logger.error(e.getMessage());
+                throw new FailedToUpdateQuestionsException(e.getMessage());
             }finally {
                 conn.setAutoCommit(true);
             }
         }catch (Exception e) {
             logger.error(e.getMessage());
+            throw new FailedToUpdateQuestionsException(e.getMessage());
         }
 
     }

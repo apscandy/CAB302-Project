@@ -1,5 +1,8 @@
 package com.cab302.cab302project.model.user;
 
+import com.cab302.cab302project.error.model.user.FailedToCreateUserException;
+import com.cab302.cab302project.error.model.user.FailedToGetUserException;
+import com.cab302.cab302project.error.model.user.FailedToUpdateUserException;
 import com.cab302.cab302project.model.SqliteConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +29,6 @@ public class SqliteUserDAO implements IUserDAO {
     @Override
     public void addUser (User user) {
         if (user == null || user.getFirstName() == null || user.getLastName() == null || user.getEmail() == null) {
-            logger.fatal("User is null OR insufficient user attributes");
             throw new IllegalArgumentException();
         }
         try {
@@ -48,11 +50,13 @@ public class SqliteUserDAO implements IUserDAO {
             } catch (SQLException e) {
                 con.rollback();
                 logger.error(e.getMessage());
+                throw new FailedToCreateUserException(e.getMessage());
             } finally {
                 con.setAutoCommit(true);
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
+            throw new FailedToCreateUserException(e.getMessage());
         }
     }
 
@@ -73,11 +77,13 @@ public class SqliteUserDAO implements IUserDAO {
             } catch (SQLException e) {
                 con.rollback();
                 logger.error(e.getMessage());
+                throw new FailedToUpdateUserException(e.getMessage());
             } finally {
                 con.setAutoCommit(true);
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
+            throw new FailedToUpdateUserException(e.getMessage());
         }
     }
 
@@ -104,11 +110,13 @@ public class SqliteUserDAO implements IUserDAO {
            }catch (SQLException e) {
                 con.rollback();
                 logger.error(e.getMessage());
+                throw new FailedToGetUserException(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
+            throw new FailedToGetUserException(e.getMessage());
         }
         return user;
     }
@@ -136,11 +144,13 @@ public class SqliteUserDAO implements IUserDAO {
             }catch (SQLException e) {
                 con.rollback();
                 logger.error(e.getMessage());
+                throw new FailedToGetUserException(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
+            throw new FailedToGetUserException(e.getMessage());
         }
         return user;
     }

@@ -1,4 +1,4 @@
-package com.cab302.cab302project.error.card;
+package com.cab302.cab302project.error.model.card;
 
 public class FailedToGetCardsException extends  RuntimeException {
     public FailedToGetCardsException() {}

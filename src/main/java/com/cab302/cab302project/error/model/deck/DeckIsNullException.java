@@ -1,4 +1,4 @@
-package com.cab302.cab302project.error.deck;
+package com.cab302.cab302project.error.model.deck;
 
 public class DeckIsNullException extends RuntimeException {
     public DeckIsNullException() {}

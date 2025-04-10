@@ -1,4 +1,4 @@
-package com.cab302.cab302project.error.card;
+package com.cab302.cab302project.error.model.card;
 
 public class FailedToSoftDeleteCardException extends RuntimeException {
     public FailedToSoftDeleteCardException(String message) {super(message);}

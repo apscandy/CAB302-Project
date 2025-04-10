@@ -1,7 +1,7 @@
 package com.cab302.cab302project.model.deck;
 
 import com.cab302.cab302project.ApplicationState;
-import com.cab302.cab302project.error.deck.*;
+import com.cab302.cab302project.error.model.deck.*;
 import com.cab302.cab302project.error.state.UserIsNullException;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.user.User;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SqliteDeckDAO implements IDeckDAO {
 
-    private static final Logger logger = LogManager.getLogger(SqliteDeckDAO.class);
+    private final Logger logger = LogManager.getLogger(SqliteDeckDAO.class);
     private final Connection con;
 
     private final String createDeckSQL = "INSERT INTO deck (user_id, name, description) VALUES (?,?,?)";
@@ -33,7 +33,6 @@ public class SqliteDeckDAO implements IDeckDAO {
     @Override
     public void createDeck(Deck deck) {
         if (deck == null || deck.getUserId() == 0) {
-            logger.error("Deck is null or empty {createDeck}");
             throw new DeckIsNullException("Deck cannot be null");
         }
         try {
@@ -54,7 +53,7 @@ public class SqliteDeckDAO implements IDeckDAO {
             } catch (SQLException  e) {
                 con.rollback();
                 logger.error(e.getMessage());
-                throw new FailedToDeleteDeckException("Transaction rolled back: " + e.getMessage());
+                throw new FailedToDeleteDeckException(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
             }
@@ -68,7 +67,6 @@ public class SqliteDeckDAO implements IDeckDAO {
     @Override
     public void updateDeck(Deck deck)  {
         if (deck == null || deck.getUserId() == 0) {
-            logger.error("Deck is null or empty {updateDeck}");
             throw new DeckIsNullException("Deck cannot be null");
         }
         try {
@@ -84,7 +82,7 @@ public class SqliteDeckDAO implements IDeckDAO {
             }catch (SQLException  e) {
                 con.rollback();
                 logger.error(e.getMessage());
-                throw new FailedToDeleteDeckException("Transaction rolled back: " + e.getMessage());
+                throw new FailedToDeleteDeckException(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
             }
@@ -110,7 +108,7 @@ public class SqliteDeckDAO implements IDeckDAO {
            }catch (SQLException  e) {
                con.rollback();
                logger.error(e.getMessage());
-               throw new FailedToDeleteDeckException("Transaction rolled back: " + e.getMessage());
+               throw new FailedToDeleteDeckException(e.getMessage());
            }finally {
                con.setAutoCommit(true);
            }
@@ -136,7 +134,7 @@ public class SqliteDeckDAO implements IDeckDAO {
             }catch (SQLException e){
                 con.rollback();
                 logger.error(e.getMessage());
-                throw new FailedToDeleteDeckException("Transaction rolled back: " + e.getMessage());
+                throw new FailedToDeleteDeckException(e.getMessage());
 
             }finally {
                 con.setAutoCommit(true);
@@ -154,7 +152,6 @@ public class SqliteDeckDAO implements IDeckDAO {
     public List<Deck> getDecks(User user) {
         List<Deck> decks = new ArrayList<>();
         if (user == null || user.getId() == 0) {
-            logger.error("User is null or empty {getDecks}");
             throw new DeckIsNullException("Deck cannot be null");
         }
         try{
@@ -171,12 +168,12 @@ public class SqliteDeckDAO implements IDeckDAO {
                     decks.add(deck);
                 }
                 con.commit();
-                resultSet.close();
                 selectStatement.close();
+                resultSet.close();
             }catch (SQLException e) {
                 con.rollback();
                 logger.error(e.getMessage());
-                throw new FailedToGetListOfDecksException("Transaction rolled back: " + e.getMessage());
+                throw new FailedToGetListOfDecksException(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
             }
@@ -191,7 +188,6 @@ public class SqliteDeckDAO implements IDeckDAO {
     public List<Deck> getSoftDeletedDecks(User user) {
         List<Deck> decks = new ArrayList<>();
         if (user == null || user.getId() == 0) {
-            logger.error("User is null or empty {getSoftDeletedDecks}");
             throw new UserIsNullException("Deck cannot be null");
         }
         try{
@@ -208,12 +204,12 @@ public class SqliteDeckDAO implements IDeckDAO {
                     decks.add(deck);
                 }
                 con.commit();
-                resultSet.close();
                 selectStatement.close();
+                resultSet.close();
             }catch (SQLException e){
                 con.rollback();
                 logger.error(e.getMessage());
-                throw new FailedToGetListOfDecksException("Transaction rolled back: " + e.getMessage());
+                throw new FailedToGetListOfDecksException(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
             }
@@ -228,7 +224,6 @@ public class SqliteDeckDAO implements IDeckDAO {
     public Deck getDeck(int id) {
         Deck deck = null;
         if (id <= 0) {
-            logger.error("id is less then or equal to 0 {getDeck}");
             throw new DeckIsNullException("Deck cannot be null");
         }
         try{
@@ -244,12 +239,12 @@ public class SqliteDeckDAO implements IDeckDAO {
                     deck.setId(deckId);
                 }
                 con.commit();
-                resultSet.close();
                 selectStatement.close();
+                resultSet.close();
             } catch (SQLException  e) {
                 con.rollback();
                 logger.error(e.getMessage());
-                throw new FailedToGetDeckException("Transaction rolled back: " + e.getMessage());
+                throw new FailedToGetDeckException(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
             }

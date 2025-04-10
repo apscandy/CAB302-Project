@@ -1,9 +1,9 @@
 package com.cab302.cab302project.model.card;
 
-import com.cab302.cab302project.error.card.FailedToCreateCardException;
-import com.cab302.cab302project.error.card.FailedToGetCardsException;
-import com.cab302.cab302project.error.card.FailedToSoftDeleteCardException;
-import com.cab302.cab302project.error.card.FailedToUpdateCardException;
+import com.cab302.cab302project.error.model.card.FailedToCreateCardException;
+import com.cab302.cab302project.error.model.card.FailedToGetCardsException;
+import com.cab302.cab302project.error.model.card.FailedToSoftDeleteCardException;
+import com.cab302.cab302project.error.model.card.FailedToUpdateCardException;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.deck.Deck;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class SqliteCardDAO implements ICardDAO {
 
-    private Logger logger = LogManager.getLogger(this.getClass());
+    private final Logger logger = LogManager.getLogger(this.getClass());
 
     private final Connection con;
 
@@ -114,11 +114,13 @@ public class SqliteCardDAO implements ICardDAO {
                     String question = rs.getString("question");
                     String answer = rs.getString("answer");
                     String tags = rs.getString("tags");
-                    Boolean is_deleted = rs.getBoolean("is_deleted");
                     Card card = new Card(deck, question, answer, tags);
                     card.setId(id);
                     cards.add(card);
                 }
+                con.commit();
+                getCardStatment.close();
+                rs.close();
             } catch (SQLException ex) {
                 con.rollback();
                 logger.error(ex.getMessage());
