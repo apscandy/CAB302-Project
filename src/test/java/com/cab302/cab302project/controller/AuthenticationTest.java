@@ -28,13 +28,13 @@ public class AuthenticationTest {
     private static Authentication authentication;
 
     @BeforeAll
-    static void setUpBeforeClass(){
+    static void setUpBeforeClass() {
         SqliteConnection.setTestingModeTrue();
         new SqliteCreateTables();
         con = SqliteConnection.getInstance();
         userDAO = new SqliteUserDAO();
         questionDAO = new SqliteUserSecurityQuestionDAO();
-        testUser = new User ("Testing", "Still Testing", "myCodeIsTestingMe@malicious.ru", "MyDogBirthday");
+        testUser = new User ("Testing", "Still Testing", "johnwick@malicious.com", "MyDogBirthday093j-kd!");
         testQuestions = new UserSecurityQuestion(testUser);
         testQuestions.setQuestionOne("What is credit card expiry date?");
         testQuestions.setQuestionTwo("What is your credit card number?");
@@ -46,7 +46,7 @@ public class AuthenticationTest {
     }
 
     @AfterAll
-    static void tearDownAfterClass(){
+    static void tearDownAfterClass() {
         try {
             Statement stmt = con.createStatement();
             stmt.executeUpdate("DELETE FROM user");
@@ -73,16 +73,21 @@ public class AuthenticationTest {
         assertThrows(PasswordEmptyException.class, ()-> authentication.register(testUser));
 
         testUser.setEmail("");
-        assertThrows(EmailEmptyException.class, ()-> authentication.register(testUser));
+        assertThrows(EmailEmptyException.class, () -> authentication.register(testUser));
 
+        testUser.setEmail("johnwick");
+        testUser.setPassword("MyDogBirthday093j-kd!");
+        assertThrows(InvalidEmailFormatException.class, () -> authentication.register(testUser));
 
-        testUser.setPassword("MyDogBirthday");
-        testUser.setEmail("myCodeIsTestingMe@malicious.ru");
+        testUser.setEmail("johnwick@malicious.com.ru");
+        testUser.setPassword("VerySecure");
+        assertThrows(InvalidPasswordFormatException.class, () -> authentication.register(testUser));
 
+        testUser.setPassword("MyDogBirthday093j-kd!");
+        testUser.setEmail("johnwick@malicious.com");
         boolean result = authentication.register(testUser);
         assertTrue(result);
-
-        assertThrows(EmailAlreadyInUseException.class, ()-> authentication.register(testUser));
+        assertThrows(EmailAlreadyInUseException.class, () -> authentication.register(testUser));
     }
 
     @Test
@@ -92,39 +97,43 @@ public class AuthenticationTest {
         assertThrows(PasswordEmptyException.class, () -> authentication.authenticate(testUser.getEmail(), ""));
         assertThrows(EmailEmptyException.class, () -> authentication.authenticate("", testUser.getPassword()));
         assertThrows(UserNotFoundException.class, () -> authentication.authenticate("jimbob@emails.com", testUser.getPassword()));
-        assertThrows(PasswordComparisonException.class, ()-> authentication.authenticate(testUser.getEmail(), "hjkawbdkjha"));
-        assertDoesNotThrow(()-> authentication.authenticate(testUser.getEmail(), "MyDogBirthday"));
+        assertThrows(InvalidEmailFormatException.class, () -> authentication.authenticate("johnwick", testUser.getPassword()));
+        assertThrows(PasswordComparisonException.class, () -> authentication.authenticate(testUser.getEmail(), "MyDogBirthday093j-kd!asdfoiajs"));
+        assertDoesNotThrow(()-> authentication.authenticate(testUser.getEmail(), "MyDogBirthday093j-kd!"));
         assertTrue(ApplicationState.isUserLoggedIn());
-        assertThrows(UserAlreadyLoggedInException.class, ()-> authentication.authenticate(testUser.getEmail(), testUser.getPassword()));
+        assertThrows(UserAlreadyLoggedInException.class, () -> authentication.authenticate(testUser.getEmail(), testUser.getPassword()));
     }
 
     @Test
     @Order(3)
     void testEmailCheck() {
-        assertThrows(EmailEmptyException.class, ()-> authentication.emailCheck(" "));
-        assertThrows(EmailAlreadyInUseException.class, ()-> authentication.emailCheck(testUser.getEmail()));
+        assertThrows(EmailEmptyException.class, () -> authentication.emailCheck(" "));
+        assertThrows(EmailAlreadyInUseException.class, () -> authentication.emailCheck(testUser.getEmail()));
         assertDoesNotThrow(() -> authentication.emailCheck("new-email@emails.com"));
+        assertThrows(InvalidEmailFormatException.class, () -> authentication.emailCheck("johnwick"));
     }
 
     @Test
     @Order(4)
     void testResetPassword() {
-        assertThrows(EmailEmptyException.class, ()-> authentication.resetPassword(" ", testUser.getPassword()));
-        assertThrows(PasswordEmptyException.class, ()-> authentication.resetPassword(testUser.getEmail(), " "));
-        assertThrows(UserNotFoundException.class, ()-> authentication.resetPassword("HelloAndyOneThere", testUser.getPassword()));
-        assertDoesNotThrow(()-> authentication.resetPassword(testUser.getEmail(), "New password 123"));
+        assertThrows(EmailEmptyException.class, () -> authentication.resetPassword(" ", testUser.getPassword()));
+        assertThrows(PasswordEmptyException.class, () -> authentication.resetPassword(testUser.getEmail(), " "));
+        assertThrows(InvalidEmailFormatException.class, () -> authentication.resetPassword("johnwick", testUser.getPassword()));
+        assertThrows(InvalidPasswordFormatException.class, () -> authentication.resetPassword(testUser.getEmail(), "VerySecure"));
+        assertThrows(UserNotFoundException.class, () -> authentication.resetPassword("HelloAndyOneThere@gmail.com.au", testUser.getPassword()));
+        assertDoesNotThrow(()-> authentication.resetPassword(testUser.getEmail(), "MyDogBirthday093j-kd!asdfoiajslaksndf"));
         User user = userDAO.getUser(testUser.getEmail());
-        assertEquals(PasswordUtils.hashSHA256("New password 123"), user.getPassword());
+        assertEquals(PasswordUtils.hashSHA256("MyDogBirthday093j-kd!asdfoiajslaksndf"), user.getPassword());
     }
 
     @Test
     @Order(5)
     void testCheckSecurityQuestion() {
-       assertThrows(EmptyAnswerException.class, ()-> authentication.checkSecurityQuestion(testUser, " ", testQuestions.getAnswerTwo(),testQuestions.getAnswerThree()));
-       assertThrows(EmptyAnswerException.class, ()-> authentication.checkSecurityQuestion(testUser, testQuestions.getAnswerOne(), " ",testQuestions.getAnswerThree()));
-       assertThrows(EmptyAnswerException.class, ()-> authentication.checkSecurityQuestion(testUser, testQuestions.getAnswerOne(), testQuestions.getAnswerTwo()," "));
+       assertThrows(EmptyAnswerException.class, () -> authentication.checkSecurityQuestion(testUser, " ", testQuestions.getAnswerTwo(),testQuestions.getAnswerThree()));
+       assertThrows(EmptyAnswerException.class, () -> authentication.checkSecurityQuestion(testUser, testQuestions.getAnswerOne(), " ",testQuestions.getAnswerThree()));
+       assertThrows(EmptyAnswerException.class, () -> authentication.checkSecurityQuestion(testUser, testQuestions.getAnswerOne(), testQuestions.getAnswerTwo()," "));
        questionDAO.createQuestion(testQuestions);
        assertDoesNotThrow(()-> authentication.checkSecurityQuestion(ApplicationState.getCurrentUser(), testQuestions.getAnswerOne(), testQuestions.getAnswerTwo(),testQuestions.getAnswerThree()));
-       assertThrows(FailedQuestionException.class, ()-> authentication.checkSecurityQuestion(testUser, testQuestions.getAnswerOne(), " awdawd",testQuestions.getAnswerThree()));
+       assertThrows(FailedQuestionException.class, () -> authentication.checkSecurityQuestion(testUser, testQuestions.getAnswerOne(), " awdawd",testQuestions.getAnswerThree()));
     }
 }
