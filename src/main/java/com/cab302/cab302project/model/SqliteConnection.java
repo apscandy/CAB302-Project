@@ -43,6 +43,10 @@ public class SqliteConnection {
         }
     }
 
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     public static Connection getInstance() {
         if (instance == null) {
             new SqliteConnection();

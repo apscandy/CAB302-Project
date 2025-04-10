@@ -60,7 +60,6 @@ public class ApplicationState {
      */
     public static User getCurrentUser(){
         if (currentUser == null && !userLoggedIn) {
-            logger.warn("currentUser is null");
             throw new UserIsNullException("currentUser is null");
         }
         return currentUser;
@@ -69,13 +68,8 @@ public class ApplicationState {
     /**
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
      * @return True if the user is logged in
-     * @throws UserIsNullException Thrown if there is no user logged in
      */
     public static boolean isUserLoggedIn(){
-        if (!userLoggedIn && currentUser != null) {
-            logger.warn("userLoggedIn is false");
-            throw new UserIsNullException("userLoggedIn is false");
-        }
-        return true;
+        return userLoggedIn;
     }
 }

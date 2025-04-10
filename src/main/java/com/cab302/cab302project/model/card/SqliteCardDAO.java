@@ -1,9 +1,9 @@
 package com.cab302.cab302project.model.card;
 
-import com.cab302.cab302project.error.card.FailedToCreateCardException;
-import com.cab302.cab302project.error.card.FailedToGetCardsException;
-import com.cab302.cab302project.error.card.FailedToSoftDeleteCardException;
-import com.cab302.cab302project.error.card.FailedToUpdateCardException;
+import com.cab302.cab302project.error.model.card.FailedToCreateCardException;
+import com.cab302.cab302project.error.model.card.FailedToGetCardsException;
+import com.cab302.cab302project.error.model.card.FailedToSoftDeleteCardException;
+import com.cab302.cab302project.error.model.card.FailedToUpdateCardException;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.deck.Deck;
 import org.apache.logging.log4j.LogManager;
@@ -15,21 +15,14 @@ import java.util.List;
 
 public class SqliteCardDAO implements ICardDAO {
 
-    private Logger logger = LogManager.getLogger(this.getClass());
+    private final Logger logger = LogManager.getLogger(this.getClass());
 
     private final Connection con;
 
     private final String insertCardSQL = "INSERT INTO card (deck_id, question, answer, tags) VALUES (?, ?, ?, ?)";
-
     private final String updateCardSQL = "UPDATE card SET question = ?, answer = ?, tags = ? WHERE id = ?";
-
-    private final String softDeleteSQL = "UPDATE card SET is_deleted = 1 WHERE id = ?";
-
-    private final String softDelefByDeckSQL = "UPDATE card SET is_updated = 1 WHERE deck_id = ?";
-
+    private final String softDeleteSQL = "UPDATE card SET is_deleted = true WHERE id = ?";
     private final String getCardsForDeckSQL = "SELECT * FROM card WHERE deck_id = ? AND is_deleted = 0";
-
-
 
     public SqliteCardDAO() {
         this.con = SqliteConnection.getInstance();
@@ -49,7 +42,7 @@ public class SqliteCardDAO implements ICardDAO {
                 insertStatement.close();
             }catch (SQLException e) {
                 con.rollback();
-                logger.error("Failed to insert card {}", e.getMessage());
+                logger.error(e.getMessage());
                 throw new FailedToCreateCardException(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
@@ -91,10 +84,13 @@ public class SqliteCardDAO implements ICardDAO {
         try {
             con.setAutoCommit(false);
             try (PreparedStatement softDeleteStatement = con.prepareStatement(softDeleteSQL)) {
-
+                softDeleteStatement.setInt(1, card.getId());
+                softDeleteStatement.executeUpdate();
+                con.commit();
+                softDeleteStatement.close();
             }catch (SQLException e) {
                 con.rollback();
-                logger.error("Failed to delete card {}", e.getMessage());
+                logger.error(e.getMessage());
                 throw new FailedToSoftDeleteCardException(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
@@ -106,29 +102,8 @@ public class SqliteCardDAO implements ICardDAO {
     }
 
     @Override
-    public void softDeleteCardsByDeck(Deck deck) {
-        try{
-            try (PreparedStatement softDelefByDeckStatment = con.prepareStatement(softDelefByDeckSQL)) {
-                softDelefByDeckStatment.setInt(1, deck.getId());
-                softDelefByDeckStatment.executeUpdate();
-                con.commit();
-                softDelefByDeckStatment.close();
-            }catch (SQLException e) {
-                con.rollback();
-                logger.error("Failed to delete cards by deck {}", e.getMessage());
-                throw new FailedToSoftDeleteCardException(e.getMessage());
-            }
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            throw new FailedToSoftDeleteCardException(e.getMessage());
-        }
-    }
-
-    @Override
     public List<Card> getCardsForDeck(Deck deck) {
         List<Card> cards = new ArrayList<>();
-        String sql = "SELECT * FROM card WHERE deck_id = ? AND is_deleted = 0";
-
         try {
             con.setAutoCommit(false);
             try (PreparedStatement getCardStatment = con.prepareStatement(getCardsForDeckSQL)) {
@@ -139,11 +114,13 @@ public class SqliteCardDAO implements ICardDAO {
                     String question = rs.getString("question");
                     String answer = rs.getString("answer");
                     String tags = rs.getString("tags");
-                    Boolean is_deleted = rs.getBoolean("is_deleted");
                     Card card = new Card(deck, question, answer, tags);
                     card.setId(id);
                     cards.add(card);
                 }
+                con.commit();
+                getCardStatment.close();
+                rs.close();
             } catch (SQLException ex) {
                 con.rollback();
                 logger.error(ex.getMessage());

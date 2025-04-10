@@ -8,7 +8,4 @@ public interface ICardDAO {
     void updateCard(Card card);
     void softDeleteCard(Card card);
     List<Card> getCardsForDeck(Deck deck);
-
-    // Optional: used when deleting a deck
-    void softDeleteCardsByDeck(Deck deck);
 }

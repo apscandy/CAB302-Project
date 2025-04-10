@@ -1,5 +1,8 @@
 package com.cab302.cab302project.model.userSecQuestions;
 
+import com.cab302.cab302project.error.model.question.FailedToCreateQuestionsException;
+import com.cab302.cab302project.error.model.question.FailedToGetQuestionsException;
+import com.cab302.cab302project.error.model.question.FailedToUpdateQuestionsException;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.user.User;
 import org.apache.logging.log4j.LogManager;
@@ -35,16 +38,16 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
                 stmt.executeUpdate();
                 conn.commit();
                 stmt.close();
-                logger.info("Delete user security questions transaction completed successfully.");
             }catch (SQLException  e) {
                 conn.rollback();
-                logger.error("Created user security question transaction failed: {}", e.getMessage());
-                logger.fatal(e.getMessage());
+                logger.error(e.getMessage());
+                throw new FailedToCreateQuestionsException(e.getMessage());
             }finally {
                 conn.setAutoCommit(true);
             }
         }catch (Exception e) {
-            logger.fatal(e.getMessage());
+            logger.error(e.getMessage());
+            throw new FailedToCreateQuestionsException(e.getMessage());
         }
     }
 
@@ -54,7 +57,7 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
         try {
             conn.setAutoCommit(false);
             try(PreparedStatement statement = conn.prepareStatement(getUserSecurityQuestionSQL)){
-                statement.setInt(1, user.getId());
+                statement.setInt(1, userQuestions.getUserId());
                 conn.commit();
                 ResultSet rs = statement.executeQuery();
                 if(rs.next()) {
@@ -70,25 +73,27 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
                     userQuestions.setAnswerOne(answerOne);
                     userQuestions.setAnswerTwo(answerTwo);
                     userQuestions.setAnswerThree(answerThree);
+
                 }
-                rs.close();
+                conn.commit();
                 statement.close();
+                rs.close();
             }catch (SQLException e) {
                 conn.rollback();
-                logger.error("Get user security question transaction failed: {}", e.getMessage());
-                logger.fatal(e.getMessage());
-
+                logger.error(e.getMessage());
+                throw new FailedToGetQuestionsException(e.getMessage());
             }finally {
                 conn.setAutoCommit(true);
             }
         }catch (Exception e) {
-            logger.fatal(e.getMessage());
+            logger.error(e.getMessage());
+            throw new FailedToGetQuestionsException(e.getMessage());
         }
         return userQuestions;
     }
 
     @Override
-    public void updateQuestions(UserSecurityQuestion updatedQuestion) {
+    public void updateQuestions(UserSecurityQuestion updatedQuestion){
         try {
             conn.setAutoCommit(false);
             try (PreparedStatement pstmt = conn.prepareStatement(updateUserSecurityQuestionSQL)) {
@@ -103,13 +108,14 @@ public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
                 conn.commit();
             } catch (SQLException e) {
                 conn.rollback();
-                logger.error("update user security question transaction failed: {}", e.getMessage());
-                logger.fatal(e.getMessage());
+                logger.error(e.getMessage());
+                throw new FailedToUpdateQuestionsException(e.getMessage());
             }finally {
                 conn.setAutoCommit(true);
             }
         }catch (Exception e) {
-            logger.fatal(e.getMessage());
+            logger.error(e.getMessage());
+            throw new FailedToUpdateQuestionsException(e.getMessage());
         }
 
     }
