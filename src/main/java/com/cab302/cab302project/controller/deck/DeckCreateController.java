@@ -21,9 +21,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+ */
 public class DeckCreateController implements Initializable {
-
-    private static final Logger logger = LogManager.getLogger(DeckCreateController.class);
 
     @FXML
     private final IDeckDAO deckDAO;
@@ -40,22 +41,28 @@ public class DeckCreateController implements Initializable {
     @FXML
     private TextArea deckDescription;
 
-
+    private static final Logger logger = LogManager.getLogger(DeckCreateController.class);
 
     public DeckCreateController(){
         deckDAO = new SqliteDeckDAO();
     }
 
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * @param arg0
+     * @param arg1
+     */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
-        logger.info("initializing DeckCreateController listView");
         if (!ApplicationState.isUserLoggedIn()) return;
         loadDecks();
     }
 
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @FXML
     private void selectListViewItem() {
-        logger.debug("Select ListView item");
         if (!ApplicationState.isUserLoggedIn()) return;
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) return;
@@ -63,26 +70,32 @@ public class DeckCreateController implements Initializable {
         deckDescription.setText(deck.getDescription());
     }
 
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * @throws IOException
+     */
     @FXML
     private void backButton() throws IOException {
-        logger.debug("Back button pressed");
         Stage stage = (Stage) backButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
-        logger.debug("User on main screen");
     }
 
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @FXML
     private void clearButton() {
-        logger.debug("Clear button pressed");
         deckName.clear();
         deckDescription.clear();
     }
 
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @FXML
     private void createDeck() {
-        logger.debug("Create deck button pressed");
         if (!ApplicationState.isUserLoggedIn()) return;
         if (deckName.getText().isEmpty()) {
             deckName.setText("New Deck");
@@ -93,9 +106,11 @@ public class DeckCreateController implements Initializable {
         clearButton();
     }
 
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @FXML
     private void deleteDeck() {
-        logger.debug("Delete deck button pressed");
         if (!ApplicationState.isUserLoggedIn()) return;
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) return;
@@ -105,9 +120,11 @@ public class DeckCreateController implements Initializable {
         deckDescription.clear();
     }
 
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @FXML
     private void editDeck() {
-        logger.debug("Edit deck button pressed");
         if (!ApplicationState.isUserLoggedIn()) return;
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) return;
@@ -117,10 +134,10 @@ public class DeckCreateController implements Initializable {
         loadDecks();
     }
 
-
-
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     private void loadDecks() {
-        logger.debug("Load deck");
         if (!ApplicationState.isUserLoggedIn()) return;
         decks.getItems().clear();
         decks.getItems().addAll(deckDAO.getDecks(ApplicationState.getCurrentUser()));

@@ -2,11 +2,8 @@ package com.cab302.cab302project.controller.user;
 import com.cab302.cab302project.util.RegexValidator;
 
 import com.cab302.cab302project.HelloApplication;
-import com.cab302.cab302project.controller.user.Authentication;
-import com.cab302.cab302project.error.authenicaton.*;
+import com.cab302.cab302project.error.authentication.*;
 import com.cab302.cab302project.model.user.User;
-import com.cab302.cab302project.util.RegexValidator;
-import com.cab302.cab302project.controller.user.AddSecurityQuestionController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

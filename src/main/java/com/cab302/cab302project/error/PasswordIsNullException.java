@@ -1,5 +1,8 @@
 package com.cab302.cab302project.error;
 
+/**
+ * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+ */
 public class PasswordIsNullException extends RuntimeException{
     
     public PasswordIsNullException(){}

@@ -10,10 +10,6 @@ public class Card {
     private String tags;
     private boolean isDeleted = false;
 
-    public Card() {
-        // No-arg constructor for testing
-    }
-
     public Card(Deck deck, String question, String answer, String tags) {
         this.deck = deck;
         this.question = question;
@@ -45,7 +41,7 @@ public class Card {
         return isDeleted;
     }
 
-    public void setId(int id) {
+    protected void setId(int id) {
         this.id = id;
     }
 
@@ -65,7 +61,7 @@ public class Card {
         this.tags = tags;
     }
 
-    public void setDeleted(boolean deleted) {
+    protected void setDeleted(boolean deleted) {
         isDeleted = deleted;
     }
 

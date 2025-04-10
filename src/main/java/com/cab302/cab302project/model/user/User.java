@@ -34,7 +34,7 @@ public class User {
         return password;
     }
 
-    public void setId(int id) {
+    protected void setId(int id) {
         this.id = id;
     }
 

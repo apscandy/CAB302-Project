@@ -2,7 +2,7 @@
 
 ## Sprint Details
 **Sprint Duration:** 02/04/25 - 16/04/25  
-**Sprint Goal:** Project setup - getting user authentication done and the main view configured  
+**Sprint Goal:** Project setup - getting user authenticationService done and the main view configured  
 
 ## Team Members
 - [[Andrew Clarke]]

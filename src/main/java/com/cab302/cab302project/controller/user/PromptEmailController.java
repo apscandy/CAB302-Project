@@ -1,10 +1,7 @@
 package com.cab302.cab302project.controller.user;
 
 import com.cab302.cab302project.HelloApplication;
-import com.cab302.cab302project.controller.deck.DeckCreateController;
-import com.cab302.cab302project.error.authenicaton.EmailAlreadyInUseException;
-import com.cab302.cab302project.error.authenicaton.EmailEmptyException;
-import com.cab302.cab302project.error.authenicaton.InvalidEmailFormatException;
+import com.cab302.cab302project.error.authentication.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -39,7 +36,7 @@ public class PromptEmailController {
     @FXML
     public void goToPromptPasswordPage() throws IOException {
         String email = userEmail.getText();
-        Authentication authHandler = new Authentication();
+        AuthenticationService authHandler = new AuthenticationService();
         errorEmailMessage.setText("");
         boolean isEmailFree = false;
         try {

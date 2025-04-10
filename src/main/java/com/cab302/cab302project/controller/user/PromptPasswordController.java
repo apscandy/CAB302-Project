@@ -2,10 +2,7 @@ package com.cab302.cab302project.controller.user;
 
 import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.error.UserAlreadyLoggedInException;
-import com.cab302.cab302project.error.authenicaton.EmailEmptyException;
-import com.cab302.cab302project.error.authenicaton.PasswordComparisonException;
-import com.cab302.cab302project.error.authenicaton.PasswordEmptyException;
-import javafx.event.ActionEvent;
+import com.cab302.cab302project.error.authentication.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -49,16 +46,10 @@ public class PromptPasswordController {
     public void login() throws IOException {
         errorPasswordMessage.setText("");
         String password = userPassword.getText();
-        Authentication authHandler = new Authentication();
+        AuthenticationService authHandler = new AuthenticationService();
+        boolean authenticated = false;
         try {
-            boolean authenticated = authHandler.authenticate(userEmail, password);
-            if (authenticated) {
-                Stage stage = (Stage) loginBtn.getScene().getWindow();
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-                stage.setScene(scene);
-                logger.debug("User on main view screen");
-            }
+            authenticated = authHandler.authenticate(userEmail, password);
         } catch (UserAlreadyLoggedInException ex) {
             errorPasswordMessage.setText("User already logged in.");
         } catch (PasswordEmptyException ex) {
@@ -66,25 +57,27 @@ public class PromptPasswordController {
         } catch (PasswordComparisonException ex) {
             errorPasswordMessage.setText("Incorrect password. Please try again.");
         }
+        if (authenticated) {
+            Stage stage = (Stage) loginBtn.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            stage.setScene(scene);
+        }
     }
 
     @FXML
     public void backToPromptEmailPage() throws IOException {
-        logger.debug("backToPromptEmailPageBtn pressed");
         Stage stage = (Stage) backToPromptEmailPageBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
-        logger.debug("User on prompt email view screen");
     }
 
     @FXML
     public void goToAnswerSecurityQuestion() throws IOException {
-        logger.debug("resetPasswordBtn pressed");
         Stage stage = (Stage) resetPasswordBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("answer-security-questions-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
-        logger.debug("User on answer security view screen");
     }
 }

@@ -4,7 +4,6 @@ import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.model.user.User;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
-import com.cab302.cab302project.controller.user.Authentication;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -132,8 +131,8 @@ public class AddSecurityQuestionController {
         userSecurityQuestion.setQuestionThree(questionThree);
         userSecurityQuestion.setAnswerThree(answerThree);
 
-        Authentication authentication = new Authentication();
-        authentication.register(tempUser);
+        AuthenticationService authenticationService = new AuthenticationService();
+        authenticationService.register(tempUser);
         SqliteUserSecurityQuestionDAO dao = new SqliteUserSecurityQuestionDAO();
         dao.createQuestion(userSecurityQuestion);
 
