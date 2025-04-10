@@ -50,22 +50,19 @@ public class PromptEmailController {
         } catch (InvalidEmailFormatException e) {
             errorEmailMessage.setText("Invalid email format.");
             return;
-        } catch (EmailAlreadyInUseException e) {
-            // If the email exist, direct to prompt password view
-            Stage stage = (Stage) goToPromptPasswordPageBtn.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-password-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-            // Get the controller and set the email
-            PromptPasswordController passwordController = fxmlLoader.getController();
-            passwordController.setUserEmail(email);
-            stage.setScene(scene);
-            logger.debug("User on prompt password view screen");
-        }
+        } catch (EmailAlreadyInUseException ignored) {}
         if (isEmailFree) {
             // If it doesn't exist, display error message
             errorEmailMessage.setText("Email not found. Please register for an account.");
             return;
         }
+        Stage stage = (Stage) goToPromptPasswordPageBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-password-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        PromptPasswordController passwordController = fxmlLoader.getController();
+        passwordController.setUserEmail(email);
+        stage.setScene(scene);
+        logger.debug("User on prompt password view screen");
     }
 
     @FXML
