@@ -3,7 +3,7 @@ package com.cab302.cab302project.controller;
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.controller.user.Authentication;
 import com.cab302.cab302project.error.UserAlreadyLoggedInException;
-import com.cab302.cab302project.error.authenicaton.*;
+import com.cab302.cab302project.error.authentication.*;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.SqliteCreateTables;
 import com.cab302.cab302project.model.user.SqliteUserDAO;

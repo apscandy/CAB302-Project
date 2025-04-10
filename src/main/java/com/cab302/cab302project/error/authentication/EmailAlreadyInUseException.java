@@ -1,4 +1,4 @@
-package com.cab302.cab302project.error.authenicaton;
+package com.cab302.cab302project.error.authentication;
 
 public class EmailAlreadyInUseException extends RuntimeException {
     public EmailAlreadyInUseException(String message) {super(message);}

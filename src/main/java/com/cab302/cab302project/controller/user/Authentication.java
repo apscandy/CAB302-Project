@@ -2,7 +2,7 @@ package com.cab302.cab302project.controller.user;
 
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.error.UserAlreadyLoggedInException;
-import com.cab302.cab302project.error.authenicaton.*;
+import com.cab302.cab302project.error.authentication.*;
 import com.cab302.cab302project.model.user.IUserDAO;
 import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
@@ -10,7 +10,6 @@ import com.cab302.cab302project.model.userSecQuestions.IUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
 import com.cab302.cab302project.util.PasswordUtils;
-import com.cab302.cab302project.util.RegexValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
