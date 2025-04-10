@@ -121,10 +121,6 @@ public class Authentication {
             logger.warn("Reset password failed: password is empty");
             throw new PasswordEmptyException("password is empty");
         }
-        if (!RegexValidator.validPassword(newPassword)) {
-            logger.warn("Password Reset: New password provided did not meet the requirement");
-            throw new InvalidPasswordFormatException("password did not meet the requirement");
-        }
         boolean result = false;
         try {
             result = emailCheck(email);
@@ -135,6 +131,10 @@ public class Authentication {
         if (result) {
             logger.warn("Reset password failed: user not found");
             throw new UserNotFoundException();
+        }
+        if (!RegexValidator.validPassword(newPassword)) {
+            logger.warn("Password Reset: New password provided did not meet the requirement");
+            throw new InvalidPasswordFormatException("password did not meet the requirement");
         }
         String hashedPassword = PasswordUtils.hashSHA256(newPassword);
         User user = userDAO.getUser(email);
