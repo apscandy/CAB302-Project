@@ -41,7 +41,7 @@ public class PromptEmailController {
         String email = userEmail.getText();
         Authentication authHandler = new Authentication();
         errorEmailMessage.setText("");
-        boolean isEmailFree = true;
+        boolean isEmailFree = false;
         try {
             isEmailFree = authHandler.emailCheck(email);
         } catch (EmailEmptyException e) {
