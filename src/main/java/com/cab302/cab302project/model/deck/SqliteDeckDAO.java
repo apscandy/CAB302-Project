@@ -12,6 +12,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+ */
 public class SqliteDeckDAO implements IDeckDAO {
 
     private final Logger logger = LogManager.getLogger(SqliteDeckDAO.class);
@@ -30,6 +34,10 @@ public class SqliteDeckDAO implements IDeckDAO {
     }
 
 
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @Override
     public void createDeck(Deck deck) {
         if (deck == null || deck.getUserId() == 0) {
@@ -64,6 +72,10 @@ public class SqliteDeckDAO implements IDeckDAO {
     }
 
 
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @Override
     public void updateDeck(Deck deck)  {
         if (deck == null || deck.getUserId() == 0) {
@@ -92,6 +104,10 @@ public class SqliteDeckDAO implements IDeckDAO {
         }
     }
 
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @Override
     public void deleteDeck(Deck deck) {
         if (deck == null || deck.getUserId() == 0) {
@@ -118,6 +134,10 @@ public class SqliteDeckDAO implements IDeckDAO {
        }
     }
 
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @Override
     public void softDeleteDeck(Deck deck) {
         if( deck == null || deck.getUserId() == 0 || deck.getId() == 0){
@@ -145,8 +165,9 @@ public class SqliteDeckDAO implements IDeckDAO {
         }
     }
 
-    /*
-    TODO: look are replacing user with ApplicationState.getCurrentUser()
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public List<Deck> getDecks(User user) {
@@ -184,6 +205,10 @@ public class SqliteDeckDAO implements IDeckDAO {
         return decks;
     }
 
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @Override
     public List<Deck> getSoftDeletedDecks(User user) {
         List<Deck> decks = new ArrayList<>();
@@ -220,6 +245,10 @@ public class SqliteDeckDAO implements IDeckDAO {
         return decks;
     }
 
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @Override
     public Deck getDeck(int id) {
         Deck deck = null;

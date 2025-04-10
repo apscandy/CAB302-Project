@@ -50,6 +50,10 @@ public class SqliteCreateTables {
         }
     }
 
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     private void createDeckTable() {
         try {
             Statement stmt = con.createStatement();
@@ -70,6 +74,10 @@ public class SqliteCreateTables {
         }
     }
 
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     private void createUserEmailIndex() {
         try {
             Statement stmt = con.createStatement();
@@ -82,6 +90,10 @@ public class SqliteCreateTables {
         }
     }
 
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     private void createCardTable() {
         try {
             Statement stmt = con.createStatement();
@@ -102,6 +114,10 @@ public class SqliteCreateTables {
         }
     }
 
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     private void createUserSecurityQuestionTable() {
         try{
             Statement stmt = con.createStatement();
