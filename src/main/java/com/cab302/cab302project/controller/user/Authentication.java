@@ -73,11 +73,10 @@ public class Authentication {
             user = userDAO.getUser(email);
             Objects.requireNonNull(user);
         } catch (NullPointerException nullPointerException){
-//            throw new EmailAlreadyInUseException();
             return true;
         }
         if (Objects.equals(user.getEmail(), email)) {
-            logger.warn("Email check failed: user not found");
+            logger.warn("Email check: user email exist in the database");
             throw new EmailAlreadyInUseException();
         }
         return true;

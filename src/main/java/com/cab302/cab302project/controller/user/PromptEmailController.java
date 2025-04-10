@@ -17,6 +17,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
+/**
+ * @author Hoang Dat Bui
+ */
 public class PromptEmailController {
 
     @FXML
@@ -31,34 +34,47 @@ public class PromptEmailController {
     @FXML
     private Label errorEmailMessage;
 
+    private static final Logger logger = LogManager.getLogger(PromptEmailController.class);
+
     @FXML
     public void goToPromptPasswordPage() throws IOException {
         String email = userEmail.getText();
         Authentication authHandler = new Authentication();
         errorEmailMessage.setText("");
+        boolean isEmailFree = true;
         try {
-            authHandler.emailCheck(email);
-        } catch (EmailAlreadyInUseException e) {
-            errorEmailMessage.setText("Can't find your email. Please register");
-            return;
+            isEmailFree = authHandler.emailCheck(email);
         } catch (EmailEmptyException e) {
             errorEmailMessage.setText("Email cannot be empty.");
             return;
         } catch (InvalidEmailFormatException e) {
             errorEmailMessage.setText("Invalid email format.");
             return;
+        } catch (EmailAlreadyInUseException e) {
+            // If the email exist, direct to prompt password view
+            Stage stage = (Stage) goToPromptPasswordPageBtn.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-password-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            // Get the controller and set the email
+            PromptPasswordController passwordController = fxmlLoader.getController();
+            passwordController.setUserEmail(email);
+            stage.setScene(scene);
+            logger.debug("User on prompt password view screen");
         }
-        Stage stage = (Stage) goToPromptPasswordPageBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-password-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
+        if (isEmailFree) {
+            // If it doesn't exist, display error message
+            errorEmailMessage.setText("Email not found. Please register for an account.");
+            return;
+        }
     }
 
     @FXML
     public void goToRegisterPage() throws IOException {
+        logger.debug("Go to register account screen button pressed");
         Stage stage = (Stage) goToRegisterPageBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
+        logger.debug("User on register account screen");
     }
 }
