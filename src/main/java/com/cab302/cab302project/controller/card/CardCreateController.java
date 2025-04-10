@@ -4,58 +4,17 @@ import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.model.card.Card;
 import com.cab302.cab302project.model.card.ICardDAO;
 import com.cab302.cab302project.model.card.SqliteCardDAO;
-import com.cab302.cab302project.model.deck.Deck;
-import com.cab302.cab302project.model.deck.IDeckDAO;
-import com.cab302.cab302project.model.deck.SqliteDeckDAO;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-
-public class CardCreateController implements Initializable {
+public class CardCreateController extends CardViewController {
 
     private static final Logger logger = LogManager.getLogger(CardCreateController.class);
-
-    @FXML private ComboBox<Deck> deckComboBox;
-    @FXML private ListView<Card> cardsList;
-    @FXML private TextField cardName;
-    @FXML private TextArea cardAnswer;
-
     private final ICardDAO cardDAO = new SqliteCardDAO();
-    private final IDeckDAO deckDAO = new SqliteDeckDAO();
-    private Deck currentDeck;
-    private Card selectedCard;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        if (ApplicationState.isUserLoggedIn()) {
-            List<Deck> decks = deckDAO.getDecks(ApplicationState.getCurrentUser());
-            deckComboBox.setItems(FXCollections.observableArrayList(decks));
-            deckComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldDeck, newDeck) -> {
-                currentDeck = newDeck;
-                loadCards();
-            });
-        }
-        cardsList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                selectedCard = newSelection;
-                cardName.setText(selectedCard.getQuestion());
-                cardAnswer.setText(selectedCard.getAnswer());
-            }
-        });
-    }
 
     @FXML
     private void saveCard() {
@@ -110,28 +69,5 @@ public class CardCreateController implements Initializable {
         cardName.clear();
         cardAnswer.clear();
         selectedCard = null;
-    }
-
-    private void loadCards() {
-        if (currentDeck != null) {
-            List<Card> cards = cardDAO.getCardsForDeck(currentDeck);
-            cardsList.getItems().setAll(cards);
-        }
-    }
-
-    private void showAlert(String title, String msg) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(msg);
-        alert.showAndWait();
-    }
-
-    @FXML
-    private void selectListViewItem() {
-        selectedCard = cardsList.getSelectionModel().getSelectedItem();
-        if (selectedCard != null) {
-            cardName.setText(selectedCard.getQuestion());
-            cardAnswer.setText(selectedCard.getAnswer());
-        }
     }
 }

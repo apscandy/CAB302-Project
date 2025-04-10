@@ -21,4 +21,5 @@ module com.cab302.cab302project {
     opens com.cab302.cab302project.controller.deck to javafx.fxml;
     opens com.cab302.cab302project.controller.menubar to javafx.fxml;
     opens com.cab302.cab302project.controller.user to javafx.fxml;
+    opens com.cab302.cab302project.controller.card to javafx.fxml;
 }
