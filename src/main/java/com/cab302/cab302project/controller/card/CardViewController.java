@@ -29,8 +29,7 @@ import java.util.ResourceBundle;
  * listing the cards for the selected deck, and displaying the details of the selected card.
  * </p>
  *
- * @author Monica Borg
- * @version n9802045
+ * @author Monica Borg (n9802045)
  */
 public class CardViewController implements Initializable {
 
