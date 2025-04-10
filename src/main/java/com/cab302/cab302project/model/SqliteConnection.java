@@ -124,22 +124,23 @@ public class SqliteConnection {
         try {
             Statement stmt = instance.createStatement();
             ResultSet rsForeignKeys = stmt.executeQuery("PRAGMA foreign_keys;");
-            ResultSet rsSynchronous = stmt.executeQuery("PRAGMA synchronous;");
-            ResultSet rsLockingMode = stmt.executeQuery("PRAGMA locking_mode;");
             if (rsForeignKeys.next()) {
                 int foreignKeysEnabled = rsForeignKeys.getInt(1);
                 logger.debug("Foreign keys enabled: {}", foreignKeysEnabled);
             }
+            rsForeignKeys.close();
+            ResultSet rsSynchronous = stmt.executeQuery("PRAGMA synchronous;");
+
             if (rsSynchronous.next()) {
                 int synchronousMode = rsSynchronous.getInt(1);
                 logger.info("Synchronous Mode: {}", synchronousMode);
             }
+            rsSynchronous.close();
+            ResultSet rsLockingMode = stmt.executeQuery("PRAGMA locking_mode;");
             if (rsLockingMode.next()) {
                 String lockingMode = rsLockingMode.getString(1);
                 logger.info("Locking Mode: {}", lockingMode);
             }
-            rsForeignKeys.close();
-            rsSynchronous.close();
             rsLockingMode.close();
             stmt.close();
         } catch (Exception e){
@@ -147,3 +148,5 @@ public class SqliteConnection {
         }
     }
 }
+
+
