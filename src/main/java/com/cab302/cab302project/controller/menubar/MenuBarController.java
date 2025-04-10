@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +21,9 @@ public class MenuBarController {
     private MenuItem close;
 
     @FXML
+    private HBox rootHBox;
+
+    @FXML
     private void closeProgram() {
         logger.info("Close application button clicked");
         System.exit(0);
@@ -27,17 +31,17 @@ public class MenuBarController {
 
     @FXML
     private void home() {
-        logger.info("Home button clicked");
+        logger.info("Home clicked");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(HelloApplication.class.getResource("main/main.fxml"));
-
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-            HelloApplication.getStage().setScene(scene);
+            Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @FXML
@@ -46,9 +50,10 @@ public class MenuBarController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(HelloApplication.class.getResource("deck/deck-view.fxml"));
-
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-            HelloApplication.getStage().setScene(scene);
+            Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,7 +66,9 @@ public class MenuBarController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(HelloApplication.class.getResource("card/card-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-            HelloApplication.getStage().setScene(scene);
+            Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,19 +77,16 @@ public class MenuBarController {
     @FXML
     private void logOut() {
         logger.info("Log Out clicked");
-
-        // Clear the current session
         ApplicationState.logout();
-
-        // Return to login screen
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(HelloApplication.class.getResource("prompt-email-view.fxml")); // adjust path if needed
+            fxmlLoader.setLocation(HelloApplication.class.getResource("prompt-email-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-            HelloApplication.getStage().setScene(scene);
+            Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }

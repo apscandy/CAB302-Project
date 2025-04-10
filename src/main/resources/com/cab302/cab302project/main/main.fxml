@@ -2,15 +2,32 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0"
-            prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.cab302.cab302project.controller.deck.DeckViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.deck.DeckViewController">
     <children>
-        <fx:include source="../base-view.fxml"/>
-        <ListView fx:id="decks" layoutX="14.0" layoutY="36.0" onMouseClicked="#selectListViewItem" prefHeight="307.0"
-                  prefWidth="200.0"/>
-        <ListView fx:id="cards" layoutX="227.0" layoutY="36.0" onMouseClicked="#selectListViewItem" prefHeight="307.0"
-                  prefWidth="400.0"/>
+        <fx:include source="../base-view.fxml" />
+        <Label alignment="CENTER" layoutX="14.0" layoutY="42.0" prefHeight="26.0" prefWidth="613.0" text="Welcome to CRAM IT!" textFill="#d90429">
+            <font>
+                <Font name="System Italic" size="15.0" />
+            </font>
+        </Label>
+        <ListView fx:id="decks" layoutX="14.0" layoutY="98.0" onMouseClicked="#selectListViewItem" prefHeight="211.0" prefWidth="285.0" />
+        <ListView fx:id="cards" layoutX="342.0" layoutY="98.0" onMouseClicked="#selectListViewItem" prefHeight="211.0" prefWidth="285.0" />
+        <Button fx:id="createDeckButton" layoutX="52.0" layoutY="318.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="28.0" prefWidth="77.0" text="Add Deck" />
+        <Label alignment="CENTER" layoutX="14.0" layoutY="71.0" prefHeight="26.0" prefWidth="285.0" text="DECKS" textFill="#d90429">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="342.0" layoutY="71.0" prefHeight="26.0" prefWidth="285.0" text="CARDS" textFill="#d90429">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <Button layoutX="381.0" layoutY="318.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="28.0" prefWidth="77.0" text="Add Card" />
+      <Button layoutX="465.0" layoutY="318.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="28.0" prefWidth="124.0" text="Edit Selected Card" />
+      <Button layoutX="137.0" layoutY="318.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="28.0" prefWidth="124.0" text="Edit Selected Deck" />
+
     </children>
 </AnchorPane>

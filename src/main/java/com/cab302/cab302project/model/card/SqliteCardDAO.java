@@ -16,20 +16,13 @@ import java.util.List;
 public class SqliteCardDAO implements ICardDAO {
 
     private Logger logger = LogManager.getLogger(this.getClass());
-
     private final Connection con;
-
     private final String insertCardSQL = "INSERT INTO card (deck_id, question, answer, tags) VALUES (?, ?, ?, ?)";
-
+    // Correct SQL: setting question, answer, tags, where id = ?
     private final String updateCardSQL = "UPDATE card SET question = ?, answer = ?, tags = ? WHERE id = ?";
-
     private final String softDeleteSQL = "UPDATE card SET is_deleted = 1 WHERE id = ?";
-
     private final String softDelefByDeckSQL = "UPDATE card SET is_updated = 1 WHERE deck_id = ?";
-
     private final String getCardsForDeckSQL = "SELECT * FROM card WHERE deck_id = ? AND is_deleted = 0";
-
-
 
     public SqliteCardDAO() {
         this.con = SqliteConnection.getInstance();
@@ -37,7 +30,7 @@ public class SqliteCardDAO implements ICardDAO {
 
     @Override
     public void addCard(Card card) throws RuntimeException {
-        try{
+        try {
             con.setAutoCommit(false);
             try (PreparedStatement insertStatement = con.prepareStatement(insertCardSQL)) {
                 insertStatement.setInt(1, card.getDeck().getId());
@@ -46,15 +39,14 @@ public class SqliteCardDAO implements ICardDAO {
                 insertStatement.setString(4, card.getTags());
                 insertStatement.executeUpdate();
                 con.commit();
-                insertStatement.close();
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 con.rollback();
                 logger.error("Failed to insert card {}", e.getMessage());
                 throw new FailedToCreateCardException(e.getMessage());
-            }finally {
+            } finally {
                 con.setAutoCommit(true);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             logger.error(e.getMessage());
             throw new FailedToCreateCardException(e.getMessage());
         }
@@ -62,25 +54,23 @@ public class SqliteCardDAO implements ICardDAO {
 
     @Override
     public void updateCard(Card card) {
-        try{
+        try {
             con.setAutoCommit(false);
             try (PreparedStatement updateStatement = con.prepareStatement(updateCardSQL)) {
-                updateStatement.setInt(1, card.getDeck().getId());
-                updateStatement.setString(2, card.getQuestion());
-                updateStatement.setString(3, card.getAnswer());
-                updateStatement.setString(4, card.getTags());
-                updateStatement.setInt(5, card.getId());
+                updateStatement.setString(1, card.getQuestion());
+                updateStatement.setString(2, card.getAnswer());
+                updateStatement.setString(3, card.getTags());
+                updateStatement.setInt(4, card.getId());
                 updateStatement.executeUpdate();
                 con.commit();
-                updateStatement.close();
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 con.rollback();
                 logger.error("Failed to update card {}", e.getMessage());
                 throw new FailedToUpdateCardException(e.getMessage());
-            }finally {
+            } finally {
                 con.setAutoCommit(true);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             logger.error(e.getMessage());
             throw new FailedToUpdateCardException();
         }
@@ -91,15 +81,17 @@ public class SqliteCardDAO implements ICardDAO {
         try {
             con.setAutoCommit(false);
             try (PreparedStatement softDeleteStatement = con.prepareStatement(softDeleteSQL)) {
-
-            }catch (SQLException e) {
+                softDeleteStatement.setInt(1, card.getId());
+                softDeleteStatement.executeUpdate();
+                con.commit();
+            } catch (SQLException e) {
                 con.rollback();
                 logger.error("Failed to delete card {}", e.getMessage());
                 throw new FailedToSoftDeleteCardException(e.getMessage());
-            }finally {
+            } finally {
                 con.setAutoCommit(true);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             logger.error(e.getMessage());
             throw new FailedToSoftDeleteCardException(e.getMessage());
         }
@@ -107,13 +99,12 @@ public class SqliteCardDAO implements ICardDAO {
 
     @Override
     public void softDeleteCardsByDeck(Deck deck) {
-        try{
+        try {
             try (PreparedStatement softDelefByDeckStatment = con.prepareStatement(softDelefByDeckSQL)) {
                 softDelefByDeckStatment.setInt(1, deck.getId());
                 softDelefByDeckStatment.executeUpdate();
                 con.commit();
-                softDelefByDeckStatment.close();
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 con.rollback();
                 logger.error("Failed to delete cards by deck {}", e.getMessage());
                 throw new FailedToSoftDeleteCardException(e.getMessage());
@@ -127,8 +118,6 @@ public class SqliteCardDAO implements ICardDAO {
     @Override
     public List<Card> getCardsForDeck(Deck deck) {
         List<Card> cards = new ArrayList<>();
-        String sql = "SELECT * FROM card WHERE deck_id = ? AND is_deleted = 0";
-
         try {
             con.setAutoCommit(false);
             try (PreparedStatement getCardStatment = con.prepareStatement(getCardsForDeckSQL)) {
@@ -139,7 +128,6 @@ public class SqliteCardDAO implements ICardDAO {
                     String question = rs.getString("question");
                     String answer = rs.getString("answer");
                     String tags = rs.getString("tags");
-                    Boolean is_deleted = rs.getBoolean("is_deleted");
                     Card card = new Card(deck, question, answer, tags);
                     card.setId(id);
                     cards.add(card);

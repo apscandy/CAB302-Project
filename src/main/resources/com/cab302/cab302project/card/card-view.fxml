@@ -4,30 +4,34 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.card.CardController">
+<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.card.CardController">
     <fx:include source="../base-view.fxml" />
-
-    <ListView fx:id="cardsList" layoutX="14.0" layoutY="36.0" onMouseClicked="#selectListViewItem" prefHeight="307.0" prefWidth="200.0" />
-
-    <TextField fx:id="cardName" alignment="TOP_LEFT" layoutX="225.0" layoutY="36.0" prefHeight="83.0" prefWidth="395.0" promptText="Card Question">
-      <font>
-         <Font size="14.0" />
-      </font></TextField>
-
-    <TextArea fx:id="cardAnswer" layoutX="225.0" layoutY="122.0" prefHeight="185.0" prefWidth="395.0" promptText="Card Answer">
+    <TextField fx:id="cardName" alignment="TOP_LEFT" layoutX="23.0" layoutY="91.0" prefHeight="46.0" prefWidth="409.0" promptText="Card Question">
+        <font>
+            <Font size="14.0" />
+        </font>
+    </TextField>
+    <TextArea fx:id="cardAnswer" layoutX="23.0" layoutY="145.0" prefHeight="162.0" prefWidth="409.0" promptText="Card Answer">
         <font>
             <Font size="12.0" />
         </font>
     </TextArea>
-
-    <Button fx:id="backButton" layoutX="225.0" layoutY="315.0" mnemonicParsing="false" onAction="#backButton" prefHeight="28.0" prefWidth="30.0" text="←" />
-    <Button layoutX="267.0" layoutY="315.0" mnemonicParsing="false" onAction="#saveCard" prefHeight="28.0" prefWidth="48.0" text="Add" />
-    <Button layoutX="319.0" layoutY="315.0" mnemonicParsing="false" onAction="#editCard" prefHeight="28.0" prefWidth="48.0" text="Save" />
-    <Button fx:id="clearButton" layoutX="423.0" layoutY="315.0" mnemonicParsing="false" onAction="#clearCard" prefHeight="28.0" prefWidth="48.0" text="Clear" />
-<!--    <Button fx:id="undoButton" layoutX="371.0" layoutY="315.0" mnemonicParsing="false" onAction="#undoChange"-->
-<!--            prefHeight="28.0" prefWidth="48.0" text="Undo"/>-->
-
+    <Button layoutX="23.0" layoutY="315.0" mnemonicParsing="false" onAction="#saveCard" prefHeight="28.0" prefWidth="113.0" text="Add as New Card" />
+<!--    <Button layoutX="143.0" layoutY="315.0" mnemonicParsing="false" onAction="#editCard" prefHeight="28.0" prefWidth="106.0" text="Save Changes" />-->
+    <Button fx:id="clearButton" layoutX="143.0" layoutY="315.0" mnemonicParsing="false" onAction="#clearCard" prefHeight="28.0" prefWidth="48.0" text="Clear" />
     <Button layoutX="531.0" layoutY="315.0" mnemonicParsing="false" onAction="#deleteCard" prefHeight="28.0" prefWidth="89.0" text="Delete Card" />
-
-
+    <Label layoutX="23.0" layoutY="51.0" prefHeight="28.0" prefWidth="176.0" text="New Card" textFill="#d90429">
+        <font>
+            <Font name="System Bold" size="20.0" />
+        </font>
+    </Label>
+    <!-- Add an fx:id to the ComboBox so we can load decks -->
+    <ComboBox fx:id="deckComboBox" layoutX="282.0" layoutY="51.0" prefHeight="28.0" prefWidth="224.0" promptText="Select Deck" />
+    <Button fx:id="clearButton1" layoutX="514.0" layoutY="51.0" mnemonicParsing="false" onAction="#clearCard" prefHeight="28.0" prefWidth="106.0" text="Return to Decks" />
+   <ListView layoutX="440.0" layoutY="121.0" prefHeight="184.0" prefWidth="183.0" />
+   <Label layoutX="440.0" layoutY="91.0" prefHeight="28.0" prefWidth="183.0" text="Cards of this Deck" textFill="#d90429">
+      <font>
+         <Font name="System Bold Italic" size="14.0" />
+      </font>
+   </Label>
 </AnchorPane>

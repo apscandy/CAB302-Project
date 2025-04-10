@@ -1,36 +1,53 @@
 package com.cab302.cab302project.controller.card;
 
-import com.cab302.cab302project.HelloApplication;
+import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.model.card.Card;
 import com.cab302.cab302project.model.card.ICardDAO;
 import com.cab302.cab302project.model.card.SqliteCardDAO;
 import com.cab302.cab302project.model.deck.Deck;
+import com.cab302.cab302project.model.deck.IDeckDAO;
+import com.cab302.cab302project.model.deck.SqliteDeckDAO;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class CardController {
+public class CardController implements Initializable {
 
+    private static final Logger logger = LogManager.getLogger(CardController.class);
+
+    @FXML private ComboBox<Deck> deckComboBox;
     @FXML private ListView<Card> cardsList;
     @FXML private TextField cardName;
     @FXML private TextArea cardAnswer;
 
     private final ICardDAO cardDAO = new SqliteCardDAO();
+    private final IDeckDAO deckDAO = new SqliteDeckDAO();
     private Deck currentDeck;
     private Card selectedCard;
 
-    public void setDeck(Deck deck) {
-        this.currentDeck = deck;
-        loadCards();
-    }
-
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (ApplicationState.isUserLoggedIn()) {
+            List<Deck> decks = deckDAO.getDecks(ApplicationState.getCurrentUser());
+            deckComboBox.setItems(FXCollections.observableArrayList(decks));
+            deckComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldDeck, newDeck) -> {
+                currentDeck = newDeck;
+                loadCards();
+            });
+        }
         cardsList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 selectedCard = newSelection;
@@ -46,16 +63,18 @@ public class CardController {
             showAlert("Missing Fields", "Both question and answer must be filled in.");
             return;
         }
-
+        if (currentDeck == null) {
+            showAlert("No Deck Selected", "Please select a deck from the dropdown.");
+            return;
+        }
         if (selectedCard == null) {
-            Card newCard = new Card(currentDeck, cardName.getText(), cardAnswer.getText(), null);
+            Card newCard = new Card(currentDeck, cardName.getText(), cardAnswer.getText(), "");
             cardDAO.addCard(newCard);
         } else {
             selectedCard.setQuestion(cardName.getText());
             selectedCard.setAnswer(cardAnswer.getText());
             cardDAO.updateCard(selectedCard);
         }
-
         clearCard();
         loadCards();
     }
@@ -72,11 +91,10 @@ public class CardController {
     @FXML
     private void deleteCard() {
         if (selectedCard != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Delete Flashcard");
             alert.setHeaderText("Are you sure you want to delete this card?");
             alert.setContentText("This action will hide the card from your deck (soft delete).");
-
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
                     cardDAO.softDeleteCard(selectedCard);
@@ -94,14 +112,6 @@ public class CardController {
         selectedCard = null;
     }
 
-    @FXML
-    private void backButton() throws IOException {
-        Stage stage = (Stage) cardsList.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("deck-view.fxml"));
-        Scene scene = new Scene(loader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
-    }
-
     private void loadCards() {
         if (currentDeck != null) {
             List<Card> cards = cardDAO.getCardsForDeck(currentDeck);
@@ -110,7 +120,7 @@ public class CardController {
     }
 
     private void showAlert(String title, String msg) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(title);
         alert.setContentText(msg);
         alert.showAndWait();
@@ -124,6 +134,4 @@ public class CardController {
             cardAnswer.setText(selectedCard.getAnswer());
         }
     }
-
-
 }

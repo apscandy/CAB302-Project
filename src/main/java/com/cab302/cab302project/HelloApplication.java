@@ -21,8 +21,6 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        primaryStage = stage;
-
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.resizableProperty().setValue(Boolean.FALSE);
@@ -49,9 +47,4 @@ public class HelloApplication extends Application {
         new SqliteCreateTables();
         launch();
     }
-
-    public static Stage getStage() { // NEW
-        return primaryStage;
-    }
-
 }
