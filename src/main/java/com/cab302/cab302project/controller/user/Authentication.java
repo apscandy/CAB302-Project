@@ -76,7 +76,7 @@ public class Authentication {
             return true;
         }
         if (Objects.equals(user.getEmail(), email)) {
-            logger.warn("Email check failed: user not found");
+            logger.warn("Email check: user email exist in the database");
             throw new EmailAlreadyInUseException();
         }
         return true;
@@ -110,7 +110,6 @@ public class Authentication {
         userDAO.addUser(user);
         return true;
     }
-
 
     public boolean resetPassword (String email, String newPassword) throws RuntimeException {
         if (email == null || email.trim().isEmpty()) {
