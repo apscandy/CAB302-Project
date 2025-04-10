@@ -43,6 +43,7 @@ public class AuthenticationTest {
         testQuestions.setAnswerTwo("1234 5678 9101 1121");
         testQuestions.setAnswerThree("MyDogBirthday");
         authentication = new Authentication();
+        ApplicationState.logout();
     }
 
     @AfterAll
@@ -58,6 +59,7 @@ public class AuthenticationTest {
             stmt.executeUpdate("delete from sqlite_sequence where name='deck'");
             stmt.executeUpdate("delete from sqlite_sequence where name='card'");
             stmt.close();
+            ApplicationState.logout();
         }
         catch (Exception e) {
             e.printStackTrace();
