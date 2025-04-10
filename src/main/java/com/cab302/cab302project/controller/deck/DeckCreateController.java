@@ -80,7 +80,6 @@ public class DeckCreateController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
-        logger.debug("User on main screen");
     }
 
     /**

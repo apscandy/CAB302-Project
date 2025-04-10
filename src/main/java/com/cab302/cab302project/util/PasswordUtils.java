@@ -17,10 +17,9 @@ public class PasswordUtils {
                 if (hexString.length() == 1) hexString = "0" + hexString;
                 hex.append(hexString);
             }
-            logger.debug("Password hashed successfully using SHA-256");
             return hex.toString();
         } catch (Exception e) {
-            logger.error("Error hashing user password: {}", e.getMessage());
+            logger.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }

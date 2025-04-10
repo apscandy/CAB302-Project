@@ -55,7 +55,6 @@ public class DeckViewController implements Initializable {
      */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
-        logger.info("initializing DeckController listView");
         if (!ApplicationState.isUserLoggedIn()) return;
         loadDecks();
     }

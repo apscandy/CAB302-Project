@@ -14,9 +14,9 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ComboBox layoutX="222.0" layoutY="79.0" prefHeight="25.0" prefWidth="200.0" promptText="Security Question" />
-      <ComboBox layoutX="220.0" layoutY="155.0" prefHeight="25.0" prefWidth="200.0" promptText="Security Question" />
-      <ComboBox layoutX="222.0" layoutY="234.0" prefHeight="25.0" prefWidth="200.0" promptText="Security Question" />
+      <ComboBox fx:id="FirstQuestionComboBox" layoutX="222.0" layoutY="79.0" prefHeight="25.0" prefWidth="200.0" promptText="Security Question" />
+      <ComboBox fx:id="SecondQuestionComboBox" layoutX="220.0" layoutY="155.0" prefHeight="25.0" prefWidth="200.0" promptText="Security Question" />
+      <ComboBox fx:id="ThirdQuestionComboBox" layoutX="222.0" layoutY="234.0" prefHeight="25.0" prefWidth="200.0" promptText="Security Question" />
       <TextField fx:id="FirstAnswerTextField" layoutX="222.0" layoutY="110.0" prefHeight="25.0" prefWidth="200.0" promptText="Answer for Question One" />
       <TextField fx:id="SecondAnswerTextField" layoutX="222.0" layoutY="186.0" prefHeight="25.0" prefWidth="200.0" promptText="Answer for Question Two" />
       <TextField fx:id="ThirdAnswerTextField" layoutX="222.0" layoutY="265.0" prefHeight="25.0" prefWidth="200.0" promptText="Answer for Question Three" />

@@ -28,7 +28,6 @@ public class ApplicationState {
      */
     public static void login(User user){
         if (userLoggedIn && user != null) {
-            logger.warn("User already logged in");
             throw new UserAlreadyLoggedInException("User already logged in");
         }
         try {

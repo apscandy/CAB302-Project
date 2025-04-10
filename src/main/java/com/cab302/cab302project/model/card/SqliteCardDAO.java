@@ -68,7 +68,7 @@ public class SqliteCardDAO implements ICardDAO {
                 updateStatement.close();
             }catch (SQLException e) {
                 con.rollback();
-                logger.error("Failed to update card {}", e.getMessage());
+                logger.error(e.getMessage());
                 throw new FailedToUpdateCardException(e.getMessage());
             }finally {
                 con.setAutoCommit(true);

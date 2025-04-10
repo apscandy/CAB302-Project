@@ -31,11 +31,12 @@
       <Label layoutX="136.0" layoutY="283.0" text="Password must be at least 8 characters long" />
       <Label layoutX="136.0" layoutY="300.0" text="Contain at least one number" />
       <Label layoutX="136.0" layoutY="317.0" text="Contain at least one special character" />
-      <Label fx:id="EmailTypeLabel" layoutX="140.0" layoutY="172.0" text="Invalid email format" visible="false"/>
+      <Label fx:id="EmailTypeLabel" layoutX="140.0" layoutY="172.0" text="Invalid email format" visible="false" />
       <Label fx:id="SetPasswordLabel" layoutX="140.0" layoutY="216.0" text="Label" visible="false" />
-      <Label fx:id="ConfirmPasswordLabel" layoutX="140.0" layoutY="254.0" text="Label" visible="false"/>
-      <Label fx:id="FirstNameLabel" layoutX="140.0" layoutY="79.0" text="Label" visible="false"/>
-      <Label fx:id="LastNameLabel" layoutX="140.0" layoutY="126.0" text="Label" visible="false"/>
+      <Label fx:id="ConfirmPasswordLabel" layoutX="140.0" layoutY="254.0" text="Label" visible="false" />
+      <Label fx:id="FirstNameLabel" layoutX="140.0" layoutY="79.0" text="Label" visible="false" />
+      <Label fx:id="LastNameLabel" layoutX="140.0" layoutY="126.0" text="Label" visible="false" />
+      <Label layoutX="136.0" layoutY="338.0" text="Contain at least one capital letter" />
 
    </children>
 </AnchorPane>

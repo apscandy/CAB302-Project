@@ -2,6 +2,9 @@ package com.cab302.cab302project.controller.user;
 import com.cab302.cab302project.util.RegexValidator;
 
 import com.cab302.cab302project.HelloApplication;
+import com.cab302.cab302project.error.authentication.*;
+import com.cab302.cab302project.model.user.User;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -41,6 +44,12 @@ public class RegisterController {
     @FXML
     private Button BackButton;
 
+    private static User tempUser;
+
+    public static void setTempUser(User user) {
+        tempUser = user;
+    }
+
     @FXML
     public void CloseButtonAction () {
         Stage stage = (Stage) CloseButton.getScene().getWindow();
@@ -60,6 +69,9 @@ public class RegisterController {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-questions-security-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
             stage.setScene(scene);
+
+            AddSecurityQuestionController addSecurityQuestionController = fxmlLoader.getController();
+            addSecurityQuestionController.setTempUser(tempUser);
         }
     }
 
@@ -70,53 +82,71 @@ public class RegisterController {
         String password = SetPasswordField.getText();
         String confirmPassword = ConfirmPasswordField.getText();
 
+
+
         // Reset error labels
+        clearErrorLabels();
+        boolean isValid = true;
+
+        if (firstName.isEmpty()) {
+            setError(FirstNameLabel, "First name cannot be empty.");
+            isValid = false;
+        }
+
+        if (lastName.isEmpty()) {
+            setError(LastNameLabel, "Last name cannot be empty.");
+            isValid = false;
+        }
+
+        if (!RegexValidator.validEmailAddress(email)) {
+            setError(EmailTypeLabel, "Invalid email format.");
+            isValid = false;
+        }
+
+        if (!RegexValidator.validPassword(password)) {
+            setError(SetPasswordLabel, "Password must be at least 8 characters, include 1 number and 1 special character.");
+            isValid = false;
+        } else if (!password.equals(confirmPassword)) {
+            setError(ConfirmPasswordLabel, "Passwords do not match.");
+            isValid = false;
+        }
+
+        if (!isValid) return false;
+
+
+
+        try {
+            User newUser = new User(firstName, lastName, email, password);
+            setTempUser(newUser);
+            ConfirmPasswordLabel.setText("Registration successful!");
+            return true;
+        } catch (EmailAlreadyInUseException e) {
+            setError(EmailTypeLabel, "Email is already in use.");
+        } catch (EmailEmptyException e) {
+            setError(EmailTypeLabel, "Email cannot be empty.");
+        } catch (InvalidEmailFormatException e) {
+            setError(EmailTypeLabel, "Invalid email format.");
+        } catch (PasswordEmptyException e) {
+            setError(SetPasswordLabel, "Password cannot be empty.");
+        } catch (InvalidPasswordFormatException e) {
+            setError(SetPasswordLabel, "Password does not meet requirements.");
+        } catch (RuntimeException e) {
+            setError(ConfirmPasswordLabel, "Unexpected error: " + e.getMessage());
+        }
+
+        return false;
+    }
+
+    private void setError(Label label, String message) {
+        label.setText(message);
+        label.setVisible(true);
+    }
+
+    private void clearErrorLabels() {
         FirstNameLabel.setText("");
         LastNameLabel.setText("");
         EmailTypeLabel.setText("");
         SetPasswordLabel.setText("");
         ConfirmPasswordLabel.setText("");
-
-        boolean isValid = true;
-
-        if (firstName == null || firstName.isBlank()) {
-            FirstNameLabel.setText("First name cannot be empty.");
-            FirstNameLabel.setTextFill(javafx.scene.paint.Color.RED);
-            FirstNameLabel.setVisible(true);
-            isValid = false;
-        }
-
-        // Last name validation
-        if (lastName == null || lastName.isBlank()) {
-            LastNameLabel.setText("Last name cannot be empty.");
-            LastNameLabel.setTextFill(javafx.scene.paint.Color.RED);
-            LastNameLabel.setVisible(true);
-            isValid = false;
-        }
-
-        if(!RegexValidator.validEmailAddress(email)) {
-            EmailTypeLabel.setText("Invalid email format");
-            EmailTypeLabel.setTextFill(javafx.scene.paint.Color.RED);
-            EmailTypeLabel.setVisible(true);
-            isValid = false;
-        }
-        if (!RegexValidator.validPassword(password)) {
-            SetPasswordLabel.setText("Password must be at least 8 characters, include 1 number and 1 special character.");
-            SetPasswordLabel.setTextFill(javafx.scene.paint.Color.RED);
-            SetPasswordLabel.setVisible(true);
-            isValid = false;
-        }
-        else if (!password.equals(confirmPassword)) {
-            ConfirmPasswordLabel.setText("Password does not match!");
-            ConfirmPasswordLabel.setTextFill(javafx.scene.paint.Color.RED);
-            ConfirmPasswordLabel.setVisible(true);
-            isValid = false;
-        }
-        if (isValid) {
-            ConfirmPasswordLabel.setText("Registration info is valid!");
-            ConfirmPasswordLabel.setTextFill(javafx.scene.paint.Color.GREEN);
-            ConfirmPasswordLabel.setVisible(true);
-        }
-        return isValid;
     }
 }
