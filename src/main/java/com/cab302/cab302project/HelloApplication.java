@@ -34,22 +34,8 @@ public class HelloApplication extends Application {
         // test if all the ui is working by using in memory db
         // this flag will not be set under normal runs
         // add it to your run configuration `-t` in cli args
-        try {
-            if (args[0].equals("-t")) {
-                SqliteConnection.setTestingModeTrue();
-                new SqliteCreateTables();
-                User user = new User("Monica", "Borg", "awhvdkyawvdky", "awudoguaywdv");
-                IUserDAO userDAO = new SqliteUserDAO();
-                userDAO.addUser(user);
-                ApplicationState.login(user);
-            }
-        }catch (Exception ignored) {}
+
         new SqliteCreateTables();
         launch();
     }
-
-    public static Stage getStage() { // NEW
-        return primaryStage;
-    }
-
 }

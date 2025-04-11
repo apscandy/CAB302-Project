@@ -13,7 +13,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class SqliteCardDAO implements ICardDAO {
+/**
+ * Implementation of ICardDAO for SQLite.
+ * Handles insertion, update, and soft deletion of cards, as well as retrieval of cards for a given deck.
+ *
+ * @author Monica Borg (n9802045)
+ */
+public class SqliteCardDAO implements ICardDAO {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
@@ -24,10 +30,20 @@ public final class SqliteCardDAO implements ICardDAO {
     private final String softDeleteSQL = "UPDATE card SET is_deleted = true WHERE id = ?";
     private final String getCardsForDeckSQL = "SELECT * FROM card WHERE deck_id = ? AND is_deleted = 0";
 
+    /**
+     * Constructs a new SqliteCardDAO, obtaining a connection from SqliteConnection.
+     */
     public SqliteCardDAO() {
         this.con = SqliteConnection.getInstance();
     }
 
+    /**
+     * Adds a card to the database.
+     * Uses a transaction to ensure the operation is atomic.
+     *
+     * @param card the card to add
+     * @throws RuntimeException if an error occurs during insertion
+     */
     @Override
     public void addCard(Card card) throws RuntimeException {
         try{
@@ -53,6 +69,12 @@ public final class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Updates an existing card in the database.
+     * Uses a transaction to ensure the operation is atomic.
+     *
+     * @param card the card to update
+     */
     @Override
     public void updateCard(Card card) {
         try{
@@ -79,6 +101,12 @@ public final class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Soft deletes a card from the database by setting its is_deleted flag.
+     * Uses a transaction to ensure the operation is atomic.
+     *
+     * @param card the card to soft delete
+     */
     @Override
     public void softDeleteCard(Card card) {
         try {
@@ -101,6 +129,12 @@ public final class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Retrieves all non-deleted cards for the given deck.
+     *
+     * @param deck the deck for which cards are retrieved
+     * @return a List of cards in the deck
+     */
     @Override
     public List<Card> getCardsForDeck(Deck deck) {
         List<Card> cards = new ArrayList<>();
@@ -131,5 +165,10 @@ public final class SqliteCardDAO implements ICardDAO {
             throw new FailedToGetCardsException(e.getMessage());
         }
         return cards;
+    }
+
+    @Override
+    public void softDeleteCardsByDeck(Deck deck) {
+        throw new RuntimeException("Not implemented");
     }
 }

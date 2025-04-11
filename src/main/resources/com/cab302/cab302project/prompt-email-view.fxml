@@ -8,12 +8,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.user.PromptEmailController">
 <children>
-    <Label alignment="CENTER" layoutX="205.0" layoutY="43.0" prefHeight="17.0" prefWidth="229.0" text="Damn it! I didn't study. Time to ..">
+    <Label alignment="CENTER" layoutX="205.0" layoutY="43.0" prefHeight="17.0" prefWidth="229.0" text="Damn it! I didn't study. Time to .." textFill="#d90429">
         <font>
             <Font name="System Italic" size="13.0" />
         </font>
     </Label>
-    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="207.0" layoutY="68.0" prefHeight="26.0" prefWidth="229.0" text="CRAM IT!" textAlignment="CENTER">
+    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="207.0" layoutY="68.0" prefHeight="26.0" prefWidth="229.0" text="CRAM IT!" textAlignment="CENTER" textFill="#d90429">
         <font>
             <Font name="System Bold" size="25.0" />
         </font>
