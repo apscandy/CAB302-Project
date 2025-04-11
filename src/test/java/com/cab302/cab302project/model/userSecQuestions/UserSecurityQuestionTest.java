@@ -14,7 +14,6 @@ class UserSecurityQuestionTest {
     @BeforeEach
     void setUp() {
         user = new User("andy", "clarke", "andy@andy.com", "password");
-        user.setId(1);
         userSecurityQuestion = new UserSecurityQuestion(user);
         userSecurityQuestion.setQuestionOne("What is your first name?");
         userSecurityQuestion.setQuestionTwo("What is your last name?");
@@ -29,10 +28,6 @@ class UserSecurityQuestionTest {
         assertEquals("What is your first name?", userSecurityQuestion.getQuestionOne());
     }
 
-    @Test
-    void getUserId() {
-        assertEquals(1, userSecurityQuestion.getUserId());
-    }
 
     @Test
     void getQuestionTwo() {

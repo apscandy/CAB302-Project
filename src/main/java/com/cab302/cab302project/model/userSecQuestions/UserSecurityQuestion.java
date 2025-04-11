@@ -15,7 +15,7 @@ public class UserSecurityQuestion {
         this.user = user;
     }
 
-    public int getUserId() {
+    protected int getUserId() {
         return this.user.getId();
     }
 

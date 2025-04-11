@@ -1,5 +1,8 @@
-package com.cab302.cab302project.error.authenicaton;
+package com.cab302.cab302project.error.authentication;
 
+/**
+ * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+ */
 public class PasswordEmptyException extends RuntimeException {
     public PasswordEmptyException() {}
     public PasswordEmptyException(String message) {}

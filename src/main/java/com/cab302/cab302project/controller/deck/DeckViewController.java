@@ -18,49 +18,52 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+ */
 public class DeckViewController implements Initializable {
 
+    @FXML private Label deckName;
+    @FXML private TextArea deckDescription;
+    @FXML private Button createDeckButton;
+    @FXML private ListView<Deck> decks;
+
     private static final Logger logger = LogManager.getLogger(DeckViewController.class);
-
-    @FXML
-    private Label deckName;
-
-    @FXML
-    private TextArea deckDescription;
-
-    @FXML
-    private Button createDeckButton;
-
-    @FXML
-    private ListView<Deck> decks;
-
     private final IDeckDAO deckDAO;
 
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     public DeckViewController() {
         deckDAO = new SqliteDeckDAO();
     }
 
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @FXML
     private void createDeck() throws IOException {
-        logger.debug("Create deck button pressed");
         if (!ApplicationState.isUserLoggedIn()) return;
         Stage stage = (Stage) createDeckButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("deck/deck-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
-        logger.debug("User on deck view screen");
     }
 
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
-        logger.info("initializing DeckController listView");
         if (!ApplicationState.isUserLoggedIn()) return;
         loadDecks();
     }
 
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @FXML
     public void selectListViewItem() {
-        logger.debug("Select ListView item");
         if (!ApplicationState.isUserLoggedIn()) return;
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) return;
@@ -70,8 +73,10 @@ public class DeckViewController implements Initializable {
         deckDescription.setText(deck.getDescription());
     }
 
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     private void loadDecks() {
-        logger.debug("Load deck");
         if (!ApplicationState.isUserLoggedIn()) return;
         decks.getItems().clear();
         decks.getItems().addAll(deckDAO.getDecks(ApplicationState.getCurrentUser()));

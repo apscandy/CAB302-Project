@@ -1,5 +1,8 @@
 package com.cab302.cab302project.model.user;
 
+import com.cab302.cab302project.error.model.user.FailedToCreateUserException;
+import com.cab302.cab302project.error.model.user.FailedToGetUserException;
+import com.cab302.cab302project.error.model.user.FailedToUpdateUserException;
 import com.cab302.cab302project.model.SqliteConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +29,7 @@ public class SqliteUserDAO implements IUserDAO {
     @Override
     public void addUser (User user) {
         if (user == null || user.getFirstName() == null || user.getLastName() == null || user.getEmail() == null) {
-            logger.fatal("User is null OR insufficient user attributes");
+            throw new IllegalArgumentException();
         }
         try {
             try {
@@ -44,16 +47,16 @@ public class SqliteUserDAO implements IUserDAO {
                 con.commit();
                 sql.close();
                 result.close();
-                logger.info(String.format("User added: %s", user.getEmail() + " - " + user.getFirstName() + " " + user.getLastName()));
             } catch (SQLException e) {
                 con.rollback();
-                logger.error("Add user transaction failed: {}", e.getMessage());
-                logger.fatal(e.getMessage());
+                logger.error(e.getMessage());
+                throw new FailedToCreateUserException(e.getMessage());
             } finally {
                 con.setAutoCommit(true);
             }
         } catch (Exception e) {
-            logger.fatal(e.getMessage());
+            logger.error(e.getMessage());
+            throw new FailedToCreateUserException(e.getMessage());
         }
     }
 
@@ -71,16 +74,16 @@ public class SqliteUserDAO implements IUserDAO {
                 sql.executeUpdate();
                 con.commit();
                 sql.close();
-                logger.info(String.format("User updated: %s", user.getEmail() + " - " + user.getFirstName() + " " + user.getLastName()));
             } catch (SQLException e) {
                 con.rollback();
-                logger.error("Update user transaction failed: {}", e.getMessage());
-                logger.fatal(e.getMessage());
+                logger.error(e.getMessage());
+                throw new FailedToUpdateUserException(e.getMessage());
             } finally {
                 con.setAutoCommit(true);
             }
         } catch (Exception e) {
-            logger.fatal(e.getMessage());
+            logger.error(e.getMessage());
+            throw new FailedToUpdateUserException(e.getMessage());
         }
     }
 
@@ -104,16 +107,16 @@ public class SqliteUserDAO implements IUserDAO {
                 con.commit();
                 sql.close();
                 result.close();
-                logger.info("Get user by id transaction completed successfully.");
            }catch (SQLException e) {
                 con.rollback();
-                logger.error("Get user by id transaction failed: {}", e.getMessage());
-                logger.fatal(e.getMessage());
+                logger.error(e.getMessage());
+                throw new FailedToGetUserException(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
             }
         } catch (Exception e) {
-            logger.fatal(e.getMessage());
+            logger.error(e.getMessage());
+            throw new FailedToGetUserException(e.getMessage());
         }
         return user;
     }
@@ -138,16 +141,16 @@ public class SqliteUserDAO implements IUserDAO {
                 con.commit();
                 sql.close();
                 result.close();
-                logger.info("Get user by email transaction completed successfully.");
             }catch (SQLException e) {
                 con.rollback();
-                logger.error("Get user by email transaction failed: {}", e.getMessage());
-                logger.fatal(e.getMessage());
+                logger.error(e.getMessage());
+                throw new FailedToGetUserException(e.getMessage());
             }finally {
                 con.setAutoCommit(true);
             }
         } catch (Exception e) {
-            logger.fatal(e.getMessage());
+            logger.error(e.getMessage());
+            throw new FailedToGetUserException(e.getMessage());
         }
         return user;
     }

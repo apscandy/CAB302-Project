@@ -17,7 +17,6 @@ class DeckTest {
     @BeforeEach
     void setUp() {
         user = new User("Andrew", "Clarke", "legend@qut.edu.au", "VeryStrongPassword");
-        user.setId(68);
         deck = new Deck("quantum computing", "I feel very stupid", user, new ArrayList<>());
     }
 
@@ -26,16 +25,6 @@ class DeckTest {
         assertEquals(0, deck.getId());
     }
 
-    @Test
-    void setId() {
-        deck.setId(1);
-        assertEquals(1, deck.getId());
-    }
-
-    @Test
-    void getUserId() {
-        assertEquals(68, deck.getUserId());
-    }
 
     @Test
     void getName() {
@@ -68,9 +57,9 @@ class DeckTest {
     @Test
     void setCards() {
         List<Card> cards = new ArrayList<>();
-        cards.add(new Card());
-        cards.add(new Card());
-        cards.add(new Card());
+        cards.add(new Card(deck, "What is the square root of the sun", "No clue", "science,math"));
+        cards.add(new Card(deck, "Why is the sun yellow", "Also no clue", "science,math"));
+        cards.add(new Card(deck, "Are photons light", "Yes", "science,psychics"));
         deck.setCards(cards);
         assertEquals(3, deck.getCards().size());
 
