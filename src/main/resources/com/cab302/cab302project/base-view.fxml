@@ -42,6 +42,7 @@
         <Menu text="Profile">
           <MenuItem fx:id="changeEmailMenuItem" text="Change Email" onAction="#home"/>
           <MenuItem fx:id="changePasswordMenuItem" text="Change Password" onAction="#home"/>
+          <MenuItem fx:id="changeSecurityQuestions" text="Change Security Questions" onAction="#home"/>
           <MenuItem fx:id="deleteAccountMenuItem" text="Delete Account" onAction="#home"/>
         </Menu>
       </MenuBar>

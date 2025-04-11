@@ -19,7 +19,6 @@ import java.util.Set;
 
 public class AddSecurityQuestionController {
 
-    // Updated to match the fx:id in the FXML file (lowercase)
     @FXML
     private ComboBox<String> firstQuestionComboBox;
     @FXML
@@ -134,8 +133,14 @@ public class AddSecurityQuestionController {
         SqliteUserSecurityQuestionDAO dao = new SqliteUserSecurityQuestionDAO();
         dao.createQuestion(userSecurityQuestion);
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Security Questions Complete");
+        alert.setHeaderText(null);
+        alert.setContentText("You have successfully registered and are now logged in.");
+        alert.showAndWait();
+
         Stage stage = (Stage) RegisterButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
