@@ -2,12 +2,13 @@ package com.cab302.cab302project.controller.user;
 
 import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.error.UserAlreadyLoggedInException;
-import com.cab302.cab302project.error.authentication.*;
+import com.cab302.cab302project.error.authentication.PasswordEmptyException;
+import com.cab302.cab302project.error.authentication.PasswordComparisonException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
@@ -15,11 +16,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-/**
- * @author Hoang Dat Bui
- */
 public class PromptPasswordController {
 
+    // The resetPasswordBtn, loginBtn and backToPromptEmailPageBtn are injected from your FXML.
     public Button resetPasswordBtn;
 
     @FXML
@@ -31,8 +30,9 @@ public class PromptPasswordController {
     @FXML
     private Button backToPromptEmailPageBtn;
 
-    @FXML
-    private Label errorPasswordMessage;
+    // Removed errorPasswordMessage since there's no such fx:id element in the FXML.
+    // @FXML
+    // private Label errorPasswordMessage;
 
     private String userEmail;
 
@@ -44,18 +44,17 @@ public class PromptPasswordController {
 
     @FXML
     public void login() throws IOException {
-        errorPasswordMessage.setText("");
         String password = userPassword.getText();
         AuthenticationService authHandler = new AuthenticationService();
         boolean authenticated = false;
         try {
             authenticated = authHandler.authenticate(userEmail, password);
         } catch (UserAlreadyLoggedInException ex) {
-            errorPasswordMessage.setText("User already logged in.");
+            showAlert("Login Error", "User already logged in.");
         } catch (PasswordEmptyException ex) {
-            errorPasswordMessage.setText("Password cannot be empty.");
+            showAlert("Login Error", "Password cannot be empty.");
         } catch (PasswordComparisonException ex) {
-            errorPasswordMessage.setText("Incorrect password. Please try again.");
+            showAlert("Login Error", "Incorrect password. Please try again.");
         }
         if (authenticated) {
             Stage stage = (Stage) loginBtn.getScene().getWindow();
@@ -79,5 +78,19 @@ public class PromptPasswordController {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("answer-security-questions-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
+    }
+
+    /**
+     * Displays an error alert with the specified title and message.
+     *
+     * @param title   the title of the alert dialog
+     * @param message the error message to be displayed
+     */
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
