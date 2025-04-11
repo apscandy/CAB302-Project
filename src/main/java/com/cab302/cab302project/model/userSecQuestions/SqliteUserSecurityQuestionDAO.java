@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
-public class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
+public final class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
 
     private final Connection conn;
     private final Logger logger = LogManager.getLogger(SqliteUserSecurityQuestionDAO.class);

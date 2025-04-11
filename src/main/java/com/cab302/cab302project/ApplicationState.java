@@ -3,16 +3,13 @@ package com.cab302.cab302project;
 import com.cab302.cab302project.error.state.UserAlreadyLoggedInException;
 import com.cab302.cab302project.error.state.UserIsNullException;
 import com.cab302.cab302project.model.user.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 
 /**
  * Utility class holds static methods for application state management
  * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
  */
-public class ApplicationState {
-    private static final Logger logger = LogManager.getLogger(ApplicationState.class);
+public final class ApplicationState {
     private static User currentUser = null;
     private static boolean userLoggedIn = false;
 

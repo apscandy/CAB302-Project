@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SqliteCreateTables {
+public final class SqliteCreateTables {
     private static final Logger logger = LogManager.getLogger(SqliteCreateTables.class);
     private final Connection con;
 

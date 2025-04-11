@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Objects;
 
-public class AuthenticationService {
+public final class AuthenticationService {
 
     private static final Logger logger = LogManager.getLogger(AuthenticationService.class);
 

@@ -2,7 +2,7 @@ package com.cab302.cab302project.model.userSecQuestions;
 
 import com.cab302.cab302project.model.user.User;
 
-public class UserSecurityQuestion {
+public final class UserSecurityQuestion {
     private final User user;
     private String questionOne;
     private String questionTwo;
@@ -15,7 +15,7 @@ public class UserSecurityQuestion {
         this.user = user;
     }
 
-    protected int getUserId() {
+    int getUserId() {
         return this.user.getId();
     }
 

@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SqliteUserDAO implements IUserDAO {
+public final class SqliteUserDAO implements IUserDAO {
 
     private final Connection con;
     private static final Logger logger = LogManager.getLogger(SqliteUserDAO.class);

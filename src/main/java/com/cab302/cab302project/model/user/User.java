@@ -1,6 +1,6 @@
 package com.cab302.cab302project.model.user;
 
-public class User {
+public final class User {
     private int id;
     private String firstName;
     private String lastName;
@@ -34,7 +34,7 @@ public class User {
         return password;
     }
 
-    protected void setId(int id) {
+    void setId(int id) {
         this.id = id;
     }
 

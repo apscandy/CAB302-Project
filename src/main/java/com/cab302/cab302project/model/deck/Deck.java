@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
  */
-public class Deck {
+public final class Deck {
     private int id;
     private String name;
     private String description;

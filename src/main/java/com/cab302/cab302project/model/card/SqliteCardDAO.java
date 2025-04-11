@@ -13,7 +13,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SqliteCardDAO implements ICardDAO {
+public final class SqliteCardDAO implements ICardDAO {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 

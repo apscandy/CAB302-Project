@@ -20,7 +20,7 @@ import java.sql.*;
  * <a href="https://www.sqlite.org/inmemorydb.html">Sqlite in-memory</a>
  * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
  */
-public class SqliteConnection {
+public final class SqliteConnection {
     private static final Logger logger = LogManager.getLogger(SqliteConnection.class);
     private static Connection instance = null;
     private static Boolean testingMode = false;

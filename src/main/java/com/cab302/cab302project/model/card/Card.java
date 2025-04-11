@@ -2,7 +2,7 @@ package com.cab302.cab302project.model.card;
 
 import com.cab302.cab302project.model.deck.Deck;
 
-public class Card {
+public final class Card {
     private int id;
     private Deck deck;
     private String question;
@@ -41,7 +41,7 @@ public class Card {
         return isDeleted;
     }
 
-    protected void setId(int id) {
+    void setId(int id) {
         this.id = id;
     }
 
@@ -61,7 +61,7 @@ public class Card {
         this.tags = tags;
     }
 
-    protected void setDeleted(boolean deleted) {
+    void setDeleted(boolean deleted) {
         isDeleted = deleted;
     }
 
