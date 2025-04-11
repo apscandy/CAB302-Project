@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author Monica Borg (n9802045)
  */
-public class SqliteCardDAO implements ICardDAO {
+public final class SqliteCardDAO implements ICardDAO {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
