@@ -104,7 +104,6 @@ public class RegisterController {
         try {
             User newUser = new User(firstName, lastName, email, password);
             setTempUser(newUser);
-            setError(ConfirmPasswordField, "Registration successful!");
             return true;
         } catch (EmailAlreadyInUseException e) {
             setError(EmailAddressTextField, "Email is already in use.");
@@ -124,22 +123,14 @@ public class RegisterController {
     }
 
     private void setError(TextInputControl input, String message) {
-        if ("Registration successful!".equals(message)) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Registration");
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Registration Error");
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            alert.showAndWait();
-        }
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Registration Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private void clearErrorLabels() {
-        // No operation needed since we display errors via alerts.
+        // No operation needed since errors are displayed via alerts.
     }
 }
