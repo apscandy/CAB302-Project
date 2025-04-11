@@ -23,10 +23,17 @@ import java.util.ResourceBundle;
  */
 public class DeckViewController implements Initializable {
 
-    @FXML private Label deckName;
-    @FXML private TextArea deckDescription;
-    @FXML private Button createDeckButton;
-    @FXML private ListView<Deck> decks;
+    @FXML
+    private Label deckName;
+
+    @FXML
+    private TextArea deckDescription;
+
+    @FXML
+    private Button createDeckButton;
+
+    @FXML
+    private ListView<Deck> decks;
 
     private static final Logger logger = LogManager.getLogger(DeckViewController.class);
     private final IDeckDAO deckDAO;

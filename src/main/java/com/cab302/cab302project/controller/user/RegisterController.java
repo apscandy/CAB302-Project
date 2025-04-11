@@ -86,6 +86,15 @@ public class RegisterController {
             isValid = false;
         }
 
+
+        // Lewis mate, you forgot to check for existing users
+        try{
+            new AuthenticationService().emailCheck(email);
+        }catch (EmailAlreadyInUseException e){
+            setError(EmailAddressTextField, "Email address already in use.");
+            isValid = false;
+        }
+
         if (!RegexValidator.validEmailAddress(email)) {
             setError(EmailAddressTextField, "Invalid email format.");
             isValid = false;
