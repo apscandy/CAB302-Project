@@ -19,12 +19,13 @@ import java.util.Set;
 
 public class AddSecurityQuestionController {
 
+    // Updated to match the fx:id in the FXML file (lowercase)
     @FXML
-    private ComboBox<String> FirstQuestionComboBox;
+    private ComboBox<String> firstQuestionComboBox;
     @FXML
-    private ComboBox<String> SecondQuestionComboBox;
+    private ComboBox<String> secondQuestionComboBox;
     @FXML
-    private ComboBox<String> ThirdQuestionComboBox;
+    private ComboBox<String> thirdQuestionComboBox;
     @FXML
     private TextField FirstAnswerTextField;
     @FXML
@@ -57,14 +58,13 @@ public class AddSecurityQuestionController {
 
     @FXML
     public void initialize() {
+        firstQuestionComboBox.setItems(FXCollections.observableArrayList(SecQuestionList));
+        secondQuestionComboBox.setItems(FXCollections.observableArrayList(SecQuestionList));
+        thirdQuestionComboBox.setItems(FXCollections.observableArrayList(SecQuestionList));
 
-        FirstQuestionComboBox.setItems(FXCollections.observableArrayList(SecQuestionList));
-        SecondQuestionComboBox.setItems(FXCollections.observableArrayList(SecQuestionList));
-        ThirdQuestionComboBox.setItems(FXCollections.observableArrayList(SecQuestionList));
-
-        FirstQuestionComboBox.setOnAction(e -> handleComboBoxChange(FirstQuestionComboBox));
-        SecondQuestionComboBox.setOnAction(e -> handleComboBoxChange(SecondQuestionComboBox));
-        ThirdQuestionComboBox.setOnAction(e -> handleComboBoxChange(ThirdQuestionComboBox));
+        firstQuestionComboBox.setOnAction(e -> handleComboBoxChange(firstQuestionComboBox));
+        secondQuestionComboBox.setOnAction(e -> handleComboBoxChange(secondQuestionComboBox));
+        thirdQuestionComboBox.setOnAction(e -> handleComboBoxChange(thirdQuestionComboBox));
     }
 
     private boolean isUpdating = false;
@@ -74,27 +74,26 @@ public class AddSecurityQuestionController {
         isUpdating = true;
         updateComboBoxes(source);
         isUpdating = false;
-
     }
 
     private void updateComboBoxes(ComboBox<String> changedBox) {
-        String selected1 = FirstQuestionComboBox.getValue();
-        String selected2 = SecondQuestionComboBox.getValue();
-        String selected3 = ThirdQuestionComboBox.getValue();
+        String selected1 = firstQuestionComboBox.getValue();
+        String selected2 = secondQuestionComboBox.getValue();
+        String selected3 = thirdQuestionComboBox.getValue();
 
         Set<String> used = new HashSet<>();
         if (selected1 != null) used.add(selected1);
         if (selected2 != null) used.add(selected2);
         if (selected3 != null) used.add(selected3);
 
-        if (changedBox != FirstQuestionComboBox) {
-            updateComboBox(FirstQuestionComboBox, selected1, used);
+        if (changedBox != firstQuestionComboBox) {
+            updateComboBox(firstQuestionComboBox, selected1, used);
         }
-        if (changedBox != SecondQuestionComboBox) {
-            updateComboBox(SecondQuestionComboBox, selected2, used);
+        if (changedBox != secondQuestionComboBox) {
+            updateComboBox(secondQuestionComboBox, selected2, used);
         }
-        if (changedBox != ThirdQuestionComboBox) {
-            updateComboBox(ThirdQuestionComboBox, selected3, used);
+        if (changedBox != thirdQuestionComboBox) {
+            updateComboBox(thirdQuestionComboBox, selected3, used);
         }
     }
 
@@ -118,11 +117,10 @@ public class AddSecurityQuestionController {
     }
 
     @FXML
-    public void RegisterButtonAction () throws IOException {
-
-        String questionOne = FirstQuestionComboBox.getValue();
-        String questionTwo = SecondQuestionComboBox.getValue();
-        String questionThree = ThirdQuestionComboBox.getValue();
+    public void RegisterButtonAction() throws IOException {
+        String questionOne = firstQuestionComboBox.getValue();
+        String questionTwo = secondQuestionComboBox.getValue();
+        String questionThree = thirdQuestionComboBox.getValue();
 
         String answerOne = FirstAnswerTextField.getText();
         String answerTwo = SecondAnswerTextField.getText();
@@ -148,7 +146,7 @@ public class AddSecurityQuestionController {
     }
 
     @FXML
-    public void BackButtonAction () throws IOException {
+    public void BackButtonAction() throws IOException {
         Stage stage = (Stage) BackButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
