@@ -43,11 +43,16 @@ public class AddSecurityQuestionController {
     }
 
     private final List<String> SecQuestionList = List.of(
-            "Question 1",
-            "Question 2",
-            "Question 3",
-            "Question 4",
-            "Question 5"
+            "What city were you born in?",
+            "What is your oldest sibling’s middle name?",
+            "What was the first concert you attended?",
+            "What was the make and model of your first car?",
+            "In what city or town did your parents meet?",
+            "What was your childhood best friend’s nickname?",
+            "How many pets did you have at 10 years old?",
+            "What’s your neighbor’s last name?",
+            "In which city did your parents meet?",
+            "What month did you get married?"
     );
 
     @FXML
