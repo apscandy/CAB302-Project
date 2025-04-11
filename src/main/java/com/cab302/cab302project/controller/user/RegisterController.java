@@ -1,6 +1,6 @@
 package com.cab302.cab302project.controller.user;
-import com.cab302.cab302project.util.RegexValidator;
 
+import com.cab302.cab302project.util.RegexValidator;
 import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.error.authentication.*;
 import com.cab302.cab302project.model.user.User;
@@ -8,19 +8,16 @@ import com.cab302.cab302project.model.user.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextInputControl;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class RegisterController {
-    @FXML
-    private Label LastNameLabel;
-    @FXML
-    private Label FirstNameLabel;
     @FXML
     private TextField FirstNameTextField;
     @FXML
@@ -28,15 +25,9 @@ public class RegisterController {
     @FXML
     private TextField EmailAddressTextField;
     @FXML
-    private Label EmailTypeLabel;
-    @FXML
     private PasswordField SetPasswordField;
     @FXML
     private PasswordField ConfirmPasswordField;
-    @FXML
-    private Label SetPasswordLabel;
-    @FXML
-    private Label ConfirmPasswordLabel;
     @FXML
     private Button NextButton;
     @FXML
@@ -51,19 +42,19 @@ public class RegisterController {
     }
 
     @FXML
-    public void CloseButtonAction () {
+    public void CloseButtonAction() {
         Stage stage = (Stage) CloseButton.getScene().getWindow();
         stage.close();
     }
 
-    public void BackButtonAction () throws IOException {
+    public void BackButtonAction() throws IOException {
         Stage stage = (Stage) BackButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
 
-    public void NextButtonAction () throws IOException {
+    public void NextButtonAction() throws IOException {
         if (registerUser()) {
             Stage stage = (Stage) NextButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-questions-security-view.fxml"));
@@ -75,78 +66,80 @@ public class RegisterController {
         }
     }
 
-    public boolean registerUser () {
+    public boolean registerUser() {
         String firstName = FirstNameTextField.getText();
         String lastName = LastNameTextField.getText();
         String email = EmailAddressTextField.getText();
         String password = SetPasswordField.getText();
         String confirmPassword = ConfirmPasswordField.getText();
 
-
-
-        // Reset error labels
         clearErrorLabels();
         boolean isValid = true;
 
         if (firstName.isEmpty()) {
-            setError(FirstNameLabel, "First name cannot be empty.");
+            setError(FirstNameTextField, "First name cannot be empty.");
             isValid = false;
         }
 
         if (lastName.isEmpty()) {
-            setError(LastNameLabel, "Last name cannot be empty.");
+            setError(LastNameTextField, "Last name cannot be empty.");
             isValid = false;
         }
 
         if (!RegexValidator.validEmailAddress(email)) {
-            setError(EmailTypeLabel, "Invalid email format.");
+            setError(EmailAddressTextField, "Invalid email format.");
             isValid = false;
         }
 
         if (!RegexValidator.validPassword(password)) {
-            setError(SetPasswordLabel, "Password must be at least 8 characters, include 1 number and 1 special character.");
+            setError(SetPasswordField, "Password must be at least 8 characters, include 1 number and 1 special character.");
             isValid = false;
         } else if (!password.equals(confirmPassword)) {
-            setError(ConfirmPasswordLabel, "Passwords do not match.");
+            setError(ConfirmPasswordField, "Passwords do not match.");
             isValid = false;
         }
 
         if (!isValid) return false;
 
-
-
         try {
             User newUser = new User(firstName, lastName, email, password);
             setTempUser(newUser);
-            ConfirmPasswordLabel.setText("Registration successful!");
+            setError(ConfirmPasswordField, "Registration successful!");
             return true;
         } catch (EmailAlreadyInUseException e) {
-            setError(EmailTypeLabel, "Email is already in use.");
+            setError(EmailAddressTextField, "Email is already in use.");
         } catch (EmailEmptyException e) {
-            setError(EmailTypeLabel, "Email cannot be empty.");
+            setError(EmailAddressTextField, "Email cannot be empty.");
         } catch (InvalidEmailFormatException e) {
-            setError(EmailTypeLabel, "Invalid email format.");
+            setError(EmailAddressTextField, "Invalid email format.");
         } catch (PasswordEmptyException e) {
-            setError(SetPasswordLabel, "Password cannot be empty.");
+            setError(SetPasswordField, "Password cannot be empty.");
         } catch (InvalidPasswordFormatException e) {
-            setError(SetPasswordLabel, "Password does not meet requirements.");
+            setError(SetPasswordField, "Password does not meet requirements.");
         } catch (RuntimeException e) {
-            setError(ConfirmPasswordLabel, "Unexpected error: " + e.getMessage());
+            setError(ConfirmPasswordField, "Unexpected error: " + e.getMessage());
         }
 
         return false;
     }
 
-    private void setError(Label label, String message) {
-        label.setText(message);
-        label.setVisible(true);
+    private void setError(TextInputControl input, String message) {
+        if ("Registration successful!".equals(message)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Registration");
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Registration Error");
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            alert.showAndWait();
+        }
     }
 
     private void clearErrorLabels() {
-        FirstNameLabel.setText("");
-        LastNameLabel.setText("");
-        EmailTypeLabel.setText("");
-        SetPasswordLabel.setText("");
-        ConfirmPasswordLabel.setText("");
+        // No operation needed since we display errors via alerts.
     }
 }
