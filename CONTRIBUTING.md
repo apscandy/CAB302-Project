@@ -11,7 +11,7 @@ Since we all work directly on the shared `dev` branch, it’s super important th
 
 - `main`: Stable, production-ready code. No direct pushes allowed.
 - `dev`: Shared branch for all development.
-- **Optional but Recommended:** Use temporary **feature branches** for your work
+- **Optional but Recommended:** Use temporary **feature branches** for your work.
 
 ---
 
@@ -25,9 +25,9 @@ Since we all work directly on the shared `dev` branch, it’s super important th
    ```
 
 2. **Create a Feature Branch**
-    - When you start a new feature or fix, create a new branch.
-    - Only one person should work on each branch — no sharing branches.
-    - Use screen sharing if collaborating, not the same branch.
+   - When you start a new feature or fix, create a new branch.
+   - Only one person should work on each branch — no sharing branches.
+   - Use screen sharing if collaborating, not the same branch.
    ```bash
    git checkout -b feature/your-task-name
    ```
@@ -48,28 +48,29 @@ Since we all work directly on the shared `dev` branch, it’s super important th
    git rebase dev
    ```
 
-5. **Push to `dev`**
-    - Once your work is complete and tested locally, you must get approval from another team member. Post a message in the Discord dev-chat with a short description of what you’ve done and ask for a quick review.
-    - Only merge once someone gives a 👍 or confirms it looks good.
+5. **Push Your Branch Up for Approval**
+   - Once your work is complete and tested locally, you must get approval from another team member. Post a message in the Discord dev-chat with a short description of what you’ve done and ask for a quick review.
+   - Only merge once someone gives a 👍 or confirms it looks good.
+   ```bash
+   git push origin feature/your-task-name
+   ```
 
-
-6. **Merge Your Feature into `dev`**
-   After getting approval
-    ```bash
-    git checkout dev
-    git merge feature/your-task-name
-    git push origin dev
-    ```
+6. **Merge Your Feature into `dev`**  
+   After getting approval:
+   ```bash
+   git checkout dev
+   git merge feature/your-task-name
+   git push origin dev
+   ```
 
 7. **Delete the Feature Branch**  
    After your code is merged into `dev`:
-    - **Do not reuse the same branch** for future work.
-    - **Delete the branch locally and remotely to avoid confusion**.
+   - **Do not reuse the same branch** for future work.
+   - **Delete the branch locally and remotely to avoid confusion**.
    ```bash
    git branch -d feature/your-task-name      # delete local
    git push origin --delete feature/your-task-name  # delete remote
    ```
-
 
 ---
 
@@ -81,29 +82,30 @@ Since we all work directly on the shared `dev` branch, it’s super important th
 - **Don’t reuse old branches**: Once merged, the branch is done — start fresh for each new task.
 - **No rebasing on `dev` or `main`**: Rebasing can mess up the shared history.
 - **No force pushing (`git push --force`)**: This can overwrite other people’s work.
-- **Commit messages should be short and clear**
+- **Commit messages should be short and clear:**
    ```
-   Add login form
-   Fix navbar bug
-   Improve loading animation
+   Add login form  
+   Fix navbar bug  
+   Improve loading animation  
    ```
-- **Test locally and get approval before merging into dev.**
+- **Test locally, push your feature branch, and get approval before merging into `dev`.**
 
 ---
 
 ## 🧑‍🏫 Helpful Commands Cheat Sheet
 
 | Purpose                  | Command                                                    |
-|--------------------------|------------------------------------------------------------|
-| Clone the repo https     | `git clone https://github.com/apscandy/CAB302-Project.git` |
-| Clone the repo ssh       | `git clone git@github.com:apscandy/CAB302-Project.git`     |
-| Switch to `dev`          | `git checkout dev`                                         |
-| Pull the latest `dev`    | `git pull origin dev`                                      |
-| Create feature branch    | `git checkout -b feature/your-task-name`                   |
-| Add changes              | `git add .`                                                |
-| Commit changes           | `git commit -m "Your message"`                             |
-| Merge feature into `dev` | `git checkout dev && git merge feature/your-task-name`     |
-| Push `dev`               | `git push origin dev`                                      |
+|---------------------------|------------------------------------------------------------|
+| Clone the repo HTTPS      | `git clone https://github.com/apscandy/CAB302-Project.git` |
+| Clone the repo SSH        | `git clone git@github.com:apscandy/CAB302-Project.git`     |
+|                           | *(Use SSH if you've set up your GitHub SSH key, otherwise use HTTPS.)* |
+| Switch to `dev`           | `git checkout dev`                                         |
+| Pull the latest `dev`     | `git pull origin dev`                                      |
+| Create feature branch     | `git checkout -b feature/your-task-name`                   |
+| Add changes               | `git add .`                                                |
+| Commit changes            | `git commit -m "Your message"`                             |
+| Merge feature into `dev`  | `git checkout dev && git merge feature/your-task-name`     |
+| Push `dev`                | `git push origin dev`                                      |
 
 ---
 
@@ -112,4 +114,3 @@ Since we all work directly on the shared `dev` branch, it’s super important th
 No PRs means **trust and teamwork** are key.  
 When in doubt: **Pull. Test. Then Push.**  
 And always let the team know when you're pushing something important!
-
