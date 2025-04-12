@@ -1,7 +1,3 @@
-This looks super clean now — great job! I’d suggest just a couple of small tweaks for flow and grammar so it reads smooth and professional:
-
----
-
 _Last updated: 12/04/2025_
 
 # 🚀 Team Git Guidelines — Shared `dev` Branch (No PRs)
@@ -137,7 +133,3 @@ Since we all work directly on the shared `dev` branch, it’s super important th
 No PRs means **trust and teamwork** are key.  
 When in doubt: **Pull. Test. Then Push.**  
 And always let the team know when you're pushing something important!
-
----
-
-✅ Let me know if you want me to whip up a matching Discord announcement too!
