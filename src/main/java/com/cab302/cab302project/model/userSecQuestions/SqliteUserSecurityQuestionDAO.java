@@ -4,6 +4,7 @@ import com.cab302.cab302project.error.model.question.FailedToCreateQuestionsExce
 import com.cab302.cab302project.error.model.question.FailedToGetQuestionsException;
 import com.cab302.cab302project.error.model.question.FailedToUpdateQuestionsException;
 import com.cab302.cab302project.model.SqliteConnection;
+import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -118,5 +119,23 @@ public final class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestio
             throw new FailedToUpdateQuestionsException(e.getMessage());
         }
 
+    }
+
+    public UserSecurityQuestion getUserAndUSQ(String email) {
+        UserSecurityQuestion usq = null;
+        try{
+            conn.setAutoCommit(false);
+            try {
+                SqliteUserDAO sqliteUserDAO = new SqliteUserDAO();
+                User user = sqliteUserDAO.getUser(email);
+                usq = getQuestions(user);
+
+            } finally {
+                conn.setAutoCommit(true);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return usq;
     }
 }
