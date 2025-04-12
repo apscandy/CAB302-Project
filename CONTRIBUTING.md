@@ -1,3 +1,7 @@
+This looks super clean now — great job! I’d suggest just a couple of small tweaks for flow and grammar so it reads smooth and professional:
+
+---
+
 _Last updated: 12/04/2025_
 
 # 🚀 Team Git Guidelines — Shared `dev` Branch (No PRs)
@@ -49,24 +53,43 @@ Since we all work directly on the shared `dev` branch, it’s super important th
    ```
 
 5. **Push Your Branch Up for Approval**
-   - Once your work is complete and tested locally, you must get approval from another team member. Post a message in the Discord dev-chat with a short description of what you’ve done and ask for a quick review.
-   - Only merge once someone gives a 👍 or confirms it looks good.
+   - **Only push your feature branch once the feature is fully complete and tested locally.**  
+     Avoid pushing partial or broken work.
+   - Once your feature is ready, post a message in the Discord dev-chat with a short description and ask for a quick review.
+   - Only merge after a teammate gives a 👍 or confirms it looks good.
    ```bash
    git push origin feature/your-task-name
    ```
 
 6. **Merge Your Feature into `dev`**  
-   After getting approval:
+   After getting approval, a teammate or reviewer may suggest a specific type of merge:
+
+   **No Fast Forward Merge** *(This is the project default — it keeps the full branch history visible.)*
    ```bash
    git checkout dev
-   git merge feature/your-task-name
+   git merge --no-ff feature/your-task-name
+   git push origin dev
+   ```
+
+   **Squash Merge** *(If you have too many small commits, you may be asked to squash them.)*
+   ```bash
+   git checkout dev
+   git merge --squash feature/your-task-name
+   git commit -m "Your final combined commit message"
+   git push origin dev
+   ```
+
+   **Fast Forward Merge** *(When your branch is linear and ready to be added directly.)*
+   ```bash
+   git checkout dev
+   git merge --ff feature/your-task-name
    git push origin dev
    ```
 
 7. **Delete the Feature Branch**  
    After your code is merged into `dev`:
    - **Do not reuse the same branch** for future work.
-   - **Delete the branch locally and remotely to avoid confusion**.
+   - **Delete the branch locally and remotely to avoid confusion.**
    ```bash
    git branch -d feature/your-task-name      # delete local
    git push origin --delete feature/your-task-name  # delete remote
@@ -88,7 +111,7 @@ Since we all work directly on the shared `dev` branch, it’s super important th
    Fix navbar bug  
    Improve loading animation  
    ```
-- **Test locally, push your feature branch, and get approval before merging into `dev`.**
+- **Test locally, only push complete features, and get approval before merging into `dev`.**
 
 ---
 
@@ -98,7 +121,7 @@ Since we all work directly on the shared `dev` branch, it’s super important th
 |---------------------------|------------------------------------------------------------|
 | Clone the repo HTTPS      | `git clone https://github.com/apscandy/CAB302-Project.git` |
 | Clone the repo SSH        | `git clone git@github.com:apscandy/CAB302-Project.git`     |
-|                           | *(Use SSH if you've set up your GitHub SSH key, otherwise use HTTPS.)* |
+| *(Use SSH if you've set up your GitHub SSH key, otherwise use HTTPS.)*                 |
 | Switch to `dev`           | `git checkout dev`                                         |
 | Pull the latest `dev`     | `git pull origin dev`                                      |
 | Create feature branch     | `git checkout -b feature/your-task-name`                   |
@@ -114,3 +137,7 @@ Since we all work directly on the shared `dev` branch, it’s super important th
 No PRs means **trust and teamwork** are key.  
 When in doubt: **Pull. Test. Then Push.**  
 And always let the team know when you're pushing something important!
+
+---
+
+✅ Let me know if you want me to whip up a matching Discord announcement too!
