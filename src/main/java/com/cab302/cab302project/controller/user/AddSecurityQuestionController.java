@@ -17,6 +17,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Utility class to manage Security Question in Register.
+ * @author Dang Linh Phan (Lewis)
+ */
+
 public class AddSecurityQuestionController {
 
     @FXML
@@ -125,6 +130,25 @@ public class AddSecurityQuestionController {
         String answerTwo = SecondAnswerTextField.getText();
         String answerThree = ThirdAnswerTextField.getText();
 
+        boolean hasError = false;
+        if (answerOne.isEmpty() || answerTwo.isEmpty() || answerThree.isEmpty()) {
+            hasError = true;
+        }
+        if (questionOne == null) {
+            hasError = true;
+        }
+        if (questionTwo == null) {
+            hasError = true;
+        }
+        if (questionThree == null) {
+            hasError = true;
+        }
+        if (hasError) {
+            showAlert("Please fill in all security questions and answers.");
+            return;
+        }
+
+
         UserSecurityQuestion userSecurityQuestion = new UserSecurityQuestion(tempUser);
         userSecurityQuestion.setQuestionOne(questionOne);
         userSecurityQuestion.setAnswerOne(answerOne);
@@ -157,4 +181,13 @@ public class AddSecurityQuestionController {
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Input Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }

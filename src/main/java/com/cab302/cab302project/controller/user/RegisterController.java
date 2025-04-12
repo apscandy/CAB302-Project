@@ -73,62 +73,50 @@ public class RegisterController {
         String password = SetPasswordField.getText();
         String confirmPassword = ConfirmPasswordField.getText();
 
-        clearErrorLabels();
-        boolean isValid = true;
-
+        // validate first name
         if (firstName.isEmpty()) {
             setError(FirstNameTextField, "First name cannot be empty.");
-            isValid = false;
+            return false;
         }
 
+        // validate last name
         if (lastName.isEmpty()) {
             setError(LastNameTextField, "Last name cannot be empty.");
-            isValid = false;
+            return false;
         }
 
-
-        // Lewis mate, you forgot to check for existing users
-        try{
-            new AuthenticationService().emailCheck(email);
-        }catch (EmailAlreadyInUseException e){
-            setError(EmailAddressTextField, "Email address already in use.");
-            isValid = false;
+        // validate email
+        if (email.isEmpty()) {
+            setError(EmailAddressTextField, "Email cannot be empty.");
+            return false;
         }
-
         if (!RegexValidator.validEmailAddress(email)) {
             setError(EmailAddressTextField, "Invalid email format.");
-            isValid = false;
+            return false;
+        } else {
+            try {
+                new AuthenticationService().emailCheck(email);
+            } catch (EmailAlreadyInUseException e) {
+                setError(EmailAddressTextField, "Email address already in use");
+            }
         }
 
+        // validate password
+        if (password.isEmpty()) {
+            setError(SetPasswordField, "Password cannot be empty.");
+            return false;
+        }
         if (!RegexValidator.validPassword(password)) {
             setError(SetPasswordField, "Password must be at least 8 characters, include 1 number and 1 special character.");
-            isValid = false;
+            return false;
         } else if (!password.equals(confirmPassword)) {
             setError(ConfirmPasswordField, "Passwords do not match.");
-            isValid = false;
+            return false;
         }
 
-        if (!isValid) return false;
-
-        try {
-            User newUser = new User(firstName, lastName, email, password);
-            setTempUser(newUser);
-            return true;
-        } catch (EmailAlreadyInUseException e) {
-            setError(EmailAddressTextField, "Email is already in use.");
-        } catch (EmailEmptyException e) {
-            setError(EmailAddressTextField, "Email cannot be empty.");
-        } catch (InvalidEmailFormatException e) {
-            setError(EmailAddressTextField, "Invalid email format.");
-        } catch (PasswordEmptyException e) {
-            setError(SetPasswordField, "Password cannot be empty.");
-        } catch (InvalidPasswordFormatException e) {
-            setError(SetPasswordField, "Password does not meet requirements.");
-        } catch (RuntimeException e) {
-            setError(ConfirmPasswordField, "Unexpected error: " + e.getMessage());
-        }
-
-        return false;
+        User user = new User(firstName, lastName, email, password);
+        setTempUser(user);
+        return true;
     }
 
     private void setError(TextInputControl input, String message) {
@@ -137,9 +125,5 @@ public class RegisterController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    private void clearErrorLabels() {
-        // No operation needed since errors are displayed via alerts.
     }
 }
