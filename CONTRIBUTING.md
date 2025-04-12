@@ -1,41 +1,115 @@
-# Contributing to CAB302-Project
+_Last updated: 12/04/2025_
 
-Welcome to **CAB302-Project**! This project follows a straightforward Git workflow to keep things organized. Please read the following guidelines before contributing.
+# 🚀 Team Git Guidelines — Shared `dev` Branch (No PRs)
 
-## Guidelines for Contributing
+Hey Team!  
+Since we all work directly on the shared `dev` branch, it’s super important that we follow these simple habits to avoid overwriting each other’s work or introducing bugs.
 
-### 1. Pull requests
-For this project, we are not using GitHub's Pull Requests, as it is a small project and managing all the requests can be a nightmare. Please **do not open a pull request**. When you are ready to merge, notify someone in the Discord dev-chat channel so they can review it.
+---
 
-### 2. Branching
-- **Create a new branch** for each feature you are working on. Name your branch something descriptive that reflects the feature or task (e.g., `feature/login-page` or `bugfix/fix-navbar`).
-- **Do not work on the `main` branch**. It is reserved for stable, merged code. All development should happen in separate branches.
+## 🌳 Branching Strategy
 
-### 3. Working on One Feature at a Time
-- **Work on only one feature per branch.** Once you finish one task and are ready to work on a new one, create a new branch for the new feature.
-- If you are working on a feature and need to start a different one, make sure to **complete and submit your changes** for your current feature first before starting a new one.
+- `main`: Stable, production-ready code. No direct pushes allowed.
+- `dev`: Shared branch for all development.
+- **Optional but Recommended:** Use temporary **feature branches** for your work
 
-### 4. Commit Messages
-- **Purpose**: Write concise commit messages that clearly explain why the changes were made. Good commit messages help others understand your work and make it easier to trace and debug later.
-- **Recommended Format**: The commit message should follow this format: `<type>(<scope>): <description>` For example: `fix(navbar): adjust navbar alignment`.
-- **Capitalization and Punctuation**: Capitalize the first word, and avoid using punctuation at the end of the subject line. If using Conventional Commits, stick to lowercase.
-- **Mood**: Use the imperative mood in the subject line (e.g., "Fix bug", "Add feature"). This gives your commit message a direct and action-oriented tone.
-- **Type of Commit**: Specify the type of change made, such as "fix", "update", "refactor", or "bump". Consistency in these terms helps maintain clarity. For more on Conventional Commits, refer to the [Conventional Commits guidelines](https://www.conventionalcommits.org/en/v1.0.0/).
-- **Length**: Keep the subject line under 50 characters, and limit the body of the message to 72 characters per line.
-- **Content**: Be direct and eliminate unnecessary words like "maybe", "kind of", or "I think". Write like a journalist—clear and to the point.
+---
 
-### 5. Merging Changes
-- Once your feature is complete and tested, **merge your branch into `main`** using the following command:
-```bash
-git merge --no-commit --no-ff <branch_name>
-```
-- The `--no-commit` flag prevents Git from automatically committing the merge, allowing you to review the changes before committing.
-- The `--no-ff` flag ensures that a merge commit is created even if the merge could be fast-forwarded. This is important for maintaining a clear history of all merges.
-- **Peer Review**: Before merging your changes, it is considered good practice to have someone review your feature branch. This helps catch potential issues and ensures the code aligns with project standards.
-- **Merge Process (Optional)**: Although not required, it’s a good practice to have someone else, typically a more senior or experienced team member, run the actual merge into the main branch. This can help ensure the merge is done correctly.
-- Resolve any conflicts before merging. Here is a link to a YouTube video if you are unsure how resolve a [merge conflict](https://www.youtube.com/watch?v=Sqs)
-- Ensure all tests pass before committing the merge.
+## 💡 Your Daily Git Flow
 
-### 6. Rebasing and Force Pushing
-- **Rebasing is strictly prohibited** in this project. Always use merging for bringing changes into your branch or the main branch. Rebasing rewrites history and can cause issues for fellow collaborators.
-- The use of `git push --force` is also banned. Force pushing can overwrite changes on remote branches, which can cause confusion and lost work for other collaborators. Always use git push without the `--force` flag.
+1. **Always Pull First**  
+   Before you start any work, make sure your local `dev` is up to date:
+   ```bash
+   git checkout dev
+   git pull origin dev
+   ```
+
+2. **Create a Feature Branch**
+    - When you start a new feature or fix, create a new branch.
+    - Only one person should work on each branch — no sharing branches.
+    - Use screen sharing if collaborating, not the same branch.
+   ```bash
+   git checkout -b feature/your-task-name
+   ```
+
+3. **Commit Locally as You Work**  
+   Small, clear, descriptive commits are easier to track:
+   ```bash
+   git add .
+   git commit -m "Describe your change"
+   ```
+
+4. **Rebase `dev` Before Pushing**  
+   Sync your work with the latest `dev` so you don’t overwrite someone else’s work:
+   ```bash
+   git checkout dev
+   git pull origin dev
+   git checkout feature/your-task-name
+   git rebase dev
+   ```
+
+5. **Push to `dev`**
+    - Once your work is complete and tested locally, you must get approval from another team member. Post a message in the Discord dev-chat with a short description of what you’ve done and ask for a quick review.
+    - Only merge once someone gives a 👍 or confirms it looks good.
+
+
+6. **Merge Your Feature into `dev`**
+   After getting approval
+    ```bash
+    git checkout dev
+    git merge feature/your-task-name
+    git push origin dev
+    ```
+
+7. **Delete the Feature Branch**  
+   After your code is merged into `dev`:
+    - **Do not reuse the same branch** for future work.
+    - **Delete the branch locally and remotely to avoid confusion**.
+   ```bash
+   git branch -d feature/your-task-name      # delete local
+   git push origin --delete feature/your-task-name  # delete remote
+   ```
+
+
+---
+
+## ⚡ Golden Rules
+
+- **Pull before you push**: Always pull the latest version of `dev` before merging your changes and pushing.
+- **Don’t overwrite work**: If Git warns about conflicts — pause and solve them locally before pushing.
+- **One branch = one person**: Never share a feature branch.
+- **Don’t reuse old branches**: Once merged, the branch is done — start fresh for each new task.
+- **No rebasing on `dev` or `main`**: Rebasing can mess up the shared history.
+- **No force pushing (`git push --force`)**: This can overwrite other people’s work.
+- **Commit messages should be short and clear**
+   ```
+   Add login form
+   Fix navbar bug
+   Improve loading animation
+   ```
+- **Test locally and get approval before merging into dev.**
+
+---
+
+## 🧑‍🏫 Helpful Commands Cheat Sheet
+
+| Purpose                  | Command                                                    |
+|--------------------------|------------------------------------------------------------|
+| Clone the repo https     | `git clone https://github.com/apscandy/CAB302-Project.git` |
+| Clone the repo ssh       | `git clone git@github.com:apscandy/CAB302-Project.git`     |
+| Switch to `dev`          | `git checkout dev`                                         |
+| Pull the latest `dev`    | `git pull origin dev`                                      |
+| Create feature branch    | `git checkout -b feature/your-task-name`                   |
+| Add changes              | `git add .`                                                |
+| Commit changes           | `git commit -m "Your message"`                             |
+| Merge feature into `dev` | `git checkout dev && git merge feature/your-task-name`     |
+| Push `dev`               | `git push origin dev`                                      |
+
+---
+
+## 🔥 Final Word
+
+No PRs means **trust and teamwork** are key.  
+When in doubt: **Pull. Test. Then Push.**  
+And always let the team know when you're pushing something important!
+
