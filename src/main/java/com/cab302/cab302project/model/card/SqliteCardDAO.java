@@ -167,6 +167,47 @@ public final class SqliteCardDAO implements ICardDAO {
         return cards;
     }
 
+
+    /**
+     * I Created this class to utilise the full power of encapsulation
+     * by passing a deck and setting to into the deck object
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * @param deck Deck to load card into
+     */
+    @Override
+    public void getCardAndLoadIntoDeck(Deck deck) {
+        List<Card> cards = new ArrayList<>();
+        try {
+            con.setAutoCommit(false);
+            try (PreparedStatement getCardStatment = con.prepareStatement(getCardsForDeckSQL)) {
+                getCardStatment.setInt(1, deck.getId());
+                ResultSet rs = getCardStatment.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String question = rs.getString("question");
+                    String answer = rs.getString("answer");
+                    String tags = rs.getString("tags");
+                    Card card = new Card(deck, question, answer, tags);
+                    card.setId(id);
+                    if (card.getId() != 0) cards.add(card);
+                }
+                deck.setCards(cards);
+                con.commit();
+                getCardStatment.close();
+                rs.close();
+            } catch (SQLException ex) {
+                con.rollback();
+                logger.error(ex.getMessage());
+                throw new FailedToGetCardsException(ex.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new FailedToGetCardsException(e.getMessage());
+        }
+    }
+
+
+
     @Override
     public void softDeleteCardsByDeck(Deck deck) {
         throw new RuntimeException("Not implemented");

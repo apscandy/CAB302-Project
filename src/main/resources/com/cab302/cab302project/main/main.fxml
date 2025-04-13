@@ -12,8 +12,8 @@
                 <Font name="System Italic" size="15.0" />
             </font>
         </Label>
-        <ListView fx:id="decks" layoutX="14.0" layoutY="98.0" onMouseClicked="#selectListViewItem" prefHeight="211.0" prefWidth="285.0" />
-        <ListView fx:id="cards" layoutX="342.0" layoutY="98.0" onMouseClicked="#selectListViewItem" prefHeight="211.0" prefWidth="285.0" />
+        <ListView fx:id="decks" layoutX="14.0" layoutY="98.0" onMouseClicked="#selectDeckListViewItem" prefHeight="211.0" prefWidth="285.0" />
+        <ListView fx:id="cards" layoutX="342.0" layoutY="98.0" onMouseClicked="#selectCardListViewItem" prefHeight="211.0" prefWidth="285.0" />
         <Button fx:id="createDeckButton" layoutX="52.0" layoutY="318.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="28.0" prefWidth="77.0" text="Add Deck" />
         <Label alignment="CENTER" layoutX="14.0" layoutY="71.0" prefHeight="26.0" prefWidth="285.0" text="DECKS" textFill="#d90429">
             <font>

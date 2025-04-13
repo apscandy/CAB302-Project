@@ -45,4 +45,11 @@ public interface ICardDAO {
      * @param deck the deck whose cards will be soft deleted
      */
     void softDeleteCardsByDeck(Deck deck);
+
+
+    /**
+     *
+     * @param deck Deck to load Cards into
+     */
+    void getCardAndLoadIntoDeck(Deck deck);
 }

@@ -2,6 +2,9 @@ package com.cab302.cab302project.controller.deck;
 
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.HelloApplication;
+import com.cab302.cab302project.model.card.Card;
+import com.cab302.cab302project.model.card.ICardDAO;
+import com.cab302.cab302project.model.card.SqliteCardDAO;
 import com.cab302.cab302project.model.deck.Deck;
 import com.cab302.cab302project.model.deck.IDeckDAO;
 import com.cab302.cab302project.model.deck.SqliteDeckDAO;
@@ -36,14 +39,20 @@ public class DeckViewController implements Initializable {
     @FXML
     private ListView<Deck> decks;
 
+    @FXML
+    private ListView<Card> cards;
+
     private static final Logger logger = LogManager.getLogger(DeckViewController.class);
+
     private final IDeckDAO deckDAO;
 
+    private final ICardDAO cardDAO;
     /**
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
     public DeckViewController() {
         deckDAO = new SqliteDeckDAO();
+        cardDAO = new SqliteCardDAO();
     }
 
     /**
@@ -89,15 +98,34 @@ public class DeckViewController implements Initializable {
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
     @FXML
-    public void selectListViewItem() {
+    private void selectDeckListViewItem() {
         if (!ApplicationState.isUserLoggedIn()) return;
+        cards.getItems().clear();
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) return;
-        deckName.setVisible(true);
-        deckDescription.setVisible(true);
-        deckName.setText(deck.getName());
-        deckDescription.setText(deck.getDescription());
+        cardDAO.getCardAndLoadIntoDeck(deck);
+        if (deck.getCards().size() >= 1) {
+            cards.getItems().clear();
+            cards.getItems().addAll(deck.getCards());
+            cards.refresh();
+        }
     }
+
+    @FXML
+    private void selectCardListViewItem() {
+        if (!ApplicationState.isUserLoggedIn()) return;
+        cards.getItems().clear();
+        Deck deck = decks.getSelectionModel().getSelectedItem();
+        if (deck == null) return;
+        cardDAO.getCardAndLoadIntoDeck(deck);
+        if (deck.getCards().size() >= 1) {
+            cards.getItems().clear();
+            cards.getItems().addAll(deck.getCards());
+            cards.refresh();
+        }
+    }
+
+
 
     /**
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
