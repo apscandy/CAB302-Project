@@ -98,6 +98,7 @@ public class RegisterController {
                 new AuthenticationService().emailCheck(email);
             } catch (EmailAlreadyInUseException e) {
                 setError(EmailAddressTextField, "Email address already in use");
+                return false;
             }
         }
 
