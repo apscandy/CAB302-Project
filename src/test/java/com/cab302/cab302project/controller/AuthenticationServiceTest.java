@@ -17,6 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Connection;
 import java.sql.Statement;
 
+/**
+ * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+ */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AuthenticationServiceTest {
 
@@ -27,6 +30,9 @@ public class AuthenticationServiceTest {
     private static UserSecurityQuestion testQuestions;
     private static AuthenticationService authenticationService;
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @BeforeAll
     static void setUpBeforeClass() {
         SqliteConnection.setTestingModeTrue();
@@ -46,6 +52,9 @@ public class AuthenticationServiceTest {
         ApplicationState.logout();
     }
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @AfterAll
     static void tearDownAfterClass() {
         try {
@@ -68,6 +77,9 @@ public class AuthenticationServiceTest {
     }
 
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @Test
     @Order(1)
     void testRegisterUser() {
@@ -93,6 +105,9 @@ public class AuthenticationServiceTest {
         assertThrows(EmailAlreadyInUseException.class, () -> authenticationService.register(testUser));
     }
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @Test
     @Order(2)
     void testAuthenticateUser() {
@@ -107,6 +122,9 @@ public class AuthenticationServiceTest {
         assertThrows(UserAlreadyLoggedInException.class, () -> authenticationService.authenticate(testUser.getEmail(), testUser.getPassword()));
     }
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @Test
     @Order(3)
     void testEmailCheck() {
@@ -116,6 +134,9 @@ public class AuthenticationServiceTest {
         assertThrows(InvalidEmailFormatException.class, () -> authenticationService.emailCheck("johnwick"));
     }
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @Test
     @Order(4)
     void testResetPassword() {
@@ -129,6 +150,9 @@ public class AuthenticationServiceTest {
         assertEquals(PasswordUtils.hashSHA256("MyDogBirthday093j-kd!asdfoiajslaksndf"), user.getPassword());
     }
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @Test
     @Order(5)
     void testCheckSecurityQuestion() {

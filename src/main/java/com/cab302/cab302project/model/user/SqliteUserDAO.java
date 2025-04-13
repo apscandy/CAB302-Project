@@ -12,11 +12,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+ */
 public final class SqliteUserDAO implements IUserDAO {
 
     private final Connection con;
     private static final Logger logger = LogManager.getLogger(SqliteUserDAO.class);
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     public SqliteUserDAO() {
         con = SqliteConnection.getInstance();
     }
@@ -26,6 +32,9 @@ public final class SqliteUserDAO implements IUserDAO {
     private final String getUserByIdSQL = "SELECT * FROM user WHERE id = ?";
     private final String getUserByEmailSQL = "SELECT * FROM user WHERE email = ?";
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @Override
     public void addUser (User user) {
         if (user == null || user.getFirstName() == null || user.getLastName() == null || user.getEmail() == null) {
@@ -60,6 +69,9 @@ public final class SqliteUserDAO implements IUserDAO {
         }
     }
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @Override
     public void updateUser (User user) {
         try {
@@ -87,6 +99,9 @@ public final class SqliteUserDAO implements IUserDAO {
         }
     }
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @Override
     public User getUser (int id) {
         User user = null;
@@ -121,6 +136,9 @@ public final class SqliteUserDAO implements IUserDAO {
         return user;
     }
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @Override
     public User getUser(String email) {
         User user = null;

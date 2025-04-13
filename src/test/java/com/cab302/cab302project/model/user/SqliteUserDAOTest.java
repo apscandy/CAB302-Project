@@ -9,12 +9,18 @@ import java.sql.Statement;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+ */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SqliteUserDAOTest {
     private static User user;
     private static Connection con;
     private static SqliteUserDAO userDAO;
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
         SqliteConnection.setTestingModeTrue();
@@ -24,7 +30,9 @@ public class SqliteUserDAOTest {
         user = new User("Test", "Still Testing", "AmITestingMyCode@OrIsMyCodeTestingMe.ru", "SameAsEmail");
     }
 
-
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     @AfterAll
     static void tearDownAfterClass() throws Exception {
         try{
@@ -45,6 +53,9 @@ public class SqliteUserDAOTest {
         ApplicationState.logout();
     }
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @Test
     @Order(1)
     void testAddUser() {
@@ -52,6 +63,9 @@ public class SqliteUserDAOTest {
         assertEquals(1, user.getId());
     }
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @Test
     @Order(3)
     void testUpdateUser() {
@@ -65,6 +79,9 @@ public class SqliteUserDAOTest {
         assertEquals(newEmail, returnUser.getEmail());
     }
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @Test
     @Order(2)
     void testGetUserById() {
@@ -75,6 +92,9 @@ public class SqliteUserDAOTest {
         assertEquals(user.getPassword(), returnUser.getPassword());
     }
 
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     @Test
     @Order(4)
     void testGetUserByEmail() {
