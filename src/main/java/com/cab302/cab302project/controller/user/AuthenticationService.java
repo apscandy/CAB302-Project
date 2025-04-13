@@ -161,4 +161,28 @@ public final class AuthenticationService {
         }
         return true;
     }
+
+    public boolean checkSecurityQuestion(User user,String answerOne, String answerTwo) throws RuntimeException {
+        if (answerOne == null || answerOne.trim().isEmpty()) {
+            throw new EmptyAnswerException("answerOne is empty");
+        }
+        if (answerTwo == null || answerTwo.trim().isEmpty()) {
+            throw new EmptyAnswerException("answerTwo is empty");
+        }
+        boolean result = false;
+        try {
+            result = emailCheck(user.getEmail());
+        } catch (RuntimeException ignored) {}
+        if (result) {
+            throw new UserNotFoundException();
+        }
+        UserSecurityQuestion usq = userSecurityQuestionDAO.getQuestions(user);
+        if (!usq.getAnswerOne().equals(answerOne)) {
+            throw new FailedQuestionException("Answer one does not match");
+        }
+        if (!usq.getAnswerTwo().equals(answerTwo)) {
+            throw new FailedQuestionException("Answer two does not match");
+        }
+        return true;
+    }
 }

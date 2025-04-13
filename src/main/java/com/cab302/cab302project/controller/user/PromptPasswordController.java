@@ -2,23 +2,31 @@ package com.cab302.cab302project.controller.user;
 
 import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.error.UserAlreadyLoggedInException;
-import com.cab302.cab302project.error.authentication.PasswordEmptyException;
-import com.cab302.cab302project.error.authentication.PasswordComparisonException;
+import com.cab302.cab302project.error.authentication.*;
+import com.cab302.cab302project.model.user.SqliteUserDAO;
+import com.cab302.cab302project.model.user.User;
+import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
+import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * @author Hoang Dat Bui
+ */
 public class PromptPasswordController {
 
-    // The resetPasswordBtn, loginBtn and backToPromptEmailPageBtn are injected from your FXML.
+    @FXML
     public Button resetPasswordBtn;
 
     @FXML
@@ -29,16 +37,14 @@ public class PromptPasswordController {
 
     @FXML
     private Button backToPromptEmailPageBtn;
-
-    // Removed errorPasswordMessage since there's no such fx:id element in the FXML.
-    // @FXML
-    // private Label errorPasswordMessage;
-
+    
     private String userEmail;
 
     public void setUserEmail(String email) {
         this.userEmail = email;
     }
+
+    private List<String> QuestionList = new ArrayList<>();
 
     private static final Logger logger = LogManager.getLogger(PromptPasswordController.class);
 
@@ -50,11 +56,11 @@ public class PromptPasswordController {
         try {
             authenticated = authHandler.authenticate(userEmail, password);
         } catch (UserAlreadyLoggedInException ex) {
-            showAlert("Login Error", "User already logged in.");
+            logger.warn("User already logged in.");
         } catch (PasswordEmptyException ex) {
-            showAlert("Login Error", "Password cannot be empty.");
+            logger.warn("Password cannot be empty.");
         } catch (PasswordComparisonException ex) {
-            showAlert("Login Error", "Incorrect password. Please try again.");
+            logger.warn("Incorrect password. Please try again.");
         }
         if (authenticated) {
             Stage stage = (Stage) loginBtn.getScene().getWindow();
@@ -74,23 +80,25 @@ public class PromptPasswordController {
 
     @FXML
     public void goToAnswerSecurityQuestion() throws IOException {
+        User user = retrieveUserAndInitQuestions(userEmail, QuestionList);
         Stage stage = (Stage) resetPasswordBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("answer-security-questions-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        AnswerSecurityQuestionController answerController = fxmlLoader.getController();
+        answerController.initSecurityQuestion(QuestionList);
+        answerController.passUser(user);
         stage.setScene(scene);
     }
 
-    /**
-     * Displays an error alert with the specified title and message.
-     *
-     * @param title   the title of the alert dialog
-     * @param message the error message to be displayed
-     */
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    public static User retrieveUserAndInitQuestions(String userEmail, List<String> QuestionList) {
+        QuestionList.clear();
+        SqliteUserDAO userDAO = new SqliteUserDAO();
+        User user = userDAO.getUser(userEmail);
+        SqliteUserSecurityQuestionDAO userSecurityQuestionDAO = new SqliteUserSecurityQuestionDAO();
+        UserSecurityQuestion userSecurityQuestion = userSecurityQuestionDAO.getQuestions(user);
+        QuestionList.add(userSecurityQuestion.getQuestionOne());
+        QuestionList.add(userSecurityQuestion.getQuestionTwo());
+        QuestionList.add(userSecurityQuestion.getQuestionThree());
+        return user;
     }
 }

@@ -132,11 +132,11 @@ public class AuthenticationServiceTest {
     @Test
     @Order(5)
     void testCheckSecurityQuestion() {
-       assertThrows(EmptyAnswerException.class, () -> authenticationService.checkSecurityQuestion(testUser, " ", testQuestions.getAnswerTwo(),testQuestions.getAnswerThree()));
-       assertThrows(EmptyAnswerException.class, () -> authenticationService.checkSecurityQuestion(testUser, testQuestions.getAnswerOne(), " ",testQuestions.getAnswerThree()));
-       assertThrows(EmptyAnswerException.class, () -> authenticationService.checkSecurityQuestion(testUser, testQuestions.getAnswerOne(), testQuestions.getAnswerTwo()," "));
+       assertThrows(EmptyAnswerException.class, () -> authenticationService.checkSecurityQuestion(testUser, " ", testQuestions.getAnswerTwo()));
+       assertThrows(EmptyAnswerException.class, () -> authenticationService.checkSecurityQuestion(testUser, testQuestions.getAnswerOne(), " "));
+
        questionDAO.createQuestion(testQuestions);
-       assertDoesNotThrow(()-> authenticationService.checkSecurityQuestion(ApplicationState.getCurrentUser(), testQuestions.getAnswerOne(), testQuestions.getAnswerTwo(),testQuestions.getAnswerThree()));
-       assertThrows(FailedQuestionException.class, () -> authenticationService.checkSecurityQuestion(testUser, testQuestions.getAnswerOne(), " awdawd",testQuestions.getAnswerThree()));
+       assertDoesNotThrow(()-> authenticationService.checkSecurityQuestion(ApplicationState.getCurrentUser(), testQuestions.getAnswerOne(), testQuestions.getAnswerTwo()));
+       assertThrows(FailedQuestionException.class, () -> authenticationService.checkSecurityQuestion(testUser, testQuestions.getAnswerOne(), " awdawd"));
     }
 }

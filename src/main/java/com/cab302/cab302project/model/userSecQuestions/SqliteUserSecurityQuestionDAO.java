@@ -120,22 +120,4 @@ public final class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestio
         }
 
     }
-
-    public UserSecurityQuestion getUserAndUSQ(String email) {
-        UserSecurityQuestion usq = null;
-        try{
-            conn.setAutoCommit(false);
-            try {
-                SqliteUserDAO sqliteUserDAO = new SqliteUserDAO();
-                User user = sqliteUserDAO.getUser(email);
-                usq = getQuestions(user);
-
-            } finally {
-                conn.setAutoCommit(true);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return usq;
-    }
 }
