@@ -25,8 +25,8 @@
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
-        <Button layoutX="381.0" layoutY="318.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="28.0" prefWidth="77.0" text="Add Card" />
-      <Button layoutX="465.0" layoutY="318.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="28.0" prefWidth="124.0" text="Edit Selected Card" />
+        <Button layoutX="381.0" layoutY="318.0" mnemonicParsing="false" onAction="#createCard" prefHeight="28.0" prefWidth="77.0" text="Add Card" />
+      <Button layoutX="465.0" layoutY="318.0" mnemonicParsing="false" onAction="#editCard" prefHeight="28.0" prefWidth="124.0" text="Edit Selected Card" />
       <Button layoutX="137.0" layoutY="318.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="28.0" prefWidth="124.0" text="Edit Selected Deck" />
 
     </children>

@@ -5,6 +5,7 @@ import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.model.deck.Deck;
 import com.cab302.cab302project.model.deck.IDeckDAO;
 import com.cab302.cab302project.model.deck.SqliteDeckDAO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -57,6 +58,24 @@ public class DeckViewController implements Initializable {
         stage.setScene(scene);
     }
 
+    @FXML
+    private void createCard() throws IOException {
+        if (!ApplicationState.isUserLoggedIn()) return;
+        Stage stage = (Stage) createDeckButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("card/new-card-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setScene(scene);
+    }
+
+    @FXML
+    private void editCard() throws IOException {
+        if (!ApplicationState.isUserLoggedIn()) return;
+        Stage stage = (Stage) createDeckButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("card/edit-card-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setScene(scene);
+    }
+
     /**
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
@@ -89,4 +108,6 @@ public class DeckViewController implements Initializable {
         decks.getItems().addAll(deckDAO.getDecks(ApplicationState.getCurrentUser()));
         decks.refresh();
     }
+
+
 }
