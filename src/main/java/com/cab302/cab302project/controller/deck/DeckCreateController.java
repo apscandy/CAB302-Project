@@ -33,7 +33,10 @@ public class DeckCreateController implements Initializable {
     private ListView<Deck> decks;
 
     @FXML
-    private Button backButton;
+    private Button newCardBtn;
+
+    @FXML
+    private Button editCardBtn;
 
     @FXML
     private TextField deckName;
@@ -72,18 +75,6 @@ public class DeckCreateController implements Initializable {
 
     /**
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
-     * @throws IOException
-     */
-    @FXML
-    private void backButton() throws IOException {
-        Stage stage = (Stage) backButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setScene(scene);
-    }
-
-    /**
-     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
     @FXML
     private void clearButton() {
@@ -118,6 +109,24 @@ public class DeckCreateController implements Initializable {
         loadDecks();
         deckName.clear();
         deckDescription.clear();
+    }
+
+    @FXML
+    private void newCard() throws IOException {
+        if (!ApplicationState.isUserLoggedIn()) return;
+        Stage stage = (Stage) newCardBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("card/new-card-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setScene(scene);
+    }
+
+    @FXML
+    private void editCard() throws IOException {
+        if (!ApplicationState.isUserLoggedIn()) return;
+        Stage stage = (Stage) editCardBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("card/edit-card-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setScene(scene);
     }
 
     /**
