@@ -20,7 +20,6 @@
     </Label>
     <Label alignment="CENTER" layoutX="207.0" layoutY="144.0" prefHeight="17.0" prefWidth="229.0" text="Please enter your email to login" textAlignment="RIGHT" />
     <TextField fx:id="userEmail" layoutX="206.0" layoutY="167.0" prefHeight="25.0" prefWidth="229.0" />
-    <Label fx:id="errorEmailMessage" alignment="CENTER" layoutX="190.0" layoutY="118.0" prefHeight="17.0" prefWidth="257.0" textFill="red" />
     <Button fx:id="goToRegisterPageBtn" layoutX="256.0" layoutY="285.0" mnemonicParsing="false" onAction="#goToRegisterPage" prefHeight="25.0" prefWidth="129.0" text="Create Account" />
     <Button fx:id="goToPromptPasswordPageBtn" layoutX="220.0" layoutY="207.0" mnemonicParsing="false" onAction="#goToPromptPasswordPage" prefHeight="26.0" prefWidth="200.0" text="Next" />
     <Label alignment="CENTER" layoutX="291.0" layoutY="262.0" text="New here?" />

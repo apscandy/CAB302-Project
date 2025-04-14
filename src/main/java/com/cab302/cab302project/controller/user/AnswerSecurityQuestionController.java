@@ -12,8 +12,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * @author Hoang Dat Bui
+ */
 
 public class AnswerSecurityQuestionController {
     @FXML
@@ -38,15 +41,30 @@ public class AnswerSecurityQuestionController {
 
     private User user;
 
+    /**
+     * Stores the user object for this controller to use.
+     *
+     * @param user The user attempting to reset their password
+     */
     public void passUser(User user) {
         this.user = user;
     }
 
+    /**
+     * Sets up the security question labels in the UI.
+     *
+     * @param QuestionList List of security questions for the user
+     */
     public void initSecurityQuestion(List<String> QuestionList) {
         securityQuestionOne.setText(QuestionList.get(0));
         securityQuestionTwo.setText(QuestionList.get(1));
     }
 
+    /**
+     * Validates security question answers and navigates to password reset screen if correct.
+     * Displays appropriate error messages if validation fails.
+     * Passes the validated user's email to the ResetPasswordController.
+     */
     @FXML
     public void goToResetPasswordPage() throws IOException {
         String answer1 = AnswerOneTextField.getText();
@@ -73,6 +91,10 @@ public class AnswerSecurityQuestionController {
         logger.debug("goToResetPasswordPage button pressed");
     }
 
+    /**
+     * Navigates back to the password prompt screen.
+     * Preserves the user's email in the previous screen.
+     */
     @FXML
     public void backToPromptPasswordPage() throws IOException {
         Stage stage = (Stage) backToPromptPasswordPageBtn.getScene().getWindow();

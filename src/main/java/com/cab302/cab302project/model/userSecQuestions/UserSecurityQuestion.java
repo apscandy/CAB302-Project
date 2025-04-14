@@ -2,6 +2,10 @@ package com.cab302.cab302project.model.userSecQuestions;
 
 import com.cab302.cab302project.model.user.User;
 
+/**
+ * @author Hoang Dat Bui, Andrew Clarke
+ */
+
 public final class UserSecurityQuestion {
     private final User user;
     private String questionOne;

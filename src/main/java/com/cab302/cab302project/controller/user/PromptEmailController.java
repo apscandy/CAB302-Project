@@ -5,8 +5,8 @@ import com.cab302.cab302project.error.authentication.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
@@ -17,6 +17,7 @@ import java.io.IOException;
 /**
  * @author Hoang Dat Bui
  */
+
 public class PromptEmailController {
 
     @FXML
@@ -28,29 +29,31 @@ public class PromptEmailController {
     @FXML
     private Button goToRegisterPageBtn;
 
-    @FXML
-    private Label errorEmailMessage;
-
     private static final Logger logger = LogManager.getLogger(PromptEmailController.class);
 
+    /**
+     * Validates email and navigates to password screen if email exists.
+     * Displays appropriate error messages for invalid or unregistered emails.
+     * Passes the validated user's email to the PromptPassword Controller.
+     * @author Hoang Dat Bui, Andrew Clarke
+     */
     @FXML
     public void goToPromptPasswordPage() throws IOException {
         String email = userEmail.getText();
         AuthenticationService authHandler = new AuthenticationService();
-        errorEmailMessage.setText("");
         boolean isEmailFree = false;
         try {
             isEmailFree = authHandler.emailCheck(email);
         } catch (EmailEmptyException e) {
-            errorEmailMessage.setText("Email cannot be empty.");
+            setError("Email cannot be empty.");
             return;
         } catch (InvalidEmailFormatException e) {
-            errorEmailMessage.setText("Invalid email format.");
+            setError("Invalid email format.");
             return;
         } catch (EmailAlreadyInUseException ignored) {}
         if (isEmailFree) {
             // If it doesn't exist, display error message
-            errorEmailMessage.setText("Email not found. Please register for an account.");
+            setError("Email not found. Please register for an account.");
             return;
         }
         Stage stage = (Stage) goToPromptPasswordPageBtn.getScene().getWindow();
@@ -70,5 +73,13 @@ public class PromptEmailController {
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
         logger.debug("User on register account screen");
+    }
+
+    private void setError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Prompt Email Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

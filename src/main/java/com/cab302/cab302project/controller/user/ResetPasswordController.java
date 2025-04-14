@@ -4,10 +4,7 @@ import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.error.authentication.InvalidPasswordFormatException;
 import com.cab302.cab302project.error.authentication.PasswordEmptyException;
 import com.cab302.cab302project.error.authentication.UserNotFoundException;
-import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
-import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
-import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,6 +18,10 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * @author Hoang Dat Bui
+ */
 
 public class ResetPasswordController {
     @FXML
@@ -39,10 +40,21 @@ public class ResetPasswordController {
 
     private static final Logger logger = LogManager.getLogger(ResetPasswordController.class);
 
+    /**
+     *
+     * @param email The email address of the user
+     * Sets the email of the user who is resetting their password.
+     * This allows the controller to identify the correct user account
+     * when the password reset is submitted.
+     */
     public void setUserEmail(String email) {
         this.userEmail = email;
     }
 
+    /**
+     * Navigates back to the security questions screen.
+     * Loads the previous view and initialises it with the user's security questions.
+     */
     @FXML
     public void backToAnswerSecurityQuestion() throws IOException {
         Stage stage = (Stage) backToAnswerSecurityQuestionBtn.getScene().getWindow();
@@ -56,6 +68,10 @@ public class ResetPasswordController {
         stage.setScene(scene);
     }
 
+    /**
+     * Handles the password reset submission.
+     * Validates that passwords match and meets requirements before updating the user's password.
+     */
     @FXML
     public void resetPassword() throws IOException {
         String newPassword = resetPasswordField.getText();
