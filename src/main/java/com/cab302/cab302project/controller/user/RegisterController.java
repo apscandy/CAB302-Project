@@ -72,13 +72,11 @@ public class RegisterController {
             Stage stage = (Stage) NextButton.getScene().getWindow();
 
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-questions-security-view.fxml"));
-
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            stage.setScene(scene);
             // Pass temporary user to the next controller
             AddSecurityQuestionController addSecurityQuestionController = fxmlLoader.getController();
             addSecurityQuestionController.setTempUser(user);
-
-            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-            stage.setScene(scene);
         }
     }
 
