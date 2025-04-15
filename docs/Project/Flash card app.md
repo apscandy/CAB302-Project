@@ -1,7 +1,7 @@
 
 ## Minimum requirements  
 - a graphical user interface with windows for the main functionalities, in general based on JavaFX
-- an authentication system to sign-up/sign-in (GUI and models)
+- an authenticationService system to sign-up/sign-in (GUI and models)
 - a persistency system to store/retrieve/update user data (GUI and models)
 - one or (more likely) more application windows in which the actual, useful part of the application is performed (again, with GUI and models)
 

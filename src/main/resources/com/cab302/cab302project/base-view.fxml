@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.cab302.cab302project.controller.menubar.MenuBarController">
+  <children>
+    <HBox fx:id="rootHBox" prefWidth="640.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <MenuBar HBox.hgrow="ALWAYS">
+        <Menu text="File">
+          <MenuItem fx:id="homeItem" text="Home" onAction="#home"/>
+          <MenuItem fx:id="import" text="Import Deck" onAction="#home"/>
+          <MenuItem fx:id="export" text="Export Deck" onAction="#home"/>
+          <MenuItem fx:id="logOut" text="Log Out" onAction="#logOut"/>
+          <MenuItem fx:id="close" text="Exit" onAction="#closeProgram"/>
+        </Menu>
+        <Menu text="New">
+          <MenuItem fx:id="newDeckMenuItem" text="Deck" onAction="#openDeckView"/>
+          <MenuItem fx:id="newCardMenuItem" text="Card" onAction="#openCardView"/>
+        </Menu>
+        <Menu text="Test">
+          <Menu text="Flip Mode">
+            <MenuItem fx:id="flipStandard" text="Standard" onAction="#home"/>
+            <MenuItem fx:id="flipRandom" text="Random" onAction="#home"/>
+            <MenuItem fx:id="flipSpecial" text="Special" onAction="#home"/>
+          </Menu>
+          <Menu text="Answer Mode">
+            <MenuItem fx:id="answerStandard" text="Standard" onAction="#home"/>
+            <MenuItem fx:id="answerRandom" text="Random" onAction="#home"/>
+            <MenuItem fx:id="answerSpecial" text="Special" onAction="#home"/>
+          </Menu>
+          <Menu text="Multiple Choice Mode">
+            <MenuItem fx:id="mcStandard" text="Standard" onAction="#home"/>
+            <MenuItem fx:id="mcRandom" text="Random" onAction="#home"/>
+            <MenuItem fx:id="mcSpecial" text="Special" onAction="#home"/>
+          </Menu>
+        </Menu>
+        <Menu text="Profile">
+          <MenuItem fx:id="changeEmailMenuItem" text="Change Email" onAction="#home"/>
+          <MenuItem fx:id="changePasswordMenuItem" text="Change Password" onAction="#home"/>
+          <MenuItem fx:id="changeSecurityQuestions" text="Change Security Questions" onAction="#home"/>
+          <MenuItem fx:id="deleteAccountMenuItem" text="Delete Account" onAction="#home"/>
+        </Menu>
+      </MenuBar>
+      <MenuBar>
+        <Menu text="Recycle Bin"/>
+      </MenuBar>
+    </HBox>
+  </children>
+</AnchorPane>

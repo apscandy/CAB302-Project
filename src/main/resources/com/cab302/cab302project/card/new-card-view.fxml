@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.card.CardCreateController">
+    <fx:include source="../base-view.fxml" />
+    <Label layoutX="23.0" layoutY="51.0" prefHeight="28.0" prefWidth="176.0" text="New Card" textFill="#d90429">
+        <font>
+            <Font name="System Bold" size="20.0" />
+        </font>
+    </Label>
+    <ComboBox fx:id="deckComboBox" layoutX="282.0" layoutY="51.0" prefHeight="28.0" prefWidth="224.0" promptText="Select Deck" />
+    <Button fx:id="clearButton1" layoutX="514.0" layoutY="51.0" mnemonicParsing="false" onAction="#returnToDeck" prefHeight="28.0" prefWidth="106.0" text="Return to Deck" />
+    <TextField fx:id="cardName" alignment="TOP_LEFT" layoutX="23.0" layoutY="91.0" prefHeight="46.0" prefWidth="409.0" promptText="Card Question">
+        <font>
+            <Font size="14.0" />
+        </font>
+    </TextField>
+    <TextArea fx:id="cardAnswer" layoutX="23.0" layoutY="145.0" prefHeight="162.0" prefWidth="409.0" promptText="Card Answer">
+        <font>
+            <Font size="12.0" />
+        </font>
+    </TextArea>
+    <Button layoutX="23.0" layoutY="315.0" mnemonicParsing="false" onAction="#saveCard" prefHeight="28.0" prefWidth="113.0" text="Add as New Card" />
+    <Button fx:id="clearButton" layoutX="143.0" layoutY="315.0" mnemonicParsing="false" onAction="#clearCard" prefHeight="28.0" prefWidth="48.0" text="Clear" />
+    <Button layoutX="531.0" layoutY="315.0" mnemonicParsing="false" onAction="#deleteCard" prefHeight="28.0" prefWidth="89.0" text="Delete Card" />
+    <Label layoutX="440.0" layoutY="91.0" prefHeight="28.0" prefWidth="183.0" text="Cards of this Deck" textFill="#d90429">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+    </Label>
+    <ListView fx:id="cardsList" layoutX="440.0" layoutY="121.0" prefHeight="184.0" prefWidth="183.0" />
+</AnchorPane>

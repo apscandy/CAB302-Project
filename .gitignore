@@ -42,5 +42,11 @@ build/
 # All Obsidian configuration and runtime state is stored here
 .obsidian/**/*
 
+# database stuff
 *.db
+*.db-journal
 *.sqlite
+*.sqlite-journal
+
+# logs (please don't commit this folder)
+logs

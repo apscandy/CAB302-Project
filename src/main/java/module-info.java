@@ -9,12 +9,17 @@ module com.cab302.cab302project {
     requires eu.hansolo.tilesfx;
     requires java.desktop;
     requires java.sql;
-    requires jdk.jdi;
+    requires org.apache.logging.log4j;
+    requires jdk.jshell;
 
     opens com.cab302.cab302project to javafx.fxml;
     exports com.cab302.cab302project;
-    exports com.cab302.cab302project.controller;
-    opens com.cab302.cab302project.controller to javafx.fxml;
     exports com.cab302.cab302project.model;
+    exports com.cab302.cab302project.model.deck;
+    exports com.cab302.cab302project.model.user;
     opens com.cab302.cab302project.model to javafx.fxml;
+    opens com.cab302.cab302project.controller.deck to javafx.fxml;
+    opens com.cab302.cab302project.controller.menubar to javafx.fxml;
+    opens com.cab302.cab302project.controller.user to javafx.fxml;
+    opens com.cab302.cab302project.controller.card to javafx.fxml;
 }
