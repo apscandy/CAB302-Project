@@ -25,7 +25,7 @@
 ## Tasks Breakdown
 | Task | Related User Story | Assignee | Status |
 |------|--------------------|----------|---------|
-| Design and implement CSV/JSON parser utility | [[Import Deck]], [[Export Deck]] | [[Maverick]] | #To-Do |
+| Design and implement CSV parser utility | [[Import Deck]], [[Export Deck]] | [[Maverick]] | #To-Do |
 | Create `ImportExportController` and associated views | [[Import Deck]], [[Export Deck]] | [[Maverick]] | #To-Do |
 | Create UI flow for uploading and validating import files | [[Import Deck]] | [[Maverick]] | #To-Do |
 | Implement download/export functionality with file generation logic | [[Export Deck]] | [[Maverick)]] | #To-Do |
@@ -47,7 +47,7 @@
 **Sprint Retrospective:** 23/04/2025  
 
 ## Risks & Dependencies
-- File parsing (CSV/JSON) may fail if formatting varies – validation and error handling are essential.  
+- File parsing (CSV) may fail if formatting varies – validation and error handling are essential.  
 - Import preview requires safe temporary storage – users cancelling midway should not commit partial data.  
 - External library usage for charts or file I/O may create integration or deployment challenges.  
 - File operations (import/export) need to clearly handle failure cases (e.g., oversized file, wrong format).  
