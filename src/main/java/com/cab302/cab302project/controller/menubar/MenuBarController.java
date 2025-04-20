@@ -89,4 +89,24 @@ public class MenuBarController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void enterRecycleBin() {
+        logger.info("Recycle bin clicked");
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(HelloApplication.class.getResource("recyclebin/recycle-bin-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clearRecycleBin() {
+
+    }
 }

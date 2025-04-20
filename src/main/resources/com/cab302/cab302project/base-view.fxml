@@ -47,7 +47,9 @@
         </Menu>
       </MenuBar>
       <MenuBar>
-        <Menu text="Recycle Bin"/>
+        <Menu text="Recycle Bin">
+          <MenuItem text="Enter Recycle Bin" onAction="#enterRecycleBin"/>
+        </Menu>
       </MenuBar>
     </HBox>
   </children>

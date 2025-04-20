@@ -24,10 +24,10 @@ public final class SqliteDeckDAO implements IDeckDAO {
     private final String createDeckSQL = "INSERT INTO deck (user_id, name, description) VALUES (?,?,?)";
     private final String updateDeckSQL = "UPDATE deck SET name = ?, description = ? WHERE id = ?";
     private final String deleteDeckSQL = "DELETE FROM deck WHERE id = ?";
-    private final String softDeleteDeckSQL = "UPDATE deck SET is_deleted = ?, WHERE id = ?";
+    private final String softDeleteDeckSQL = "UPDATE deck SET is_deleted = ? WHERE id = ?";
     private final String selectDeckSQL = "SELECT * FROM deck WHERE user_id = ? AND  is_deleted = FALSE";
     private final String selectDeckByIdSQL = "SELECT * FROM deck WHERE id = ? AND is_deleted = FALSE";
-    private final String getSoftDeleteDeckSQL = "SELECT * FROM deck WHERE user_id = ? AND  is_deleted = TRUE";
+    private final String getSoftDeleteDeckSQL = "SELECT * FROM deck WHERE user_id = ? AND is_deleted = TRUE";
 
     public SqliteDeckDAO() {
         con = SqliteConnection.getInstance();
@@ -163,6 +163,34 @@ public final class SqliteDeckDAO implements IDeckDAO {
         }
     }
 
+    /**
+     * @author Hoang Dat Bui
+     */
+    @Override
+    public void restoreDeck(Deck deck) {
+        if (deck == null || deck.getUserId() == 0 || deck.getId() == 0){
+            throw new DeckIsNullException("Deck cannot be null");
+        }
+        try {
+            con.setAutoCommit(false);
+            try(PreparedStatement softDelete = con.prepareStatement(softDeleteDeckSQL)) {
+                softDelete.setBoolean(1, false);
+                softDelete.setInt(2, deck.getId());
+                softDelete.executeUpdate();
+                con.commit();
+            } catch (SQLException e){
+                con.rollback();
+                logger.error(e.getMessage());
+                throw new FailedToDeleteDeckException(e.getMessage());
+
+            } finally {
+                con.setAutoCommit(true);
+            }
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            throw new FailedToDeleteDeckException(e.getMessage());
+        }
+    }
 
     /**
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
@@ -203,7 +231,6 @@ public final class SqliteDeckDAO implements IDeckDAO {
         return decks;
     }
 
-
     /**
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
@@ -219,7 +246,7 @@ public final class SqliteDeckDAO implements IDeckDAO {
                 selectStatement.setInt(1, user.getId());
                 ResultSet resultSet = selectStatement.executeQuery();
                 while (resultSet.next()) {
-                    int deckId = resultSet.getInt("deck_id");
+                    int deckId = resultSet.getInt("id");
                     String name = resultSet.getString("name");
                     String description = resultSet.getString("description");
                     Deck deck = new Deck(name, description, user);

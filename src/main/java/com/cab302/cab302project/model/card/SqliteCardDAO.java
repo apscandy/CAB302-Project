@@ -1,9 +1,8 @@
 package com.cab302.cab302project.model.card;
 
-import com.cab302.cab302project.error.model.card.FailedToCreateCardException;
-import com.cab302.cab302project.error.model.card.FailedToGetCardsException;
-import com.cab302.cab302project.error.model.card.FailedToSoftDeleteCardException;
-import com.cab302.cab302project.error.model.card.FailedToUpdateCardException;
+import com.cab302.cab302project.error.model.card.*;
+import com.cab302.cab302project.error.model.deck.DeckIsNullException;
+import com.cab302.cab302project.error.model.deck.FailedToDeleteDeckException;
 import com.cab302.cab302project.model.SqliteConnection;
 import com.cab302.cab302project.model.deck.Deck;
 import org.apache.logging.log4j.LogManager;
@@ -27,8 +26,11 @@ public final class SqliteCardDAO implements ICardDAO {
 
     private final String insertCardSQL = "INSERT INTO card (deck_id, question, answer, tags) VALUES (?, ?, ?, ?)";
     private final String updateCardSQL = "UPDATE card SET question = ?, answer = ?, tags = ? WHERE id = ?";
-    private final String softDeleteSQL = "UPDATE card SET is_deleted = true WHERE id = ?";
-    private final String getCardsForDeckSQL = "SELECT * FROM card WHERE deck_id = ? AND is_deleted = 0";
+    private final String deleteCardSQL = "DELETE FROM card WHERE id = ?";
+    private final String updateCardDeleteStatusSQL = "UPDATE card SET is_deleted = ? WHERE id = ?";
+    private final String getCardsForDeckSQL = "SELECT * FROM card WHERE deck_id = ? AND is_deleted = ?";
+    private final String deleteCardInDeckSQL = "DELETE FROM card WHERE deck_id = ?";
+    private final String updateCardsDeleteStatusInDeckSQL = "UPDATE card SET is_deleted = ? WHERE deck_id = ?";
 
     /**
      * Constructs a new SqliteCardDAO, obtaining a connection from SqliteConnection.
@@ -101,6 +103,32 @@ public final class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    @Override
+    public void deleteCard(Card card) {
+        if (card == null) {
+            throw new CardIsNullException("Card cannot be null");
+        }
+        try {
+            // Transaction try/catch block
+            con.setAutoCommit(false);
+            try (PreparedStatement deleteStatement = con.prepareStatement(deleteCardSQL)) {
+                deleteStatement.setInt(1, card.getId());
+                deleteStatement.executeUpdate();
+                con.commit();
+                deleteStatement.close();
+            }catch (SQLException  e) {
+                con.rollback();
+                logger.error(e.getMessage());
+                throw new FailedToDeleteCardsException(e.getMessage());
+            }finally {
+                con.setAutoCommit(true);
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new FailedToDeleteCardsException(e.getMessage());
+        }
+    }
+
     /**
      * Soft deletes a card from the database by setting its is_deleted flag.
      * Uses a transaction to ensure the operation is atomic.
@@ -111,8 +139,9 @@ public final class SqliteCardDAO implements ICardDAO {
     public void softDeleteCard(Card card) {
         try {
             con.setAutoCommit(false);
-            try (PreparedStatement softDeleteStatement = con.prepareStatement(softDeleteSQL)) {
-                softDeleteStatement.setInt(1, card.getId());
+            try (PreparedStatement softDeleteStatement = con.prepareStatement(updateCardDeleteStatusSQL)) {
+                softDeleteStatement.setBoolean(1, true);
+                softDeleteStatement.setInt(2, card.getId());
                 softDeleteStatement.executeUpdate();
                 con.commit();
                 softDeleteStatement.close();
@@ -129,6 +158,29 @@ public final class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    @Override
+    public void restoreCard(Card card) {
+        try {
+            con.setAutoCommit(false);
+            try (PreparedStatement softDeleteStatement = con.prepareStatement(updateCardDeleteStatusSQL)) {
+                softDeleteStatement.setBoolean(1, false);
+                softDeleteStatement.setInt(2, card.getId());
+                softDeleteStatement.executeUpdate();
+                con.commit();
+                softDeleteStatement.close();
+            }catch (SQLException e) {
+                con.rollback();
+                logger.error(e.getMessage());
+                throw new FailedToRestoreCardException(e.getMessage());
+            }finally {
+                con.setAutoCommit(true);
+            }
+        }catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new FailedToRestoreCardException(e.getMessage());
+        }
+    }
+
     /**
      * Retrieves all non-deleted cards for the given deck.
      *
@@ -142,6 +194,7 @@ public final class SqliteCardDAO implements ICardDAO {
             con.setAutoCommit(false);
             try (PreparedStatement getCardStatment = con.prepareStatement(getCardsForDeckSQL)) {
                 getCardStatment.setInt(1, deck.getId());
+                getCardStatment.setBoolean(2, false);
                 ResultSet rs = getCardStatment.executeQuery();
                 while (rs.next()) {
                     int id = rs.getInt("id");
@@ -167,7 +220,6 @@ public final class SqliteCardDAO implements ICardDAO {
         return cards;
     }
 
-
     /**
      * I Created this class to utilise the full power of encapsulation
      * by passing a deck and setting to into the deck object
@@ -181,6 +233,7 @@ public final class SqliteCardDAO implements ICardDAO {
             con.setAutoCommit(false);
             try (PreparedStatement getCardStatment = con.prepareStatement(getCardsForDeckSQL)) {
                 getCardStatment.setInt(1, deck.getId());
+                getCardStatment.setBoolean(2, false);
                 ResultSet rs = getCardStatment.executeQuery();
                 while (rs.next()) {
                     int id = rs.getInt("id");
@@ -206,10 +259,113 @@ public final class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    @Override
+    public void deleteCardsByDeck(Deck deck) {
+        if (deck == null || deck.getUserId() == 0 || deck.getId() == 0){
+            throw new DeckIsNullException("Deck cannot be null");
+        }
+        try {
+            con.setAutoCommit(false);
+            try(PreparedStatement Delete = con.prepareStatement(deleteCardInDeckSQL)){
+                Delete.setInt(1, deck.getId());
+                Delete.executeUpdate();
+                con.commit();
+            } catch (SQLException e){
+                con.rollback();
+                logger.error(e.getMessage());
+                throw new FailedToDeleteDeckException(e.getMessage());
 
+            } finally {
+                con.setAutoCommit(true);
+            }
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            throw new FailedToDeleteDeckException(e.getMessage());
+        }
+    }
 
     @Override
     public void softDeleteCardsByDeck(Deck deck) {
-        throw new RuntimeException("Not implemented");
+        if (deck == null || deck.getUserId() == 0 || deck.getId() == 0){
+            throw new DeckIsNullException("Deck cannot be null");
+        }
+        try {
+            con.setAutoCommit(false);
+            try(PreparedStatement softDelete = con.prepareStatement(updateCardsDeleteStatusInDeckSQL)){
+                softDelete.setBoolean(1, true);
+                softDelete.setInt(2, deck.getId());
+                softDelete.executeUpdate();
+                con.commit();
+            } catch (SQLException e){
+                con.rollback();
+                logger.error(e.getMessage());
+                throw new FailedToDeleteDeckException(e.getMessage());
+
+            } finally {
+                con.setAutoCommit(true);
+            }
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            throw new FailedToDeleteDeckException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void restoreCardsByDeck(Deck deck) {
+        if (deck == null || deck.getUserId() == 0 || deck.getId() == 0){
+            throw new DeckIsNullException("Deck cannot be null");
+        }
+        try {
+            con.setAutoCommit(false);
+            try(PreparedStatement softDelete = con.prepareStatement(updateCardsDeleteStatusInDeckSQL)){
+                softDelete.setBoolean(1, false);
+                softDelete.setInt(2, deck.getId());
+                softDelete.executeUpdate();
+                con.commit();
+            } catch (SQLException e){
+                con.rollback();
+                logger.error(e.getMessage());
+                throw new FailedToDeleteDeckException(e.getMessage());
+
+            } finally {
+                con.setAutoCommit(true);
+            }
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            throw new FailedToDeleteDeckException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Card> getSoftDeletedCardsForDeck(Deck deck) {
+        List<Card> cards = new ArrayList<>();
+        try {
+            con.setAutoCommit(false);
+            try (PreparedStatement getCardStatment = con.prepareStatement(getCardsForDeckSQL)) {
+                getCardStatment.setInt(1, deck.getId());
+                getCardStatment.setInt(2, 1);
+                ResultSet rs = getCardStatment.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String question = rs.getString("question");
+                    String answer = rs.getString("answer");
+                    String tags = rs.getString("tags");
+                    Card card = new Card(deck, question, answer, tags);
+                    card.setId(id);
+                    cards.add(card);
+                }
+                con.commit();
+                getCardStatment.close();
+                rs.close();
+            } catch (SQLException ex) {
+                con.rollback();
+                logger.error(ex.getMessage());
+                throw new FailedToGetCardsException(ex.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new FailedToGetCardsException(e.getMessage());
+        }
+        return cards;
     }
 }

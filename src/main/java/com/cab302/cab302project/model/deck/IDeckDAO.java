@@ -13,6 +13,7 @@ public interface IDeckDAO {
     public void updateDeck(Deck deck);
     public void deleteDeck(Deck deck);
     public void softDeleteDeck(Deck deck);
+    public void restoreDeck(Deck deck);
     public List<Deck> getDecks(User user);
     public List<Deck> getSoftDeletedDecks(User user);
     public Deck getDeck(int id);

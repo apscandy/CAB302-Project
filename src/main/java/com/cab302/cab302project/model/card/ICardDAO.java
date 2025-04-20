@@ -25,11 +25,25 @@ public interface ICardDAO {
     void updateCard(Card card);
 
     /**
+     * Delete an existing card in the database.
+     *
+     * @param card the card to update
+     */
+    void deleteCard(Card card);
+
+    /**
      * Soft deletes a card (marks it as deleted) in the database.
      *
      * @param card the card to soft delete
      */
     void softDeleteCard(Card card);
+
+    /**
+     * Restores a car in the database.
+     *
+     * @param card the card
+     */
+    void restoreCard(Card card);
 
     /**
      * Retrieves a list of non-deleted cards for the specified deck.
@@ -40,12 +54,32 @@ public interface ICardDAO {
     List<Card> getCardsForDeck(Deck deck);
 
     /**
+     * Deletes all cards associated with the specified deck.
+     *
+     * @param deck the deck whose cards will be soft deleted
+     */
+    void deleteCardsByDeck(Deck deck);
+
+    /**
      * Soft deletes all cards associated with the specified deck.
      *
      * @param deck the deck whose cards will be soft deleted
      */
     void softDeleteCardsByDeck(Deck deck);
 
+    /**
+     * Restores all cards associated with the specified deck.
+     *
+     * @param deck the deck whose cards will be soft deleted
+     */
+    void restoreCardsByDeck(Deck deck);
+
+    /**
+     * Gets all soft-deleted cards for a specific deck.
+     *
+     * @param deck the deck to get soft-deleted cards for
+     */
+    List<Card> getSoftDeletedCardsForDeck(Deck deck);
 
     /**
      *

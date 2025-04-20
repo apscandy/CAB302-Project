@@ -9,10 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -105,10 +102,18 @@ public class DeckCreateController implements Initializable {
         if (!ApplicationState.isUserLoggedIn()) return;
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) return;
-        deckDAO.deleteDeck(deck);
-        loadDecks();
-        deckName.clear();
-        deckDescription.clear();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Deck");
+        alert.setHeaderText("Are you sure you want to delete this Deck?");
+        alert.setContentText("This action will put this deck into the recycle bin.");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                deckDAO.softDeleteDeck(deck);
+                loadDecks();
+                deckName.clear();
+                deckDescription.clear();
+            }
+        });
     }
 
     @FXML
