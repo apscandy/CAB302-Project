@@ -40,10 +40,10 @@
           </Menu>
         </Menu>
         <Menu text="Profile">
-          <MenuItem fx:id="changeEmailMenuItem" text="Change Email" onAction="#home"/>
-          <MenuItem fx:id="changePasswordMenuItem" text="Change Password" onAction="#home"/>
-          <MenuItem fx:id="changeSecurityQuestions" text="Change Security Questions" onAction="#home"/>
-          <MenuItem fx:id="deleteAccountMenuItem" text="Delete Account" onAction="#home"/>
+          <MenuItem fx:id="changeEmailMenuItem" text="Change Email" onAction="#changeEmailButton"/>
+          <MenuItem fx:id="changePasswordMenuItem" text="Change Password" onAction="#changePasswordButton"/>
+          <MenuItem fx:id="changeSecurityQuestions" text="Change Security Questions" onAction="#changeSecurityQuestionButton"/>
+          <MenuItem fx:id="deleteAccountMenuItem" text="Delete Account" onAction="#DeleteAccount"/>
         </Menu>
       </MenuBar>
       <MenuBar>
