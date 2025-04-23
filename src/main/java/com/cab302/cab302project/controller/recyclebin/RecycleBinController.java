@@ -94,7 +94,6 @@ public class RecycleBinController implements Initializable {
                     "This action will delete the deck and all its cards forever.", response -> {
                         if (response == ButtonType.OK) {
                             deckDAO.deleteDeck(deck);
-                            cardDAO.deleteCardsByDeck(deck);
                             reloadList();
                             logger.info("A deck has been deleted");
                         }
@@ -162,7 +161,6 @@ public class RecycleBinController implements Initializable {
 
                         for (Deck deck : deletedDecks) {
                             deckDAO.deleteDeck(deck);
-                            cardDAO.deleteCardsByDeck(deck);
                         }
 
                         for (Card card : deletedCards) {

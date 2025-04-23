@@ -17,4 +17,12 @@ public interface IDeckDAO {
     public List<Deck> getDecks(User user);
     public List<Deck> getSoftDeletedDecks(User user);
     public Deck getDeck(int id);
+
+
+    // ─── NEW for bookmarking ────────────────────────────────────────────────────────
+    /** Persist a deck’s bookmarked flag */
+    void setBookmarked(Deck deck, boolean bookmarked);
+
+    /** Retrieve only the decks the user has bookmarked */
+    List<Deck> getBookmarkedDecks(User user);
 }

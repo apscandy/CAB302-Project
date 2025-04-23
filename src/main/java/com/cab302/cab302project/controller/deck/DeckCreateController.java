@@ -41,6 +41,11 @@ public class DeckCreateController implements Initializable {
     @FXML
     private TextArea deckDescription;
 
+    // ─── NEW bookmark button ───────────────────────────────────────────────────────
+    @FXML
+    private Button bookmarkButton;
+    // ──────────────────────────────────────────────────────────────────────────────
+
     private static final Logger logger = LogManager.getLogger(DeckCreateController.class);
 
     public DeckCreateController(){
@@ -68,6 +73,13 @@ public class DeckCreateController implements Initializable {
         if (deck == null) return;
         deckName.setText(deck.getName());
         deckDescription.setText(deck.getDescription());
+
+        // set the button text based on current bookmark flag
+        bookmarkButton.setText(
+                deck.isBookmarked()
+                        ? "Bookmarked ★"
+                        : "Bookmark ☆"
+        );
     }
 
     /**
@@ -158,4 +170,33 @@ public class DeckCreateController implements Initializable {
         decks.refresh();
     }
 
+    /**
+     * Toggle the bookmarked state of the currently selected deck.
+     * <p>
+     * When invoked, this method will:
+     * <ol>
+     *   <li>Abort if no user is logged in or no deck is selected.</li>
+     *   <li>Flip the deck’s bookmarked flag and persist the change via the DAO.</li>
+     *   <li>Update the bookmark button’s label to either
+     *       <code>"Bookmarked ★"</code> or <code>"Bookmark ☆"</code> accordingly.</li>
+     * </ol>
+     *
+     * @author Monica Borg (n9802045)
+     */
+    @FXML
+    private void toggleBookmark() {
+        if (!ApplicationState.isUserLoggedIn()) return;
+
+        Deck deck = decks.getSelectionModel().getSelectedItem();
+        if (deck == null) return;
+
+        boolean nowBookmarked = !deck.isBookmarked();
+        deckDAO.setBookmarked(deck, nowBookmarked);
+
+        // update button text immediately
+        bookmarkButton.setText(nowBookmarked
+                ? "Bookmarked ★"
+                : "Bookmark ☆"
+        );
+    }
 }

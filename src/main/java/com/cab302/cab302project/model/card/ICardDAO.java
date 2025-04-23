@@ -53,19 +53,6 @@ public interface ICardDAO {
      */
     List<Card> getCardsForDeck(Deck deck);
 
-    /**
-     * Deletes all cards associated with the specified deck.
-     *
-     * @param deck the deck whose cards will be soft deleted
-     */
-    void deleteCardsByDeck(Deck deck);
-
-    /**
-     * Soft deletes all cards associated with the specified deck.
-     *
-     * @param deck the deck whose cards will be soft deleted
-     */
-    void softDeleteCardsByDeck(Deck deck);
 
     /**
      * Restores all cards associated with the specified deck.

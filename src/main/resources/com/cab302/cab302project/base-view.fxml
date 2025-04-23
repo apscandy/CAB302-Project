@@ -13,6 +13,7 @@
       <MenuBar HBox.hgrow="ALWAYS">
         <Menu text="File">
           <MenuItem fx:id="homeItem" text="Home" onAction="#home"/>
+          <MenuItem fx:id="bookmarkedDecks" text="Bookmarked Decks" onAction="#openBookmarkView"/>
           <MenuItem fx:id="import" text="Import Deck" onAction="#home"/>
           <MenuItem fx:id="export" text="Export Deck" onAction="#home"/>
           <MenuItem fx:id="logOut" text="Log Out" onAction="#logOut"/>

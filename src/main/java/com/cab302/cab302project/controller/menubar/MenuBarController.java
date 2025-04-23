@@ -78,6 +78,21 @@ public class MenuBarController {
     }
 
     @FXML
+    private void openBookmarkView() {
+        logger.info("File -> Bookmark clicked");
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(HelloApplication.class.getResource("deck/bookmarked-decks.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void logOut() {
         logger.info("Log Out clicked");
         ApplicationState.logout();
