@@ -205,6 +205,7 @@ public final class SqliteCardDAO implements ICardDAO {
                 con.commit();
                 getCardStatement.close();
                 rs.close();
+                deck.setCards(cards);
             } catch (SQLException e) {
                 con.rollback();
                 logger.error(e.getMessage());

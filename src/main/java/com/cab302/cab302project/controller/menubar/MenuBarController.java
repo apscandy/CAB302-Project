@@ -2,18 +2,28 @@ package com.cab302.cab302project.controller.menubar;
 
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.HelloApplication;
+import com.cab302.cab302project.error.util.*;
+import com.cab302.cab302project.model.card.ICardDAO;
+import com.cab302.cab302project.model.card.SqliteCardDAO;
+import com.cab302.cab302project.model.deck.Deck;
+import com.cab302.cab302project.model.card.Card;
+import com.cab302.cab302project.model.deck.IDeckDAO;
+import com.cab302.cab302project.model.deck.SqliteDeckDAO;
 import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
+import com.cab302.cab302project.util.DeckCSVUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class MenuBarController {
@@ -190,5 +200,51 @@ public class MenuBarController {
         } catch (IOException e) {
             logger.error("Failed to switch scene: " + fxmlPath, e);
         }
+    }
+
+    @FXML
+    private void importDeckCSV() {
+        if (!ApplicationState.isUserLoggedIn()) return;
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Deck CSV");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showOpenDialog(rootHBox.getScene().getWindow());
+        if (file == null) return;
+        Deck deck;
+        try {
+            deck = DeckCSVUtils.importDeck(file.getAbsolutePath(),
+                    ApplicationState.getCurrentUser());
+        } catch (CSVImportException |
+                 CSVImportInvalidFormatException |
+                 InvalidCSVContentException |
+                 FilePathIsNullException |
+                 InvalidFilePathException e) {
+            showAlert(Alert.AlertType.ERROR, "Import Failed", e.getMessage());
+            return;
+        }
+        IDeckDAO deckDAO = new SqliteDeckDAO();
+        ICardDAO cardDAO = new SqliteCardDAO();
+        try {
+            deckDAO.createDeck(deck);
+            if (deck.getCards() != null) {
+                for (Card c : deck.getCards()) {
+                    cardDAO.addCard(c);
+                }
+            }
+            showAlert(Alert.AlertType.INFORMATION, "Import Successful",
+                    "Imported deck \"" + deck.getName() + "\"");
+
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Database Error",
+                    "Could not save imported deck to the database.\n" + e.getMessage());
+        }
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String msg) {
+        Alert a = new Alert(type);
+        a.setTitle(title);
+        a.setHeaderText(null);
+        a.setContentText(msg);
+        a.showAndWait();
     }
 }

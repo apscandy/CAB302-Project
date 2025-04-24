@@ -2,9 +2,12 @@ package com.cab302.cab302project.controller.deck;
 
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.HelloApplication;
+import com.cab302.cab302project.error.util.*;
+import com.cab302.cab302project.model.card.SqliteCardDAO;
 import com.cab302.cab302project.model.deck.Deck;
 import com.cab302.cab302project.model.deck.IDeckDAO;
 import com.cab302.cab302project.model.deck.SqliteDeckDAO;
+import com.cab302.cab302project.util.DeckCSVUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,6 +17,7 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -198,5 +202,58 @@ public class DeckCreateController implements Initializable {
                 ? "Bookmarked ★"
                 : "Bookmark ☆"
         );
+    }
+
+    /**
+     * Export a Deck to a CSV.
+     *<p>
+     * CSV layout:<br>
+     * Deck Name,Deck Description<br>
+     * &lt;name&gt;,&lt;description&gt;<br><br>
+     *
+     * Question,Answer,Tags<br>
+     * "question 1","answer 1","tag1;tag2"<br>
+     * "question 2","answer 2",""<br>
+     * ...
+     *</p>
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
+    @FXML
+    private void exportDeckCSV() {
+        if (!ApplicationState.isUserLoggedIn()) return;
+        Deck deck = decks.getSelectionModel().getSelectedItem();
+        if (deck == null) {
+            showAlert(Alert.AlertType.WARNING, "Export Deck", "Select a deck to export.");
+            return;
+        }
+        new SqliteCardDAO().getCardsForDeck(deck);
+        if (deck.getCards() == null || deck.getCards().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Export Deck", "Deck has no card - Nothing to export.");
+            return;
+        }
+        javafx.stage.FileChooser fileChooser = new javafx.stage.FileChooser();
+        fileChooser.setTitle("Export Deck as CSV");
+        fileChooser.getExtensionFilters().add(new javafx.stage.FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        fileChooser.setInitialFileName(deck.getName().replaceAll("\\s+", "_") + ".csv");
+        File file = fileChooser.showSaveDialog(deckName.getScene().getWindow());
+        if (file == null) return;
+        try {
+            DeckCSVUtils.exportDeck(file.getAbsolutePath(), deck);
+            showAlert(Alert.AlertType.INFORMATION, "Export Successful",
+                    "Deck saved to:\n" + file.getAbsolutePath());
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Export Failed", e.getMessage());
+        }
+    }
+
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
+    private void showAlert(Alert.AlertType type, String title, String msg) {
+        Alert a = new Alert(type);
+        a.setTitle(title);
+        a.setHeaderText(null);
+        a.setContentText(msg);
+        a.showAndWait();
     }
 }
