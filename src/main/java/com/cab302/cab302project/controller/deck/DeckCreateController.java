@@ -3,6 +3,7 @@ package com.cab302.cab302project.controller.deck;
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.error.util.*;
+import com.cab302.cab302project.model.card.Card;
 import com.cab302.cab302project.model.card.SqliteCardDAO;
 import com.cab302.cab302project.model.deck.Deck;
 import com.cab302.cab302project.model.deck.IDeckDAO;
@@ -45,6 +46,9 @@ public class DeckCreateController implements Initializable {
     @FXML
     private TextArea deckDescription;
 
+    @FXML
+    private ListView<Card> cardsList;
+
     // ─── NEW bookmark button ───────────────────────────────────────────────────────
     @FXML
     private Button bookmarkButton;
@@ -84,6 +88,11 @@ public class DeckCreateController implements Initializable {
                         ? "Bookmarked ★"
                         : "Bookmark ☆"
         );
+        cardsList.getItems().clear();
+        deck.setCards(new SqliteCardDAO().getCardsForDeck(deck));
+        if (deck.getCards() != null) {
+            cardsList.getItems().addAll(deck.getCards());
+        }
     }
 
     /**
