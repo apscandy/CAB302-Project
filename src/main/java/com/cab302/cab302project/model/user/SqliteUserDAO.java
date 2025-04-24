@@ -172,4 +172,20 @@ public final class SqliteUserDAO implements IUserDAO {
         }
         return user;
     }
+
+    /**
+     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+     */
+    public void deleteUser(User user) {
+        String deleteSQL = "DELETE FROM user WHERE id = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(deleteSQL);
+            stmt.setInt(1, user.getId());
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+            throw new FailedToUpdateUserException(e.getMessage());
+        }
+    }
 }

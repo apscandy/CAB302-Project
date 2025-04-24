@@ -105,14 +105,14 @@ public final class Deck {
     /**
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
-    public Boolean getIsBookmarked() {
+    public boolean isBookmarked() {
         return isBookmarked;
     }
 
     /**
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
-    protected void setIsBookmarked(Boolean isBookmarked) {
+    public void setBookmarked(Boolean isBookmarked) {
         this.isBookmarked = isBookmarked;
     }
 

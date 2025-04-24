@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.deck.BookmarkedDecksController">
+
+   <!-- common header/nav -->
+   <fx:include source="../base-view.fxml" />
+
+   <!-- title -->
+   <Label layoutX="14.0" layoutY="36.0" prefHeight="35.0" prefWidth="200.0" text="Bookmarked Decks" textFill="#d90429">
+      <font>
+         <Font name="System Bold" size="20.0" />
+      </font>
+   </Label>
+
+   <!-- list of bookmarked decks -->
+   <ListView fx:id="decks" layoutX="14.0" layoutY="79.0" onMouseClicked="#selectListViewItem" prefHeight="264.0" prefWidth="200.0" />
+
+   <!-- deck details -->
+   <TextField fx:id="deckName" layoutX="225.0" layoutY="79.0" prefHeight="35.0" prefWidth="395.0" promptText="Deck Title">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font>
+   </TextField>
+
+   <TextArea fx:id="deckDescription" layoutX="225.0" layoutY="123.0" prefHeight="67.0" prefWidth="395.0" promptText="Deck Description">
+      <font>
+         <Font size="12.0" />
+      </font>
+   </TextArea>
+
+   <!-- remove‑bookmark button -->
+   <Button fx:id="bookmarkButton" layoutX="475.0" layoutY="40.0" mnemonicParsing="false" onAction="#toggleBookmark" prefHeight="28.0" prefWidth="145.0" text="Remove Bookmark ☆" />
+
+   <!-- cards label -->
+   <Label layoutX="225.0" layoutY="199.0" prefHeight="18.0" prefWidth="395.0" text="Cards of this Deck" textFill="#d90429">
+      <font>
+         <Font name="System Italic" size="14.0" />
+      </font>
+   </Label>
+
+   <!-- list of cards in selected deck -->
+   <ListView fx:id="cardsList" layoutX="225.0" layoutY="222.0" onMouseClicked="#selectListViewItem" prefHeight="122.0" prefWidth="395.0" />
+
+</AnchorPane>

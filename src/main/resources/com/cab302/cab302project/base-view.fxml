@@ -13,8 +13,8 @@
       <MenuBar HBox.hgrow="ALWAYS">
         <Menu text="File">
           <MenuItem fx:id="homeItem" text="Home" onAction="#home"/>
-          <MenuItem fx:id="import" text="Import Deck" onAction="#home"/>
-          <MenuItem fx:id="export" text="Export Deck" onAction="#home"/>
+          <MenuItem fx:id="bookmarkedDecks" text="Bookmarked Decks" onAction="#openBookmarkView"/>
+          <MenuItem fx:id="import" text="Import Deck" onAction="#importDeckCSV"/>
           <MenuItem fx:id="logOut" text="Log Out" onAction="#logOut"/>
           <MenuItem fx:id="close" text="Exit" onAction="#closeProgram"/>
         </Menu>
@@ -40,14 +40,16 @@
           </Menu>
         </Menu>
         <Menu text="Profile">
-          <MenuItem fx:id="changeEmailMenuItem" text="Change Email" onAction="#home"/>
-          <MenuItem fx:id="changePasswordMenuItem" text="Change Password" onAction="#home"/>
-          <MenuItem fx:id="changeSecurityQuestions" text="Change Security Questions" onAction="#home"/>
-          <MenuItem fx:id="deleteAccountMenuItem" text="Delete Account" onAction="#home"/>
+          <MenuItem fx:id="changeEmailMenuItem" text="Change Email" onAction="#changeEmailButton"/>
+          <MenuItem fx:id="changePasswordMenuItem" text="Change Password" onAction="#changePasswordButton"/>
+          <MenuItem fx:id="changeSecurityQuestions" text="Change Security Questions" onAction="#changeSecurityQuestionButton"/>
+          <MenuItem fx:id="deleteAccountMenuItem" text="Delete Account" onAction="#DeleteAccount"/>
         </Menu>
       </MenuBar>
       <MenuBar>
-        <Menu text="Recycle Bin"/>
+        <Menu text="Recycle Bin">
+          <MenuItem text="Enter Recycle Bin" onAction="#enterRecycleBin"/>
+        </Menu>
       </MenuBar>
     </HBox>
   </children>

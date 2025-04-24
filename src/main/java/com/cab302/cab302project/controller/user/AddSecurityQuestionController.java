@@ -251,6 +251,7 @@ public class AddSecurityQuestionController {
         alert.showAndWait();
 
         // Navigate the user to the main interface of the application
+        User currentUser = new User (tempUser.getFirstName(), tempUser.getLastName(), tempUser.getEmail(), tempUser.getPassword());
         Stage stage = (Stage) RegisterButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);

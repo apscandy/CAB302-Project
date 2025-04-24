@@ -2,21 +2,22 @@ package com.cab302.cab302project.controller.deck;
 
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.HelloApplication;
+import com.cab302.cab302project.error.util.*;
+import com.cab302.cab302project.model.card.SqliteCardDAO;
 import com.cab302.cab302project.model.deck.Deck;
 import com.cab302.cab302project.model.deck.IDeckDAO;
 import com.cab302.cab302project.model.deck.SqliteDeckDAO;
+import com.cab302.cab302project.util.DeckCSVUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,6 +44,11 @@ public class DeckCreateController implements Initializable {
 
     @FXML
     private TextArea deckDescription;
+
+    // ─── NEW bookmark button ───────────────────────────────────────────────────────
+    @FXML
+    private Button bookmarkButton;
+    // ──────────────────────────────────────────────────────────────────────────────
 
     private static final Logger logger = LogManager.getLogger(DeckCreateController.class);
 
@@ -71,6 +77,13 @@ public class DeckCreateController implements Initializable {
         if (deck == null) return;
         deckName.setText(deck.getName());
         deckDescription.setText(deck.getDescription());
+
+        // set the button text based on current bookmark flag
+        bookmarkButton.setText(
+                deck.isBookmarked()
+                        ? "Bookmarked ★"
+                        : "Bookmark ☆"
+        );
     }
 
     /**
@@ -105,10 +118,18 @@ public class DeckCreateController implements Initializable {
         if (!ApplicationState.isUserLoggedIn()) return;
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) return;
-        deckDAO.deleteDeck(deck);
-        loadDecks();
-        deckName.clear();
-        deckDescription.clear();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Deck");
+        alert.setHeaderText("Are you sure you want to delete this Deck?");
+        alert.setContentText("This action will put this deck into the recycle bin.");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                deckDAO.softDeleteDeck(deck);
+                loadDecks();
+                deckName.clear();
+                deckDescription.clear();
+            }
+        });
     }
 
     @FXML
@@ -153,4 +174,86 @@ public class DeckCreateController implements Initializable {
         decks.refresh();
     }
 
+    /**
+     * Toggle the bookmarked state of the currently selected deck.
+     * <p>
+     * When invoked, this method will:
+     * <ol>
+     *   <li>Abort if no user is logged in or no deck is selected.</li>
+     *   <li>Flip the deck’s bookmarked flag and persist the change via the DAO.</li>
+     *   <li>Update the bookmark button’s label to either
+     *       <code>"Bookmarked ★"</code> or <code>"Bookmark ☆"</code> accordingly.</li>
+     * </ol>
+     *
+     * @author Monica Borg (n9802045)
+     */
+    @FXML
+    private void toggleBookmark() {
+        if (!ApplicationState.isUserLoggedIn()) return;
+
+        Deck deck = decks.getSelectionModel().getSelectedItem();
+        if (deck == null) return;
+
+        boolean nowBookmarked = !deck.isBookmarked();
+        deckDAO.setBookmarked(deck, nowBookmarked);
+
+        // update button text immediately
+        bookmarkButton.setText(nowBookmarked
+                ? "Bookmarked ★"
+                : "Bookmark ☆"
+        );
+    }
+
+    /**
+     * Export a Deck to a CSV.
+     *<p>
+     * CSV layout:<br>
+     * Deck Name,Deck Description<br>
+     * &lt;name&gt;,&lt;description&gt;<br><br>
+     *
+     * Question,Answer,Tags<br>
+     * "question 1","answer 1","tag1;tag2"<br>
+     * "question 2","answer 2",""<br>
+     * ...
+     *</p>
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
+    @FXML
+    private void exportDeckCSV() {
+        if (!ApplicationState.isUserLoggedIn()) return;
+        Deck deck = decks.getSelectionModel().getSelectedItem();
+        if (deck == null) {
+            showAlert(Alert.AlertType.WARNING, "Export Deck", "Select a deck to export.");
+            return;
+        }
+        new SqliteCardDAO().getCardsForDeck(deck);
+        if (deck.getCards() == null || deck.getCards().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Export Deck", "Deck has no card - Nothing to export.");
+            return;
+        }
+        javafx.stage.FileChooser fileChooser = new javafx.stage.FileChooser();
+        fileChooser.setTitle("Export Deck as CSV");
+        fileChooser.getExtensionFilters().add(new javafx.stage.FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        fileChooser.setInitialFileName(deck.getName().replaceAll("\\s+", "_") + ".csv");
+        File file = fileChooser.showSaveDialog(deckName.getScene().getWindow());
+        if (file == null) return;
+        try {
+            DeckCSVUtils.exportDeck(file.getAbsolutePath(), deck);
+            showAlert(Alert.AlertType.INFORMATION, "Export Successful",
+                    "Deck saved to:\n" + file.getAbsolutePath());
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Export Failed", e.getMessage());
+        }
+    }
+
+    /**
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
+    private void showAlert(Alert.AlertType type, String title, String msg) {
+        Alert a = new Alert(type);
+        a.setTitle(title);
+        a.setHeaderText(null);
+        a.setContentText(msg);
+        a.showAndWait();
+    }
 }
