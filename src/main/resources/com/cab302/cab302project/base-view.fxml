@@ -39,7 +39,7 @@
             <MenuItem fx:id="mcSpecial" text="Special" onAction="#home"/>
           </Menu>
         </Menu>
-        <Menu text="Profile">
+        <Menu text="Profile Management">
           <MenuItem fx:id="changeEmailMenuItem" text="Change Email" onAction="#changeEmailButton"/>
           <MenuItem fx:id="changePasswordMenuItem" text="Change Password" onAction="#changePasswordButton"/>
           <MenuItem fx:id="changeSecurityQuestions" text="Change Security Questions" onAction="#changeSecurityQuestionButton"/>
