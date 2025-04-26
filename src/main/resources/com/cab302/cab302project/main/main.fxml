@@ -14,7 +14,10 @@
         </Label>
         <ListView fx:id="decks" layoutX="14.0" layoutY="98.0" onMouseClicked="#selectDeckListViewItem" prefHeight="211.0" prefWidth="285.0" />
         <ListView fx:id="cards" layoutX="342.0" layoutY="98.0" onMouseClicked="#selectCardListViewItem" prefHeight="211.0" prefWidth="285.0" />
-        <Button fx:id="createDeckButton" layoutX="52.0" layoutY="318.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="28.0" prefWidth="77.0" text="Add Deck" />
+        <Button fx:id="createDeckButton" layoutX="100.0" layoutY="318.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="28.0" prefWidth="113.0" text="Manage Decks">
+         <font>
+            <Font size="12.0" />
+         </font></Button>
         <Label alignment="CENTER" layoutX="14.0" layoutY="71.0" prefHeight="26.0" prefWidth="285.0" text="DECKS" textFill="#d90429">
             <font>
                 <Font name="System Bold" size="20.0" />
@@ -25,9 +28,18 @@
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
-        <Button layoutX="381.0" layoutY="318.0" mnemonicParsing="false" onAction="#createCard" prefHeight="28.0" prefWidth="77.0" text="Add Card" />
-      <Button layoutX="465.0" layoutY="318.0" mnemonicParsing="false" onAction="#editCard" prefHeight="28.0" prefWidth="124.0" text="Edit Selected Card" />
-      <Button layoutX="137.0" layoutY="318.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="28.0" prefWidth="124.0" text="Edit Selected Deck" />
+        <Button layoutX="396.0" layoutY="318.0" mnemonicParsing="false" onAction="#createCard" prefHeight="28.0" prefWidth="89.0" text="Add Cards">
+         <font>
+            <Font size="12.0" />
+         </font></Button>
+      <Button layoutX="490.0" layoutY="318.0" mnemonicParsing="false" onAction="#editCard" prefHeight="28.0" prefWidth="89.0" text="Edit Cards">
+         <font>
+            <Font size="12.0" />
+         </font></Button>
+      <!--<Button layoutX="152.0" layoutY="318.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="28.0" prefWidth="89.0" text="Edit Decks">
+         <font>
+            <Font size="12.0" />
+         </font></Button>-->
 
     </children>
 </AnchorPane>

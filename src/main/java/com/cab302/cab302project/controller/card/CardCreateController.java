@@ -137,16 +137,38 @@ public class CardCreateController implements Initializable {
     }
 
     /**
-     * Loads the details of the selected card into the input fields.
+     * Populates the fields for the selected card and then, when re-invoked,
+     * saves any edits back to the database.
      */
     @FXML
     private void editCard() {
         selectedCard = cardsList.getSelectionModel().getSelectedItem();
-        if (selectedCard != null) {
-            cardName.setText(selectedCard.getQuestion());
-            cardAnswer.setText(selectedCard.getAnswer());
+        if (selectedCard == null) {
+            showAlert("No Card Selected", "Please select a card from the list to edit.");
+            return;
         }
+
+        String newQuestion = cardName.getText().trim();
+        String newAnswer   = cardAnswer.getText().trim();
+        if (newQuestion.isEmpty() || newAnswer.isEmpty()) {
+            showAlert("Missing Fields", "Both question and answer must be filled in.");
+            return;
+        }
+        selectedCard.setQuestion(newQuestion);
+        selectedCard.setAnswer(newAnswer);
+
+        try {
+            cardDAO.updateCard(selectedCard);
+        } catch (Exception e) {
+            logger.error("Failed to update card", e);
+            showAlert("Update Failed", "Could not save changes: " + e.getMessage());
+            return;
+        }
+
+        clearCard();
+        loadCards();
     }
+
 
     /**
      * Deletes the selected card via a soft delete after confirmation.
