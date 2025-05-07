@@ -25,7 +25,7 @@ import java.util.Set;
 public class ProfileController {
 
 
-    public PasswordField newPasswordFieldConfirm;
+    @FXML private PasswordField newPasswordFieldConfirm;
     @FXML private Button cancelButton;
     @FXML private Button confirmButton;
     @FXML private TextField OldEmailAddressTextField;
@@ -62,6 +62,8 @@ public class ProfileController {
             showAlert("Validation Error", "Invalid email format.");
             return;
         }
+
+
 
         try {
             new AuthenticationService().emailCheck(newEmail);
@@ -103,7 +105,7 @@ public class ProfileController {
 
     @FXML
     private void handleUpdatePassword() {
-        String oldPassword  = ApplicationState.getCurrentUser().getPassword();
+        String oldPassword = ApplicationState.getCurrentUser().getPassword();
         String oldPasswordInput = oldPasswordField.getText().trim();
         String newPassword = newPasswordField.getText().trim();
         String confirmPassword = newPasswordFieldConfirm.getText().trim();

@@ -2,6 +2,7 @@ package com.cab302.cab302project;
 
 import com.cab302.cab302project.error.state.UserAlreadyLoggedInException;
 import com.cab302.cab302project.error.state.UserIsNullException;
+import com.cab302.cab302project.model.deck.Deck;
 import com.cab302.cab302project.model.user.User;
 
 
@@ -68,4 +69,16 @@ public final class ApplicationState {
     public static boolean isUserLoggedIn(){
         return userLoggedIn;
     }
+
+    private static Deck currentDeck;
+
+    public static Deck getCurrentDeck() {
+        return currentDeck;
+    }
+
+    public static void setCurrentDeck(Deck deck) {
+        currentDeck = deck;
+    }
 }
+
+

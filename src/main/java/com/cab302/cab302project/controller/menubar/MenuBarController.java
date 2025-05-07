@@ -2,6 +2,8 @@ package com.cab302.cab302project.controller.menubar;
 
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.HelloApplication;
+import com.cab302.cab302project.controller.deck.RandomModeController;
+import com.cab302.cab302project.controller.user.AddSecurityQuestionController;
 import com.cab302.cab302project.error.util.*;
 import com.cab302.cab302project.model.card.ICardDAO;
 import com.cab302.cab302project.model.card.SqliteCardDAO;
@@ -22,9 +24,11 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import javafx.stage.Stage;
+import com.cab302.cab302project.util.RandomModeUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class MenuBarController {
 
@@ -188,6 +192,31 @@ public class MenuBarController {
                 }
             }
         });
+    }
+
+    @FXML
+    private void runRandomMode() throws IOException {
+        Deck selectedDeck = ApplicationState.getCurrentDeck();
+        if (selectedDeck == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Deck Selected");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a deck before starting Random Mode.");
+            alert.showAndWait();
+        }
+        else {
+            ICardDAO cardDAO = new SqliteCardDAO();
+            cardDAO.getCardAndLoadIntoDeck(selectedDeck);
+            List<Card> shuffledCards = RandomModeUtils.getShuffledCards(selectedDeck.getCards());
+
+            Stage stage = (Stage) rootHBox.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("deck/random-mode-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            stage.setScene(scene);
+            RandomModeController controller = fxmlLoader.getController();
+            controller.setShuffledCards(shuffledCards);
+        }
+
     }
 
     private void switchScene(String fxmlPath) {

@@ -103,6 +103,9 @@ public class DeckViewController implements Initializable {
         cards.getItems().clear();
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) return;
+
+        ApplicationState.setCurrentDeck(deck);
+
         cardDAO.getCardAndLoadIntoDeck(deck);
         if (deck.getCards().size() >= 1) {
             cards.getItems().clear();
@@ -136,6 +139,5 @@ public class DeckViewController implements Initializable {
         decks.getItems().addAll(deckDAO.getDecks(ApplicationState.getCurrentUser()));
         decks.refresh();
     }
-
 
 }

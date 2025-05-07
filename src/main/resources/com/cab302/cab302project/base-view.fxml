@@ -25,7 +25,7 @@
         <Menu text="Test">
           <Menu text="Flip Mode">
             <MenuItem fx:id="flipStandard" text="Standard" onAction="#home"/>
-            <MenuItem fx:id="flipRandom" text="Random" onAction="#home"/>
+            <MenuItem fx:id="flipRandom" text="Random" onAction="#runRandomMode"/>
             <MenuItem fx:id="flipSpecial" text="Special" onAction="#home"/>
           </Menu>
           <Menu text="Answer Mode">
