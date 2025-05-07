@@ -1,5 +1,6 @@
 package com.cab302.cab302project.controller.user;
 
+import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.model.user.User;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
@@ -251,7 +252,7 @@ public class AddSecurityQuestionController {
         alert.showAndWait();
 
         // Navigate the user to the main interface of the application
-        User currentUser = new User (tempUser.getFirstName(), tempUser.getLastName(), tempUser.getEmail(), tempUser.getPassword());
+        ApplicationState.login(tempUser);
         Stage stage = (Stage) RegisterButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
