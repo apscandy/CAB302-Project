@@ -25,6 +25,7 @@ import java.util.Set;
 public class ProfileController {
 
 
+    public PasswordField newPasswordFieldConfirm;
     @FXML private Button cancelButton;
     @FXML private Button confirmButton;
     @FXML private TextField OldEmailAddressTextField;
@@ -105,6 +106,7 @@ public class ProfileController {
         String oldPassword  = ApplicationState.getCurrentUser().getPassword();
         String oldPasswordInput = oldPasswordField.getText().trim();
         String newPassword = newPasswordField.getText().trim();
+        String confirmPassword = newPasswordFieldConfirm.getText().trim();
         String oldPasswordInputHash = PasswordUtils.hashSHA256(oldPasswordInput);
 
         if (oldPassword.isEmpty() || newPassword.isEmpty()) {
@@ -127,14 +129,18 @@ public class ProfileController {
             return;
         }
 
+        if (!confirmPassword.equals(newPassword)) {
+            showAlert("Validation Error", "confirm password not match.");
+            return;
+        }
+
         try {
             ApplicationState.getCurrentUser().setPassword(PasswordUtils.hashSHA256(newPassword));
             userDAO.updateUser(ApplicationState.getCurrentUser());
             showAlert("Success", "Password updated successfully.");
-            ApplicationState.logout();
 
             Stage stage = (Stage) oldPasswordField.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
             stage.setScene(scene);
             stage.show();
