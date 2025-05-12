@@ -6,49 +6,48 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.cab302.cab302project.controller.menubar.MenuBarController">
+<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.menubar.MenuBarController">
   <children>
-    <HBox fx:id="rootHBox" prefWidth="640.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+    <HBox fx:id="rootHBox" prefWidth="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <MenuBar HBox.hgrow="ALWAYS">
         <Menu text="File">
-          <MenuItem fx:id="homeItem" text="Home" onAction="#home"/>
-          <MenuItem fx:id="bookmarkedDecks" text="Bookmarked Decks" onAction="#openBookmarkView"/>
-          <MenuItem fx:id="import" text="Import Deck" onAction="#importDeckCSV"/>
-          <MenuItem fx:id="logOut" text="Log Out" onAction="#logOut"/>
-          <MenuItem fx:id="close" text="Exit" onAction="#closeProgram"/>
+          <MenuItem fx:id="homeItem" onAction="#home" text="Home" />
+          <MenuItem fx:id="bookmarkedDecks" onAction="#openBookmarkView" text="Bookmarked Decks" />
+          <MenuItem fx:id="import" onAction="#importDeckCSV" text="Import Deck" />
+          <MenuItem fx:id="logOut" onAction="#logOut" text="Log Out" />
+          <MenuItem fx:id="close" onAction="#closeProgram" text="Exit" />
         </Menu>
         <Menu text="New">
-          <MenuItem fx:id="newDeckMenuItem" text="Deck" onAction="#openDeckView"/>
-          <MenuItem fx:id="newCardMenuItem" text="Card" onAction="#openCardView"/>
+          <MenuItem fx:id="newDeckMenuItem" onAction="#openDeckView" text="Deck" />
+          <MenuItem fx:id="newCardMenuItem" onAction="#openCardView" text="Card" />
         </Menu>
         <Menu text="Test">
           <Menu text="Flip Mode">
-            <MenuItem fx:id="flipStandard" text="Standard" onAction="#home"/>
-            <MenuItem fx:id="flipRandom" text="Random" onAction="#runRandomMode"/>
-            <MenuItem fx:id="flipSpecial" text="Special" onAction="#home"/>
+            <MenuItem fx:id="flipStandard" onAction="#goToTestModeStandard" text="Standard" />
+            <MenuItem fx:id="flipRandom" onAction="#home" text="Random" />
+            <MenuItem fx:id="flipSpecial" onAction="#home" text="Special" />
           </Menu>
           <Menu text="Answer Mode">
-            <MenuItem fx:id="answerStandard" text="Standard" onAction="#home"/>
-            <MenuItem fx:id="answerRandom" text="Random" onAction="#home"/>
-            <MenuItem fx:id="answerSpecial" text="Special" onAction="#home"/>
+            <MenuItem fx:id="answerStandard" onAction="#home" text="Standard" />
+            <MenuItem fx:id="answerRandom" onAction="#home" text="Random" />
+            <MenuItem fx:id="answerSpecial" onAction="#home" text="Special" />
           </Menu>
           <Menu text="Multiple Choice Mode">
-            <MenuItem fx:id="mcStandard" text="Standard" onAction="#home"/>
-            <MenuItem fx:id="mcRandom" text="Random" onAction="#home"/>
-            <MenuItem fx:id="mcSpecial" text="Special" onAction="#home"/>
+            <MenuItem fx:id="mcStandard" onAction="#home" text="Standard" />
+            <MenuItem fx:id="mcRandom" onAction="#home" text="Random" />
+            <MenuItem fx:id="mcSpecial" onAction="#home" text="Special" />
           </Menu>
         </Menu>
         <Menu text="Profile Management">
-          <MenuItem fx:id="changeEmailMenuItem" text="Change Email" onAction="#changeEmailButton"/>
-          <MenuItem fx:id="changePasswordMenuItem" text="Change Password" onAction="#changePasswordButton"/>
-          <MenuItem fx:id="changeSecurityQuestions" text="Change Security Questions" onAction="#changeSecurityQuestionButton"/>
-          <MenuItem fx:id="deleteAccountMenuItem" text="Delete Account" onAction="#DeleteAccount"/>
+          <MenuItem fx:id="changeEmailMenuItem" onAction="#changeEmailButton" text="Change Email" />
+          <MenuItem fx:id="changePasswordMenuItem" onAction="#changePasswordButton" text="Change Password" />
+          <MenuItem fx:id="changeSecurityQuestions" onAction="#changeSecurityQuestionButton" text="Change Security Questions" />
+          <MenuItem fx:id="deleteAccountMenuItem" onAction="#DeleteAccount" text="Delete Account" />
         </Menu>
       </MenuBar>
       <MenuBar>
         <Menu text="Recycle Bin">
-          <MenuItem text="Enter Recycle Bin" onAction="#enterRecycleBin"/>
+          <MenuItem onAction="#enterRecycleBin" text="Enter Recycle Bin" />
         </Menu>
       </MenuBar>
     </HBox>

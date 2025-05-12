@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.testMode.TestModeStandard">
+    <fx:include source="../base-view.fxml" />
+   <Text fx:id="questionOrAnswerText" layoutX="33.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet. Ut explicabo voluptas ut ullam voluptatem et omnis pariatur ab impedit soluta in voluptas ducimus. Et placeat dolorem et doloremque distinctio est dolores illo. Aut maxime dignissimos At dolorum voluptatum quo numquam explicabo." textAlignment="CENTER" wrappingWidth="582.13671875">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text fx:id="questionOrAnswerTitle" layoutX="33.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Questest-mode.fxmltion" textAlignment="CENTER" wrappingWidth="582.13671875">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font>
+   </Text>
+   <Button fx:id="gotItWrongButton" layoutX="184.0" layoutY="296.0" mnemonicParsing="false" onAction="#onGotItWrongButtonClicked" text="Got it wrong" />
+   <Button fx:id="flipButton" layoutX="301.0" layoutY="296.0" mnemonicParsing="false" onAction="#onFlipButtonClicked" text="Flip" />
+   <Button fx:id="gotItRightButton" layoutX="371.0" layoutY="296.0" mnemonicParsing="false" onAction="#onGotItRightButtonClicked" text="Got it right" />
+
+</AnchorPane>

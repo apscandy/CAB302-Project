@@ -4,25 +4,18 @@ import com.cab302.cab302project.model.user.User;
 
 import java.util.List;
 
-
 /**
  * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
  */
 public interface IDeckDAO {
-    public void createDeck(Deck deck);
-    public void updateDeck(Deck deck);
-    public void deleteDeck(Deck deck);
-    public void softDeleteDeck(Deck deck);
-    public void restoreDeck(Deck deck);
-    public List<Deck> getDecks(User user);
-    public List<Deck> getSoftDeletedDecks(User user);
-    public Deck getDeck(int id);
-
-
-    // ─── NEW for bookmarking ────────────────────────────────────────────────────────
-    /** Persist a deck’s bookmarked flag */
+    void createDeck(Deck deck);
+    void updateDeck(Deck deck);
+    void deleteDeck(Deck deck);
+    void softDeleteDeck(Deck deck);
+    void restoreDeck(Deck deck);
+    List<Deck> getDecks(User user);
+    List<Deck> getSoftDeletedDecks(User user);
+    Deck getDeck(int id);
     void setBookmarked(Deck deck, boolean bookmarked);
-
-    /** Retrieve only the decks the user has bookmarked */
     List<Deck> getBookmarkedDecks(User user);
 }

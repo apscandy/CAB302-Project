@@ -62,6 +62,21 @@ public class MenuBarController {
     }
 
     @FXML
+    private void goToTestModeStandard() {
+        try {
+            ApplicationState.setCurrentModeSequential();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(HelloApplication.class.getResource("test-mode/test-mode.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void openDeckView() {
         logger.info("New -> Deck clicked");
         try {
@@ -196,7 +211,7 @@ public class MenuBarController {
 
     @FXML
     private void runRandomMode() throws IOException {
-        Deck selectedDeck = ApplicationState.getCurrentDeck();
+        Deck selectedDeck = ApplicationState.getDeck();
         if (selectedDeck == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("No Deck Selected");

@@ -123,19 +123,21 @@ public final class SqliteConnection {
     private static void checkPragma(Connection instance) {
         try {
             Statement stmt = instance.createStatement();
+
             ResultSet rsForeignKeys = stmt.executeQuery("PRAGMA foreign_keys;");
             if (rsForeignKeys.next()) {
                 int foreignKeysEnabled = rsForeignKeys.getInt(1);
-                logger.debug("Foreign keys enabled: {}", foreignKeysEnabled);
+                logger.info("Foreign keys enabled: {}", foreignKeysEnabled);
             }
             rsForeignKeys.close();
-            ResultSet rsSynchronous = stmt.executeQuery("PRAGMA synchronous;");
 
+            ResultSet rsSynchronous = stmt.executeQuery("PRAGMA synchronous;");
             if (rsSynchronous.next()) {
                 int synchronousMode = rsSynchronous.getInt(1);
                 logger.info("Synchronous Mode: {}", synchronousMode);
             }
             rsSynchronous.close();
+
             ResultSet rsLockingMode = stmt.executeQuery("PRAGMA locking_mode;");
             if (rsLockingMode.next()) {
                 String lockingMode = rsLockingMode.getString(1);

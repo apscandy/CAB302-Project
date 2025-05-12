@@ -13,6 +13,8 @@ import com.cab302.cab302project.model.user.User;
 public final class ApplicationState {
     private static User currentUser = null;
     private static boolean userLoggedIn = false;
+    private static Deck currentDeck = null;
+    private static TestModes currentMode = null;
 
     /**
      * A user can not be logged in if another user is already logged in
@@ -50,7 +52,6 @@ public final class ApplicationState {
     }
 
     /**
-     *
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
      * @return the current logged-in user or null if there is no user
      * @throws UserIsNullException Thrown if there is no logged-in user to return
@@ -70,15 +71,35 @@ public final class ApplicationState {
         return userLoggedIn;
     }
 
-    private static Deck currentDeck;
-
-    public static Deck getCurrentDeck() {
+    public static Deck getDeck(){
         return currentDeck;
     }
 
-    public static void setCurrentDeck(Deck deck) {
+    public static void setDeck(Deck deck){
         currentDeck = deck;
     }
+
+    public static void clearDeck(){
+        currentDeck = null;
+    }
+
+    public static void setCurrentModeSequential(){
+        currentMode = TestModes.SEQUENTIAL;
+    }
+
+    public static void setCurrentModeRandom(){
+        currentMode = TestModes.RANDOM;
+    }
+
+    public static void setCurrentModeSmart(){
+        currentMode = TestModes.SMART;
+    }
+
+    public static TestModes getCurrentMode(){
+        return currentMode;
+    }
+
+    public static void clearCurrentMode(){
+        currentMode = null;
+    }
 }
-
-

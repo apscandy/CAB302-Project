@@ -104,9 +104,10 @@ public class DeckViewController implements Initializable {
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) return;
 
-        ApplicationState.setCurrentDeck(deck);
+        ApplicationState.setDeck(deck);
 
         cardDAO.getCardAndLoadIntoDeck(deck);
+        ApplicationState.setDeck(deck);
         if (deck.getCards().size() >= 1) {
             cards.getItems().clear();
             cards.getItems().addAll(deck.getCards());

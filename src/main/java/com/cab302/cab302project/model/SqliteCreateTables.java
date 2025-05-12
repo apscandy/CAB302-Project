@@ -19,6 +19,9 @@ public final class SqliteCreateTables {
             createUserSecurityQuestionTable();
             createDeckTable();
             createCardTable();
+            creatSessionTable();
+            creatSessionResultsTable();
+            creatEventsTable();
         }catch (RuntimeException e) {
             logger.error(e.getMessage());
             logger.error("SqliteCreateTables error");
@@ -134,6 +137,76 @@ public final class SqliteCreateTables {
             stmt.executeUpdate(sql);
             stmt.close();
         } catch (Exception e){
+            logger.error(e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
+    private void creatSessionTable() {
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "CREATE TABLE IF NOT EXISTS session ("
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "user_id INTEGER NOT NULL,"
+                    + "deck_id INTEGER NOT NULL,"
+                    + "session_type TEXT NOT NULL,"
+                    + "start_date_time TEXT NOT NULL,"
+                    + "end_date_time TEXT,"
+                    + "session_finished BOOLEAN NOT NULL DEFAULT 0, "
+                    + "FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE,"
+                    + "FOREIGN KEY (deck_id) REFERENCES deck(id) ON DELETE CASCADE"
+                    + ")";
+            stmt.executeUpdate(sql);
+            stmt.close();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
+    private void creatSessionResultsTable(){
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "CREATE TABLE IF NOT EXISTS session_results ("
+                    + "id INTEGER NOT NULL,"
+                    + "card_id INTEGER NOT NULL,"
+                    + "correct BOOLEAN NOT NULL DEFAULT false,"
+                    + "incorrect BOOLEAN NOT NULL DEFAULT false,"
+                    + "time_to_answer TEXT,"
+                    + "PRIMARY KEY (id, card_id),"
+                    + "FOREIGN KEY(id) REFERENCES session(id) ON DELETE CASCADE,"
+                    + "FOREIGN KEY(card_id) REFERENCES card(id) ON DELETE CASCADE"
+                    + ")";
+            stmt.executeUpdate(sql);
+            stmt.close();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    /**
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
+    private void creatEventsTable(){
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "CREATE TABLE IF NOT EXISTS events ("
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "user_id INTEGER NOT NULL,"
+                    + "event_message TEXT NOT NULL DEFAULT 'NO EVENT',"
+                    + "date_time TEXT NOT NULL,"
+                    + "FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE"
+                    + ")";
+            stmt.executeUpdate(sql);
+            stmt.close();
+        }catch (Exception e){
             logger.error(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
