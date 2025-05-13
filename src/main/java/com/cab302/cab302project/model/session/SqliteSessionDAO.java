@@ -17,7 +17,7 @@ public class SqliteSessionDAO implements ISessionDAO {
     private final String CREATE_SESSION_QUERY = "INSERT INTO session (user_id, deck_id, start_date_time, session_type) VALUES (?, ?, ?, ?)";
     private final String END_SESSION_QUERY = "UPDATE session SET end_date_time = ?, session_finished = ? WHERE id = ?";
     private  final String CREATE_SESSION_RESULTS_QUERY = "INSERT INTO session_results (id, card_id) VALUES (?, ?)";
-    private final String UPDATE_SESSION_RESULTS_QUERY = "UPDATE session_results SET correct = ?, incorrect = ?, time_to_answer = ? WHERE id = ?";
+    private final String UPDATE_SESSION_RESULTS_QUERY = "UPDATE session_results SET correct = ?, incorrect = ?, time_to_answer = ? WHERE id = ? AND card_id = ?";
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
@@ -120,6 +120,7 @@ public class SqliteSessionDAO implements ISessionDAO {
                 stmt.setBoolean(2, sessionResults.getIncorrect());
                 stmt.setString(3, sessionResults.getTimeToAnswer());
                 stmt.setInt(4, sessionResults.getId());
+                stmt.setInt(5, sessionResults.getCardId());
                 stmt.executeUpdate();
                 con.commit();
 
@@ -149,6 +150,7 @@ public class SqliteSessionDAO implements ISessionDAO {
                 stmt.setBoolean(2, sessionResults.getIncorrect());
                 stmt.setString(3, sessionResults.getTimeToAnswer());
                 stmt.setInt(4, sessionResults.getId());
+                stmt.setInt(5, sessionResults.getCardId());
                 stmt.executeUpdate();
                 con.commit();
             }catch (SQLException e){
