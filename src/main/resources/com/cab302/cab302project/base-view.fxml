@@ -27,11 +27,6 @@
             <MenuItem fx:id="flipRandom" onAction="#home" text="Random" />
             <MenuItem fx:id="flipSpecial" onAction="#home" text="Special" />
           </Menu>
-          <Menu text="Answer Mode">
-            <MenuItem fx:id="answerStandard" onAction="#home" text="Standard" />
-            <MenuItem fx:id="answerRandom" onAction="#home" text="Random" />
-            <MenuItem fx:id="answerSpecial" onAction="#home" text="Special" />
-          </Menu>
           <Menu text="Multiple Choice Mode">
             <MenuItem fx:id="mcStandard" onAction="#home" text="Standard" />
             <MenuItem fx:id="mcRandom" onAction="#home" text="Random" />
@@ -47,7 +42,7 @@
       </MenuBar>
       <MenuBar>
         <Menu text="Recycle Bin">
-          <MenuItem onAction="#enterRecycleBin" text="Enter Recycle Bin" />
+          <MenuItem text="Enter Recycle Bin" onAction="#enterRecycleBin"/>
         </Menu>
       </MenuBar>
     </HBox>
