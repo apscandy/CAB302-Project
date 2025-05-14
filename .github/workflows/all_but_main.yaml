@@ -25,3 +25,23 @@ jobs:
 
       - name: Run Tests
         run: mvn test --batch-mode
+
+      - name: Upload Javadocs
+        uses: actions/upload-artifact@v4
+        with:
+          name: javadoc
+          path: target/site/apidocs
+
+      - name: Copy Javadocs to docs/
+        run: |
+          rm -rf docs
+          mkdir docs
+          cp -r target/site/apidocs/* docs/
+
+      - name: Commit and Push Javadocs
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add docs
+          git commit -m "Update Javadocs [skip ci]" || echo "No changes to commit"
+          git push
