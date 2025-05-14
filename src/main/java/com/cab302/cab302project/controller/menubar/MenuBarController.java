@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import javafx.stage.Stage;
-import com.cab302.cab302project.util.RandomModeUtils;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -211,27 +211,17 @@ public class MenuBarController {
 
     @FXML
     private void runRandomMode() throws IOException {
-        Deck selectedDeck = ApplicationState.getDeck();
-        if (selectedDeck == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("No Deck Selected");
-            alert.setHeaderText(null);
-            alert.setContentText("Please select a deck before starting Random Mode.");
-            alert.showAndWait();
-        }
-        else {
-            ICardDAO cardDAO = new SqliteCardDAO();
-            cardDAO.getCardAndLoadIntoDeck(selectedDeck);
-            List<Card> shuffledCards = RandomModeUtils.getShuffledCards(selectedDeck.getCards());
-
-            Stage stage = (Stage) rootHBox.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("deck/random-mode-view.fxml"));
+        try {
+            ApplicationState.setCurrentModeRandom();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(HelloApplication.class.getResource("test-mode/test-mode.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-            stage.setScene(scene);
-            RandomModeController controller = fxmlLoader.getController();
-            controller.setShuffledCards(shuffledCards);
+            Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
     }
 
     private void switchScene(String fxmlPath) {

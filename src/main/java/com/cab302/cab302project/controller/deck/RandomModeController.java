@@ -45,7 +45,6 @@ public class RandomModeController  implements Initializable {
         if (currentshuffledCards == null || currentshuffledCards.isEmpty()) return;
 
         if (index >= currentshuffledCards.size() - 1) {
-            // Đã tới câu cuối
             showAlert("Section Finished", "You have reached the end of the session.");
         } else {
             index++;

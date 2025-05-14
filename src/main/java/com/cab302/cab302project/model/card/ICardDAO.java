@@ -73,4 +73,11 @@ public interface ICardDAO {
      * @param deck Deck to load Cards into
      */
     void getCardAndLoadIntoDeck(Deck deck);
+
+    /**
+     *
+     * @param deck
+     * @return the shuffle deck
+     */
+    List<Card> getRandomizedCardsForDeck(Deck deck);
 }

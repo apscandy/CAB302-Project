@@ -4,6 +4,8 @@ import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.controller.ResultsController;
 import com.cab302.cab302project.model.card.Card;
+import com.cab302.cab302project.model.card.SqliteCardDAO;
+import com.cab302.cab302project.model.deck.Deck;
 import com.cab302.cab302project.model.session.ISessionDAO;
 import com.cab302.cab302project.model.session.Session;
 import com.cab302.cab302project.model.session.SessionResults;
@@ -197,7 +199,7 @@ public class TestModeStandard {
                 this.deckSize = cards.size();
                 break;
             case RANDOM:
-                cards = ApplicationState.getDeck().getCards();
+                cards = new SqliteCardDAO().getRandomizedCardsForDeck(ApplicationState.getDeck());
                 this.deckSize = cards.size();
                 break;
             case SMART:

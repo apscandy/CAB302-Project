@@ -29,6 +29,8 @@ public final class SqliteCardDAO implements ICardDAO {
     private final String deleteCardSQL = "DELETE FROM card WHERE id = ? AND is_deleted = 1";
     private final String softDeleteSQL = "UPDATE card SET is_deleted = ? WHERE id = ?";
     private final String getCardsForDeckSQL = "SELECT * FROM card WHERE deck_id = ? AND is_deleted = ?";
+    private final String getRandomCardsSQL = "SELECT * FROM card WHERE deck_id = ? AND is_deleted = 0 ORDER BY RANDOM()";
+
 
     /**
      * Constructs a new SqliteCardDAO, obtaining a connection from SqliteConnection.
@@ -322,6 +324,47 @@ public final class SqliteCardDAO implements ICardDAO {
             logger.error(e.getMessage());
             throw new FailedToGetCardsException(e.getMessage());
         }
+        return cards;
+    }
+
+    @Override
+    public List<Card> getRandomizedCardsForDeck(Deck deck) {
+        if (deck == null || deck.getId() == 0) {
+            throw new DeckIsNullException("Invalid deck");
+        }
+
+        List<Card> cards = new ArrayList<>();
+        String sql = getRandomCardsSQL;
+
+        try {
+            con.setAutoCommit(false);
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setInt(1, deck.getId());
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        Card c = new Card(
+                                deck,
+                                rs.getString("question"),
+                                rs.getString("answer"),
+                                rs.getString("tags")
+                        );
+                        c.setId(rs.getInt("id"));
+                        cards.add(c);
+                    }
+                }
+                con.commit();
+            } catch (SQLException e) {
+                con.rollback();
+                logger.error("getRandomizedCardsForDeck failed", e);
+                throw new FailedToGetCardsException(e.getMessage(), e);
+            } finally {
+                con.setAutoCommit(true);
+            }
+        } catch (SQLException e) {
+            logger.error("Transaction error", e);
+            throw new FailedToGetCardsException(e.getMessage(), e);
+        }
+
         return cards;
     }
 }
