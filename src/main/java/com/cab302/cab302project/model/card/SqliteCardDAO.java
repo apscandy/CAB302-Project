@@ -54,6 +54,10 @@ public final class SqliteCardDAO implements ICardDAO {
                 insertStatement.setString(3, card.getAnswer());
                 insertStatement.setString(4, card.getTags());
                 insertStatement.executeUpdate();
+                ResultSet rs = insertStatement.getGeneratedKeys();
+                if (rs.next()) {
+                    card.setId(rs.getInt(1));
+                }
                 con.commit();
                 insertStatement.close();
             }catch (SQLException e) {

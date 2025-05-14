@@ -97,7 +97,6 @@ public class SqliteSessionDAO implements ISessionDAO {
             }catch (SQLException e){
                 con.rollback();
                 logger.error(e.getMessage());
-                throw new RuntimeException("");
             }
             finally {
                 con.setAutoCommit(true);

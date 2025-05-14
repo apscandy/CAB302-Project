@@ -24,7 +24,6 @@ class SqliteDeckDAOTest {
     private static IDeckDAO deckDAO;
     private static IUserDAO userDAO;
     private static Deck deck;
-    private static final String insertTestUser = "INSERT INTO user (first_name, last_name, email, password ) VALUES (?,?,?,?)";
 
 
     @BeforeAll
