@@ -27,37 +27,58 @@ class CardTest {
     }
 
     @Test
-    void testGetQuestionAndAnswerAndTags() {
+    void testGetQuestion() {
         assertEquals("When was Rome founded?", card.getQuestion());
+    }
+
+    @Test
+    void testGetAnswer() {
         assertEquals("753 BC", card.getAnswer());
+    }
+
+    @Test
+    void testGetTags() {
         assertEquals("history,rome", card.getTags());
     }
 
     @Test
-    void testSetters() {
+    void tesSetQuestion(){
         card.setQuestion("What year did WW2 end?");
-        card.setAnswer("1945");
-        card.setTags("history,ww2");
         assertEquals("What year did WW2 end?", card.getQuestion());
+    }
+
+    @Test
+    void tesSetAnswer(){
+        card.setAnswer("1945");
         assertEquals("1945", card.getAnswer());
+    }
+
+    @Test
+    void tesSetTags(){
+        card.setTags("history,ww2");
         assertEquals("history,ww2", card.getTags());
     }
 
     @Test
-    void testDeletedFlag() {
+    void testGetIsDeleted() {
         assertFalse(card.isDeleted());
+    }
+
+    @Test
+    void testSetIsDeleted() {
         card.setDeleted(true);
         assertTrue(card.isDeleted());
     }
 
     @Test
-    void testIdSetterAndToString() {
+    void testSetId(){
         // package‐private setId is visible here because tests share the same package
         card.setId(42);
         assertEquals(42, card.getId());
+    }
 
-        // explicitly set the question so toString matches
-        card.setQuestion("What year did WW2 end?");
-        assertEquals("What year did WW2 end?", card.toString());
+    @Test
+    void testToString(){
+        assertEquals("When was Rome founded?", card.toString());
     }
 }
