@@ -23,13 +23,21 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import javafx.stage.Stage;
-
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller for the application-wide menu bar.
+ * <p>
+ * Provides handlers for menu items such as navigation to Home, Deck
+ * management, Card creation, test modes, profile management, import/export,
+ * and application exit. All scene changes are performed via FXMLLoader,
+ * and the user’s authentication and application state are respected.
+ * </p>
+ * @author Andrew Clarke, Monica Borg, Maverick Doan, David Bui, Lewis Phan
+ **/
 public class MenuBarController {
 
     private static final Logger logger = LogManager.getLogger(MenuBarController.class);
@@ -40,12 +48,27 @@ public class MenuBarController {
     @FXML
     private HBox rootHBox;
 
+    /**
+     * Exits the application immediately.
+     * <p>
+     * Logs the action and then calls {@link System#exit(int)} with status 0.
+     * </p>
+     * @author Andrew Clarke (n11270179)
+     */
     @FXML
     private void closeProgram() {
         logger.info("Close application button clicked");
         System.exit(0);
     }
 
+    /**
+     * Navigates to the Home view.
+     * <p>
+     * Loads 'main/main.fxml' and sets it as the current scene
+     * on the primary stage. Any exceptions during FXML loading are printed.
+     * </p>
+     * @author Monica Borg (n09802045)
+     */
     @FXML
     private void home() {
         logger.info("Home clicked");
@@ -61,6 +84,17 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Starts Random test mode.
+     * <p>
+     * Checks that a deck is selected in {@link ApplicationState}. If none is selected,
+     * shows a warning alert. Otherwise, sets the current mode to Random,
+     * loads 'test-mode/test-mode.fxml', and displays it.
+     * </p>
+     *
+     * @throws IOException if the FXML resource cannot be loaded
+     * @author Maverick Doan (n11562773)
+     */
     @FXML
     private void goToTestModeRandom() throws IOException {
         if (ApplicationState.getDeck() == null) {
@@ -80,6 +114,16 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Starts Smart test mode.
+     * <p>
+     * Checks for deck selection, shows warning if none, then
+     * sets mode to Smart and navigates to 'test-mode/test-mode.fxml'.
+     * </p>
+     *
+     * @throws IOException if the FXML resource cannot be loaded
+     * @author Maverick Doan (n11562773)
+     */
     @FXML
     private void goToTestModeSmart() throws IOException {
         if (ApplicationState.getDeck() == null) {
@@ -99,6 +143,14 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Starts Standard (sequential) test mode.
+     * <p>
+     * Validates deck selection, sets mode to Sequential, and loads
+     * 'test-mode/test-mode.fxml'. Exceptions are caught and logged.
+     * </p>
+     * @author Andrew Clarke (n11270179)
+     */
     @FXML
     private void goToTestModeStandard() {
         if (ApplicationState.getDeck() == null) {
@@ -118,6 +170,13 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Opens the Deck management view.
+     * <p>
+     * Loads 'deck/deck-view.fxml' for creating, editing, or deleting decks.
+     * </p>
+     * @author Monica Borg (n09802045)
+     */
     @FXML
     private void openDeckView() {
         logger.info("New -> Deck clicked");
@@ -133,6 +192,13 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Opens the Card creation view.
+     * <p>
+     * Navigates to 'card/new-card-view.fxml' for adding new flip cards.
+     * </p>
+     * @author Monica Borg (n09802045)
+     */
     @FXML
     private void openCardView() {
         logger.info("New -> Card clicked");
@@ -148,6 +214,13 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Opens the Bookmarked Decks view.
+     * <p>
+     * Loads 'deck/bookmarked-decks.fxml' to display decks marked as bookmarked.
+     * </p>
+     * @author Monica Borg (n09802045)
+     */
     @FXML
     private void openBookmarkView() {
         logger.info("File -> Bookmark clicked");
@@ -163,6 +236,13 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Logs out the current user and returns to the login prompt.
+     * <p>
+     * Clears the application state, then loads 'prompt-email-view.fxml'.
+     * </p>
+     * @author Monica Borg (n09802045)
+     */
     @FXML
     private void logOut() {
         logger.info("Log Out clicked");
@@ -179,10 +259,26 @@ public class MenuBarController {
         }
     }
 
+    /** The currently active user; may be set by external callers. */
     private User currentUser;
+
+    /**
+     * Sets the currently active user for this controller.
+     *
+     * @param user the user who has just logged in
+     * @author Lewis Phan (n11781840)
+     */
     public void setCurrentUser(User user) {
         this.currentUser = user;
     }
+
+    /**
+     * Enters the Recycle Bin view.
+     * <p>
+     * Loads 'recyclebin/recycle-bin-view.fxml' to allow permanent deletion or restoration.
+     * </p>
+     * @author David Bui (n11659831)
+     */
     @FXML
     private void enterRecycleBin() {
         logger.info("Recycle bin clicked");
@@ -198,26 +294,62 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Clears all contents of the recycle bin.
+     * <p>
+     * (Method intentionally left blank; implementation to be added.)
+     * </p>
+     * @author David Bui (n11659831)
+     */
     @FXML
     private void clearRecycleBin() {
 
     }
 
+    /**
+     * Switches to the Change Email scene.
+     * <p>
+     * Uses {@link #switchScene(String)} with 'change-email-view.fxml'.
+     * </p>
+     * @author Lewis Phan (n11781840)
+     */
     @FXML
     private void changeEmailButton() {
         switchScene("change-email-view.fxml");
     }
 
+    /**
+     * Switches to the Change Password scene.
+     * <p>
+     * Uses {@link #switchScene(String)} with 'change-password-view.fxml'.
+     * </p>
+     * @author Lewis Phan (n11781840)
+     */
     @FXML
     private void changePasswordButton() {
         switchScene("change-password-view.fxml");
     }
 
+    /**
+     * Switches to the Change Security Questions scene.
+     * <p>
+     * Uses {@link #switchScene(String)} with 'change-security-questions-view.fxml'.
+     * </p>
+     * @author Lewis Phan (n11781840)
+     */
     @FXML
     private void changeSecurityQuestionButton() {
         switchScene("change-security-questions-view.fxml");
     }
 
+    /**
+     * Deletes the current user’s account after confirmation.
+     * <p>
+     * Prompts with a CONFIRMATION dialog; if confirmed, calls
+     * {@link SqliteUserDAO#deleteUser(User)} and logs out, then
+     * navigates back to the login prompt.</p>
+     * @author Lewis Phan (n11781840)
+     */
     @FXML
     private void DeleteAccount() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -251,6 +383,16 @@ public class MenuBarController {
         });
     }
 
+    /**
+     * Helper to switch scenes by FXML path.
+     * <p>
+     * Attempts to load the given FXML file from the classpath and set it as the
+     * current scene on the primary stage. Logs an error on failure.
+     * </p>
+     *
+     * @param fxmlPath the relative path to an FXML resource under the package
+     * @author Lewis Phan (n11781840)
+     */
     private void switchScene(String fxmlPath) {
         try {
 
@@ -263,6 +405,15 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Imports a Deck from a CSV file.
+     * <p>
+     * Prompts the user to select a CSV via {@link FileChooser}, then uses
+     * {@link DeckCSVUtils#importDeck(String, User)} to parse and build a Deck.
+     * Inserts the Deck and its Cards into the database, showing alerts for
+     * success or any encountered errors.</p>
+     * @author Maverick Doan (n11562773)
+     */
     @FXML
     private void importDeckCSV() {
         if (!ApplicationState.isUserLoggedIn()) return;
@@ -301,6 +452,14 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Displays an alert of the specified type with title and message.
+     *
+     * @param type  the AlertType (e.g. ERROR, WARNING, INFORMATION)
+     * @param title the dialog title
+     * @param msg   the dialog message
+     * @author Maverick Doan (n11562773)
+     */
     private void showAlert(Alert.AlertType type, String title, String msg) {
         Alert a = new Alert(type);
         a.setTitle(title);
