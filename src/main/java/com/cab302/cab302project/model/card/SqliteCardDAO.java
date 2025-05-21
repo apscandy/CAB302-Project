@@ -9,8 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Implementation of ICardDAO for SQLite.
@@ -366,5 +365,54 @@ public final class SqliteCardDAO implements ICardDAO {
         }
 
         return cards;
+    }
+
+    /**
+     * Returns a smart-shuffled list of cards:
+     * - Cards with wrong rate >= 0.55 are first, sorted from highest to lowest wrong rate
+     * - Remaining cards are shown in random order
+     *
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
+    public List<Card> getSmartShuffledCardsForDeck(Deck deck, Map<Integer, double[]> cardResults) {
+        List<Card> allCards = deck.getCards();
+        List<Card> wrongCards = new ArrayList<>();
+        Map<Integer, Double> wrongRates = new HashMap<>();
+        List<Card> okCards = new ArrayList<>();
+        for (Card card : allCards) {
+            double[] stats = cardResults.get(card.getId());
+            if (stats == null) {
+                okCards.add(card);
+                continue;
+            }
+            double correct = stats[0];
+            double incorrect = stats[1];
+            double total = correct + incorrect;
+            if (total == 0) {
+                okCards.add(card);
+            } else {
+                double wrongRate = incorrect / total;
+                if (wrongRate >= 0.55) {
+                    wrongCards.add(card);
+                    wrongRates.put(card.getId(), wrongRate);
+                } else {
+                    okCards.add(card);
+                }
+            }
+        }
+
+        // Cards with wrong rate > 55% are sorted by wrong rate in desc order
+        wrongCards.sort((c1, c2) -> Double.compare(
+                wrongRates.getOrDefault(c2.getId(), 0.0),
+                wrongRates.getOrDefault(c1.getId(), 0.0)
+        ));
+
+        // The rest will be shuffled in a random order
+        Collections.shuffle(okCards);
+
+        List<Card> result = new ArrayList<>();
+        result.addAll(wrongCards);
+        result.addAll(okCards);
+        return result;
     }
 }

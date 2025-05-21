@@ -9,9 +9,6 @@ import com.cab302.cab302project.model.session.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
@@ -19,9 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class TestModeStandard {
 
@@ -32,16 +27,6 @@ public class TestModeStandard {
 
     @FXML
     private Text questionOrAnswerText;
-
-
-//    @FXML
-//    private Button gotItWrongButton;
-//
-//    @FXML
-//    private Button gotItRightButton;
-//
-//    @FXML
-//    private Button flipButton;
 
     private List<Card> cards;
 
@@ -201,7 +186,7 @@ public class TestModeStandard {
                 this.deckSize = cards.size();
                 break;
             case SMART:
-                cards = new CardShuffler().getSmartShuffledCardsForDeck(
+                cards = new SqliteCardDAO().getSmartShuffledCardsForDeck(
                         ApplicationState.getDeck(),
                         new SqliteSessionResultsDAO().getCardResultsForUser(ApplicationState.getDeck().getUserId())
                 );

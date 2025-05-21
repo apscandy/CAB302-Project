@@ -22,7 +22,6 @@ public final class SqliteCreateTables {
             creatSessionTable();
             creatSessionResultsTable();
             creatEventsTable();
-            createCardResultsSummaryView();
         }catch (RuntimeException e) {
             logger.error(e.getMessage());
             logger.error("SqliteCreateTables error");
@@ -208,24 +207,6 @@ public final class SqliteCreateTables {
             stmt.executeUpdate(sql);
             stmt.close();
         }catch (Exception e){
-            logger.error(e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-
-    private void createCardResultsSummaryView() {
-        try {
-            Statement stmt = con.createStatement();
-            String sql = "CREATE VIEW IF NOT EXISTS card_results_summary AS " +
-                    "SELECT card_id, " +
-                    "SUM(CASE WHEN correct THEN 1 ELSE 0 END) AS correct_count, " +
-                    "SUM(CASE WHEN incorrect THEN 1 ELSE 0 END) AS incorrect_count " +
-                    "FROM session_results " +
-                    "GROUP BY card_id";
-            stmt.executeUpdate(sql);
-            stmt.close();
-        } catch (Exception e){
             logger.error(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
