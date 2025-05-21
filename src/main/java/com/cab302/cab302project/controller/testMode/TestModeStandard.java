@@ -5,11 +5,7 @@ import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.controller.ResultsController;
 import com.cab302.cab302project.model.card.Card;
 import com.cab302.cab302project.model.card.SqliteCardDAO;
-import com.cab302.cab302project.model.deck.Deck;
-import com.cab302.cab302project.model.session.ISessionDAO;
-import com.cab302.cab302project.model.session.Session;
-import com.cab302.cab302project.model.session.SessionResults;
-import com.cab302.cab302project.model.session.SqliteSessionDAO;
+import com.cab302.cab302project.model.session.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,7 +19,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class TestModeStandard {
 
@@ -57,7 +55,7 @@ public class TestModeStandard {
 
     private int currentCardIndex = 0;
 
-    private final Session session;
+    private Session session;
 
     private final ISessionDAO sessionDAO;
 
@@ -65,9 +63,7 @@ public class TestModeStandard {
 
 
     public TestModeStandard() {
-        this.session = new Session(ApplicationState.getDeck(), ApplicationState.getCurrentUser());
         sessionDAO = new SqliteSessionDAO();
-        sessionDAO.createSession(session);
     }
 
 
@@ -85,6 +81,8 @@ public class TestModeStandard {
             logger.warn("please set a current mode before calling initialize");
             return;
         }
+        this.session = new Session(ApplicationState.getDeck(), ApplicationState.getCurrentUser());
+        sessionDAO.createSession(session);
         fetchCards();
         if (deckSize == 0) {
             logger.warn("please set a deck with at least one card before calling initialize");
@@ -203,7 +201,10 @@ public class TestModeStandard {
                 this.deckSize = cards.size();
                 break;
             case SMART:
-                cards = ApplicationState.getDeck().getCards();
+                cards = new CardShuffler().getSmartShuffledCardsForDeck(
+                        ApplicationState.getDeck(),
+                        new SqliteSessionResultsDAO().getCardResultsForUser(ApplicationState.getDeck().getUserId())
+                );
                 this.deckSize = cards.size();
                 break;
         }

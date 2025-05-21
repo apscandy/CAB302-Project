@@ -62,7 +62,49 @@ public class MenuBarController {
     }
 
     @FXML
+    private void goToTestModeRandom() throws IOException {
+        if (ApplicationState.getDeck() == null) {
+            showAlert(Alert.AlertType.WARNING, "No Deck Selected", "Please select a deck before continuing");
+            return;
+        }
+        try {
+            ApplicationState.setCurrentModeRandom();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(HelloApplication.class.getResource("test-mode/test-mode.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void goToTestModeSmart() throws IOException {
+        if (ApplicationState.getDeck() == null) {
+            showAlert(Alert.AlertType.WARNING, "No Deck Selected", "Please select a deck before continuing");
+            return;
+        }
+        try {
+            ApplicationState.setCurrentModeSmart();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(HelloApplication.class.getResource("test-mode/test-mode.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void goToTestModeStandard() {
+        if (ApplicationState.getDeck() == null) {
+            showAlert(Alert.AlertType.WARNING, "No Deck Selected", "Please select a deck before continuing");
+            return;
+        }
         try {
             ApplicationState.setCurrentModeSequential();
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -207,21 +249,6 @@ public class MenuBarController {
                 }
             }
         });
-    }
-
-    @FXML
-    private void runRandomMode() throws IOException {
-        try {
-            ApplicationState.setCurrentModeRandom();
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(HelloApplication.class.getResource("test-mode/test-mode.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-            Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void switchScene(String fxmlPath) {

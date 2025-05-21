@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.menubar.MenuBarController">
+<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.menubar.MenuBarController">
   <children>
     <HBox fx:id="rootHBox" prefWidth="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <MenuBar HBox.hgrow="ALWAYS">
@@ -24,8 +24,8 @@
         <Menu text="Test">
           <Menu text="Flip Mode">
             <MenuItem fx:id="flipStandard" onAction="#goToTestModeStandard" text="Standard" />
-            <MenuItem fx:id="flipRandom" onAction="#runRandomMode" text="Random" />
-            <MenuItem fx:id="flipSpecial" onAction="#home" text="Special" />
+            <MenuItem fx:id="flipRandom" onAction="#goToTestModeRandom" text="Random" />
+            <MenuItem fx:id="flipSpecial" onAction="#goToTestModeSmart" text="Special" />
           </Menu>
           <Menu text="Multiple Choice Mode">
             <MenuItem fx:id="mcStandard" onAction="#home" text="Standard" />
