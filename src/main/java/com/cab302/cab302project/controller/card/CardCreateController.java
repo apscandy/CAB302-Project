@@ -46,14 +46,10 @@ public class CardCreateController implements Initializable {
 
     private static final Logger logger = LogManager.getLogger(CardCreateController.class);
 
-    @FXML
-    private ComboBox<Deck> deckComboBox;
-    @FXML
-    private ListView<Card> cardsList;
-    @FXML
-    private TextField cardName;
-    @FXML
-    private TextArea cardAnswer;
+    @FXML private ComboBox<Deck> deckComboBox;
+    @FXML private ListView<Card> cardsList;
+    @FXML private TextField cardName;
+    @FXML private TextArea cardAnswer;
 
     private Deck currentDeck;
     private Card selectedCard;
@@ -85,29 +81,6 @@ public class CardCreateController implements Initializable {
                 cardAnswer.setText(selectedCard.getAnswer());
             }
         });
-    }
-
-    /**
-     * Loads cards for the currently selected deck and populates the cards ListView.
-     */
-    private void loadCards() {
-        if (currentDeck != null) {
-            List<Card> cards = cardDAO.getCardsForDeck(currentDeck);
-            cardsList.getItems().setAll(cards);
-        }
-    }
-
-    /**
-     * Displays an alert dialog with the provided title and message.
-     *
-     * @param title the title for the alert dialog
-     * @param msg   the message for the alert dialog
-     */
-    private void showAlert(String title, String msg) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(msg);
-        alert.showAndWait();
     }
 
     /**
@@ -168,7 +141,6 @@ public class CardCreateController implements Initializable {
         clearCard();
         loadCards();
     }
-
 
     /**
      * Deletes the selected card via a soft delete after confirmation.
@@ -246,4 +218,30 @@ public class CardCreateController implements Initializable {
         stage.show();
     }
 
+    // ─── Merged in from CardViewController ───────────────────────────────────────
+
+    /**
+     * Loads cards for the currently selected deck and displays them in the cards list.
+     * <p><strong>From:</strong> CardViewController</p>
+     */
+    private void loadCards() { // from CardViewController
+        if (currentDeck != null) {
+            List<Card> cards = cardDAO.getCardsForDeck(currentDeck);
+            cardsList.getItems().setAll(cards);
+        }
+    }
+
+    /**
+     * Displays an alert dialog with the given title and message.
+     *
+     * @param title the title for the alert dialog
+     * @param msg   the message for the alert dialog
+     * <p><strong>From:</strong> CardViewController</p>
+     */
+    private void showAlert(String title, String msg) { // from CardViewController
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
 }
