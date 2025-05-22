@@ -260,19 +260,6 @@ public class MenuBarController {
         }
     }
 
-    /** The currently active user; may be set by external callers. */
-    private User currentUser;
-
-    /**
-     * Sets the currently active user for this controller.
-     *
-     * @param user the user who has just logged in
-     * @author Lewis Phan (n11781840)
-     */
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-    }
-
     /**
      * Enters the Recycle Bin view.
      * <p>
@@ -293,18 +280,6 @@ public class MenuBarController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Clears all contents of the recycle bin.
-     * <p>
-     * (Method intentionally left blank; implementation to be added.)
-     * </p>
-     * @author David Bui (n11659831)
-     */
-    @FXML
-    private void clearRecycleBin() {
-
     }
 
     /**
