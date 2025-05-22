@@ -2,6 +2,7 @@ package com.cab302.cab302project.controller.deck;
 
 
 import com.cab302.cab302project.model.card.Card;
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -45,7 +46,7 @@ public class RandomModeController  implements Initializable {
         if (currentshuffledCards == null || currentshuffledCards.isEmpty()) return;
 
         if (index >= currentshuffledCards.size() - 1) {
-            showAlert("Section Finished", "You have reached the end of the session.");
+            ShowAlertUtils.showInfo("Section Finished", "You have reached the end of the session.");
         } else {
             index++;
             showCardAt(index);
@@ -59,11 +60,4 @@ public class RandomModeController  implements Initializable {
         showCardAt(index);
     }
 
-    private void showAlert(String title, String message) {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 }

@@ -5,6 +5,7 @@ import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.model.user.User;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
+import com.cab302.cab302project.util.ShowAlertUtils;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -223,7 +224,7 @@ public class AddSecurityQuestionController {
             hasError = true;
         }
         if (hasError) {
-            showAlert("Please fill in all security questions and answers.");
+            ShowAlertUtils.showWarning("validation Error", "Please fill in all security questions and answers.");
             return;
         }
 
@@ -269,18 +270,6 @@ public class AddSecurityQuestionController {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
-    }
-
-    /**
-     * Displays an error alert with the message passed in.
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au) or (phandanglinh2005@gmail.com)
-     */
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Input Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
 }

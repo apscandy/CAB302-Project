@@ -7,6 +7,7 @@ import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.error.authentication.*;
 import com.cab302.cab302project.model.user.User;
 
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -99,62 +100,48 @@ public class RegisterController {
 
         // validate first name
         if (firstName.isEmpty()) {
-            setError(FirstNameTextField, "First name cannot be empty.");
+            ShowAlertUtils.showError("Registration Error", "First name cannot be empty.");
             return false;
         }
 
         // validate last name
         if (lastName.isEmpty()) {
-            setError(LastNameTextField, "Last name cannot be empty.");
+            ShowAlertUtils.showError("Registration Error", "Last name cannot be empty.");
             return false;
         }
 
         // validate email
         if (email.isEmpty()) {
-            setError(EmailAddressTextField, "Email cannot be empty.");
+            ShowAlertUtils.showError("Registration Error", "Email cannot be empty.");
             return false;
         }
         if (!RegexValidator.validEmailAddress(email)) {
-            setError(EmailAddressTextField, "Invalid email format.");
+            ShowAlertUtils.showError("Registration Error", "Invalid email format.");
             return false;
         }
         // Check if email already exists in database
         try {
             new AuthenticationService().emailCheck(email);
         } catch (EmailAlreadyInUseException e) {
-            setError(EmailAddressTextField, "Email address already in use");
+            ShowAlertUtils.showError("Registration Error", "Email address already in use");
             return false;
         }
 
         // validate password
         if (password.isEmpty()) {
-            setError(SetPasswordField, "Password cannot be empty.");
+            ShowAlertUtils.showError("Registration Error", "Password cannot be empty.");
             return false;
         }
         if (!RegexValidator.validPassword(password)) {
-            setError(SetPasswordField, "Password must be at least 8 characters, include 1 number and 1 special character.");
+            ShowAlertUtils.showError("Registration Error", "Password must be at least 8 characters, include 1 number and 1 special character.");
             return false;
         }
         // Confirm passwords match
         else if (!password.equals(confirmPassword)) {
-            setError(ConfirmPasswordField, "Passwords do not match.");
+            ShowAlertUtils.showError("Registration Error", "Passwords do not match.");
             return false;
         }
         return true;
     }
 
-    /**
-     * <p>
-     * Displays an error alert associated with a given input control.
-     * </p>
-     * @param input The TextInputControl that caused the error
-     * @param message The message to display in the alert
-     */
-    private void setError(TextInputControl input, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Registration Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 }

@@ -14,6 +14,7 @@ import com.cab302.cab302project.model.deck.SqliteDeckDAO;
 import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
 import com.cab302.cab302project.util.DeckCSVUtils;
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -98,7 +99,7 @@ public class MenuBarController {
     @FXML
     private void goToTestModeRandom() throws IOException {
         if (ApplicationState.getDeck() == null) {
-            showAlert(Alert.AlertType.WARNING, "No Deck Selected", "Please select a deck before continuing");
+            ShowAlertUtils.showWarning("No Deck Selected", "Please select a deck before continuing");
             return;
         }
         try {
@@ -127,7 +128,7 @@ public class MenuBarController {
     @FXML
     private void goToTestModeSmart() throws IOException {
         if (ApplicationState.getDeck() == null) {
-            showAlert(Alert.AlertType.WARNING, "No Deck Selected", "Please select a deck before continuing");
+            ShowAlertUtils.showWarning("No Deck Selected", "Please select a deck before continuing");
             return;
         }
         try {
@@ -154,7 +155,7 @@ public class MenuBarController {
     @FXML
     private void goToTestModeStandard() {
         if (ApplicationState.getDeck() == null) {
-            showAlert(Alert.AlertType.WARNING, "No Deck Selected", "Please select a deck before continuing");
+            ShowAlertUtils.showWarning("No Deck Selected", "Please select a deck before continuing");
             return;
         }
         try {
@@ -431,7 +432,7 @@ public class MenuBarController {
                  InvalidCSVContentException |
                  FilePathIsNullException |
                  InvalidFilePathException e) {
-            showAlert(Alert.AlertType.ERROR, "Import Failed", e.getMessage());
+            ShowAlertUtils.showError("Import Failed", e.getMessage());
             return;
         }
         IDeckDAO deckDAO = new SqliteDeckDAO();
@@ -443,28 +444,12 @@ public class MenuBarController {
                     cardDAO.addCard(c);
                 }
             }
-            showAlert(Alert.AlertType.INFORMATION, "Import Successful",
+            ShowAlertUtils.showInfo("Import Successful",
                     "Imported deck \"" + deck.getName() + "\"");
 
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Database Error",
+            ShowAlertUtils.showError("Database Error",
                     "Could not save imported deck to the database.\n" + e.getMessage());
         }
-    }
-
-    /**
-     * Displays an alert of the specified type with title and message.
-     *
-     * @param type  the AlertType (e.g. ERROR, WARNING, INFORMATION)
-     * @param title the dialog title
-     * @param msg   the dialog message
-     * @author Maverick Doan (n11562773)
-     */
-    private void showAlert(Alert.AlertType type, String title, String msg) {
-        Alert a = new Alert(type);
-        a.setTitle(title);
-        a.setHeaderText(null);
-        a.setContentText(msg);
-        a.showAndWait();
     }
 }

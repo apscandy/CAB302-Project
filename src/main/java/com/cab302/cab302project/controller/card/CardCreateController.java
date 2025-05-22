@@ -8,6 +8,7 @@ import com.cab302.cab302project.model.card.SqliteCardDAO;
 import com.cab302.cab302project.model.deck.Deck;
 import com.cab302.cab302project.model.deck.IDeckDAO;
 import com.cab302.cab302project.model.deck.SqliteDeckDAO;
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,11 +91,11 @@ public class CardCreateController implements Initializable {
     @FXML
     private void saveCard() {
         if (cardName.getText().isEmpty() || cardAnswer.getText().isEmpty()) {
-            showAlert("Missing Fields", "Both question and answer must be filled in.");
+            ShowAlertUtils.showError("Missing Fields", "Both question and answer must be filled in.");
             return;
         }
         if (currentDeck == null) {
-            showAlert("No Deck Selected", "Please select a deck from the dropdown.");
+            ShowAlertUtils.showError("No Deck Selected", "Please select a deck from the dropdown.");
             return;
         }
         if (selectedCard == null) {
@@ -117,14 +118,14 @@ public class CardCreateController implements Initializable {
     private void editCard() {
         selectedCard = cardsList.getSelectionModel().getSelectedItem();
         if (selectedCard == null) {
-            showAlert("No Card Selected", "Please select a card from the list to edit.");
+            ShowAlertUtils.showError("No Card Selected", "Please select a card from the list to edit.");
             return;
         }
 
         String newQuestion = cardName.getText().trim();
         String newAnswer   = cardAnswer.getText().trim();
         if (newQuestion.isEmpty() || newAnswer.isEmpty()) {
-            showAlert("Missing Fields", "Both question and answer must be filled in.");
+            ShowAlertUtils.showError("Missing Fields", "Both question and answer must be filled in.");
             return;
         }
         selectedCard.setQuestion(newQuestion);
@@ -134,7 +135,7 @@ public class CardCreateController implements Initializable {
             cardDAO.updateCard(selectedCard);
         } catch (Exception e) {
             logger.error("Failed to update card", e);
-            showAlert("Update Failed", "Could not save changes: " + e.getMessage());
+            ShowAlertUtils.showError("Update Failed", "Could not save changes: " + e.getMessage());
             return;
         }
 
@@ -229,19 +230,5 @@ public class CardCreateController implements Initializable {
             List<Card> cards = cardDAO.getCardsForDeck(currentDeck);
             cardsList.getItems().setAll(cards);
         }
-    }
-
-    /**
-     * Displays an alert dialog with the given title and message.
-     *
-     * @param title the title for the alert dialog
-     * @param msg   the message for the alert dialog
-     * <p><strong>From:</strong> CardViewController</p>
-     */
-    private void showAlert(String title, String msg) { // from CardViewController
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(msg);
-        alert.showAndWait();
     }
 }

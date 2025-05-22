@@ -10,6 +10,7 @@ import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestio
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
 import com.cab302.cab302project.util.PasswordUtils;
 import com.cab302.cab302project.util.RegexValidator;
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,22 +45,22 @@ public class ProfileController {
         String newEmail = NewEmailAddressTextField.getText().trim();
 
         if (oldEmail.isEmpty() || newEmail.isEmpty()) {
-            showAlert("Validation Error", "Please fill in both email fields.");
+            ShowAlertUtils.showWarning("Validation Error", "Please fill in both email fields.");
             return;
         }
 
         if (!oldEmail.equals(oldEmailInput)) {
-            showAlert("Validation Error", "Old email does not match your current email.");
+            ShowAlertUtils.showWarning("Validation Error", "Old email does not match your current email.");
             return;
         }
 
         if (oldEmail.equals(newEmail)) {
-            showAlert("Validation Error", "New email must be different from the current one.");
+            ShowAlertUtils.showWarning("Validation Error", "New email must be different from the current one.");
             return;
         }
 
         if (!RegexValidator.validEmailAddress(newEmail)) {
-            showAlert("Validation Error", "Invalid email format.");
+            ShowAlertUtils.showWarning("Validation Error", "Invalid email format.");
             return;
         }
 
@@ -68,14 +69,14 @@ public class ProfileController {
         try {
             new AuthenticationService().emailCheck(newEmail);
         } catch (EmailAlreadyInUseException e) {
-            showAlert("Validation Error", "Email address already in use");
+            ShowAlertUtils.showWarning("Validation Error", "Email address already in use");
             return;
         }
 
         try {
             ApplicationState.getCurrentUser().setEmail(newEmail);
             userDAO.updateUser(ApplicationState.getCurrentUser());
-            showAlert("Success", "Email updated successfully.");
+            ShowAlertUtils.showInfo("Success", "Email updated successfully.");
             ApplicationState.logout();
 
             Stage stage = (Stage) OldEmailAddressTextField.getScene().getWindow();
@@ -85,7 +86,7 @@ public class ProfileController {
             stage.show();
 
         } catch (Exception e) {
-            showAlert("Error", "Failed to update email: " + e.getMessage());
+            ShowAlertUtils.showError("Error", "Failed to update email: " + e.getMessage());
         }
     }
 
@@ -98,7 +99,7 @@ public class ProfileController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            showAlert("Error", "Failed to cancel: " + e.getMessage());
+            ShowAlertUtils.showError("Error", "Failed to cancel: " + e.getMessage());
         }
     }
 
@@ -112,34 +113,34 @@ public class ProfileController {
         String oldPasswordInputHash = PasswordUtils.hashSHA256(oldPasswordInput);
 
         if (oldPassword.isEmpty() || newPassword.isEmpty()) {
-            showAlert("Validation Error", "Please fill in both password fields.");
+            ShowAlertUtils.showWarning("Validation Error", "Please fill in both password fields.");
             return;
         }
 
         if (!oldPassword.equals(oldPasswordInputHash)) {
-            showAlert("Validation Error", "Old password does not match your current password.");
+            ShowAlertUtils.showWarning("Validation Error", "Old password does not match your current password.");
             return;
         }
 
         if (oldPasswordInput.equals(newPassword)) {
-            showAlert("Validation Error", "New password must be different from the current one.");
+            ShowAlertUtils.showWarning("Validation Error", "New password must be different from the current one.");
             return;
         }
 
         if (!RegexValidator.validPassword(newPassword)) {
-            showAlert("Validation Error", "Password must be at least 8 characters, include 1 number and 1 special character.");
+            ShowAlertUtils.showWarning("Validation Error", "Password must be at least 8 characters, include 1 number and 1 special character.");
             return;
         }
 
         if (!confirmPassword.equals(newPassword)) {
-            showAlert("Validation Error", "confirm password not match.");
+            ShowAlertUtils.showWarning("Validation Error", "confirm password not match.");
             return;
         }
 
         try {
             ApplicationState.getCurrentUser().setPassword(PasswordUtils.hashSHA256(newPassword));
             userDAO.updateUser(ApplicationState.getCurrentUser());
-            showAlert("Success", "Password updated successfully.");
+            ShowAlertUtils.showInfo("Success", "Password updated successfully.");
 
             Stage stage = (Stage) oldPasswordField.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
@@ -147,7 +148,7 @@ public class ProfileController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            showAlert("Error", "Failed to cancel: " + e.getMessage());
+            ShowAlertUtils.showError("Error", "Failed to cancel: " + e.getMessage());
         }
     }
 
@@ -160,17 +161,8 @@ public class ProfileController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            showAlert("Error", "Failed to cancel: " + e.getMessage());
+            ShowAlertUtils.showError("Error", "Failed to cancel: " + e.getMessage());
         }
     }
 
-
-
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
 }

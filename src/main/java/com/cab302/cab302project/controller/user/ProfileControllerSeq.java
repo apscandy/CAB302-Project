@@ -10,6 +10,7 @@ import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestio
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
 import com.cab302.cab302project.util.PasswordUtils;
 import com.cab302.cab302project.util.RegexValidator;
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -140,7 +141,7 @@ public class ProfileControllerSeq {
 
         if (q1 == null || q2 == null || q3 == null ||
                 a1.isEmpty() || a2.isEmpty() || a3.isEmpty()) {
-            showAlert("Validation Error", "All questions and answers must be filled.");
+            ShowAlertUtils.showWarning("Validation Error", "All questions and answers must be filled.");
             return;
         }
 
@@ -157,8 +158,7 @@ public class ProfileControllerSeq {
 
         try {
             userDAO.updateUser(ApplicationState.getCurrentUser());
-            showAlert("Success", "Security question updated successfully.");
-            ApplicationState.logout();
+            ShowAlertUtils.showInfo("Success", "Security question updated successfully.");
 
             Stage stage = (Stage) confirmButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
@@ -167,7 +167,7 @@ public class ProfileControllerSeq {
             stage.show();
 
         } catch (Exception e) {
-            showAlert("Error", "Failed to update security question: " + e.getMessage());
+            ShowAlertUtils.showError("Error", "Failed to update security question: " + e.getMessage());
         }
     }
 
@@ -180,15 +180,8 @@ public class ProfileControllerSeq {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            showAlert("Error", "Failed to cancel: " + e.getMessage());
+            ShowAlertUtils.showError("Error", "Failed to cancel: " + e.getMessage());
         }
     }
 
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
 }
