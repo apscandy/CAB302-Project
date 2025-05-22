@@ -317,7 +317,6 @@ public final class SqliteDeckDAO implements IDeckDAO {
         return deck;
     }
 
-    // ─── NEW handler to persist bookmark flag ─────────────────────────────────────
     @Override
     public void setBookmarked(Deck deck, boolean bookmarked) {
         if (deck == null || deck.getUserId() == 0) {

@@ -46,15 +46,6 @@ public interface ICardDAO {
     void restoreCard(Card card);
 
     /**
-     * Retrieves a list of non-deleted cards for the specified deck.
-     *
-     * @param deck the deck for which to retrieve cards
-     * @return a list of cards in the deck
-     */
-    List<Card> getCardsForDeck(Deck deck);
-
-
-    /**
      * Restores all cards associated with the specified deck.
      *
      * @param deck the deck whose cards will be soft deleted
@@ -74,10 +65,7 @@ public interface ICardDAO {
      */
     void getCardAndLoadIntoDeck(Deck deck);
 
-    /**
-     *
-     * @param deck
-     * @return the shuffle deck
-     */
-    List<Card> getRandomizedCardsForDeck(Deck deck);
+    void getCardsForDeck(Deck deck);
+    void getCardsForDeckRandom(Deck deck);
+    void getCardsForDeckSmart(Deck deck);
 }

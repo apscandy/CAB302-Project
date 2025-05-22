@@ -49,10 +49,8 @@ public class DeckCreateController implements Initializable {
     @FXML
     private ListView<Card> cardsList;
 
-    // ─── NEW bookmark button ───────────────────────────────────────────────────────
     @FXML
     private Button bookmarkButton;
-    // ──────────────────────────────────────────────────────────────────────────────
 
     private static final Logger logger = LogManager.getLogger(DeckCreateController.class);
 
@@ -89,7 +87,8 @@ public class DeckCreateController implements Initializable {
                         : "Bookmark ☆"
         );
         cardsList.getItems().clear();
-        deck.setCards(new SqliteCardDAO().getCardsForDeck(deck));
+        Deck deckToEdit = new SqliteDeckDAO().getDeck(deck.getId());
+        deck.setCards(deckToEdit.getCards());
         if (deck.getCards() != null) {
             cardsList.getItems().addAll(deck.getCards());
         }

@@ -178,18 +178,18 @@ public class TestModeStandard {
         }
         switch(ApplicationState.getCurrentMode()) {
             case SEQUENTIAL:
+                new SqliteCardDAO().getCardsForDeck(ApplicationState.getDeck());
                 cards = ApplicationState.getDeck().getCards();
                 this.deckSize = cards.size();
                 break;
             case RANDOM:
-                cards = new SqliteCardDAO().getRandomizedCardsForDeck(ApplicationState.getDeck());
+                new SqliteCardDAO().getCardsForDeckRandom(ApplicationState.getDeck());
+                cards = ApplicationState.getDeck().getCards();
                 this.deckSize = cards.size();
                 break;
             case SMART:
-                cards = new SqliteCardDAO().getSmartShuffledCardsForDeck(
-                        ApplicationState.getDeck(),
-                        new SqliteSessionResultsDAO().getCardResultsForUser(ApplicationState.getDeck().getUserId())
-                );
+                new SqliteCardDAO().getCardsForDeckSmart(ApplicationState.getDeck());
+                cards = ApplicationState.getDeck().getCards();
                 this.deckSize = cards.size();
                 break;
         }

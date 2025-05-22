@@ -226,8 +226,8 @@ public class CardCreateController implements Initializable {
      */
     private void loadCards() { // from CardViewController
         if (currentDeck != null) {
-            List<Card> cards = cardDAO.getCardsForDeck(currentDeck);
-            cardsList.getItems().setAll(cards);
+            cardDAO.getCardsForDeck(currentDeck);
+            cardsList.getItems().setAll(currentDeck.getCards());
         }
     }
 
