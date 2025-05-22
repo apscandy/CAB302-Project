@@ -57,7 +57,7 @@ public class PromptEmailController {
             return;
         }
         Stage stage = (Stage) goToPromptPasswordPageBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-password-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user/login/prompt-password-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         PromptPasswordController passwordController = fxmlLoader.getController();
         passwordController.setUserEmail(email);
@@ -69,7 +69,7 @@ public class PromptEmailController {
     public void goToRegisterPage() throws IOException {
         logger.debug("Go to register account screen button pressed");
         Stage stage = (Stage) goToRegisterPageBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user/register/register-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
         logger.debug("User on register account screen");

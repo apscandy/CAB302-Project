@@ -58,7 +58,7 @@ public class ResetPasswordController {
     @FXML
     public void backToAnswerSecurityQuestion() throws IOException {
         Stage stage = (Stage) backToAnswerSecurityQuestionBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("answer-security-questions-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user/reset-password/answer-security-questions-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         AnswerSecurityQuestionController answerController = fxmlLoader.getController();
         List<String> questionList = new ArrayList<>();
@@ -100,7 +100,7 @@ public class ResetPasswordController {
             return;
         }
         Stage stage = (Stage) resetPasswordBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user/login/prompt-email-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }

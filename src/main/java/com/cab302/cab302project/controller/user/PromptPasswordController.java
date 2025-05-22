@@ -85,7 +85,7 @@ public class PromptPasswordController {
     @FXML
     public void backToPromptEmailPage() throws IOException {
         Stage stage = (Stage) backToPromptEmailPageBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user/login/prompt-email-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
@@ -98,7 +98,7 @@ public class PromptPasswordController {
     public void goToAnswerSecurityQuestion() throws IOException {
         User user = retrieveUserAndInitQuestions(userEmail, QuestionList);
         Stage stage = (Stage) resetPasswordBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("answer-security-questions-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user/reset-password/answer-security-questions-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         AnswerSecurityQuestionController answerController = fxmlLoader.getController();
         answerController.initSecurityQuestion(QuestionList);

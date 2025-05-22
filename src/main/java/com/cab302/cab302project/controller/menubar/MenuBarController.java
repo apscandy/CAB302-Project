@@ -250,7 +250,7 @@ public class MenuBarController {
         ApplicationState.logout();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(HelloApplication.class.getResource("prompt-email-view.fxml"));
+            fxmlLoader.setLocation(HelloApplication.class.getResource("user/login/prompt-email-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
             Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
             primaryStage.setScene(scene);
@@ -291,7 +291,7 @@ public class MenuBarController {
      */
     @FXML
     private void changeEmailButton() {
-        switchScene("change-email-view.fxml");
+        switchScene("user/account/change-email-view.fxml");
     }
 
     /**
@@ -303,7 +303,7 @@ public class MenuBarController {
      */
     @FXML
     private void changePasswordButton() {
-        switchScene("change-password-view.fxml");
+        switchScene("user/account/change-password-view.fxml");
     }
 
     /**
@@ -315,7 +315,7 @@ public class MenuBarController {
      */
     @FXML
     private void changeSecurityQuestionButton() {
-        switchScene("change-security-questions-view.fxml");
+        switchScene("user/account/change-security-questions-view.fxml");
     }
 
     /**
@@ -347,7 +347,7 @@ public class MenuBarController {
                     logger.info("User account deleted: " + currentUser.getEmail());
 
                     ApplicationState.logout();
-                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user/login/prompt-email-view.fxml"));
                     Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
                     Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
                     primaryStage.setScene(scene);

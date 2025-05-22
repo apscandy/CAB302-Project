@@ -7,7 +7,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.user.ProfileController">
 
     <children>
-        <fx:include source="base-view.fxml" />
+        <fx:include source="../../base-view.fxml" />
         <Button fx:id="cancelButton" layoutX="26.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleCancelUpdateEmail" text="Cancel" />
         <Button fx:id="confirmButton" layoutX="570.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleUpdateEmail" text="Save" />
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="51.0" prefHeight="26.0" prefWidth="229.0" text="Update Account Email" textAlignment="CENTER" textFill="#d90429">
