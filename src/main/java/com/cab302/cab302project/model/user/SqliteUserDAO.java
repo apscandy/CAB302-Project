@@ -174,7 +174,18 @@ public final class SqliteUserDAO implements IUserDAO {
     }
 
     /**
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+     * Deletes a user record from the database based on their unique ID.
+     *
+     * <p>
+     * This method executes a SQL DELETE statement to remove the specified user from the "user" table,
+     * using the user's ID as the identifier. If the deletion fails due to a SQL exception,
+     * a custom {@link FailedToUpdateUserException} is thrown and the error is logged.
+     * </p>
+     *
+     * @param user The {@link User} object to be deleted. Must not be {@code null}, and must have a valid ID.
+     * @throws FailedToUpdateUserException if the database deletion fails.
+     *
+     * @author Dang Linh Phan - Lewis (n11781840)
      */
     public void deleteUser(User user) {
         String deleteSQL = "DELETE FROM user WHERE id = ?";

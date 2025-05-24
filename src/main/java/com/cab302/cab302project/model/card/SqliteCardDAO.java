@@ -326,6 +326,23 @@ public final class SqliteCardDAO implements ICardDAO {
         return cards;
     }
 
+    /**
+     * Retrieves a randomized list of {@link Card} objects associated with the given {@link Deck}.
+     *
+     * <p>
+     * This method queries the database for cards belonging to the specified deck and returns them
+     * in randomized order. It uses a prepared SQL statement defined by {@code getRandomCardsSQL}.
+     * The method runs inside a database transaction to ensure consistency, and rolls back in case
+     * of any error.
+     * </p>
+     *
+     * @param deck The {@link Deck} for which to retrieve randomized cards. Must not be {@code null}
+     *             and must have a valid (non-zero) ID.
+     * @return A list of {@link Card} objects belonging to the deck, in randomized order.
+     * @throws DeckIsNullException If the provided deck is {@code null} or has an invalid ID.
+     * @throws FailedToGetCardsException If a SQL error occurs during card retrieval or transaction handling.
+     * @author Dang Linh Phan - lewis (n11781840)
+     */
     @Override
     public List<Card> getRandomizedCardsForDeck(Deck deck) {
         if (deck == null || deck.getId() == 0) {

@@ -27,7 +27,7 @@ import java.util.Set;
  * Once completed, saves the information to the database.
  * This class link to add-questions-security-view.fxml to control the Ul for add security questions.
  * <p>
- * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+ * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
  */
 public class AddSecurityQuestionController {
 
@@ -98,7 +98,7 @@ public class AddSecurityQuestionController {
      * <p>
      * @param source the {@link ComboBox} that was changed by the users
      * @see #updateComboBoxes(ComboBox)
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     private void handleComboBoxChange(ComboBox<String> source) {
         if (isUpdating) return;
@@ -116,7 +116,7 @@ public class AddSecurityQuestionController {
      * <p>
      * @param changedBox the {@link ComboBox} that trigger the change, used to skip its update
      * @see #updateComboBox(ComboBox, String, Set)
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     private void updateComboBoxes(ComboBox<String> changedBox) {
 
@@ -155,7 +155,7 @@ public class AddSecurityQuestionController {
      * @param box: the {@link ComboBox} to update
      * @param currentSelection: the currently selected value of this ComboBox (can be null)
      * @param used: set of all selected questions across all ComboBoxes
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     private void updateComboBox(ComboBox<String> box, String currentSelection, Set<String> used) {
         // Create a copy of the selected question list to filter, keeping the current question of this ComboBox itself
@@ -195,7 +195,7 @@ public class AddSecurityQuestionController {
      * <li>Display a successful registration message and redirect the user to the home screen.</li>
      * </ul>
      * </p>
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
     public void RegisterButtonAction() throws IOException {
@@ -262,7 +262,7 @@ public class AddSecurityQuestionController {
 
     /**
      * Return to the registration screen if the user presses Back.
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au) or (phandanglinh2005@gmail.com)
+     * @author Dang Linh Phan - Lewis (n11781840)
      */
     @FXML
     public void BackButtonAction() throws IOException {

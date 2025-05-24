@@ -2,6 +2,7 @@ package com.cab302.cab302project.controller.user;
 
 import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.error.authentication.*;
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -45,15 +46,15 @@ public class PromptEmailController {
         try {
             isEmailFree = authHandler.emailCheck(email);
         } catch (EmailEmptyException e) {
-            setError("Email cannot be empty.");
+            ShowAlertUtils.showError("Prompt Email Error","Email cannot be empty.");
             return;
         } catch (InvalidEmailFormatException e) {
-            setError("Invalid email format.");
+            ShowAlertUtils.showError("Prompt Email Error","Invalid email format.");
             return;
         } catch (EmailAlreadyInUseException ignored) {}
         if (isEmailFree) {
             // If it doesn't exist, display error message
-            setError("Email not found. Please register for an account.");
+            ShowAlertUtils.showError("Prompt Email Error","Email not found. Please register for an account.");
             return;
         }
         Stage stage = (Stage) goToPromptPasswordPageBtn.getScene().getWindow();
@@ -75,11 +76,4 @@ public class PromptEmailController {
         logger.debug("User on register account screen");
     }
 
-    private void setError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Prompt Email Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 }

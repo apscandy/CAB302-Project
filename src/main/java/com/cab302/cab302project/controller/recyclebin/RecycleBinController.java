@@ -9,6 +9,7 @@ import com.cab302.cab302project.model.deck.Deck;
 import com.cab302.cab302project.model.deck.IDeckDAO;
 import com.cab302.cab302project.model.deck.SqliteDeckDAO;
 import com.cab302.cab302project.model.user.User;
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -85,12 +86,12 @@ public class RecycleBinController implements Initializable {
     @FXML
     private void deleteAnItem() {
         if (selectedItem == null) {
-            showError("No Selection", "Please select an item to delete.");
+            ShowAlertUtils.showError("No Selection", "Please select an item to delete.");
             return;
         }
 
         if (selectedItem instanceof Deck deck) {
-            showConfirmation("Delete Deck", "Are you sure you want to permanently delete this deck?",
+            ShowAlertUtils.showConfirmation("Delete Deck", "Are you sure you want to permanently delete this deck?",
                     "This action will delete the deck and all its cards forever.", response -> {
                         if (response == ButtonType.OK) {
                             deckDAO.deleteDeck(deck);
@@ -99,7 +100,7 @@ public class RecycleBinController implements Initializable {
                         }
                     });
         } else if (selectedItem instanceof Card card) {
-            showConfirmation("Delete Card", "Are you sure you want to permanently delete this card?",
+            ShowAlertUtils.showConfirmation("Delete Card", "Are you sure you want to permanently delete this card?",
                     "This action will delete the card forever.", response -> {
                         if (response == ButtonType.OK) {
                             cardDAO.deleteCard(card);
@@ -116,12 +117,12 @@ public class RecycleBinController implements Initializable {
     @FXML
     private void restoreAnItem() {
         if (selectedItem == null) {
-            showError("No Selection", "Please select an item to restore.");
+            ShowAlertUtils.showError("No Selection", "Please select an item to restore.");
             return;
         }
 
         if (selectedItem instanceof Deck deck) {
-            showConfirmation("Restore Deck", "Are you sure you want to restore this deck?",
+            ShowAlertUtils.showConfirmation("Restore Deck", "Are you sure you want to restore this deck?",
                     "This action will make the deck and its cards visible again.", response -> {
                         if (response == ButtonType.OK) {
                             deckDAO.restoreDeck(deck);
@@ -131,7 +132,7 @@ public class RecycleBinController implements Initializable {
                         }
                     });
         } else if (selectedItem instanceof Card card) {
-            showConfirmation("Restore Flashcard", "Are you sure you want to restore this card?",
+            ShowAlertUtils.showConfirmation("Restore Flashcard", "Are you sure you want to restore this card?",
                     "This action will make the card visible in its deck again.", response -> {
                         if (response == ButtonType.OK) {
                             cardDAO.restoreCard(card);
@@ -148,11 +149,11 @@ public class RecycleBinController implements Initializable {
     @FXML
     private void deleteAll() {
         if (recycleBinList.getItems().isEmpty()) {
-            showError("Empty Recycle Bin", "The recycle bin is already empty.");
+            ShowAlertUtils.showError("Empty Recycle Bin", "The recycle bin is already empty.");
             return;
         }
 
-        showConfirmation("Delete All Items", "Are you sure you want to permanently delete all items?",
+        ShowAlertUtils.showConfirmation("Delete All Items", "Are you sure you want to permanently delete all items?",
                 "This action will delete all items in the recycle bin forever.", response -> {
                     if (response == ButtonType.OK) {
                         User currentUser = ApplicationState.getCurrentUser();
@@ -179,11 +180,11 @@ public class RecycleBinController implements Initializable {
     @FXML
     private void restoreAll() {
         if (recycleBinList.getItems().isEmpty()) {
-            showError("Empty Recycle Bin", "There are no items to restore.");
+            ShowAlertUtils.showError("Empty Recycle Bin", "There are no items to restore.");
             return;
         }
 
-        showConfirmation("Restore All Items", "Are you sure you want to restore all items?",
+        ShowAlertUtils.showConfirmation("Restore All Items", "Are you sure you want to restore all items?",
                 "This action will restore all items in the recycle bin.", response -> {
                     if (response == ButtonType.OK) {
                         User currentUser = ApplicationState.getCurrentUser();
@@ -243,19 +244,4 @@ public class RecycleBinController implements Initializable {
         return softDeletedCards;
     }
 
-    private void showConfirmation(String title, String header, String content, java.util.function.Consumer<ButtonType> action) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait().ifPresent(action);
-    }
-
-    private void showError(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 }

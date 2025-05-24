@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.user.ProfileControllerSeq">
+<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.user.ProfileControllerSecurityQuestion">
     <children>
         <fx:include source="../../base-view.fxml" />
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="172.0" layoutY="49.0" prefHeight="30.0" prefWidth="300.0" text="Update Account Security Questions" textAlignment="CENTER" textFill="#d90429">

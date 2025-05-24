@@ -25,7 +25,7 @@ import java.io.IOException;
  * button function in FXML file, checking validated data, add those data to tempUser and move to security question window.
  * This class link to register-view.fxml to control the Ul for register.
  *
- * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+ * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
  */
 public class RegisterController {
     @FXML

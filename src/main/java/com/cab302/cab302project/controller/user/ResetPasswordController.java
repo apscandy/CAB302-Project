@@ -5,6 +5,7 @@ import com.cab302.cab302project.error.authentication.InvalidPasswordFormatExcept
 import com.cab302.cab302project.error.authentication.PasswordEmptyException;
 import com.cab302.cab302project.error.authentication.UserNotFoundException;
 import com.cab302.cab302project.model.user.User;
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -79,7 +80,7 @@ public class ResetPasswordController {
         AuthenticationService authService = new AuthenticationService();
 
         if (!newPassword.equals(confirmPassword)) {
-            setError("Passwords do not match. Please try again.");
+            ShowAlertUtils.showError("Reset Password Error","Passwords do not match. Please try again.");
             logger.debug("Passwords do not match");
             return;
         }
@@ -87,15 +88,15 @@ public class ResetPasswordController {
         try {
             authService.resetPassword(userEmail, newPassword);
         } catch (PasswordEmptyException pee) {
-            setError("Password is empty");
+            ShowAlertUtils.showError("Reset Password Error","Password is empty");
             logger.debug("Password is empty");
             return;
         } catch (UserNotFoundException unfe) {
-            setError("User not found");
+            ShowAlertUtils.showError("Reset Password Error","User not found");
             logger.debug("User not found");
             return;
         } catch (InvalidPasswordFormatException ipfe) {
-            setError("Please make sure your password meet the minimum requirements.");
+            ShowAlertUtils.showError("Reset Password Error","Please make sure your password meet the minimum requirements.");
             logger.debug("Invalid password format when resetting password");
             return;
         }
@@ -103,13 +104,5 @@ public class ResetPasswordController {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user/login/prompt-email-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
-    }
-
-    private void setError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Reset Password Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }

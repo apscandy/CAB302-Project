@@ -2,9 +2,23 @@ package com.cab302.cab302project.util;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 /**
- * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+ * Utility class for displaying different types of alert dialogs in JavaFX.
+ * Provides static helper methods to show informational, warning, error, and confirmation alerts.
+ * Example usage:
+ * <pre>{@code
+ * ShowAlertUtils.showInfo("Success", "Operation completed successfully.");
+ * ShowAlertUtils.showError("Error", "Something went wrong.");
+ * ShowAlertUtils.showConfirmation("Confirm", "Are you sure?", "This action is irreversible.", response -> {
+ *     if (response == ButtonType.OK) {
+ *         // proceed with action
+ *     }
+ * });
+ * }</pre>
+ *
+ * @author Dang Linh Phan - Lewis (n11781840)
  */
 public class ShowAlertUtils {
 
@@ -26,5 +40,13 @@ public class ShowAlertUtils {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    public static void showConfirmation(String title, String header, String content, java.util.function.Consumer<ButtonType> action) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait().ifPresent(action);
     }
 }

@@ -23,9 +23,23 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Controller class for handling user profile-related actions, such as updating email and password.
+ * This class is responsible for validating user inputs, updating data through DAOs,
+ * and navigating between views using JavaFX.
+ *
+ * <p>It handles the following actions:
+ * <ul>
+ *     <li>Update email address with validation and duplication check</li>
+ *     <li>Update password with format and confirmation validation</li>
+ *     <li>Cancel email or password update and return to main view</li>
+ * </ul>
+ * </p>
+ * @author Dang Linh Phan - Lewis (n11781840)
+ */
 public class ProfileController {
 
-
+    // FXML components for email and password update forms
     @FXML private PasswordField newPasswordFieldConfirm;
     @FXML private Button cancelButton;
     @FXML private Button confirmButton;
@@ -34,10 +48,15 @@ public class ProfileController {
     @FXML private PasswordField oldPasswordField;
     @FXML private PasswordField newPasswordField;
 
-
+    // DAO objects to interact with the database
     private final SqliteUserDAO userDAO = new SqliteUserDAO();
     private final SqliteUserSecurityQuestionDAO secDAO = new SqliteUserSecurityQuestionDAO();
 
+    /**
+     * Handles the update of the user's email address.
+     * Validates input fields, checks if the new email is in correct format and not already in use.
+     * Updates the user's email in the database and redirects to the login screen on success.
+     */
     @FXML
     private void handleUpdateEmail() {
         String oldEmail  = ApplicationState.getCurrentUser().getEmail();
@@ -64,8 +83,6 @@ public class ProfileController {
             return;
         }
 
-
-
         try {
             new AuthenticationService().emailCheck(newEmail);
         } catch (EmailAlreadyInUseException e) {
@@ -90,6 +107,9 @@ public class ProfileController {
         }
     }
 
+    /**
+     * Cancels the email update process and redirects the user to the main view.
+     */
     @FXML
     private void handleCancelUpdateEmail() {
         try {
@@ -103,7 +123,11 @@ public class ProfileController {
         }
     }
 
-
+    /**
+     * Handles the update of the user's password.
+     * Validates input fields, checks password strength and confirmation match.
+     * Updates the user's password in the database and redirects to the main view on success.
+     */
     @FXML
     private void handleUpdatePassword() {
         String oldPassword = ApplicationState.getCurrentUser().getPassword();
@@ -152,6 +176,9 @@ public class ProfileController {
         }
     }
 
+    /**
+     * Cancels the password update process and redirects the user to the main view.
+     */
     @FXML
     private void handleCancelUpdatePassword() {
         try {

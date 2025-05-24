@@ -7,6 +7,7 @@ import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -65,13 +66,13 @@ public class PromptPasswordController {
         try {
             authenticated = authHandler.authenticate(userEmail, password);
         } catch (UserAlreadyLoggedInException ex) {
-            setError("User already logged in.");
+            ShowAlertUtils.showError("Prompt Password Error","User already logged in.");
             logger.debug("User already logged in.");
         } catch (PasswordEmptyException ex) {
-            setError("Password cannot be empty.");
+            ShowAlertUtils.showError("Prompt Password Error","Password cannot be empty.");
             logger.debug("Password cannot be empty.");
         } catch (PasswordComparisonException ex) {
-            setError("Incorrect password. Please try again.");
+            ShowAlertUtils.showError("Prompt Password Error","Incorrect password. Please try again.");
             logger.debug("Incorrect password. Please try again.");
         }
         if (authenticated) {
@@ -123,13 +124,5 @@ public class PromptPasswordController {
         QuestionList.add(userSecurityQuestion.getQuestionTwo());
         QuestionList.add(userSecurityQuestion.getQuestionThree());
         return user;
-    }
-
-    private void setError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Prompt Password Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }

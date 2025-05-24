@@ -3,6 +3,7 @@ package com.cab302.cab302project.controller.user;
 import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.error.authentication.*;
 import com.cab302.cab302project.model.user.User;
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -74,11 +75,11 @@ public class AnswerSecurityQuestionController {
         try {
             authHandler.checkSecurityQuestion(user, answer1, answer2);
         } catch (EmptyAnswerException e) {
-            setError("Answers cannot be empty.");
+            ShowAlertUtils.showError("Answer Security Question Error","Answers cannot be empty.");
             logger.debug("Answers cannot be empty.");
             return;
         } catch (FailedQuestionException e) {
-            setError("Incorrect answer. Please try again.");
+            ShowAlertUtils.showError("Answer Security Question Error","Incorrect answer. Please try again.");
             logger.debug("Incorrect answer. Please try again.");
             return;
         }
@@ -106,11 +107,4 @@ public class AnswerSecurityQuestionController {
         logger.debug("backToPromptPasswordPage button pressed");
     }
 
-    private void setError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Answer Security Question Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 }
