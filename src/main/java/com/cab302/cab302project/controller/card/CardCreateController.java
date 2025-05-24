@@ -41,7 +41,7 @@ import java.util.ResourceBundle;
  * If no deck is selected, the deck creation view (deck-create-view.fxml) is loaded.
  * </p>
  *
- * @author Monica Borg (n9802045)
+ * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
  */
 public class CardCreateController implements Initializable {
 
@@ -64,6 +64,7 @@ public class CardCreateController implements Initializable {
      *
      * @param location  the location used to resolve relative paths for the root object, or null if unknown
      * @param resources the resources used to localize the root object, or null if not specified
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -86,7 +87,12 @@ public class CardCreateController implements Initializable {
 
     /**
      * Saves a new card or updates an existing card.
-     * Validates that the question and answer fields are filled and that a deck is selected.
+     * <p>
+     * Validates input fields and either creates a new card for the selected deck,
+     * or updates the currently selected card's question and answer.
+     * After saving, fields are cleared and the card list is refreshed.
+     * </p>
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void saveCard() {
@@ -111,8 +117,12 @@ public class CardCreateController implements Initializable {
     }
 
     /**
-     * Populates the fields for the selected card and then, when re-invoked,
-     * saves any edits back to the database.
+     * Edits the selected card by updating its question and answer.
+     * <p>
+     * Validates input, updates the selected card in the database,
+     * and refreshes the card list to reflect changes.
+     * </p>
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void editCard() {
@@ -144,7 +154,12 @@ public class CardCreateController implements Initializable {
     }
 
     /**
-     * Deletes the selected card via a soft delete after confirmation.
+     * Deletes the selected card via a soft delete after user confirmation.
+     * <p>
+     * The card is not removed from the database but marked as deleted
+     * and hidden from the active deck view.
+     * </p>
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void deleteCard() {
@@ -164,7 +179,11 @@ public class CardCreateController implements Initializable {
     }
 
     /**
-     * Clears the input fields and resets the selected card.
+     * Clears the card name and answer fields and resets the selected card.
+     * <p>
+     * This is used after saving, editing, or deleting a card to reset the input state.
+     * </p>
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void clearCard() {
@@ -174,7 +193,11 @@ public class CardCreateController implements Initializable {
     }
 
     /**
-     * Updates the input fields based on the card selected from the list.
+     * Selects a card from the ListView and populates the input fields with its data.
+     * <p>
+     * Used to allow editing of an existing card by reflecting its current values in the form.
+     * </p>
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void selectListViewItem() {
@@ -196,6 +219,7 @@ public class CardCreateController implements Initializable {
      * </p>
      *
      * @throws IOException if the FXML resource cannot be loaded
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void returnToDeck() throws IOException {
@@ -219,11 +243,13 @@ public class CardCreateController implements Initializable {
         stage.show();
     }
 
-    // ─── Merged in from CardViewController ───────────────────────────────────────
-
     /**
-     * Loads cards for the currently selected deck and displays them in the cards list.
-     * <p><strong>From:</strong> CardViewController</p>
+     * Loads cards for the currently selected deck and displays them in the card list view.
+     * <p>
+     * This method queries the database for all non-deleted cards associated with the selected deck
+     * and populates the ListView.
+     * </p>
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     private void loadCards() { // from CardViewController
         if (currentDeck != null) {
