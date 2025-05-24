@@ -7,7 +7,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.deck.DeckViewController">
     <children>
         <fx:include source="../base-view.fxml" />
-        <Label alignment="CENTER" layoutX="14.0" layoutY="42.0" prefHeight="26.0" prefWidth="613.0" text="Welcome to CRAM IT!" textFill="#d90429">
+        <Label alignment="CENTER" layoutX="14.0" layoutY="42.0" prefHeight="26.0" prefWidth="613.0" text="Welcome to CRAM IT!" textFill="#135675">
             <font>
                 <Font name="System Italic" size="15.0" />
             </font>

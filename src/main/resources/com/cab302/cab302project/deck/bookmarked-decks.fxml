@@ -36,7 +36,7 @@
    <Button fx:id="bookmarkButton" layoutX="475.0" layoutY="40.0" mnemonicParsing="false" onAction="#toggleBookmark" prefHeight="28.0" prefWidth="145.0" text="Remove Bookmark ☆" />
 
    <!-- cards label -->
-   <Label layoutX="225.0" layoutY="199.0" prefHeight="18.0" prefWidth="395.0" text="Cards of this Deck" textFill="#d90429">
+   <Label layoutX="225.0" layoutY="199.0" prefHeight="18.0" prefWidth="395.0" text="Cards of this Deck" textFill="#135675">
       <font>
          <Font name="System Italic" size="14.0" />
       </font>

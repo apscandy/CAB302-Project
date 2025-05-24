@@ -11,7 +11,7 @@
                 <Font name="System Bold" size="25.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" layoutX="199.0" layoutY="69.0" prefHeight="19.0" prefWidth="243.0" text="User Registration">
+        <Label alignment="CENTER" layoutX="199.0" layoutY="69.0" prefHeight="19.0" prefWidth="243.0" text="User Registration" textFill="#135675">
             <font>
                 <Font name="System Italic" size="15.0" />
             </font>
