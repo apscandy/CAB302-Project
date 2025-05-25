@@ -68,7 +68,7 @@ public class RecycleBinController implements Initializable {
      *
      * @param url the location used to resolve relative paths for the root object
      * @param resourceBundle the resources used to localize the root object
-     * @author Hoang Dat Bui (n11659831)
+     * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -100,7 +100,7 @@ public class RecycleBinController implements Initializable {
      * in the selectedItem field for use by other operations. Returns early
      * if no user is logged in. Logs the selection action.
      * </p>
-     * @author Hoang Dat Bui (n11659831)
+     * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
      */
     @FXML
     private void selectItem() {
@@ -117,7 +117,7 @@ public class RecycleBinController implements Initializable {
      * DAO method to permanently remove the item from the database. For decks,
      * this also deletes all associated cards.
      * </p>
-     * @author Hoang Dat Bui (n11659831)
+     * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
      */
     @FXML
     private void deleteAnItem() {
@@ -156,7 +156,7 @@ public class RecycleBinController implements Initializable {
      * associated cards. For cards, only restores the individual card.
      * Refreshes the list after restoration and logs the action.
      * </p>
-     * @author Hoang Dat Bui (n11659831)
+     * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
      */
     @FXML
     private void restoreAnItem() {
@@ -196,7 +196,7 @@ public class RecycleBinController implements Initializable {
      * the current user and permanently deletes them from the database.
      * Refreshes the list after completion and logs the action.
      * </p>
-     * @author Hoang Dat Bui (n11659831)
+     * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
      */
     @FXML
     private void deleteAll() {
@@ -235,7 +235,7 @@ public class RecycleBinController implements Initializable {
      * their active state. For decks, also restores all associated cards.
      * Refreshes the list after completion and logs the action.
      * </p>
-     * @author Hoang Dat Bui (n11659831)
+     * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
      */
     @FXML
     private void restoreAll() {
@@ -274,7 +274,7 @@ public class RecycleBinController implements Initializable {
      * if no user is logged in. Refreshes the ListView display after
      * adding all items.
      * </p>
-     * @author Hoang Dat Bui (n11659831)
+     * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
      */
     private void reloadList() {
         if (!ApplicationState.isUserLoggedIn()) return;
@@ -297,7 +297,7 @@ public class RecycleBinController implements Initializable {
      *
      * @param user the user to get soft-deleted cards for
      * @return a list of soft-deleted cards, empty if user is invalid or no cards found
-     * @author Hoang Dat Bui (n11659831)
+     * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
      */
     private List<Card> getSoftDeletedCards(User user) {
         List<Card> softDeletedCards = new ArrayList<>();
