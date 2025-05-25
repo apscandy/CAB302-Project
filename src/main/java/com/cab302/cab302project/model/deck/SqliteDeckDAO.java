@@ -115,30 +115,41 @@ public final class SqliteDeckDAO implements IDeckDAO {
         if (deck == null || deck.getUserId() == 0) {
             throw new DeckIsNullException("Deck cannot be null");
         }
-       try{
-           // Transaction try/catch block
-           con.setAutoCommit(false);
-           try (PreparedStatement deleteStatement = con.prepareStatement(deleteDeckSQL)) {
-               deleteStatement.setInt(1, deck.getId());
-               deleteStatement.executeUpdate();
-               con.commit();
-               deleteStatement.close();
-           }catch (SQLException  e) {
-               con.rollback();
-               logger.error(e.getMessage());
-               throw new FailedToDeleteDeckException(e.getMessage());
-           }finally {
-               con.setAutoCommit(true);
-           }
-       } catch (Exception e) {
-           logger.error(e.getMessage());
-           throw new FailedToDeleteDeckException(e.getMessage());
-       }
+        try{
+            // Transaction try/catch block
+            con.setAutoCommit(false);
+            try (PreparedStatement deleteStatement = con.prepareStatement(deleteDeckSQL)) {
+                deleteStatement.setInt(1, deck.getId());
+                deleteStatement.executeUpdate();
+                con.commit();
+                deleteStatement.close();
+            }catch (SQLException  e) {
+                con.rollback();
+                logger.error(e.getMessage());
+                throw new FailedToDeleteDeckException(e.getMessage());
+            }finally {
+                con.setAutoCommit(true);
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new FailedToDeleteDeckException(e.getMessage());
+        }
     }
 
 
     /**
-     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * Marks a deck as soft-deleted by setting the is_deleted flag to true.
+     * <p>
+     * Updates the deck's deletion status in the database without permanently
+     * removing the record. This allows for potential recovery through the
+     * recycle bin functionality. Uses database transactions to ensure
+     * data integrity and rolls back changes if any errors occur.
+     * </p>
+     *
+     * @param deck The deck to be soft-deleted, must not be null and have valid ID
+     * @throws DeckIsNullException if deck is null or has invalid ID
+     * @throws FailedToDeleteDeckException if database operation fails
+     * @author Hoang Dat Bui (hoangdat.bui@connect.qut.edu.au), Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public void softDeleteDeck(Deck deck) {
@@ -168,7 +179,18 @@ public final class SqliteDeckDAO implements IDeckDAO {
     }
 
     /**
-     * @author Hoang Dat Bui
+     * Restores a soft-deleted deck by setting the is_deleted flag to false.
+     * <p>
+     * Updates the deck's deletion status to make it visible again in the
+     * main application interface. This operation reverses a soft deletion
+     * by changing the database flag back to active status. Uses transaction
+     * management to ensure the restore operation completes successfully.
+     * </p>
+     *
+     * @param deck The deck to be restored, must not be null and have valid ID
+     * @throws DeckIsNullException if deck is null or has invalid ID
+     * @throws FailedToDeleteDeckException if database operation fails
+     * @author Hoang Dat Bui (hoangdat.bui@connect.qut.edu.au)
      */
     @Override
     public void restoreDeck(Deck deck) {
@@ -238,7 +260,19 @@ public final class SqliteDeckDAO implements IDeckDAO {
     }
 
     /**
-     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * Retrieves all soft-deleted decks for a specific user.
+     * <p>
+     * Queries the database for decks marked as deleted (is_deleted = true)
+     * belonging to the specified user. Creates and returns a list of Deck
+     * objects representing the soft-deleted items that can be restored or
+     * permanently deleted.
+     * </p>
+     *
+     * @param user The user whose soft-deleted decks are being retrieved
+     * @return List of soft-deleted Deck objects, empty if none found
+     * @throws UserIsNullException if user is null or has invalid ID
+     * @throws FailedToGetListOfDecksException if database retrieval fails
+     * @author Hoang Dat Bui (hoangdat.bui@connect.qut.edu.au), Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public List<Deck> getSoftDeletedDecks(User user) {

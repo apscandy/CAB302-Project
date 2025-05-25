@@ -10,6 +10,19 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
+/**
+ * SQLite data access object for user security questions management.
+ * <p>
+ * Provides database operations for creating, retrieving, and updating
+ * user security questions and answers. Handles three security questions
+ * per user with their corresponding answers, storing them securely in
+ * the user_security_question table. All operations use database
+ * transactions with proper rollback handling for data integrity.
+ * Implements the IUserSecurityQuestionDAO interface for consistent
+ * data access patterns.
+ * </p>
+ * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
+ **/
 public final class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestionDAO {
 
     private final Connection conn;
@@ -27,9 +40,9 @@ public final class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestio
      * Stores a new set of security questions and answers for a user.
      * Inserts the user ID, questions, and answers into the user_security_question table.
      *
-     * @author Hoang Dat Bui, Andrew Clarke
      * @param question The UserSecurityQuestion object containing all question and answer data
      * @throws FailedToCreateQuestionsException if database insertion fails
+     * @author Hoang Dat Bui (hoangdat.bui@connect.qut.edu.au), Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public void createQuestion(UserSecurityQuestion question) {
@@ -60,12 +73,17 @@ public final class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestio
 
     /**
      * Retrieves security questions and answers for a specified user.
-     * Creates a UserSecurityQuestion object and populates it with data from the database.
+     * <p>
+     * Creates a UserSecurityQuestion object and populates it with data from the database
+     * using the user's ID. Retrieves all three security questions and their corresponding
+     * answers in a single database query. Uses transaction management to ensure data
+     * consistency during retrieval operations.
+     * </p>
      *
-     * @author Hoang Dat Bui, Andrew Clarke
      * @param user The User object whose security questions are being retrieved
      * @return A populated UserSecurityQuestion object with all questions and answers
      * @throws FailedToGetQuestionsException if database retrieval fails
+     * @author Hoang Dat Bui (hoangdat.bui@connect.qut.edu.au), Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public UserSecurityQuestion getQuestions(User user) {
@@ -110,11 +128,16 @@ public final class SqliteUserSecurityQuestionDAO implements IUserSecurityQuestio
 
     /**
      * Updates existing security questions and answers for a user.
-     * Modifies all question and answer fields in the database for the specified user ID.
+     * <p>
+     * Modifies all question and answer fields in the database for the specified user ID
+     * using a single UPDATE statement. All three security questions and answers are
+     * updated atomically within a database transaction. Rolls back changes if any
+     * error occurs during the update process to maintain data integrity.
+     * </p>
      *
-     * @author Hoang Dat Bui, Andrew Clarke
      * @param updatedQuestion The UserSecurityQuestion object containing updated data
      * @throws FailedToUpdateQuestionsException if database update fails
+     * @author Hoang Dat Bui (hoangdat.bui@connect.qut.edu.au), Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public void updateQuestions(UserSecurityQuestion updatedQuestion){
