@@ -6,7 +6,7 @@ import com.cab302.cab302project.model.deck.Deck;
  * Represents a flashcard that belongs to a deck.
  * Each Card has an id, associated deck, question, answer, tags, and a deletion flag.
  *
- * @author Monica Borg (n9802045)
+ * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
  */
 public final class Card {
     private int id;
@@ -23,6 +23,7 @@ public final class Card {
      * @param question the question text of the card
      * @param answer   the answer text of the card
      * @param tags     the tags associated with the card
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     public Card(Deck deck, String question, String answer, String tags) {
         this.deck = deck;
@@ -35,6 +36,7 @@ public final class Card {
      * Gets the card's id.
      *
      * @return the id of the card
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     public int getId() {
         return id;
@@ -44,6 +46,7 @@ public final class Card {
      * Gets the deck associated with this card.
      *
      * @return the deck of the card
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     public Deck getDeck() {
         return deck;
@@ -53,6 +56,7 @@ public final class Card {
      * Gets the question text of this card.
      *
      * @return the question
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     public String getQuestion() {
         return question;
@@ -62,6 +66,7 @@ public final class Card {
      * Gets the answer text of this card.
      *
      * @return the answer
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     public String getAnswer() {
         return answer;
@@ -71,6 +76,7 @@ public final class Card {
      * Gets the tags associated with this card.
      *
      * @return the tags
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     public String getTags() {
         return tags;
@@ -80,11 +86,18 @@ public final class Card {
      * Checks whether this card is marked as deleted (soft delete).
      *
      * @return true if deleted, false otherwise
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     public boolean isDeleted() {
         return isDeleted;
     }
 
+    /**
+     * Sets the ID of the card.
+     *
+     * @param id the ID to assign to the card
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
+     */
     void setId(int id) {
         this.id = id;
     }
@@ -93,6 +106,7 @@ public final class Card {
      * Sets the deck of the card.
      *
      * @param deck the new deck to set
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     public void setDeck(Deck deck) {
         this.deck = deck;
@@ -102,6 +116,7 @@ public final class Card {
      * Sets the question text of the card.
      *
      * @param question the new question text
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     public void setQuestion(String question) {
         this.question = question;
@@ -111,6 +126,7 @@ public final class Card {
      * Sets the answer text of the card.
      *
      * @param answer the new answer text
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     public void setAnswer(String answer) {
         this.answer = answer;
@@ -119,12 +135,19 @@ public final class Card {
     /**
      * Sets the tags of the card.
      *
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      * @param tags the new tags
      */
     public void setTags(String tags) {
         this.tags = tags;
     }
 
+    /**
+     * Sets whether the card is marked as deleted.
+     *
+     * @param deleted true if the card should be marked deleted, false otherwise
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
+     */
     void setDeleted(boolean deleted) {
         isDeleted = deleted;
     }
@@ -134,6 +157,7 @@ public final class Card {
      * Typically, the question is returned.
      *
      * @return the question text of the card
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     @Override
     public String toString() {
