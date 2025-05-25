@@ -54,7 +54,7 @@ public class MenuBarController {
      * <p>
      * Logs the action and then calls {@link System#exit(int)} with status 0.
      * </p>
-     * @author Andrew Clarke (n11270179)
+     * @author Andrew Clarke (n11270179) (a40.clarke@connect.qut.edu.au)
      */
     @FXML
     private void closeProgram() {
@@ -68,7 +68,7 @@ public class MenuBarController {
      * Loads 'main/main.fxml' and sets it as the current scene
      * on the primary stage. Any exceptions during FXML loading are printed.
      * </p>
-     * @author Monica Borg (n09802045)
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void home() {
@@ -94,7 +94,7 @@ public class MenuBarController {
      * </p>
      *
      * @throws IOException if the FXML resource cannot be loaded
-     * @author Maverick Doan (n11562773)
+     * @author Maverick Doan (n11562773) (minhson.doan@connect.qut.edu.au)
      */
     @FXML
     private void goToTestModeRandom() throws IOException {
@@ -123,7 +123,7 @@ public class MenuBarController {
      * </p>
      *
      * @throws IOException if the FXML resource cannot be loaded
-     * @author Maverick Doan (n11562773)
+     * @author Maverick Doan (n11562773) (minhson.doan@connect.qut.edu.au)
      */
     @FXML
     private void goToTestModeSmart() throws IOException {
@@ -150,7 +150,7 @@ public class MenuBarController {
      * Validates deck selection, sets mode to Sequential, and loads
      * 'test-mode/test-mode.fxml'. Exceptions are caught and logged.
      * </p>
-     * @author Andrew Clarke (n11270179)
+     * @author Andrew Clarke (n11270179) (a40.clarke@connect.qut.edu.au)
      */
     @FXML
     private void goToTestModeStandard() {
@@ -176,7 +176,7 @@ public class MenuBarController {
      * <p>
      * Loads 'deck/deck-view.fxml' for creating, editing, or deleting decks.
      * </p>
-     * @author Monica Borg (n09802045)
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void openDeckView() {
@@ -198,7 +198,7 @@ public class MenuBarController {
      * <p>
      * Navigates to 'card/new-card-view.fxml' for adding new flip cards.
      * </p>
-     * @author Monica Borg (n09802045)
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void openCardView() {
@@ -220,7 +220,7 @@ public class MenuBarController {
      * <p>
      * Loads 'deck/bookmarked-decks.fxml' to display decks marked as bookmarked.
      * </p>
-     * @author Monica Borg (n09802045)
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void openBookmarkView() {
@@ -242,7 +242,7 @@ public class MenuBarController {
      * <p>
      * Clears the application state, then loads 'prompt-email-view.fxml'.
      * </p>
-     * @author Monica Borg (n09802045)
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void logOut() {
@@ -265,7 +265,7 @@ public class MenuBarController {
      * <p>
      * Loads 'recyclebin/recycle-bin-view.fxml' to allow permanent deletion or restoration.
      * </p>
-     * @author David Bui (n11659831)
+     * @author David Bui (n11659831) (hoangdat.bui@connect.qut.edu.au)
      */
     @FXML
     private void enterRecycleBin() {
@@ -287,7 +287,7 @@ public class MenuBarController {
      * <p>
      * Uses {@link #switchScene(String)} with 'change-email-view.fxml'.
      * </p>
-     * @author Lewis Phan (n11781840)
+     * @author Lewis Phan (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
     private void changeEmailButton() {
@@ -299,7 +299,7 @@ public class MenuBarController {
      * <p>
      * Uses {@link #switchScene(String)} with 'change-password-view.fxml'.
      * </p>
-     * @author Lewis Phan (n11781840)
+     * @author Lewis Phan (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
     private void changePasswordButton() {
@@ -311,7 +311,7 @@ public class MenuBarController {
      * <p>
      * Uses {@link #switchScene(String)} with 'change-security-questions-view.fxml'.
      * </p>
-     * @author Lewis Phan (n11781840)
+     * @author Lewis Phan (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
     private void changeSecurityQuestionButton() {
@@ -324,7 +324,7 @@ public class MenuBarController {
      * Prompts with a CONFIRMATION dialog; if confirmed, calls
      * {@link SqliteUserDAO#deleteUser(User)} and logs out, then
      * navigates back to the login prompt.</p>
-     * @author Lewis Phan (n11781840)
+     * @author Lewis Phan (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
     private void DeleteAccount() {
@@ -367,7 +367,7 @@ public class MenuBarController {
      * </p>
      *
      * @param fxmlPath the relative path to an FXML resource under the package
-     * @author Lewis Phan (n11781840)
+     * @author Lewis Phan (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     private void switchScene(String fxmlPath) {
         try {
@@ -398,7 +398,7 @@ public class MenuBarController {
      * {@link DeckCSVUtils#importDeck(String, User)} to parse and build a Deck.
      * Inserts the Deck and its Cards into the database, showing alerts for
      * success or any encountered errors.</p>
-     * @author Maverick Doan (n11562773)
+     * @author Maverick Doan (n11562773) (minhson.doan@connect.qut.edu.au)
      */
     @FXML
     private void importDeckCSV() {

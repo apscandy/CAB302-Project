@@ -15,7 +15,7 @@ import java.util.*;
  * Implementation of ICardDAO for SQLite.
  * Handles insertion, update, and soft deletion of cards, as well as retrieval of cards for a given deck.
  *
- * @author Monica Borg (n9802045)
+ * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
  */
 public final class SqliteCardDAO implements ICardDAO {
 
@@ -44,6 +44,7 @@ public final class SqliteCardDAO implements ICardDAO {
      *
      * @param card the card to add
      * @throws RuntimeException if an error occurs during insertion
+     * @author Andrew Clarke (n11270179) (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public void addCard(Card card) throws RuntimeException {
@@ -79,6 +80,7 @@ public final class SqliteCardDAO implements ICardDAO {
      * Uses a transaction to ensure the operation is atomic.
      *
      * @param card the card to update
+     * @author Andrew Clarke (n11270179) (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public void updateCard(Card card) {
@@ -105,6 +107,13 @@ public final class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Deletes a card from the database (permanently, only if soft-deleted).
+     * Uses a transaction to ensure the operation is atomic.
+     *
+     * @param card the card to delete
+     * @author David Bui (n11659831) (hoangdat.bui@connect.qut.edu.au)
+     */
     @Override
     public void deleteCard(Card card) {
         if (card == null) {
@@ -136,6 +145,8 @@ public final class SqliteCardDAO implements ICardDAO {
      * Uses a transaction to ensure the operation is atomic.
      *
      * @param card the card to soft delete
+     * @author David Bui (n11659831) (hoangdat.bui@connect.qut.edu.au)
+     * @author Andrew Clarke (n11270179) (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public void softDeleteCard(Card card) {
@@ -160,6 +171,13 @@ public final class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Restores a previously soft-deleted card by updating its deleted flag.
+     * Uses a transaction to ensure atomicity.
+     *
+     * @param card the card to restore
+     * @author David Bui (n11659831) (hoangdat.bui@connect.qut.edu.au)
+     */
     @Override
     public void restoreCard(Card card) {
         try {
@@ -188,6 +206,7 @@ public final class SqliteCardDAO implements ICardDAO {
      *
      * @param deck the deck for which cards are retrieved
      * @return a List of cards in the deck
+     * @author Andrew Clarke (n11270179) (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public List<Card> getCardsForDeck(Deck deck) {
@@ -231,6 +250,7 @@ public final class SqliteCardDAO implements ICardDAO {
      * and setting the deck’s internal list.
      *
      * @param deck Deck to load cards into
+     * @author Andrew Clarke (n11270179) (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public void getCardAndLoadIntoDeck(Deck deck) {
@@ -267,6 +287,12 @@ public final class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Restores all cards marked as deleted under the specified deck.
+     *
+     * @param deck the deck whose cards will be restored
+     * @author David Bui (n11659831) (hoangdat.bui@connect.qut.edu.au)
+     */
     @Override
     public void restoreCardsByDeck(Deck deck) {
         if (deck == null || deck.getUserId() == 0 || deck.getId() == 0){
@@ -293,6 +319,13 @@ public final class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Retrieves all soft-deleted cards for the specified deck.
+     *
+     * @param deck the deck to retrieve soft-deleted cards from
+     * @return list of soft-deleted cards
+     * @author David Bui (n11659831) (hoangdat.bui@connect.qut.edu.au)
+     */
     @Override
     public List<Card> getSoftDeletedCardsForDeck(Deck deck) {
         List<Card> cards = new ArrayList<>();
@@ -420,13 +453,11 @@ public final class SqliteCardDAO implements ICardDAO {
             }
         }
 
-        // Cards with wrong rate > 55% are sorted by wrong rate in desc order
         wrongCards.sort((c1, c2) -> Double.compare(
                 wrongRates.getOrDefault(c2.getId(), 0.0),
                 wrongRates.getOrDefault(c1.getId(), 0.0)
         ));
 
-        // The rest will be shuffled in a random order
         Collections.shuffle(okCards);
 
         List<Card> result = new ArrayList<>();
