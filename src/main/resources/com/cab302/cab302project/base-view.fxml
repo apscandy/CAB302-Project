@@ -22,16 +22,9 @@
           <MenuItem fx:id="newCardMenuItem" onAction="#openCardView" text="Card" />
         </Menu>
         <Menu text="Test">
-          <Menu text="Flip Mode">
-            <MenuItem fx:id="flipStandard" onAction="#goToTestModeStandard" text="Standard" />
-            <MenuItem fx:id="flipRandom" onAction="#goToTestModeRandom" text="Random" />
-            <MenuItem fx:id="flipSpecial" onAction="#goToTestModeSmart" text="Special" />
-          </Menu>
-          <Menu text="Multiple Choice Mode">
-            <MenuItem fx:id="mcStandard" onAction="#home" text="Standard" />
-            <MenuItem fx:id="mcRandom" onAction="#home" text="Random" />
-            <MenuItem fx:id="mcSpecial" onAction="#home" text="Special" />
-          </Menu>
+          <MenuItem fx:id="flipStandard" onAction="#goToTestModeStandard" text="Standard" />
+          <MenuItem fx:id="flipRandom" onAction="#goToTestModeRandom" text="Random" />
+          <MenuItem fx:id="flipSpecial" onAction="#goToTestModeSmart" text="Special" />
         </Menu>
         <Menu text="Profile Management">
           <MenuItem fx:id="changeEmailMenuItem" onAction="#changeEmailButton" text="Change Email" />
