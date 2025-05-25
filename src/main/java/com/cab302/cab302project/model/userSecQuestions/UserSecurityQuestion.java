@@ -3,8 +3,18 @@ package com.cab302.cab302project.model.userSecQuestions;
 import com.cab302.cab302project.model.user.User;
 
 /**
- * @author Hoang Dat Bui, Andrew Clarke
- */
+ * Model class representing a user's security questions and answers.
+ * <p>
+ * Encapsulates three security questions and their corresponding answers
+ * for a specific user, used during password reset authentication.
+ * Each instance is tied to a User object and provides getter and setter
+ * methods for managing the security question data. The class maintains
+ * the association between questions and answers while ensuring data
+ * integrity through immutable user reference. Used by the authentication
+ * system to validate user identity during password recovery processes.
+ * </p>
+ * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au), Andrew Clarke (n11270179, a40.clarke@connect.qut.edu.au)
+ **/
 
 public final class UserSecurityQuestion {
     private final User user;
