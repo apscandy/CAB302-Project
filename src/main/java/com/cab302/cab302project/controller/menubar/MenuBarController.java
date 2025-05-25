@@ -383,6 +383,16 @@ public class MenuBarController {
 
     /**
      * Imports a Deck from a CSV file.
+     *<p>
+     * CSV layout:<br>
+     * Deck Name,Deck Description<br>
+     * &lt;name&gt;,&lt;description&gt;<br><br>
+     *
+     * Question,Answer,Tags<br>
+     * "question 1","answer 1","tag1;tag2"<br>
+     * "question 2","answer 2",""<br>
+     * ...
+     *</p>
      * <p>
      * Prompts the user to select a CSV via {@link FileChooser}, then uses
      * {@link DeckCSVUtils#importDeck(String, User)} to parse and build a Deck.
@@ -393,6 +403,26 @@ public class MenuBarController {
     @FXML
     private void importDeckCSV() {
         if (!ApplicationState.isUserLoggedIn()) return;
+        ShowAlertUtils.showInfo("CSV Format Guide",
+                """
+                CSV Format Required:
+                ------------------------------
+                Deck Name,Deck Description
+                name,description
+                Question,Answer,Tags
+                "question 1","answer 1","tag"
+                "question 2","answer 2",""
+                ------------------------------
+                Example:
+                ------------------------------
+                Deck Name,Deck Description
+                My Deck,This is my deck
+                
+                Question,Answer,Tags
+                "What is Java?","A programming language","programming"
+                "Capital of France?","Paris","geography"
+                ------------------------------
+                """);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Deck CSV");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
@@ -402,12 +432,20 @@ public class MenuBarController {
         try {
             deck = DeckCSVUtils.importDeck(file.getAbsolutePath(),
                     ApplicationState.getCurrentUser());
-        } catch (CSVImportException |
-                 CSVImportInvalidFormatException |
-                 InvalidCSVContentException |
-                 FilePathIsNullException |
-                 InvalidFilePathException e) {
-            ShowAlertUtils.showError("Import Failed", e.getMessage());
+        } catch (CSVImportException e) {
+            ShowAlertUtils.showError("CSV Import Failed", e.getMessage());
+            return;
+        } catch (CSVImportInvalidFormatException e) {
+            ShowAlertUtils.showError("Invalid CSV Format", e.getMessage());
+            return;
+        } catch (InvalidCSVContentException e) {
+            ShowAlertUtils.showError("Invalid CSV Content", e.getMessage());
+            return;
+        } catch (FilePathIsNullException e) {
+            ShowAlertUtils.showError("Missing File Path for Import", e.getMessage());
+            return;
+        } catch (InvalidFilePathException e) {
+            ShowAlertUtils.showError("Invalid File Path for Import", e.getMessage());
             return;
         }
         IDeckDAO deckDAO = new SqliteDeckDAO();
