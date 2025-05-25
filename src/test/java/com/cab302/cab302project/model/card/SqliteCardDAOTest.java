@@ -14,7 +14,9 @@ import org.junit.jupiter.api.*;
 
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -119,5 +121,54 @@ class SqliteCardDAOTest {
         List<Card> loaded = deck.getCards();
         assertNotNull(loaded);
         assertEquals(cardDAO.getCardsForDeck(deck).size(), loaded.size());
+    }
+
+    private static Deck testDeck;
+    private static User testUser;
+
+    @Test
+    @Order(5)
+    public void testSmartShufflerWithMockStats() {
+        con = SqliteConnection.getInstance();
+        deckDAO = new SqliteDeckDAO();
+        cardDAO = new SqliteCardDAO();
+        userDAO = new SqliteUserDAO();
+        testUser = new User("Testtestest", "Testsetet", "aisdhfoaih@oiasdhf.ocm.au", "7gasdfU8:kk");
+        userDAO.addUser(testUser);
+        testDeck = new Deck("Test Deck", "sakjdfaksdhf", testUser);
+        deckDAO.createDeck(testDeck);
+        for (int i = 1; i <= 5; i++) {
+            Card card = new Card(testDeck, "Q" + i, "A" + i, "");
+            cardDAO.addCard(card);
+        }
+        List<Card> cards = cardDAO.getCardsForDeck(testDeck);
+        assertEquals(5, cards.size(), "There should be 5 cards in the deck");
+
+        // Mock review results
+        Map<Integer, double[]> cardStats = new HashMap<>();
+
+        for (Card card : cards) {
+            switch (card.getQuestion()) {
+                case "Q1" -> cardStats.put(card.getId(), new double[]{1, 5}); // 83% wrong
+                case "Q2" -> cardStats.put(card.getId(), new double[]{2, 2}); // 50% wrong
+                case "Q3" -> cardStats.put(card.getId(), new double[]{0, 3}); // 100% wrong
+                case "Q4" -> cardStats.put(card.getId(), new double[]{3, 0}); // 0% wrong
+            }
+        }
+
+        List<Card> shuffledCards = new SqliteCardDAO().getSmartShuffledCardsForDeck(testDeck, cardStats);
+        int indexQ1 = -1, indexQ2 = -1, indexQ3 = -1, indexQ4 = -1, indexQ5 = -1;
+        for (int i = 0; i < shuffledCards.size(); i++) {
+            Card card = shuffledCards.get(i);
+            switch (card.getQuestion()) {
+                case "Q1" -> indexQ1 = i;
+                case "Q2" -> indexQ2 = i;
+                case "Q3" -> indexQ3 = i;
+                case "Q4" -> indexQ4 = i;
+                case "Q5" -> indexQ5 = i;
+            }
+        }
+        assertTrue( indexQ1 != -1 && indexQ2 != -1 && indexQ3 != -1 && indexQ4 != -1 && indexQ5 != -1, "Not all questions present");
+        assertTrue(indexQ1 < indexQ2 && indexQ3 < indexQ2 && indexQ3 < indexQ1, "Wrong order");
     }
 }
