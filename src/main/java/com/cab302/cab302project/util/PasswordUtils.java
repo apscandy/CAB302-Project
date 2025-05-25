@@ -14,6 +14,14 @@ import java.security.MessageDigest;
  */
 public class PasswordUtils {
     private static final Logger logger = LogManager.getLogger(PasswordUtils.class);
+    /**
+     * Hashes the provided plain-text password using SHA256 and returns the result
+     * as a hex string.
+     * @param password the plain-text password to hash
+     * @return the SHA-256 hash of the password in hexadecimal format
+     * @throws RuntimeException if SHA-256 algorithm is not available or an error occurs during hashing
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
     public static String hashSHA256(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");

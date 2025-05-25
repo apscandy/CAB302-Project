@@ -388,7 +388,9 @@ public final class SqliteCardDAO implements ICardDAO {
      * Returns a smart-shuffled list of cards:
      * - Cards with wrong rate >= 0.55 are first, sorted from highest to lowest wrong rate
      * - Remaining cards are shown in random order
-     *
+     * @param deck the deck from which to retrieve cards for smart shuffling
+     * @param cardResults a map of card IDs to [correct, incorrect] statistics
+     * @return a list of cards ordered by learning priority
      * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
      */
     public List<Card> getSmartShuffledCardsForDeck(Deck deck, Map<Integer, double[]> cardResults) {
