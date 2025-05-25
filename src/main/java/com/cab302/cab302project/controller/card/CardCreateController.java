@@ -174,18 +174,6 @@ public class CardCreateController implements Initializable {
     }
 
     /**
-     * Updates the input fields based on the card selected from the list.
-     */
-    @FXML
-    private void selectListViewItem() {
-        selectedCard = cardsList.getSelectionModel().getSelectedItem();
-        if (selectedCard != null) {
-            cardName.setText(selectedCard.getQuestion());
-            cardAnswer.setText(selectedCard.getAnswer());
-        }
-    }
-
-    /**
      * Returns to the deck view.
      * <p>
      * This method checks the deckComboBox for a selected deck.
