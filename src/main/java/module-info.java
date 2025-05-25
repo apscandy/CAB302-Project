@@ -25,6 +25,7 @@ module com.cab302.cab302project {
     opens com.cab302.cab302project.controller.user to javafx.fxml;
     opens com.cab302.cab302project.controller.card to javafx.fxml;
     opens com.cab302.cab302project.controller.recyclebin to javafx.fxml;
-    exports com.cab302.cab302project.controller;
     opens com.cab302.cab302project.controller to javafx.fxml;
+    exports com.cab302.cab302project.controller.results;
+    opens com.cab302.cab302project.controller.results to javafx.fxml;
 }
