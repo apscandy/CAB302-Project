@@ -78,6 +78,7 @@ public interface ICardDAO {
      *
      * @param deck
      * @return the shuffle deck
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     List<Card> getRandomizedCardsForDeck(Deck deck);
 }

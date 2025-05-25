@@ -1,7 +1,5 @@
 package com.cab302.cab302project.controller.user;
 
-import com.cab302.cab302project.model.user.IUserDAO;
-import com.cab302.cab302project.model.userSecQuestions.IUserSecurityQuestionDAO;
 import com.cab302.cab302project.util.RegexValidator;
 import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.error.authentication.*;
@@ -11,11 +9,9 @@ import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextInputControl;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -55,6 +51,7 @@ public class RegisterController {
 
     /**
      * Navigates back to the prompt-email view when "Back" button is clicked.
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     public void BackButtonAction() throws IOException {
         Stage stage = (Stage) BackButton.getScene().getWindow();
@@ -65,6 +62,7 @@ public class RegisterController {
 
     /**
      * Validates input fields and, if successful, transitions to the security question view.
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     public void NextButtonAction() throws IOException {
         if (registerUser()) {
@@ -87,7 +85,7 @@ public class RegisterController {
      * it temporarily for use in the Add Security Question step.
      * </p>
      * @return true if all fields are valid, false otherwise
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     public boolean registerUser() {
 

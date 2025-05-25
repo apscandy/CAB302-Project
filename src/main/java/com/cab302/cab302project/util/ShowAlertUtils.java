@@ -18,22 +18,52 @@ import javafx.scene.control.ButtonType;
  * });
  * }</pre>
  *
- * @author Dang Linh Phan - Lewis (n11781840)
+ * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
  */
 public class ShowAlertUtils {
 
+    /**
+     * Displays an information alert dialog with the given title and content.
+     *
+     * @param title   the title of the alert dialog
+     * @param content the message content of the alert
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
+     */
     public static void showInfo(String title, String content) {
         showAlert(AlertType.INFORMATION, title, content);
     }
 
+    /**
+     * Displays a warning alert dialog with the given title and content.
+     *
+     * @param title   the title of the alert dialog
+     * @param content the message content of the alert
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
+     */
     public static void showWarning(String title, String content) {
         showAlert(AlertType.WARNING, title, content);
     }
 
+    /**
+     * Displays an error alert dialog with the given title and content.
+     *
+     * @param title   the title of the alert dialog
+     * @param content the message content of the alert
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
+     */
     public static void showError(String title, String content) {
         showAlert(AlertType.ERROR, title, content);
     }
 
+    /**
+     * Displays an alert dialog with the specified alert type, title, and content.
+     * This method is used internally by other helper methods.
+     *
+     * @param type    the type of alert (e.g., INFORMATION, WARNING, ERROR)
+     * @param title   the title of the alert dialog
+     * @param content the message content of the alert
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
+     */
     private static void showAlert(AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -42,6 +72,16 @@ public class ShowAlertUtils {
         alert.showAndWait();
     }
 
+    /**
+     * Displays a confirmation alert dialog with the given title, header, and content,
+     * and provides a consumer to handle the user's response (e.g., OK or Cancel).
+     *
+     * @param title   the title of the confirmation dialog
+     * @param header  the header text displayed above the content
+     * @param content the message content of the dialog
+     * @param action  a {@link java.util.function.Consumer} that handles the button the user clicks
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
+     */
     public static void showConfirmation(String title, String header, String content, java.util.function.Consumer<ButtonType> action) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
