@@ -2,7 +2,7 @@ package com.cab302.cab302project.controller.testMode;
 
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.HelloApplication;
-import com.cab302.cab302project.controller.ResultsController;
+import com.cab302.cab302project.controller.results.ResultsController;
 import com.cab302.cab302project.model.card.Card;
 import com.cab302.cab302project.model.card.SqliteCardDAO;
 import com.cab302.cab302project.model.session.*;

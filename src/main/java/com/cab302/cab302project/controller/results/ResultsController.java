@@ -1,4 +1,4 @@
-package com.cab302.cab302project.controller;
+package com.cab302.cab302project.controller.results;
 
 import com.cab302.cab302project.model.session.Session;
 import javafx.fxml.FXML;
