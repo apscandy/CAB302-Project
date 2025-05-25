@@ -116,6 +116,7 @@ public class DeckCSVUtils {
     }
 
     /**
+     * Splits a single CSV row into individual fields, handling quoted values and escaped quotes.
      * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
      */
     static List<String> splitCSVLine(String row, int colCount) {
