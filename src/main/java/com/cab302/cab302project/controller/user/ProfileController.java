@@ -17,25 +17,31 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Controller class for handling user profile-related actions, such as updating email and password.
- * This class is responsible for validating user inputs, updating data through DAOs,
- * and navigating between views using JavaFX.
- *
- * <p>It handles the following actions:
+ * Controller class for managing user profile actions in the application.
+ * <p>
+ * This class is responsible for handling user interactions related to:
  * <ul>
- *     <li>Update email address with validation and duplication check</li>
- *     <li>Update password with format and confirmation validation</li>
- *     <li>Cancel email or password update and return to main view</li>
+ *     <li>Updating the email address (with validation and duplication check)</li>
+ *     <li>Updating the password (with format and confirmation validation)</li>
+ *     <li>Cancelling updates and navigating back to the main view</li>
  * </ul>
  * </p>
+ *
+ * <p>It uses JavaFX FXML annotations to bind UI components and provides database interaction through DAO classes.</p>
+ *
+ * @see com.cab302.cab302project.model.user.SqliteUserDAO
+ * @see com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO
+ * @see com.cab302.cab302project.util.ShowAlertUtils
+ * @see com.cab302.cab302project.util.PasswordUtils
+ * @see com.cab302.cab302project.util.RegexValidator
+ *
  * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
  */
+
 public class ProfileController {
 
     // FXML components for email and password update forms
     @FXML private PasswordField newPasswordFieldConfirm;
-    @FXML private Button cancelButton;
-    @FXML private Button confirmButton;
     @FXML private TextField OldEmailAddressTextField;
     @FXML private TextField NewEmailAddressTextField;
     @FXML private PasswordField oldPasswordField;
@@ -46,9 +52,22 @@ public class ProfileController {
     private final SqliteUserSecurityQuestionDAO secDAO = new SqliteUserSecurityQuestionDAO();
 
     /**
-     * Handles the update of the user's email address.
-     * Validates input fields, checks if the new email is in correct format and not already in use.
-     * Updates the user's email in the database and redirects to the login screen on success.
+     * Handles the process of updating the user's email address.
+     * <p>
+     * This method performs the following checks:
+     * <ul>
+     *     <li>Old and new email fields must be filled</li>
+     *     <li>Old email must match the currently logged-in user's email</li>
+     *     <li>New email must be different from the old one</li>
+     *     <li>New email must match a valid email format</li>
+     *     <li>New email must not be already registered in the system</li>
+     * </ul>
+     * </p>
+     * If validation passes, the user's email is updated in the database and the user is logged out and redirected to the login screen.
+     *
+     * @see com.cab302.cab302project.error.authentication.EmailAlreadyInUseException
+     * @see com.cab302.cab302project.util.RegexValidator#validEmailAddress(String)
+     * @see com.cab302.cab302project.util.ShowAlertUtils
      * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
@@ -102,7 +121,13 @@ public class ProfileController {
     }
 
     /**
-     * Cancels the email update process and redirects the user to the main view.
+     * Cancels the email update process and redirects the user back to the main view.
+     * <p>
+     * This action discards all unsaved changes and loads the "main.fxml" scene.
+     * </p>
+     *
+     * @see javafx.stage.Stage
+     * @see javafx.fxml.FXMLLoader
      * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
@@ -119,10 +144,21 @@ public class ProfileController {
     }
 
     /**
-     * Handles the logic to update the user's password.
-     * <p>Validates the input, checks that the old password matches,
-     * the new password is secure, and that the confirmation matches.
-     * Updates the password in the database if all checks pass.</p>
+     * Handles the process of updating the user's password.
+     * <p>
+     * This method performs the following validations:
+     * <ul>
+     *     <li>Old and new password fields must be filled</li>
+     *     <li>Old password must match the currently logged-in user's password (hashed)</li>
+     *     <li>New password must be different from the old one</li>
+     *     <li>New password must satisfy strength criteria (minimum 8 characters, 1 number, 1 special character)</li>
+     *     <li>Confirmation password must match the new password</li>
+     * </ul>
+     * </p>
+     * On success, the password is hashed, updated in the database, and the user is returned to the main view.
+     *
+     * @see com.cab302.cab302project.util.PasswordUtils
+     * @see com.cab302.cab302project.util.RegexValidator#validPassword(String)
      * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
@@ -174,7 +210,13 @@ public class ProfileController {
     }
 
     /**
-     * Cancels the password update process and redirects the user to the main view.
+     * Cancels the password update process and redirects the user back to the main view.
+     * <p>
+     * This action discards all unsaved changes and loads the "main.fxml" scene.
+     * </p>
+     *
+     * @see javafx.stage.Stage
+     * @see javafx.fxml.FXMLLoader
      * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML

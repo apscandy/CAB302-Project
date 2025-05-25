@@ -17,10 +17,28 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * The {@code RegisterController} class provides methods to handle
- * button function in FXML file, checking validated data, add those data to tempUser and move to security question window.
- * This class link to register-view.fxml to control the Ul for register.
- *
+ * The {@code RegisterController} class handles user input for the registration form,
+ * validates all fields including email and password, and manages navigation
+ * between the registration and security question views.
+ * <p>This controller is bound to the {@code register-view.fxml} layout and coordinates
+ * data collection for creating a temporary {@link com.cab302.cab302project.model.user.User} object.
+ * Upon successful validation, the controller transitions to the Add Security Question stage
+ * handled by {@link com.cab302.cab302project.controller.user.AddSecurityQuestionController}.
+ * </p>
+ * <p>Key responsibilities include:
+ * <ul>
+ *   <li>Handling back and next button navigation events</li>
+ *   <li>Validating input fields (first name, last name, email, password)</li>
+ *   <li>Checking email uniqueness using {@link com.cab302.cab302project.error.authentication}</li>
+ *   <li>Displaying validation feedback using {@link com.cab302.cab302project.util.ShowAlertUtils}</li>
+ * </ul>
+ * </p>
+ * @see com.cab302.cab302project.model.user.User
+ * @see com.cab302.cab302project.controller.user.AddSecurityQuestionController
+ * @see com.cab302.cab302project.error.authentication
+ * @see com.cab302.cab302project.util.RegexValidator
+ * @see com.cab302.cab302project.util.ShowAlertUtils
+ * @see <a href="../../../../user/register/register-view.fxml">register-view.fxml</a>
  * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
  */
 public class RegisterController {
@@ -50,7 +68,14 @@ public class RegisterController {
     private String confirmPassword;
 
     /**
-     * Navigates back to the prompt-email view when "Back" button is clicked.
+     * Navigates back to the prompt-email view when the "Back" button is clicked.
+     * <p>
+     * This method is triggered by the Back button and loads the {@code prompt-email-view.fxml} UI.
+     * It allows the user to return to the previous login stage if they wish to cancel registration.
+     * </p>
+     * @throws IOException if the FXML file fails to load
+     * @see com.cab302.cab302project.HelloApplication
+     * @see <a href="../../../../user/login/prompt-email-view.fxml">prompt-email-view.fxml</a>
      * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     public void BackButtonAction() throws IOException {
@@ -61,7 +86,17 @@ public class RegisterController {
     }
 
     /**
-     * Validates input fields and, if successful, transitions to the security question view.
+     * Validates input fields and transitions to the "Add Security Questions" view if all inputs are valid.
+     * <p>
+     * This method checks that all registration fields are correct using {@link #registerUser()},
+     * then creates a temporary {@link User} object and passes it to the next controller
+     * {@link AddSecurityQuestionController} to complete the second step of registration.
+     * </p>
+     *
+     * @throws IOException if the FXML file for the next view fails to load
+     * @see #registerUser()
+     * @see AddSecurityQuestionController#setTempUser(User)
+     * @see <a href="../../../../user/register/add-questions-security-view.fxml">add-questions-security-view.fxml</a>
      * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     public void NextButtonAction() throws IOException {
@@ -80,11 +115,19 @@ public class RegisterController {
     }
 
     /**
+     * Validates all user input fields in the registration form.
      * <p>
-     * Validates all user input fields. If valid, creates a User object and stores
-     * it temporarily for use in the Add Security Question step.
+     * This includes validation for first name, last name, email, password format,
+     * password confirmation, and email uniqueness via {@link AuthenticationService#emailCheck(String)}.
+     * Displays warning messages via {@link ShowAlertUtils#showError(String, String)} if any field is invalid.
      * </p>
-     * @return true if all fields are valid, false otherwise
+     * @return {@code true} if all fields are valid and ready for next step; {@code false} otherwise
+     * @see ShowAlertUtils#showError(String, String)
+     * @see RegexValidator#validEmailAddress(String)
+     * @see RegexValidator#validPassword(String)
+     * @see AuthenticationService#emailCheck(String)
+     * @see EmailAlreadyInUseException
+     * @see User
      * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     public boolean registerUser() {

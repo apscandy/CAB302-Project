@@ -85,7 +85,7 @@ public interface ICardDAO {
 
     /**
      *
-     * @param deck
+     * @param deck Deck to load Cards into
      * @return the shuffle deck
      * @author Lewis Phan (n11781840) (danglinh.phan@connect.qut.edu.au)
      */

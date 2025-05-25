@@ -75,9 +75,15 @@ public class ProfileControllerSecurityQuestion {
     private boolean isUpdating = false;
 
     /**
-     * Loads and displays the currently logged-in user's existing security questions and answers.
+     * Loads and displays the currently logged-in user's existing security questions and answers
+     * into the corresponding ComboBoxes and TextFields.
+     * <p>
+     * This method is called during initialization to populate the UI with the user's current
+     * security question settings, allowing them to view or modify their answers.
+     * </p>
      *
-     * @param currentUser The currently logged-in user whose security questions will be loaded.
+     * @param currentUser the currently logged-in user whose security questions will be loaded
+     * @see SqliteUserSecurityQuestionDAO#getQuestions(User)
      * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
@@ -95,8 +101,13 @@ public class ProfileControllerSecurityQuestion {
     }
 
     /**
-     * Initializes the controller by setting up combo boxes and loading current user's existing questions.
-     * This method is automatically called by JavaFX after the FXML file is loaded.
+     * Initializes the controller after the FXML elements have been loaded.
+     * <p>
+     * This method sets the available security questions in all ComboBoxes and sets up
+     * change listeners to prevent duplicate selections. It also loads the currently logged-in
+     * user's security questions and answers.
+     * </p>
+     * @see #loadUserSecurityQuestions(User)
      * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
@@ -115,9 +126,14 @@ public class ProfileControllerSecurityQuestion {
     }
 
     /**
-     * Ensures that when one combo box value changes, the other combo boxes do not contain duplicate selections.
+     * Handles the logic for preventing duplicate question selections when a ComboBox is changed.
+     * <p>
+     * When a user selects a new question in one ComboBox, the method updates the other ComboBoxes
+     * to ensure that each question remains unique across the three selections.
+     * </p>
      *
-     * @param source The combo box that was changed by the user.
+     * @param source the ComboBox that triggered the change event
+     * @see #updateComboBoxes(ComboBox)
      * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     private void handleComboBoxChange(ComboBox<String> source) {
@@ -128,9 +144,15 @@ public class ProfileControllerSecurityQuestion {
     }
 
     /**
-     * Updates the available items in all combo boxes to prevent duplicate security questions.
+     * Updates the list of available questions in each ComboBox to ensure that no two selections are the same.
+     * <p>
+     * If {@code changedBox} is {@code null}, all ComboBoxes are refreshed during initial setup.
+     * Otherwise, only the other two ComboBoxes are updated based on the new selection.
+     * </p>
      *
-     * @param changedBox The combo box that triggered the update, or {@code null} if initial loading.
+     * @param changedBox the ComboBox that was changed by the user, or {@code null} if called during initialization
+     * @see #updateComboBox(ComboBox, String, Set)
+     * @see #handleComboBoxChange(ComboBox)
      * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     private void updateComboBoxes(ComboBox<String> changedBox) {
@@ -155,11 +177,17 @@ public class ProfileControllerSecurityQuestion {
     }
 
     /**
-     * Filters the available question list for a specific combo box based on already-used selections.
+     * Sets the items of the given ComboBox by filtering out already-used questions from other ComboBoxes.
+     * <p>
+     * This ensures that all ComboBox selections remain unique. The current selection is preserved
+     * if it is still valid after filtering.
+     * </p>
      *
-     * @param box              The combo box to update.
-     * @param currentSelection The current value of the combo box.
-     * @param used             A set of already selected questions.
+     * @param box              the ComboBox to update
+     * @param currentSelection the current value of the ComboBox
+     * @param used             the set of all currently selected questions across ComboBoxes
+     * @see #updateComboBoxes(ComboBox)
+     * @see #handleComboBoxChange(ComboBox)
      * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     private void updateComboBox(ComboBox<String> box, String currentSelection, Set<String> used) {
@@ -182,8 +210,14 @@ public class ProfileControllerSecurityQuestion {
     }
 
     /**
-     * Validates the user input and updates the user's security questions and answers in the database.
-     * If successful, the user is redirected to the main screen.
+     * Validates the user's input and updates their security questions and answers in the database.
+     * <p>
+     * The method checks that all fields are filled and that no duplicate questions are selected.
+     * If validation succeeds, it saves the new data and redirects the user to the main view.
+     * </p>
+     * @see ShowAlertUtils#showWarning(String, String)
+     * @see SqliteUserSecurityQuestionDAO#updateQuestions(UserSecurityQuestion)
+     * @see SqliteUserDAO#updateUser(User)
      * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
@@ -228,8 +262,11 @@ public class ProfileControllerSecurityQuestion {
     }
 
     /**
-     * Cancels the update and navigates the user back to the main view.
-     * Shows an error alert if loading the main view fails.
+     * Cancels the update operation and navigates the user back to the main view.
+     * <p>
+     * If the view fails to load, an error alert is displayed.
+     * </p>
+     * @see ShowAlertUtils#showError(String, String)
      * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML

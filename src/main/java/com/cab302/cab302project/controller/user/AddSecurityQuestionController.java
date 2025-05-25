@@ -21,12 +21,29 @@ import java.util.Set;
 
 /**
  * <p>
- * The {@code AddSecurityQuestionController} class provides methods to handle
- * button function in FXML file, controller for the screen to add security questions.
- * Manage the UI and handles logic when users selects a question and fill in the answer.
- * Once completed, saves the information to the database.
- * This class link to add-questions-security-view.fxml to control the Ul for add security questions.
+ * The {@code AddSecurityQuestionController} class provides the logic and UI control
+ * for adding three security questions and corresponding answers during user registration.
+ * It ensures that no duplicate questions are selected and validates that all fields are completed
+ * before allowing registration to proceed.
+ * </p>
+ *
  * <p>
+ * This controller interacts with {@code add-questions-security-view.fxml} and performs
+ * the following responsibilities:
+ * </p>
+ * <ul>
+ *   <li>Populates ComboBoxes with a predefined list of security questions</li>
+ *   <li>Ensures each selected question is unique using event listeners and filtering</li>
+ *   <li>Validates user input before saving security questions</li>
+ *   <li>Persists data via {@link SqliteUserSecurityQuestionDAO} and registers the user</li>
+ *   <li>Redirects to the main screen upon successful completion</li>
+ * </ul>
+ *
+ * <p>
+ * This class is part of the user registration flow and is triggered after
+ * the initial account information is entered.
+ * </p>
+ *
  * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
  */
 public class AddSecurityQuestionController {
@@ -50,7 +67,16 @@ public class AddSecurityQuestionController {
 
     private User tempUser;
 
-    // Assign user from registration screen when registering security questions.
+    /**
+     * <p>
+     * Sets the temporary user object transferred from the registration screen.
+     * This method is called before initializing the security question form, allowing
+     * the controller to later associate security questions with the correct user.
+     * </p>
+     *
+     * @param user the {@link User} object containing registration details
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
+     */
     public void setTempUser(User user) {
         this.tempUser = user;
     }
@@ -70,8 +96,15 @@ public class AddSecurityQuestionController {
     );
 
     /**
-     * Initialize ComboBox with list of security questions
-     * Add event when user changes question, to prevent duplicate selection.
+     * <p>
+     * Initializes the ComboBoxes with a fixed list of predefined security questions.
+     * Also sets up listeners on each ComboBox to ensure no duplicate questions
+     * can be selected.
+     * </p>
+     *
+     * @see #handleComboBoxChange(ComboBox)
+     * @see #updateComboBoxes(ComboBox)
+     * @author Dang Linh Phan - Lewis (n11781840)
      */
     @FXML
     public void initialize() {

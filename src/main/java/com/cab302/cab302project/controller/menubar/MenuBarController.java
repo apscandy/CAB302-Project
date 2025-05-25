@@ -2,8 +2,6 @@ package com.cab302.cab302project.controller.menubar;
 
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.HelloApplication;
-import com.cab302.cab302project.controller.deck.RandomModeController;
-import com.cab302.cab302project.controller.user.AddSecurityQuestionController;
 import com.cab302.cab302project.error.util.*;
 import com.cab302.cab302project.model.card.ICardDAO;
 import com.cab302.cab302project.model.card.SqliteCardDAO;
@@ -27,7 +25,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Controller for the application-wide menu bar.
