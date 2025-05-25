@@ -341,7 +341,7 @@ public final class SqliteCardDAO implements ICardDAO {
      * @return A list of {@link Card} objects belonging to the deck, in randomized order.
      * @throws DeckIsNullException If the provided deck is {@code null} or has an invalid ID.
      * @throws FailedToGetCardsException If a SQL error occurs during card retrieval or transaction handling.
-     * @author Dang Linh Phan - lewis (n11781840)
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @Override
     public List<Card> getRandomizedCardsForDeck(Deck deck) {

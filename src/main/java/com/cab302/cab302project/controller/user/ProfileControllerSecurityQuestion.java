@@ -38,7 +38,7 @@ import java.util.Set;
  *     <li>{@link ShowAlertUtils} – Utility for displaying alert messages</li>
  * </ul>
  *
- * Author: Dang Linh Phan - Lewis (n11781840)
+ * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
  */
 public class ProfileControllerSecurityQuestion {
 
@@ -78,6 +78,7 @@ public class ProfileControllerSecurityQuestion {
      * Loads and displays the currently logged-in user's existing security questions and answers.
      *
      * @param currentUser The currently logged-in user whose security questions will be loaded.
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
     public void loadUserSecurityQuestions(User currentUser) {
@@ -96,6 +97,7 @@ public class ProfileControllerSecurityQuestion {
     /**
      * Initializes the controller by setting up combo boxes and loading current user's existing questions.
      * This method is automatically called by JavaFX after the FXML file is loaded.
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
     public void initialize() {
@@ -116,6 +118,7 @@ public class ProfileControllerSecurityQuestion {
      * Ensures that when one combo box value changes, the other combo boxes do not contain duplicate selections.
      *
      * @param source The combo box that was changed by the user.
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     private void handleComboBoxChange(ComboBox<String> source) {
         if (isUpdating) return;
@@ -128,6 +131,7 @@ public class ProfileControllerSecurityQuestion {
      * Updates the available items in all combo boxes to prevent duplicate security questions.
      *
      * @param changedBox The combo box that triggered the update, or {@code null} if initial loading.
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     private void updateComboBoxes(ComboBox<String> changedBox) {
         String selected1 = firstQuestionComboBox.getValue();
@@ -156,6 +160,7 @@ public class ProfileControllerSecurityQuestion {
      * @param box              The combo box to update.
      * @param currentSelection The current value of the combo box.
      * @param used             A set of already selected questions.
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     private void updateComboBox(ComboBox<String> box, String currentSelection, Set<String> used) {
         Set<String> filteredUsed = new HashSet<>(used);
@@ -179,6 +184,7 @@ public class ProfileControllerSecurityQuestion {
     /**
      * Validates the user input and updates the user's security questions and answers in the database.
      * If successful, the user is redirected to the main screen.
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
     private void handleUpdateSecurityQuestion() {
@@ -222,7 +228,9 @@ public class ProfileControllerSecurityQuestion {
     }
 
     /**
-     * Cancels the update and returns the user to the main view.
+     * Cancels the update and navigates the user back to the main view.
+     * Shows an error alert if loading the main view fails.
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
     private void handleCancelUpdateSecurityQuestion() {

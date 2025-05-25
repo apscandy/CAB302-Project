@@ -3,15 +3,11 @@ package com.cab302.cab302project.controller.user;
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.error.authentication.EmailAlreadyInUseException;
-import com.cab302.cab302project.error.model.question.FailedToGetQuestionsException;
-import com.cab302.cab302project.model.user.User;
 import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
-import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
 import com.cab302.cab302project.util.PasswordUtils;
 import com.cab302.cab302project.util.RegexValidator;
 import com.cab302.cab302project.util.ShowAlertUtils;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,9 +15,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Controller class for handling user profile-related actions, such as updating email and password.
@@ -35,7 +28,7 @@ import java.util.Set;
  *     <li>Cancel email or password update and return to main view</li>
  * </ul>
  * </p>
- * @author Dang Linh Phan - Lewis (n11781840)
+ * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
  */
 public class ProfileController {
 
@@ -56,6 +49,7 @@ public class ProfileController {
      * Handles the update of the user's email address.
      * Validates input fields, checks if the new email is in correct format and not already in use.
      * Updates the user's email in the database and redirects to the login screen on success.
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
     private void handleUpdateEmail() {
@@ -109,6 +103,7 @@ public class ProfileController {
 
     /**
      * Cancels the email update process and redirects the user to the main view.
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
     private void handleCancelUpdateEmail() {
@@ -124,9 +119,11 @@ public class ProfileController {
     }
 
     /**
-     * Handles the update of the user's password.
-     * Validates input fields, checks password strength and confirmation match.
-     * Updates the user's password in the database and redirects to the main view on success.
+     * Handles the logic to update the user's password.
+     * <p>Validates the input, checks that the old password matches,
+     * the new password is secure, and that the confirmation matches.
+     * Updates the password in the database if all checks pass.</p>
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
     private void handleUpdatePassword() {
@@ -178,6 +175,7 @@ public class ProfileController {
 
     /**
      * Cancels the password update process and redirects the user to the main view.
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
     private void handleCancelUpdatePassword() {

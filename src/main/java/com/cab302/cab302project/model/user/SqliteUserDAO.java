@@ -213,7 +213,7 @@ public final class SqliteUserDAO implements IUserDAO {
      * @param user The {@link User} object to be deleted. Must not be {@code null}, and must have a valid ID.
      * @throws FailedToUpdateUserException if the database deletion fails.
      *
-     * @author Lewis Phan (n11781840)
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     public void deleteUser(User user) {
         String deleteSQL = "DELETE FROM user WHERE id = ?";
