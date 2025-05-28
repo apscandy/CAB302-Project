@@ -11,7 +11,7 @@
       <font>
          <Font name="System Bold" size="14.0" />
       </font></TextField>
-    <TextArea fx:id="deckDescription" layoutX="207.0" layoutY="77.0" prefHeight="67.0" prefWidth="418.0" promptText="Deck Description" />
+    <TextArea fx:id="deckDescription" layoutX="207.0" layoutY="77.0" prefHeight="67.0" prefWidth="418.0" promptText="Deck Description" wrapText="true" />
 
     <Button layoutX="207.0" layoutY="152.0" mnemonicParsing="false" onAction="#createDeck" prefHeight="28.0" prefWidth="116.0" text="Add as New Deck" />
     <Button layoutX="327.0" layoutY="152.0" mnemonicParsing="false" onAction="#editDeck" prefHeight="28.0" prefWidth="96.0" text="Save Changes" />

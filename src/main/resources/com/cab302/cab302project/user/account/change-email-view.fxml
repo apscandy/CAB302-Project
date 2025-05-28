@@ -15,12 +15,12 @@
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
-        <TextField fx:id="OldEmailAddressTextField" layoutX="199.0" layoutY="194.0" prefHeight="25.0" prefWidth="243.0" promptText="Enter Email Address" />
-        <TextField fx:id="NewEmailAddressTextField" layoutX="199.0" layoutY="231.0" prefHeight="25.0" prefWidth="243.0" promptText="Re-Enter Email Address" />
       <Label layoutX="199.0" layoutY="142.0" prefHeight="45.0" prefWidth="243.0" text="Please enter your new email address below. Once complete, press 'Save'." textAlignment="CENTER" textFill="#135675" wrapText="true">
          <font>
             <Font name="System Italic" size="13.0" />
          </font>
       </Label>
+        <TextField fx:id="OldEmailAddressTextField" layoutX="199.0" layoutY="194.0" prefHeight="25.0" prefWidth="243.0" promptText="Enter Email Address" />
+        <TextField fx:id="NewEmailAddressTextField" layoutX="199.0" layoutY="231.0" prefHeight="25.0" prefWidth="243.0" promptText="Re-Enter Email Address" />
     </children>
 </AnchorPane>
