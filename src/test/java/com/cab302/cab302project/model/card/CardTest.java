@@ -18,7 +18,7 @@ class CardTest {
     void setUp() {
         user = new User("Jane", "Doe", "jane@example.com", "password123");
         deck = new Deck("History", "Ancient civilisations", user, new ArrayList<>());
-        card = new Card(deck, "When was Rome founded?", "753 BC", "history,rome");
+        card = new Card(deck, "When was Rome founded?", "753 BC", "history,rome");
     }
 
     @Test
@@ -33,7 +33,7 @@ class CardTest {
 
     @Test
     void testGetAnswer() {
-        assertEquals("753 BC", card.getAnswer());
+        assertEquals("753 BC", card.getAnswer());
     }
 
     @Test
