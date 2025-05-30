@@ -10,6 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+
+
+/**
+ * DAO implementation for managing sessions using SQLite database.
+ * This class handles creating, ending sessions, and managing session results.
+ */
 public class SqliteSessionDAO implements ISessionDAO {
 
     private final Connection con;
@@ -21,10 +27,21 @@ public class SqliteSessionDAO implements ISessionDAO {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    /**
+     * Constructs a new SqliteSessionDAO instance.
+     * Initializes the database connection.
+     */
     public SqliteSessionDAO() {
         this.con = SqliteConnection.getInstance();
     }
 
+    /**
+     * Creates a new session in the database.
+     *
+     * @param session The Session object containing details for the new session.
+     *                Note: This method will set the test mode of the session.
+     * @throws RuntimeException if an error occurs during session creation.
+     */
     @Override
     public void createSession(Session session) {
         session.setTestMode();
@@ -57,6 +74,13 @@ public class SqliteSessionDAO implements ISessionDAO {
         }
     }
 
+    /**
+     * Ends an existing session by updating its end time and finished status.
+     *
+     * @param session The Session object containing updated details for the session.
+     *                Note: This method will set the end date time and session finished flag.
+     * @throws RuntimeException if an error occurs during session ending.
+     */
     @Override
     public void endSession(Session session) {
         session.setEndDateTime();
@@ -85,6 +109,13 @@ public class SqliteSessionDAO implements ISessionDAO {
 
     }
 
+    /**
+     * Creates a new session result entry in the database.
+     *
+     * @param sessionResults The SessionResults object containing details for the result.
+     *                       Note: This object must already have an ID assigned.
+     * @throws RuntimeException if an error occurs during creation of the session result.
+     */
     @Override
     public void createSessionResult(SessionResults sessionResults) {
         try{
@@ -108,6 +139,14 @@ public class SqliteSessionDAO implements ISessionDAO {
 
     }
 
+    /**
+     * Updates a session result to mark the card as correct, setting the time taken to answer.
+     *
+     * @param sessionResults   The SessionResults object containing updated result details.
+     * @param startTime        The start time of the session when the card was answered.
+     * @param endTime          The end time of the session when the card was answered.
+     * @throws RuntimeException if an error occurs during update of the session result.
+     */
     @Override
     public void sessionResultCardCorrect(SessionResults sessionResults, LocalDateTime startTime, LocalDateTime endTime) {
         sessionResults.setCorrect(true);
@@ -138,6 +177,15 @@ public class SqliteSessionDAO implements ISessionDAO {
 
     }
 
+
+    /**
+     * Updates a session result to mark the card as incorrect, setting the time taken to answer.
+     *
+     * @param sessionResults   The SessionResults object containing updated result details.
+     * @param startTime        The start time of the session when the card was answered.
+     * @param endTime          The end time of the session when the card was answered.
+     * @throws RuntimeException if an error occurs during update of the session result.
+     */
     @Override
     public void sessionResultCardIncorrect(SessionResults sessionResults, LocalDateTime startTime, LocalDateTime endTime) {
         sessionResults.setIncorrect(true);

@@ -14,6 +14,10 @@ import java.util.List;
 
 
 /**
+ * DAO implementation for managing decks in a SQLite database.
+ * Provides methods to create, update, delete, and retrieve deck data
+ * with support for soft-deletion and bookmarking features.
+ *
  * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
  */
 public final class SqliteDeckDAO implements IDeckDAO {
@@ -21,6 +25,7 @@ public final class SqliteDeckDAO implements IDeckDAO {
     private final Logger logger = LogManager.getLogger(SqliteDeckDAO.class);
     private final Connection con;
 
+    // SQL statements for database operations
     private final String createDeckSQL = "INSERT INTO deck (user_id, name, description) VALUES (?,?,?)";
     private final String updateDeckSQL = "UPDATE deck SET name = ?, description = ? WHERE id = ?";
     private final String deleteDeckSQL = "DELETE FROM deck WHERE id = ?";
@@ -28,18 +33,22 @@ public final class SqliteDeckDAO implements IDeckDAO {
     private final String selectDeckSQL = "SELECT * FROM deck WHERE user_id = ? AND  is_deleted = FALSE";
     private final String selectDeckByIdSQL = "SELECT * FROM deck WHERE id = ? AND is_deleted = FALSE";
     private final String getSoftDeleteDeckSQL = "SELECT * FROM deck WHERE user_id = ? AND is_deleted = TRUE";
-
-    // ─── NEW SQL for bookmarking ──────────────────────────────────────────────────
     private final String updateBookmarkSQL = "UPDATE deck SET is_bookmarked = ? WHERE id = ?";
     private final String selectBookmarkedDeckSQL = "SELECT * FROM deck WHERE user_id = ? AND is_bookmarked = TRUE AND is_deleted = FALSE";
-    // ──────────────────────────────────────────────────────────────────────────────
 
+    /**
+     * Constructor that initializes the database connection.
+     */
     public SqliteDeckDAO() {
         con = SqliteConnection.getInstance();
     }
 
     /**
-     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * Creates a new deck in the database with the specified details.
+     *
+     * @param deck The Deck object to be created
+     * @throws DeckIsNullException if the deck is null or has an invalid user ID
+     * @throws FailedToCreateDeckException if the operation fails due to SQL error
      */
     @Override
     public void createDeck(Deck deck) {
@@ -47,7 +56,6 @@ public final class SqliteDeckDAO implements IDeckDAO {
             throw new DeckIsNullException("Deck cannot be null");
         }
         try {
-            // Transaction try/catch block
             con.setAutoCommit(false);
             try (PreparedStatement stmt = con.prepareStatement(createDeckSQL)) {
                 stmt.setInt(1, deck.getUserId());
@@ -61,7 +69,7 @@ public final class SqliteDeckDAO implements IDeckDAO {
                 con.commit();
                 stmt.close();
                 resultSet.close();
-            } catch (SQLException  e) {
+            } catch (SQLException e) {
                 con.rollback();
                 logger.error(e.getMessage());
                 throw new FailedToCreateDeckException(e.getMessage());
@@ -74,10 +82,12 @@ public final class SqliteDeckDAO implements IDeckDAO {
         }
     }
 
-
-
     /**
-     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * Updates an existing deck in the database with new details.
+     *
+     * @param deck The Deck object containing updated information
+     * @throws DeckIsNullException if the deck is null or has an invalid user ID
+     * @throws FailedToUpdateDeckException if the operation fails due to SQL error
      */
     @Override
     public void updateDeck(Deck deck) {
@@ -93,7 +103,7 @@ public final class SqliteDeckDAO implements IDeckDAO {
                 insertStatement.executeUpdate();
                 con.commit();
                 insertStatement.close();
-            }catch (SQLException  e) {
+            } catch (SQLException e) {
                 con.rollback();
                 logger.error(e.getMessage());
                 throw new FailedToUpdateDeckException(e.getMessage());
@@ -106,28 +116,30 @@ public final class SqliteDeckDAO implements IDeckDAO {
         }
     }
 
-
     /**
-     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * Permanently deletes a deck from the database.
+     *
+     * @param deck The Deck object to be deleted
+     * @throws DeckIsNullException if the deck is null or has an invalid user ID
+     * @throws FailedToDeleteDeckException if the operation fails due to SQL error
      */
     @Override
     public void deleteDeck(Deck deck) {
         if (deck == null || deck.getUserId() == 0) {
             throw new DeckIsNullException("Deck cannot be null");
         }
-        try{
-            // Transaction try/catch block
+        try {
             con.setAutoCommit(false);
             try (PreparedStatement deleteStatement = con.prepareStatement(deleteDeckSQL)) {
                 deleteStatement.setInt(1, deck.getId());
                 deleteStatement.executeUpdate();
                 con.commit();
                 deleteStatement.close();
-            }catch (SQLException  e) {
+            } catch (SQLException e) {
                 con.rollback();
                 logger.error(e.getMessage());
                 throw new FailedToDeleteDeckException(e.getMessage());
-            }finally {
+            } finally {
                 con.setAutoCommit(true);
             }
         } catch (Exception e) {
@@ -136,75 +148,34 @@ public final class SqliteDeckDAO implements IDeckDAO {
         }
     }
 
-
     /**
-     * Marks a deck as soft-deleted by setting the is_deleted flag to true.
+     * Soft-deletes a deck by marking it as deleted in the database.
+     *
      * <p>
-     * Updates the deck's deletion status in the database without permanently
-     * removing the record. This allows for potential recovery through the
-     * recycle bin functionality. Uses database transactions to ensure
-     * data integrity and rolls back changes if any errors occur.
+     * This operation sets the is_deleted flag to true, effectively hiding
+     * the deck from regular views while keeping the record in the database for
+     * potential recovery through the recycle bin feature. It uses transactions
+     * to ensure data integrity and will roll back on failure.
      * </p>
      *
-     * @param deck The deck to be soft-deleted, must not be null and have valid ID
+     * @param deck The Deck object to be soft-deleted, must not be null and have valid ID
      * @throws DeckIsNullException if deck is null or has invalid ID
      * @throws FailedToDeleteDeckException if database operation fails
-     * @author Hoang Dat Bui (hoangdat.bui@connect.qut.edu.au), Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public void softDeleteDeck(Deck deck) {
-        if( deck == null || deck.getUserId() == 0 || deck.getId() == 0){
+        if (deck == null || deck.getUserId() == 0 || deck.getId() == 0) {
             throw new DeckIsNullException("Deck cannot be null");
         }
         try {
             con.setAutoCommit(false);
-            try(PreparedStatement softDelete = con.prepareStatement(softDeleteDeckSQL)){
+            try (PreparedStatement softDelete = con.prepareStatement(softDeleteDeckSQL)) {
                 softDelete.setBoolean(1, true);
                 softDelete.setInt(2, deck.getId());
                 softDelete.executeUpdate();
                 con.commit();
                 softDelete.close();
-            }catch (SQLException e){
-                con.rollback();
-                logger.error(e.getMessage());
-                throw new FailedToDeleteDeckException(e.getMessage());
-
-            }finally {
-                con.setAutoCommit(true);
-            }
-        }catch (Exception e){
-            logger.error(e.getMessage());
-            throw new FailedToDeleteDeckException(e.getMessage());
-        }
-    }
-
-    /**
-     * Restores a soft-deleted deck by setting the is_deleted flag to false.
-     * <p>
-     * Updates the deck's deletion status to make it visible again in the
-     * main application interface. This operation reverses a soft deletion
-     * by changing the database flag back to active status. Uses transaction
-     * management to ensure the restore operation completes successfully.
-     * </p>
-     *
-     * @param deck The deck to be restored, must not be null and have valid ID
-     * @throws DeckIsNullException if deck is null or has invalid ID
-     * @throws FailedToDeleteDeckException if database operation fails
-     * @author Hoang Dat Bui (hoangdat.bui@connect.qut.edu.au)
-     */
-    @Override
-    public void restoreDeck(Deck deck) {
-        if (deck == null || deck.getUserId() == 0 || deck.getId() == 0){
-            throw new DeckIsNullException("Deck cannot be null");
-        }
-        try {
-            con.setAutoCommit(false);
-            try(PreparedStatement softDelete = con.prepareStatement(softDeleteDeckSQL)) {
-                softDelete.setBoolean(1, false);
-                softDelete.setInt(2, deck.getId());
-                softDelete.executeUpdate();
-                con.commit();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 con.rollback();
                 logger.error(e.getMessage());
                 throw new FailedToDeleteDeckException(e.getMessage());
@@ -212,14 +183,65 @@ public final class SqliteDeckDAO implements IDeckDAO {
             } finally {
                 con.setAutoCommit(true);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage());
             throw new FailedToDeleteDeckException(e.getMessage());
         }
     }
 
     /**
-     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * Restores a previously soft-deleted deck by marking it as not deleted.
+     *
+     * <p>
+     * This operation sets the is_deleted flag to false, making the deck
+     * visible again in the application. It uses transaction management to
+     * ensure the restore process completes successfully and handles errors
+     * gracefully.
+     * </p>
+     *
+     * @param deck The Deck object to be restored, must not be null and have valid ID
+     * @throws DeckIsNullException if deck is null or has invalid ID
+     * @throws FailedToDeleteDeckException if database operation fails
+     */
+    @Override
+    public void restoreDeck(Deck deck) {
+        if (deck == null || deck.getUserId() == 0 || deck.getId() == 0) {
+            throw new DeckIsNullException("Deck cannot be null");
+        }
+        try {
+            con.setAutoCommit(false);
+            try (PreparedStatement softDelete = con.prepareStatement(softDeleteDeckSQL)) {
+                softDelete.setBoolean(1, false);
+                softDelete.setInt(2, deck.getId());
+                softDelete.executeUpdate();
+                con.commit();
+            } catch (SQLException e) {
+                con.rollback();
+                logger.error(e.getMessage());
+                throw new FailedToDeleteDeckException(e.getMessage());
+
+            } finally {
+                con.setAutoCommit(true);
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new FailedToDeleteDeckException(e.getMessage());
+        }
+    }
+
+    /**
+     * Retrieves all decks owned by a specific user.
+     *
+     * <p>
+     * This method queries the database for all decks associated with the provided
+     * user, filtering out any soft-deleted decks. It returns a list of Deck objects,
+     * each initialized with the user's information and populated from the result set.
+     * </p>
+     *
+     * @param user The User object representing the owner whose decks are to be retrieved
+     * @return List of Deck objects owned by the specified user, excluding soft-deleted decks
+     * @throws DeckIsNullException if user is null or has an invalid ID
+     * @throws FailedToGetListOfDecksException if there's a database retrieval error
      */
     @Override
     public List<Deck> getDecks(User user) {
@@ -261,24 +283,24 @@ public final class SqliteDeckDAO implements IDeckDAO {
 
     /**
      * Retrieves all soft-deleted decks for a specific user.
+     *
      * <p>
-     * Queries the database for decks marked as deleted (is_deleted = true)
-     * belonging to the specified user. Creates and returns a list of Deck
-     * objects representing the soft-deleted items that can be restored or
-     * permanently deleted.
+     * This method queries the database for decks that have been marked as deleted
+     * (is_deleted = true) and belong to the specified user. It returns a list of Deck
+     * objects representing the soft-deleted items that can be restored or permanently
+     * deleted.
      * </p>
      *
-     * @param user The user whose soft-deleted decks are being retrieved
-     * @return List of soft-deleted Deck objects, empty if none found
-     * @throws UserIsNullException if user is null or has invalid ID
-     * @throws FailedToGetListOfDecksException if database retrieval fails
-     * @author Hoang Dat Bui (hoangdat.bui@connect.qut.edu.au), Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * @param user The User object whose soft-deleted decks are being retrieved
+     * @return List of Deck objects that have been soft-deleted and belong to the specified user
+     * @throws UserIsNullException if user is null or has an invalid ID
+     * @throws FailedToGetListOfDecksException if there's a database retrieval error
      */
     @Override
     public List<Deck> getSoftDeletedDecks(User user) {
         List<Deck> decks = new ArrayList<>();
         if (user == null || user.getId() == 0) {
-            throw new UserIsNullException("Deck cannot be null");
+            throw new UserIsNullException("User cannot be null");
         }
         try{
             con.setAutoCommit(false);
@@ -310,9 +332,18 @@ public final class SqliteDeckDAO implements IDeckDAO {
         return decks;
     }
 
-
     /**
-     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * Retrieves a specific deck by its ID.
+     *
+     * <p>
+     * This method queries the database for a deck with the given ID and returns
+     * the corresponding Deck object. If no deck is found, it returns null.
+     * </p>
+     *
+     * @param id The unique identifier of the deck to retrieve
+     * @return The Deck object associated with the provided ID, or null if not found
+     * @throws DeckIsNullException if the ID is invalid (less than or equal to zero)
+     * @throws FailedToGetDeckException if database retrieval fails
      */
     @Override
     public Deck getDeck(int id) {
@@ -351,7 +382,21 @@ public final class SqliteDeckDAO implements IDeckDAO {
         return deck;
     }
 
-    // ─── NEW handler to persist bookmark flag ─────────────────────────────────────
+    /**
+     * Sets the bookmark status of a specific deck.
+     *
+     * <p>
+     * Updates the is_bookmarked flag in the database for the given deck. This action
+     * marks the deck as either bookmarked or unbookmarked, depending on the provided
+     * boolean value. The operation is performed using an SQL UPDATE statement to
+     * ensure data consistency and integrity.
+     * </p>
+     *
+     * @param deck The deck whose bookmark status is being updated
+     * @param bookmarked The new bookmark status (true for bookmarked, false otherwise)
+     * @throws DeckIsNullException if the provided deck is null or has an invalid ID
+     * @throws FailedToUpdateDeckException if database operation fails
+     */
     @Override
     public void setBookmarked(Deck deck, boolean bookmarked) {
         if (deck == null || deck.getUserId() == 0) {
@@ -368,6 +413,21 @@ public final class SqliteDeckDAO implements IDeckDAO {
         }
     }
 
+    /**
+     * Retrieves all decks that are currently bookmarked by a specific user.
+     *
+     * <p>
+     * This method queries the database for all decks marked as bookmarked
+     * (is_bookmarked = true) and owned by the specified user. It returns them
+     * in a list of Deck objects, which can be used to display favorite or
+     * frequently accessed decks within the application interface.
+     * </p>
+     *
+     * @param user The user whose bookmarked decks are being retrieved
+     * @return List of bookmarked Deck objects belonging to the user
+     * @throws DeckIsNullException if the provided user is null or has an invalid ID
+     * @throws FailedToGetListOfDecksException if database retrieval fails
+     */
     @Override
     public List<Deck> getBookmarkedDecks(User user) {
         List<Deck> decks = new ArrayList<>();

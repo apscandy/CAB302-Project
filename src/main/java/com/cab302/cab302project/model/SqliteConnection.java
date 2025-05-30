@@ -8,16 +8,12 @@ import java.sql.*;
 
 
 /**
- * Refactored the week 6 practical code
- * to allow for an in memory database for testing.
- * This allows testing to have an ephemeral database
- * that produces no artifacts that the developer need
- * to remember to delete before each test.
+ * Manages SQLite database connections for the application.
+ * Provides both in-memory and persistent database support.
  * <p>
- * in order for the in memory database to work
- * before anything happens call setTestingModeTrue()
- * in the testing class
- * <a href="https://www.sqlite.org/inmemorydb.html">Sqlite in-memory</a>
+ * This class implements the singleton pattern to ensure only one connection is created.
+ * It allows testing with an ephemeral in-memory database by calling setTestingModeTrue().
+ *
  * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
  */
 public final class SqliteConnection {
@@ -25,6 +21,15 @@ public final class SqliteConnection {
     private static Connection instance = null;
     private static Boolean testingMode = false;
 
+
+    /**
+     * Private constructor to initialize the SQLite database connection.
+     * Sets up the connection based on the testing mode flag.
+     * <p>
+     * If testing mode is enabled, an in-memory database is used; otherwise,
+     * a persistent file-based database is created at 'flashCards.db'.
+     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     */
     private SqliteConnection()  {
         String url;
         if (testingMode) {
@@ -45,7 +50,13 @@ public final class SqliteConnection {
 
 
     /**
+     * Returns the singleton instance of the SQLite database connection.
+     * <p>
+     * If no instance exists, it creates one using the private constructor.
+     * This method is not thread-safe. Ensure proper synchronization if used in concurrent contexts.
+     *
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * @return The singleton SQLite database connection.
      */
     public static Connection getInstance() {
         if (instance == null) {
@@ -55,14 +66,12 @@ public final class SqliteConnection {
     }
 
     /**
-     * This sets the testingMode to true, must be called before
-     * getInstance method otherwise the database will operate as
-     * normal.
+     * Enables testing mode to use an in-memory SQLite database.
      * <p>
-     * This can be used in TestClass's to run real sqlite queries
-     * without producing a database file.
-     * This also mean that once the tests are finished any data in
-     * the database is cleared, making the database ephemeral.
+     * When enabled, all database operations are performed in memory,
+     * and data is not persisted between runs. This ensures ephemeral test environments.
+     * <p>
+     * Must be called before {@link #getInstance()} to take effect.
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
      */
     public static void setTestingModeTrue() {
@@ -108,7 +117,10 @@ public final class SqliteConnection {
     }
 
     /**
-     * This function checks the database to see if the desired PRAGMAAs have been set
+     * Verifies that the SQLite database has been configured with the expected PRAGMA settings.
+     * <p>
+     * Checks foreign key status, synchronous mode, and locking mode to ensure they match
+     * the configurations set by {@link #setDataBasePragma}.
      * <p>
      * The foreign key pragma can return 1 (true) for enabled or 0 (false) for disabled
      * <p>
@@ -116,7 +128,6 @@ public final class SqliteConnection {
      * <p>
      *  The locking mode pragma can return either NORMAL or EXCLUSIVE
      * <p>
-     * @see com.cab302.cab302project.model.SqliteConnection#setDataBasePragma
      * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
      * @param instance (sqlite) database connection
      */
