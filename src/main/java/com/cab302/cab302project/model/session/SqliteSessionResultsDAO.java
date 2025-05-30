@@ -10,6 +10,10 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
+/**
+ * DAO for retrieving session result statistics of individual flashcards.
+ */
 public class SqliteSessionResultsDAO {
     private static final Logger logger = LogManager.getLogger(SqliteSessionResultsDAO.class);
     private final Connection con;
@@ -18,6 +22,15 @@ public class SqliteSessionResultsDAO {
         this.con = SqliteConnection.getInstance();
     }
 
+    /**
+     * Retrieves per-card statistics for a given user, including the number of times
+     * each card was answered correctly and incorrectly.
+     *
+     * @param userId The ID of the user whose session results are to be retrieved.
+     * @return A map where the key is the card ID and the value is a double array:
+     *         [0] = number of correct answers,
+     *         [1] = number of incorrect answers.
+     */
     public Map<Integer, double[]> getCardResultsForUser(int userId) {
         String query = """
                 SELECT sr.card_id,
