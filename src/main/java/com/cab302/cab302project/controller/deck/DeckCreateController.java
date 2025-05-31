@@ -50,10 +50,8 @@ public class DeckCreateController implements Initializable {
     @FXML
     private ListView<Card> cardsList;
 
-    // ─── NEW bookmark button ───────────────────────────────────────────────────────
     @FXML
     private Button bookmarkButton;
-    // ──────────────────────────────────────────────────────────────────────────────
 
     private static final Logger logger = LogManager.getLogger(DeckCreateController.class);
 

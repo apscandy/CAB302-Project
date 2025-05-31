@@ -23,6 +23,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * Controller class for managing deck views in the application.
+ * This class handles user interactions related to decks, including
+ * creating new decks, viewing existing decks, and managing cards within decks.
+ *
  * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
  */
 public class DeckViewController implements Initializable {
@@ -42,13 +46,25 @@ public class DeckViewController implements Initializable {
     @FXML
     private ListView<Card> cards;
 
+    /**
+     * Logger for logging messages related to this class.
+     */
     private static final Logger logger = LogManager.getLogger(DeckViewController.class);
 
+    /**
+     * Database access object for deck operations.
+     */
     private final IDeckDAO deckDAO;
 
-    private final ICardDAO cardDAO;
     /**
-     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * Database access object for card operations.
+     */
+    private final ICardDAO cardDAO;
+
+    /**
+     * Constructor that initializes the database DAOs.
+     * This class is responsible for managing interactions between
+     * the UI and the underlying data storage (SQLite).
      */
     public DeckViewController() {
         deckDAO = new SqliteDeckDAO();
@@ -56,7 +72,10 @@ public class DeckViewController implements Initializable {
     }
 
     /**
-     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * Handles the "Create Deck" button click event.
+     * Loads the deck view FXML file to display the deck management interface.
+     *
+     * @throws IOException if there's an issue loading the FXML file
      */
     @FXML
     private void createDeck() throws IOException {
@@ -67,6 +86,12 @@ public class DeckViewController implements Initializable {
         stage.setScene(scene);
     }
 
+    /**
+     * Handles the "Create Card" button click event.
+     * Loads the new card creation view FXML file to display the card management interface.
+     *
+     * @throws IOException if there's an issue loading the FXML file
+     */
     @FXML
     private void createCard() throws IOException {
         if (!ApplicationState.isUserLoggedIn()) return;
@@ -76,6 +101,12 @@ public class DeckViewController implements Initializable {
         stage.setScene(scene);
     }
 
+    /**
+     * Handles the "Edit Card" button click event.
+     * Loads the card editing view FXML file to display the card management interface.
+     *
+     * @throws IOException if there's an issue loading the FXML file
+     */
     @FXML
     private void editCard() throws IOException {
         if (!ApplicationState.isUserLoggedIn()) return;
@@ -86,7 +117,12 @@ public class DeckViewController implements Initializable {
     }
 
     /**
-     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * Initializes the controller after the FXML file has been loaded.
+     * This method is called when the view is first created and loads all decks
+     * for the currently logged-in user.
+     *
+     * @param arg0  The location used to resolve relative paths for the FXML file.
+     * @param arg1 The resources used to localize the application.
      */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
@@ -95,7 +131,8 @@ public class DeckViewController implements Initializable {
     }
 
     /**
-     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * Handles the selection of a deck from the deck list view.
+     * Updates the card list to show all cards belonging to the selected deck.
      */
     @FXML
     private void selectDeckListViewItem() {
@@ -115,6 +152,10 @@ public class DeckViewController implements Initializable {
         }
     }
 
+    /**
+     * Handles the selection of a card from the card list view.
+     * Updates the card list to show all cards belonging to the currently selected deck.
+     */
     @FXML
     private void selectCardListViewItem() {
         if (!ApplicationState.isUserLoggedIn()) return;
@@ -132,7 +173,8 @@ public class DeckViewController implements Initializable {
 
 
     /**
-     * @author Andrew Clarke (a40.clarke@connect.qut.edu.au)
+     * Loads all decks for the currently logged-in user into the deck list view.
+     * This method clears any existing decks and refreshes the display.
      */
     private void loadDecks() {
         if (!ApplicationState.isUserLoggedIn()) return;

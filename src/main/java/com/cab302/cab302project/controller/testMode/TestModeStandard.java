@@ -18,6 +18,11 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Controller class for managing the Test Mode interface in the application.
+ * Handles card display, user interaction (flip, correct/incorrect answers),
+ * session tracking, and navigation to results.
+ */
 public class TestModeStandard {
 
     private static final Logger logger = LogManager.getLogger(TestModeStandard.class);
@@ -28,30 +33,68 @@ public class TestModeStandard {
     @FXML
     private Text questionOrAnswerText;
 
+    /**
+     * List of cards currently being tested in the session.
+     */
     private List<Card> cards;
 
+
+    /**
+     * Total number of cards in the current deck.
+     */
     private int deckSize;
 
+    /**
+     * Flag indicating whether the answer is currently displayed (true) or question (false).
+     */
     private Boolean showAnswer = false;
 
+    /**
+     * Counter for correct answers provided by the user.
+     */
     private int correctAnswerCount = 0;
 
+    /**
+     * Counter for incorrect answers provided by the user.
+     */
     private int wrongAnswerCount = 0;
 
+
+    /**
+     * Index of the current card being displayed in the test session.
+     */
     private int currentCardIndex = 0;
 
+    /**
+     * Session object representing the current testing session.
+     */
     private Session session;
 
+    /**
+     * DAO for interacting with session data stored in the database.
+     */
     private final ISessionDAO sessionDAO;
 
+    /**
+     * Timestamp when the test session started.
+     */
     private LocalDateTime startTime;
 
 
+    /**
+     * Constructor that initializes the session DAO.
+     */
     public TestModeStandard() {
         sessionDAO = new SqliteSessionDAO();
     }
 
 
+    /**
+     * Initializes the test mode interface. Sets up the session, fetches cards based on
+     * the current mode (sequential/random/smart), and displays the first card.
+     *
+     * @throws IllegalStateException if deck or user is not set in ApplicationState
+     */
     @FXML
     private void initialize() {
         if (ApplicationState.getDeck() == null) {
@@ -77,6 +120,11 @@ public class TestModeStandard {
         startTime = LocalDateTime.now();
     }
 
+    /**
+     * Displays the first card of the test session. Calls ShowCardQuestion().
+     *
+     * @throws IllegalStateException if deck has no cards
+     */
     private void showFirstCard(){
         if (deckSize == 0){
             logger.warn("please set a deck with at least one card before calling initialize");
@@ -85,6 +133,12 @@ public class TestModeStandard {
         ShowCardQuestion();
     }
 
+    /**
+     * Advances to the next card in the test session. Updates statistics and ends
+     * the session when all cards are completed.
+     *
+     * @throws IllegalStateException if no more cards are available
+     */
     private void showNextCard() {
         showAnswer = false;
         if (currentCardIndex == cards.size() - 1) {
@@ -98,6 +152,9 @@ public class TestModeStandard {
         ShowCardQuestion();
     }
 
+    /**
+     * Displays the question text of the current card.
+     */
     private void ShowCardQuestion() {
         try {
             questionOrAnswerTitle.setText("Question");
@@ -108,6 +165,9 @@ public class TestModeStandard {
         }
     }
 
+    /**
+     * Toggles between displaying the question and answer for the current card.
+     */
     private void ShowCardAnswer() {
         try {
             questionOrAnswerTitle.setText("Answer");
@@ -118,6 +178,12 @@ public class TestModeStandard {
         }
     }
 
+    /**
+     * Handles user's confirmation that they answered correctly. Updates session results,
+     * increments correct answer count, and moves to next card.
+     *
+     * @throws IllegalStateException if user tries to mark as correct without seeing the answer
+     */
     @FXML
     private void onFlipButtonClicked(){
         if (!showAnswer){
@@ -143,6 +209,12 @@ public class TestModeStandard {
 
 
 
+    /**
+     * Handles user's confirmation that they answered incorrectly. Updates session results,
+     * increments wrong answer count, and moves to next card.
+     *
+     * @throws IllegalStateException if user tries to mark as incorrect without seeing the answer
+     */
     @FXML
     private void onGotItWrongButtonClicked(){
         // prevent user from pressing `got it wrong` without seeing the answer
@@ -156,6 +228,12 @@ public class TestModeStandard {
         showNextCard();
     }
 
+
+    /**
+     * Navigates to the results screen, passing correct/incorrect answer counts and session data.
+     *
+     * @throws IOException if there's an error loading the results view
+     */
     private void sendToResults() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -171,6 +249,12 @@ public class TestModeStandard {
         }
     }
 
+    /**
+     * Fetches cards for the current test session based on the selected mode:
+     * - SEQUENTIAL: all cards in deck order
+     * - RANDOM: shuffled list of all cards
+     * - SMART: dynamically ordered based on user performance
+     */
     private void fetchCards() {
         if (ApplicationState.getCurrentMode() == null){
             logger.warn("Current mode is null");
