@@ -1,9 +1,11 @@
 package com.cab302.cab302project.controller.user;
 
+import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.model.user.User;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
+import com.cab302.cab302project.util.ShowAlertUtils;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -19,13 +21,30 @@ import java.util.Set;
 
 /**
  * <p>
- * The {@code AddSecurityQuestionController} class provides methods to handle
- * button function in FXML file, controller for the screen to add security questions.
- * Manage the UI and handles logic when users selects a question and fill in the answer.
- * Once completed, saves the information to the database.
- * This class link to add-questions-security-view.fxml to control the Ul for add security questions.
+ * The {@code AddSecurityQuestionController} class provides the logic and UI control
+ * for adding three security questions and corresponding answers during user registration.
+ * It ensures that no duplicate questions are selected and validates that all fields are completed
+ * before allowing registration to proceed.
+ * </p>
+ *
  * <p>
- * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+ * This controller interacts with {@code add-questions-security-view.fxml} and performs
+ * the following responsibilities:
+ * </p>
+ * <ul>
+ *   <li>Populates ComboBoxes with a predefined list of security questions</li>
+ *   <li>Ensures each selected question is unique using event listeners and filtering</li>
+ *   <li>Validates user input before saving security questions</li>
+ *   <li>Persists data via {@link SqliteUserSecurityQuestionDAO} and registers the user</li>
+ *   <li>Redirects to the main screen upon successful completion</li>
+ * </ul>
+ *
+ * <p>
+ * This class is part of the user registration flow and is triggered after
+ * the initial account information is entered.
+ * </p>
+ *
+ * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
  */
 public class AddSecurityQuestionController {
 
@@ -48,7 +67,16 @@ public class AddSecurityQuestionController {
 
     private User tempUser;
 
-    // Assign user from registration screen when registering security questions.
+    /**
+     * <p>
+     * Sets the temporary user object transferred from the registration screen.
+     * This method is called before initializing the security question form, allowing
+     * the controller to later associate security questions with the correct user.
+     * </p>
+     *
+     * @param user the {@link User} object containing registration details
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
+     */
     public void setTempUser(User user) {
         this.tempUser = user;
     }
@@ -68,8 +96,15 @@ public class AddSecurityQuestionController {
     );
 
     /**
-     * Initialize ComboBox with list of security questions
-     * Add event when user changes question, to prevent duplicate selection.
+     * <p>
+     * Initializes the ComboBoxes with a fixed list of predefined security questions.
+     * Also sets up listeners on each ComboBox to ensure no duplicate questions
+     * can be selected.
+     * </p>
+     *
+     * @see #handleComboBoxChange(ComboBox)
+     * @see #updateComboBoxes(ComboBox)
+     * @author Dang Linh Phan - Lewis (n11781840)
      */
     @FXML
     public void initialize() {
@@ -96,7 +131,7 @@ public class AddSecurityQuestionController {
      * <p>
      * @param source the {@link ComboBox} that was changed by the users
      * @see #updateComboBoxes(ComboBox)
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     private void handleComboBoxChange(ComboBox<String> source) {
         if (isUpdating) return;
@@ -114,7 +149,7 @@ public class AddSecurityQuestionController {
      * <p>
      * @param changedBox the {@link ComboBox} that trigger the change, used to skip its update
      * @see #updateComboBox(ComboBox, String, Set)
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     private void updateComboBoxes(ComboBox<String> changedBox) {
 
@@ -153,7 +188,7 @@ public class AddSecurityQuestionController {
      * @param box: the {@link ComboBox} to update
      * @param currentSelection: the currently selected value of this ComboBox (can be null)
      * @param used: set of all selected questions across all ComboBoxes
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     private void updateComboBox(ComboBox<String> box, String currentSelection, Set<String> used) {
         // Create a copy of the selected question list to filter, keeping the current question of this ComboBox itself
@@ -193,7 +228,7 @@ public class AddSecurityQuestionController {
      * <li>Display a successful registration message and redirect the user to the home screen.</li>
      * </ul>
      * </p>
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     @FXML
     public void RegisterButtonAction() throws IOException {
@@ -222,7 +257,7 @@ public class AddSecurityQuestionController {
             hasError = true;
         }
         if (hasError) {
-            showAlert("Please fill in all security questions and answers.");
+            ShowAlertUtils.showWarning("validation Error", "Please fill in all security questions and answers.");
             return;
         }
 
@@ -251,7 +286,7 @@ public class AddSecurityQuestionController {
         alert.showAndWait();
 
         // Navigate the user to the main interface of the application
-        User currentUser = new User (tempUser.getFirstName(), tempUser.getLastName(), tempUser.getEmail(), tempUser.getPassword());
+        ApplicationState.login(tempUser);
         Stage stage = (Stage) RegisterButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
@@ -260,26 +295,14 @@ public class AddSecurityQuestionController {
 
     /**
      * Return to the registration screen if the user presses Back.
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au) or (phandanglinh2005@gmail.com)
+     * @author Dang Linh Phan - Lewis (n11781840)
      */
     @FXML
     public void BackButtonAction() throws IOException {
         Stage stage = (Stage) BackButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user/register/register-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
-    }
-
-    /**
-     * Displays an error alert with the message passed in.
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au) or (phandanglinh2005@gmail.com)
-     */
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Input Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
 }

@@ -3,11 +3,13 @@ package com.cab302.cab302project.controller.deck;
 import com.cab302.cab302project.ApplicationState;
 import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.error.util.*;
+import com.cab302.cab302project.model.card.Card;
 import com.cab302.cab302project.model.card.SqliteCardDAO;
 import com.cab302.cab302project.model.deck.Deck;
 import com.cab302.cab302project.model.deck.IDeckDAO;
 import com.cab302.cab302project.model.deck.SqliteDeckDAO;
 import com.cab302.cab302project.util.DeckCSVUtils;
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -45,10 +47,11 @@ public class DeckCreateController implements Initializable {
     @FXML
     private TextArea deckDescription;
 
-    // ─── NEW bookmark button ───────────────────────────────────────────────────────
+    @FXML
+    private ListView<Card> cardsList;
+
     @FXML
     private Button bookmarkButton;
-    // ──────────────────────────────────────────────────────────────────────────────
 
     private static final Logger logger = LogManager.getLogger(DeckCreateController.class);
 
@@ -84,6 +87,11 @@ public class DeckCreateController implements Initializable {
                         ? "Bookmarked ★"
                         : "Bookmark ☆"
         );
+        cardsList.getItems().clear();
+        deck.setCards(new SqliteCardDAO().getCardsForDeck(deck));
+        if (deck.getCards() != null) {
+            cardsList.getItems().addAll(deck.getCards());
+        }
     }
 
     /**
@@ -223,12 +231,12 @@ public class DeckCreateController implements Initializable {
         if (!ApplicationState.isUserLoggedIn()) return;
         Deck deck = decks.getSelectionModel().getSelectedItem();
         if (deck == null) {
-            showAlert(Alert.AlertType.WARNING, "Export Deck", "Select a deck to export.");
+            ShowAlertUtils.showWarning("Export Deck", "Select a deck to export.");
             return;
         }
         new SqliteCardDAO().getCardsForDeck(deck);
         if (deck.getCards() == null || deck.getCards().isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Export Deck", "Deck has no card - Nothing to export.");
+            ShowAlertUtils.showWarning("Export Deck", "Deck has no card - Nothing to export.");
             return;
         }
         javafx.stage.FileChooser fileChooser = new javafx.stage.FileChooser();
@@ -239,21 +247,10 @@ public class DeckCreateController implements Initializable {
         if (file == null) return;
         try {
             DeckCSVUtils.exportDeck(file.getAbsolutePath(), deck);
-            showAlert(Alert.AlertType.INFORMATION, "Export Successful",
+            ShowAlertUtils.showInfo("Export Successful",
                     "Deck saved to:\n" + file.getAbsolutePath());
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Export Failed", e.getMessage());
+            ShowAlertUtils.showError("Export Failed", e.getMessage());
         }
-    }
-
-    /**
-     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
-     */
-    private void showAlert(Alert.AlertType type, String title, String msg) {
-        Alert a = new Alert(type);
-        a.setTitle(title);
-        a.setHeaderText(null);
-        a.setContentText(msg);
-        a.showAndWait();
     }
 }

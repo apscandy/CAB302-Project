@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.user.ProfileController">
+
+    <children>
+        <fx:include source="../../base-view.fxml" />
+        <Button fx:id="cancelButton" layoutX="26.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleCancelUpdateEmail" text="Cancel" />
+        <Button fx:id="confirmButton" layoutX="570.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleUpdateEmail" text="Save" />
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="51.0" prefHeight="26.0" prefWidth="490.0" text="Update Account Email" textAlignment="CENTER" textFill="#d90429">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+      <Label layoutX="199.0" layoutY="142.0" prefHeight="45.0" prefWidth="243.0" text="Please enter your new email address below. Once complete, press 'Save'." textAlignment="CENTER" textFill="#135675" wrapText="true">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Label>
+        <TextField fx:id="OldEmailAddressTextField" layoutX="199.0" layoutY="194.0" prefHeight="25.0" prefWidth="243.0" promptText="Enter Email Address" />
+        <TextField fx:id="NewEmailAddressTextField" layoutX="199.0" layoutY="231.0" prefHeight="25.0" prefWidth="243.0" promptText="Re-Enter Email Address" />
+    </children>
+</AnchorPane>

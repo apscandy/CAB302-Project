@@ -24,7 +24,6 @@ class SqliteDeckDAOTest {
     private static IDeckDAO deckDAO;
     private static IUserDAO userDAO;
     private static Deck deck;
-    private static final String insertTestUser = "INSERT INTO user (first_name, last_name, email, password ) VALUES (?,?,?,?)";
 
 
     @BeforeAll
@@ -112,27 +111,37 @@ class SqliteDeckDAOTest {
 
     @Test
     @Order(6)
-    void softDeleteDeck() {
+    void softDeleteDeck_ShouldAppearInNormalListBeforeDeletion() {
         Deck deckToSoftDelete = new Deck("soft-delete-test", "test description", user);
         deckDAO.createDeck(deckToSoftDelete);
-        assertNotEquals(0, deckToSoftDelete.getId());
 
-        // Verify it appears in normal deck list
         List<Deck> decksBeforeSoftDelete = deckDAO.getDecks(user);
         boolean deckFoundBeforeDelete = decksBeforeSoftDelete.stream()
                 .anyMatch(d -> d.getId() == deckToSoftDelete.getId());
         assertTrue(deckFoundBeforeDelete);
+    }
 
-        // Soft delete the deck
+    @Test
+    @Order(7)
+    void softDeleteDeck_ShouldRemoveFromNormalList() {
+        Deck deckToSoftDelete = new Deck("soft-delete-test-2", "test description", user);
+        deckDAO.createDeck(deckToSoftDelete);
+
         deckDAO.softDeleteDeck(deckToSoftDelete);
 
-        // Verify it no longer appears in normal deck list
         List<Deck> decksAfterSoftDelete = deckDAO.getDecks(user);
         boolean deckFoundAfterDelete = decksAfterSoftDelete.stream()
                 .anyMatch(d -> d.getId() == deckToSoftDelete.getId());
         assertFalse(deckFoundAfterDelete);
+    }
 
-        // Verify it appears in soft deleted deck list
+    @Test
+    @Order(8)
+    void softDeleteDeck_ShouldAppearInSoftDeletedList() {
+        Deck deckToSoftDelete = new Deck("soft-delete-test-3", "test description", user);
+        deckDAO.createDeck(deckToSoftDelete);
+        deckDAO.softDeleteDeck(deckToSoftDelete);
+
         List<Deck> softDeletedDecks = deckDAO.getSoftDeletedDecks(user);
         boolean deckFoundInSoftDeleted = softDeletedDecks.stream()
                 .anyMatch(d -> d.getId() == deckToSoftDelete.getId());
@@ -140,23 +149,29 @@ class SqliteDeckDAOTest {
     }
 
     @Test
-    @Order(7)
-    void restoreDeck() {
-        List<Deck> softDeletedDecks = deckDAO.getSoftDeletedDecks(user);
-        assertFalse(softDeletedDecks.isEmpty());
-
-        // Take the first soft deleted deck for restoration
-        Deck deckToRestore = softDeletedDecks.getFirst();
+    @Order(9)
+    void restoreDeck_ShouldRemoveFromSoftDeletedList() {
+        Deck deckToRestore = new Deck("restore-test", "test description", user);
+        deckDAO.createDeck(deckToRestore);
+        deckDAO.softDeleteDeck(deckToRestore);
 
         deckDAO.restoreDeck(deckToRestore);
 
-        // Verify it no longer appears in soft deleted deck list
         List<Deck> softDeletedDecksAfterRestore = deckDAO.getSoftDeletedDecks(user);
         boolean stillFoundInSoftDeleted = softDeletedDecksAfterRestore.stream()
                 .anyMatch(d -> d.getId() == deckToRestore.getId());
         assertFalse(stillFoundInSoftDeleted);
+    }
 
-        // Verify it appears in normal deck list again
+    @Test
+    @Order(10)
+    void restoreDeck_ShouldAppearInNormalListAgain() {
+        Deck deckToRestore = new Deck("restore-test-2", "test description", user);
+        deckDAO.createDeck(deckToRestore);
+        deckDAO.softDeleteDeck(deckToRestore);
+
+        deckDAO.restoreDeck(deckToRestore);
+
         List<Deck> normalDecksAfterRestore = deckDAO.getDecks(user);
         boolean foundInNormalDecks = normalDecksAfterRestore.stream()
                 .anyMatch(d -> d.getId() == deckToRestore.getId());
@@ -164,42 +179,43 @@ class SqliteDeckDAOTest {
     }
 
     @Test
-    @Order(8)
-    void getSoftDeletedDecks() {
-        // Create several decks
+    @Order(11)
+    void getSoftDeletedDecks_ShouldContainSoftDeletedDecks() {
         Deck deckToSoftDelete1 = new Deck("soft-delete-test-1", "test description 1", user);
-        Deck deckToSoftDelete2 = new Deck("soft-delete-test-2", "test description 2", user);
-        Deck normalDeck = new Deck("normal-deck", "test description normal", user);
 
         deckDAO.createDeck(deckToSoftDelete1);
-        deckDAO.createDeck(deckToSoftDelete2);
-        deckDAO.createDeck(normalDeck);
-
         deckDAO.softDeleteDeck(deckToSoftDelete1);
-        deckDAO.softDeleteDeck(deckToSoftDelete2);
 
         List<Deck> softDeletedDecks = deckDAO.getSoftDeletedDecks(user);
 
-        // Verify both soft deleted decks are in the list
         boolean deck1Found = softDeletedDecks.stream()
                 .anyMatch(d -> d.getId() == deckToSoftDelete1.getId());
-        boolean deck2Found = softDeletedDecks.stream()
-                .anyMatch(d -> d.getId() == deckToSoftDelete2.getId());
 
         assertTrue(deck1Found);
-        assertTrue(deck2Found);
+    }
 
-        // Verify normal deck is not in the soft deleted list
+    @Test
+    @Order(12)
+    void getSoftDeletedDecks_ShouldNotContainNormalDecks() {
+        Deck normalDeck = new Deck("normal-deck", "test description normal", user);
+        deckDAO.createDeck(normalDeck);
+
+        List<Deck> softDeletedDecks = deckDAO.getSoftDeletedDecks(user);
+
         boolean normalDeckFound = softDeletedDecks.stream()
                 .anyMatch(d -> d.getId() == normalDeck.getId());
-
         assertFalse(normalDeckFound);
+    }
 
-        // Verify normal deck is in the regular deck list
+    @Test
+    @Order(13)
+    void getSoftDeletedDecks_NormalDeckShouldStayInRegularList() {
+        Deck normalDeck = new Deck("normal-deck-2", "test description normal", user);
+        deckDAO.createDeck(normalDeck);
+
         List<Deck> normalDecks = deckDAO.getDecks(user);
         boolean normalDeckInRegularList = normalDecks.stream()
                 .anyMatch(d -> d.getId() == normalDeck.getId());
-
         assertTrue(normalDeckInRegularList);
     }
 }

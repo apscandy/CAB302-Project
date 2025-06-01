@@ -12,6 +12,7 @@ import com.cab302.cab302project.model.deck.SqliteDeckDAO;
 import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
 import com.cab302.cab302project.util.DeckCSVUtils;
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,11 +22,20 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Controller for the application-wide menu bar.
+ * <p>
+ * Provides handlers for menu items such as navigation to Home, Deck
+ * management, Card creation, test modes, profile management, import/export,
+ * and application exit. All scene changes are performed via FXMLLoader,
+ * and the user’s authentication and application state are respected.
+ * </p>
+ * @author Andrew Clarke, Monica Borg, Maverick Doan, David Bui, Lewis Phan
+ **/
 public class MenuBarController {
 
     private static final Logger logger = LogManager.getLogger(MenuBarController.class);
@@ -36,12 +46,27 @@ public class MenuBarController {
     @FXML
     private HBox rootHBox;
 
+    /**
+     * Exits the application immediately.
+     * <p>
+     * Logs the action and then calls {@link System#exit(int)} with status 0.
+     * </p>
+     * @author Andrew Clarke (n11270179) (a40.clarke@connect.qut.edu.au)
+     */
     @FXML
     private void closeProgram() {
         logger.info("Close application button clicked");
         System.exit(0);
     }
 
+    /**
+     * Navigates to the Home view.
+     * <p>
+     * Loads 'main/main.fxml' and sets it as the current scene
+     * on the primary stage. Any exceptions during FXML loading are printed.
+     * </p>
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
+     */
     @FXML
     private void home() {
         logger.info("Home clicked");
@@ -57,6 +82,99 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Starts Random test mode.
+     * <p>
+     * Checks that a deck is selected in {@link ApplicationState}. If none is selected,
+     * shows a warning alert. Otherwise, sets the current mode to Random,
+     * loads 'test-mode/test-mode.fxml', and displays it.
+     * </p>
+     *
+     * @throws IOException if the FXML resource cannot be loaded
+     * @author Maverick Doan (n11562773) (minhson.doan@connect.qut.edu.au)
+     */
+    @FXML
+    private void goToTestModeRandom() throws IOException {
+        if (ApplicationState.getDeck() == null) {
+            ShowAlertUtils.showWarning("No Deck Selected", "Please select a deck before continuing");
+            return;
+        }
+        try {
+            ApplicationState.setCurrentModeRandom();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(HelloApplication.class.getResource("test-mode/test-mode.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Starts Smart test mode.
+     * <p>
+     * Checks for deck selection, shows warning if none, then
+     * sets mode to Smart and navigates to 'test-mode/test-mode.fxml'.
+     * </p>
+     *
+     * @throws IOException if the FXML resource cannot be loaded
+     * @author Maverick Doan (n11562773) (minhson.doan@connect.qut.edu.au)
+     */
+    @FXML
+    private void goToTestModeSmart() throws IOException {
+        if (ApplicationState.getDeck() == null) {
+            ShowAlertUtils.showWarning("No Deck Selected", "Please select a deck before continuing");
+            return;
+        }
+        try {
+            ApplicationState.setCurrentModeSmart();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(HelloApplication.class.getResource("test-mode/test-mode.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Starts Standard (sequential) test mode.
+     * <p>
+     * Validates deck selection, sets mode to Sequential, and loads
+     * 'test-mode/test-mode.fxml'. Exceptions are caught and logged.
+     * </p>
+     * @author Andrew Clarke (n11270179) (a40.clarke@connect.qut.edu.au)
+     */
+    @FXML
+    private void goToTestModeStandard() {
+        if (ApplicationState.getDeck() == null) {
+            ShowAlertUtils.showWarning("No Deck Selected", "Please select a deck before continuing");
+            return;
+        }
+        try {
+            ApplicationState.setCurrentModeSequential();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(HelloApplication.class.getResource("test-mode/test-mode.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Opens the Deck management view.
+     * <p>
+     * Loads 'deck/deck-view.fxml' for creating, editing, or deleting decks.
+     * </p>
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
+     */
     @FXML
     private void openDeckView() {
         logger.info("New -> Deck clicked");
@@ -72,6 +190,13 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Opens the Card creation view.
+     * <p>
+     * Navigates to 'card/new-card-view.fxml' for adding new flip cards.
+     * </p>
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
+     */
     @FXML
     private void openCardView() {
         logger.info("New -> Card clicked");
@@ -87,6 +212,13 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Opens the Bookmarked Decks view.
+     * <p>
+     * Loads 'deck/bookmarked-decks.fxml' to display decks marked as bookmarked.
+     * </p>
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
+     */
     @FXML
     private void openBookmarkView() {
         logger.info("File -> Bookmark clicked");
@@ -102,13 +234,20 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Logs out the current user and returns to the login prompt.
+     * <p>
+     * Clears the application state, then loads 'prompt-email-view.fxml'.
+     * </p>
+     * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
+     */
     @FXML
     private void logOut() {
         logger.info("Log Out clicked");
         ApplicationState.logout();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(HelloApplication.class.getResource("prompt-email-view.fxml"));
+            fxmlLoader.setLocation(HelloApplication.class.getResource("user/login/prompt-email-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
             Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
             primaryStage.setScene(scene);
@@ -118,10 +257,13 @@ public class MenuBarController {
         }
     }
 
-    private User currentUser;
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-    }
+    /**
+     * Enters the Recycle Bin view.
+     * <p>
+     * Loads 'recyclebin/recycle-bin-view.fxml' to allow permanent deletion or restoration.
+     * </p>
+     * @author David Bui (n11659831) (hoangdat.bui@connect.qut.edu.au)
+     */
     @FXML
     private void enterRecycleBin() {
         logger.info("Recycle bin clicked");
@@ -137,26 +279,50 @@ public class MenuBarController {
         }
     }
 
-    @FXML
-    private void clearRecycleBin() {
-
-    }
-
+    /**
+     * Switches to the Change Email scene.
+     * <p>
+     * Uses {@link #switchScene(String)} with 'change-email-view.fxml'.
+     * </p>
+     * @author Lewis Phan (n11781840) (danglinh.phan@connect.qut.edu.au)
+     */
     @FXML
     private void changeEmailButton() {
-        switchScene("change-email-view.fxml");
+        switchScene("user/account/change-email-view.fxml");
     }
 
+    /**
+     * Switches to the Change Password scene.
+     * <p>
+     * Uses {@link #switchScene(String)} with 'change-password-view.fxml'.
+     * </p>
+     * @author Lewis Phan (n11781840) (danglinh.phan@connect.qut.edu.au)
+     */
     @FXML
     private void changePasswordButton() {
-        switchScene("change-password-view.fxml");
+        switchScene("user/account/change-password-view.fxml");
     }
 
+    /**
+     * Switches to the Change Security Questions scene.
+     * <p>
+     * Uses {@link #switchScene(String)} with 'change-security-questions-view.fxml'.
+     * </p>
+     * @author Lewis Phan (n11781840) (danglinh.phan@connect.qut.edu.au)
+     */
     @FXML
     private void changeSecurityQuestionButton() {
-        switchScene("change-security-questions-view.fxml");
+        switchScene("user/account/change-security-questions-view.fxml");
     }
 
+    /**
+     * Deletes the current user’s account after confirmation.
+     * <p>
+     * Prompts with a CONFIRMATION dialog; if confirmed, calls
+     * {@link SqliteUserDAO#deleteUser(User)} and logs out, then
+     * navigates back to the login prompt.</p>
+     * @author Lewis Phan (n11781840) (danglinh.phan@connect.qut.edu.au)
+     */
     @FXML
     private void DeleteAccount() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -178,7 +344,7 @@ public class MenuBarController {
                     logger.info("User account deleted: " + currentUser.getEmail());
 
                     ApplicationState.logout();
-                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user/login/prompt-email-view.fxml"));
                     Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
                     Stage primaryStage = (Stage) rootHBox.getScene().getWindow();
                     primaryStage.setScene(scene);
@@ -190,6 +356,16 @@ public class MenuBarController {
         });
     }
 
+    /**
+     * Helper to switch scenes by FXML path.
+     * <p>
+     * Attempts to load the given FXML file from the classpath and set it as the
+     * current scene on the primary stage. Logs an error on failure.
+     * </p>
+     *
+     * @param fxmlPath the relative path to an FXML resource under the package
+     * @author Lewis Phan (n11781840) (danglinh.phan@connect.qut.edu.au)
+     */
     private void switchScene(String fxmlPath) {
         try {
 
@@ -202,9 +378,48 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Imports a Deck from a CSV file.
+     *<p>
+     * CSV layout:<br>
+     * Deck Name,Deck Description<br>
+     * &lt;name&gt;,&lt;description&gt;<br><br>
+     *
+     * Question,Answer,Tags<br>
+     * "question 1","answer 1","tag1;tag2"<br>
+     * "question 2","answer 2",""<br>
+     * ...
+     *</p>
+     * <p>
+     * Prompts the user to select a CSV via {@link FileChooser}, then uses
+     * {@link DeckCSVUtils#importDeck(String, User)} to parse and build a Deck.
+     * Inserts the Deck and its Cards into the database, showing alerts for
+     * success or any encountered errors.</p>
+     * @author Maverick Doan (n11562773) (minhson.doan@connect.qut.edu.au)
+     */
     @FXML
     private void importDeckCSV() {
         if (!ApplicationState.isUserLoggedIn()) return;
+        ShowAlertUtils.showInfo("CSV Format Guide",
+                """
+                CSV Format Required:
+                ------------------------------
+                Deck Name,Deck Description
+                name,description
+                Question,Answer,Tags
+                "question 1","answer 1","tag"
+                "question 2","answer 2",""
+                ------------------------------
+                Example:
+                ------------------------------
+                Deck Name,Deck Description
+                My Deck,This is my deck
+                
+                Question,Answer,Tags
+                "What is Java?","A programming language","programming"
+                "Capital of France?","Paris","geography"
+                ------------------------------
+                """);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Deck CSV");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
@@ -214,12 +429,20 @@ public class MenuBarController {
         try {
             deck = DeckCSVUtils.importDeck(file.getAbsolutePath(),
                     ApplicationState.getCurrentUser());
-        } catch (CSVImportException |
-                 CSVImportInvalidFormatException |
-                 InvalidCSVContentException |
-                 FilePathIsNullException |
-                 InvalidFilePathException e) {
-            showAlert(Alert.AlertType.ERROR, "Import Failed", e.getMessage());
+        } catch (CSVImportException e) {
+            ShowAlertUtils.showError("CSV Import Failed", e.getMessage());
+            return;
+        } catch (CSVImportInvalidFormatException e) {
+            ShowAlertUtils.showError("Invalid CSV Format", e.getMessage());
+            return;
+        } catch (InvalidCSVContentException e) {
+            ShowAlertUtils.showError("Invalid CSV Content", e.getMessage());
+            return;
+        } catch (FilePathIsNullException e) {
+            ShowAlertUtils.showError("Missing File Path for Import", e.getMessage());
+            return;
+        } catch (InvalidFilePathException e) {
+            ShowAlertUtils.showError("Invalid File Path for Import", e.getMessage());
             return;
         }
         IDeckDAO deckDAO = new SqliteDeckDAO();
@@ -231,20 +454,12 @@ public class MenuBarController {
                     cardDAO.addCard(c);
                 }
             }
-            showAlert(Alert.AlertType.INFORMATION, "Import Successful",
+            ShowAlertUtils.showInfo("Import Successful",
                     "Imported deck \"" + deck.getName() + "\"");
 
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Database Error",
+            ShowAlertUtils.showError("Database Error",
                     "Could not save imported deck to the database.\n" + e.getMessage());
         }
-    }
-
-    private void showAlert(Alert.AlertType type, String title, String msg) {
-        Alert a = new Alert(type);
-        a.setTitle(title);
-        a.setHeaderText(null);
-        a.setContentText(msg);
-        a.showAndWait();
     }
 }

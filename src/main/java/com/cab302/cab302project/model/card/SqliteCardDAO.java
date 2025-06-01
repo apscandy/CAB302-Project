@@ -9,14 +9,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Implementation of ICardDAO for SQLite.
  * Handles insertion, update, and soft deletion of cards, as well as retrieval of cards for a given deck.
  *
- * @author Monica Borg (n9802045)
+ * @author Monica Borg (n09802045) (monica.borg@connect.qut.edu.au)
  */
 public final class SqliteCardDAO implements ICardDAO {
 
@@ -29,6 +28,8 @@ public final class SqliteCardDAO implements ICardDAO {
     private final String deleteCardSQL = "DELETE FROM card WHERE id = ? AND is_deleted = 1";
     private final String softDeleteSQL = "UPDATE card SET is_deleted = ? WHERE id = ?";
     private final String getCardsForDeckSQL = "SELECT * FROM card WHERE deck_id = ? AND is_deleted = ?";
+    private final String getRandomCardsSQL = "SELECT * FROM card WHERE deck_id = ? AND is_deleted = 0 ORDER BY RANDOM()";
+
 
     /**
      * Constructs a new SqliteCardDAO, obtaining a connection from SqliteConnection.
@@ -43,6 +44,7 @@ public final class SqliteCardDAO implements ICardDAO {
      *
      * @param card the card to add
      * @throws RuntimeException if an error occurs during insertion
+     * @author Andrew Clarke (n11270179) (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public void addCard(Card card) throws RuntimeException {
@@ -54,6 +56,10 @@ public final class SqliteCardDAO implements ICardDAO {
                 insertStatement.setString(3, card.getAnswer());
                 insertStatement.setString(4, card.getTags());
                 insertStatement.executeUpdate();
+                ResultSet rs = insertStatement.getGeneratedKeys();
+                if (rs.next()) {
+                    card.setId(rs.getInt(1));
+                }
                 con.commit();
                 insertStatement.close();
             }catch (SQLException e) {
@@ -74,6 +80,7 @@ public final class SqliteCardDAO implements ICardDAO {
      * Uses a transaction to ensure the operation is atomic.
      *
      * @param card the card to update
+     * @author Andrew Clarke (n11270179) (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public void updateCard(Card card) {
@@ -100,6 +107,13 @@ public final class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Deletes a card from the database (permanently, only if soft-deleted).
+     * Uses a transaction to ensure the operation is atomic.
+     *
+     * @param card the card to delete
+     * @author David Bui (n11659831) (hoangdat.bui@connect.qut.edu.au)
+     */
     @Override
     public void deleteCard(Card card) {
         if (card == null) {
@@ -131,6 +145,8 @@ public final class SqliteCardDAO implements ICardDAO {
      * Uses a transaction to ensure the operation is atomic.
      *
      * @param card the card to soft delete
+     * @author David Bui (n11659831) (hoangdat.bui@connect.qut.edu.au)
+     * @author Andrew Clarke (n11270179) (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public void softDeleteCard(Card card) {
@@ -155,6 +171,13 @@ public final class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Restores a previously soft-deleted card by updating its deleted flag.
+     * Uses a transaction to ensure atomicity.
+     *
+     * @param card the card to restore
+     * @author David Bui (n11659831) (hoangdat.bui@connect.qut.edu.au)
+     */
     @Override
     public void restoreCard(Card card) {
         try {
@@ -183,6 +206,7 @@ public final class SqliteCardDAO implements ICardDAO {
      *
      * @param deck the deck for which cards are retrieved
      * @return a List of cards in the deck
+     * @author Andrew Clarke (n11270179) (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public List<Card> getCardsForDeck(Deck deck) {
@@ -226,6 +250,7 @@ public final class SqliteCardDAO implements ICardDAO {
      * and setting the deck’s internal list.
      *
      * @param deck Deck to load cards into
+     * @author Andrew Clarke (n11270179) (a40.clarke@connect.qut.edu.au)
      */
     @Override
     public void getCardAndLoadIntoDeck(Deck deck) {
@@ -262,6 +287,12 @@ public final class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Restores all cards marked as deleted under the specified deck.
+     *
+     * @param deck the deck whose cards will be restored
+     * @author David Bui (n11659831) (hoangdat.bui@connect.qut.edu.au)
+     */
     @Override
     public void restoreCardsByDeck(Deck deck) {
         if (deck == null || deck.getUserId() == 0 || deck.getId() == 0){
@@ -288,6 +319,13 @@ public final class SqliteCardDAO implements ICardDAO {
         }
     }
 
+    /**
+     * Retrieves all soft-deleted cards for the specified deck.
+     *
+     * @param deck the deck to retrieve soft-deleted cards from
+     * @return list of soft-deleted cards
+     * @author David Bui (n11659831) (hoangdat.bui@connect.qut.edu.au)
+     */
     @Override
     public List<Card> getSoftDeletedCardsForDeck(Deck deck) {
         List<Card> cards = new ArrayList<>();
@@ -319,5 +357,112 @@ public final class SqliteCardDAO implements ICardDAO {
             throw new FailedToGetCardsException(e.getMessage());
         }
         return cards;
+    }
+
+    /**
+     * Retrieves a randomized list of {@link Card} objects associated with the given {@link Deck}.
+     *
+     * <p>
+     * This method queries the database for cards belonging to the specified deck and returns them
+     * in randomized order. It uses a prepared SQL statement defined by {@code getRandomCardsSQL}.
+     * The method runs inside a database transaction to ensure consistency, and rolls back in case
+     * of any error.
+     * </p>
+     *
+     * @param deck The {@link Deck} for which to retrieve randomized cards. Must not be {@code null}
+     *             and must have a valid (non-zero) ID.
+     * @return A list of {@link Card} objects belonging to the deck, in randomized order.
+     * @throws DeckIsNullException If the provided deck is {@code null} or has an invalid ID.
+     * @throws FailedToGetCardsException If a SQL error occurs during card retrieval or transaction handling.
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
+     */
+    @Override
+    public List<Card> getRandomizedCardsForDeck(Deck deck) {
+        if (deck == null || deck.getId() == 0) {
+            throw new DeckIsNullException("Invalid deck");
+        }
+
+        List<Card> cards = new ArrayList<>();
+        String sql = getRandomCardsSQL;
+
+        try {
+            con.setAutoCommit(false);
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setInt(1, deck.getId());
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        Card c = new Card(
+                                deck,
+                                rs.getString("question"),
+                                rs.getString("answer"),
+                                rs.getString("tags")
+                        );
+                        c.setId(rs.getInt("id"));
+                        cards.add(c);
+                    }
+                }
+                con.commit();
+            } catch (SQLException e) {
+                con.rollback();
+                logger.error("getRandomizedCardsForDeck failed", e);
+                throw new FailedToGetCardsException(e.getMessage(), e);
+            } finally {
+                con.setAutoCommit(true);
+            }
+        } catch (SQLException e) {
+            logger.error("Transaction error", e);
+            throw new FailedToGetCardsException(e.getMessage(), e);
+        }
+
+        return cards;
+    }
+
+    /**
+     * Returns a smart-shuffled list of cards:
+     * - Cards with wrong rate >= 0.55 are first, sorted from highest to lowest wrong rate
+     * - Remaining cards are shown in random order
+     * @param deck the deck from which to retrieve cards for smart shuffling
+     * @param cardResults a map of card IDs to [correct, incorrect] statistics
+     * @return a list of cards ordered by learning priority
+     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     */
+    public List<Card> getSmartShuffledCardsForDeck(Deck deck, Map<Integer, double[]> cardResults) {
+        List<Card> allCards = deck.getCards();
+        List<Card> wrongCards = new ArrayList<>();
+        Map<Integer, Double> wrongRates = new HashMap<>();
+        List<Card> okCards = new ArrayList<>();
+        for (Card card : allCards) {
+            double[] stats = cardResults.get(card.getId());
+            if (stats == null) {
+                okCards.add(card);
+                continue;
+            }
+            double correct = stats[0];
+            double incorrect = stats[1];
+            double total = correct + incorrect;
+            if (total == 0) {
+                okCards.add(card);
+            } else {
+                double wrongRate = incorrect / total;
+                if (wrongRate >= 0.55) {
+                    wrongCards.add(card);
+                    wrongRates.put(card.getId(), wrongRate);
+                } else {
+                    okCards.add(card);
+                }
+            }
+        }
+
+        wrongCards.sort((c1, c2) -> Double.compare(
+                wrongRates.getOrDefault(c2.getId(), 0.0),
+                wrongRates.getOrDefault(c1.getId(), 0.0)
+        ));
+
+        Collections.shuffle(okCards);
+
+        List<Card> result = new ArrayList<>();
+        result.addAll(wrongCards);
+        result.addAll(okCards);
+        return result;
     }
 }

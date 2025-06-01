@@ -8,6 +8,7 @@ import com.cab302.cab302project.model.card.SqliteCardDAO;
 import com.cab302.cab302project.model.deck.Deck;
 import com.cab302.cab302project.model.deck.IDeckDAO;
 import com.cab302.cab302project.model.deck.SqliteDeckDAO;
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,20 +41,16 @@ import java.util.ResourceBundle;
  * If no deck is selected, the deck creation view (deck-create-view.fxml) is loaded.
  * </p>
  *
- * @author Monica Borg (n9802045)
+ * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
  */
 public class CardCreateController implements Initializable {
 
     private static final Logger logger = LogManager.getLogger(CardCreateController.class);
 
-    @FXML
-    private ComboBox<Deck> deckComboBox;
-    @FXML
-    private ListView<Card> cardsList;
-    @FXML
-    private TextField cardName;
-    @FXML
-    private TextArea cardAnswer;
+    @FXML private ComboBox<Deck> deckComboBox;
+    @FXML private ListView<Card> cardsList;
+    @FXML private TextField cardName;
+    @FXML private TextArea cardAnswer;
 
     private Deck currentDeck;
     private Card selectedCard;
@@ -67,6 +64,7 @@ public class CardCreateController implements Initializable {
      *
      * @param location  the location used to resolve relative paths for the root object, or null if unknown
      * @param resources the resources used to localize the root object, or null if not specified
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -88,40 +86,22 @@ public class CardCreateController implements Initializable {
     }
 
     /**
-     * Loads cards for the currently selected deck and populates the cards ListView.
-     */
-    private void loadCards() {
-        if (currentDeck != null) {
-            List<Card> cards = cardDAO.getCardsForDeck(currentDeck);
-            cardsList.getItems().setAll(cards);
-        }
-    }
-
-    /**
-     * Displays an alert dialog with the provided title and message.
-     *
-     * @param title the title for the alert dialog
-     * @param msg   the message for the alert dialog
-     */
-    private void showAlert(String title, String msg) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(msg);
-        alert.showAndWait();
-    }
-
-    /**
      * Saves a new card or updates an existing card.
-     * Validates that the question and answer fields are filled and that a deck is selected.
+     * <p>
+     * Validates input fields and either creates a new card for the selected deck,
+     * or updates the currently selected card's question and answer.
+     * After saving, fields are cleared and the card list is refreshed.
+     * </p>
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void saveCard() {
         if (cardName.getText().isEmpty() || cardAnswer.getText().isEmpty()) {
-            showAlert("Missing Fields", "Both question and answer must be filled in.");
+            ShowAlertUtils.showError("Missing Fields", "Both question and answer must be filled in.");
             return;
         }
         if (currentDeck == null) {
-            showAlert("No Deck Selected", "Please select a deck from the dropdown.");
+            ShowAlertUtils.showError("No Deck Selected", "Please select a deck from the dropdown.");
             return;
         }
         if (selectedCard == null) {
@@ -137,19 +117,49 @@ public class CardCreateController implements Initializable {
     }
 
     /**
-     * Loads the details of the selected card into the input fields.
+     * Edits the selected card by updating its question and answer.
+     * <p>
+     * Validates input, updates the selected card in the database,
+     * and refreshes the card list to reflect changes.
+     * </p>
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void editCard() {
         selectedCard = cardsList.getSelectionModel().getSelectedItem();
-        if (selectedCard != null) {
-            cardName.setText(selectedCard.getQuestion());
-            cardAnswer.setText(selectedCard.getAnswer());
+        if (selectedCard == null) {
+            ShowAlertUtils.showError("No Card Selected", "Please select a card from the list to edit.");
+            return;
         }
+
+        String newQuestion = cardName.getText().trim();
+        String newAnswer   = cardAnswer.getText().trim();
+        if (newQuestion.isEmpty() || newAnswer.isEmpty()) {
+            ShowAlertUtils.showError("Missing Fields", "Both question and answer must be filled in.");
+            return;
+        }
+        selectedCard.setQuestion(newQuestion);
+        selectedCard.setAnswer(newAnswer);
+
+        try {
+            cardDAO.updateCard(selectedCard);
+        } catch (Exception e) {
+            logger.error("Failed to update card", e);
+            ShowAlertUtils.showError("Update Failed", "Could not save changes: " + e.getMessage());
+            return;
+        }
+
+        clearCard();
+        loadCards();
     }
 
     /**
-     * Deletes the selected card via a soft delete after confirmation.
+     * Deletes the selected card via a soft delete after user confirmation.
+     * <p>
+     * The card is not removed from the database but marked as deleted
+     * and hidden from the active deck view.
+     * </p>
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void deleteCard() {
@@ -169,7 +179,11 @@ public class CardCreateController implements Initializable {
     }
 
     /**
-     * Clears the input fields and resets the selected card.
+     * Clears the card name and answer fields and resets the selected card.
+     * <p>
+     * This is used after saving, editing, or deleting a card to reset the input state.
+     * </p>
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void clearCard() {
@@ -201,6 +215,7 @@ public class CardCreateController implements Initializable {
      * </p>
      *
      * @throws IOException if the FXML resource cannot be loaded
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void returnToDeck() throws IOException {
@@ -224,4 +239,18 @@ public class CardCreateController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Loads cards for the currently selected deck and displays them in the card list view.
+     * <p>
+     * This method queries the database for all non-deleted cards associated with the selected deck
+     * and populates the ListView.
+     * </p>
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
+     */
+    private void loadCards() { // from CardViewController
+        if (currentDeck != null) {
+            List<Card> cards = cardDAO.getCardsForDeck(currentDeck);
+            cardsList.getItems().setAll(cards);
+        }
+    }
 }

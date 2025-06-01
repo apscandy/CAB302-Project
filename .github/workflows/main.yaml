@@ -7,12 +7,8 @@ on:
   push:
     branches:
       - main
-      - 'releases/**'
-      - 'sprint/**'
     tags:
       - v*.*.*
-      - v*.*.*-alpha
-      - v*.*.*-beta
 
 jobs:
   build:

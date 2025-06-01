@@ -7,6 +7,7 @@ import com.cab302.cab302project.model.user.SqliteUserDAO;
 import com.cab302.cab302project.model.user.User;
 import com.cab302.cab302project.model.userSecQuestions.SqliteUserSecurityQuestionDAO;
 import com.cab302.cab302project.model.userSecQuestions.UserSecurityQuestion;
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,8 +23,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Hoang Dat Bui
- */
+ * Controller for password authentication and password reset flow.
+ * <p>
+ * Handles password validation for user login and provides navigation to
+ * password reset functionality through security questions. Authenticates
+ * users with their stored passwords and manages the flow between login,
+ * password reset, and main application screens. Displays appropriate
+ * error messages for authentication failures.
+ * </p>
+ * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
+ **/
 public class PromptPasswordController {
 
     @FXML
@@ -37,7 +46,7 @@ public class PromptPasswordController {
 
     @FXML
     private Button backToPromptEmailPageBtn;
-    
+
     private String userEmail;
 
     private final List<String> QuestionList = new ArrayList<>();
@@ -46,8 +55,13 @@ public class PromptPasswordController {
 
     /**
      * Sets the email of the user attempting to authenticate for this controller to use.
+     * <p>
+     * Stores the validated email address from the previous screen for use
+     * in authentication and password reset operations.
+     * </p>
      *
      * @param email The email address of the user
+     * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
      */
     public void setUserEmail(String email) {
         this.userEmail = email;
@@ -55,7 +69,15 @@ public class PromptPasswordController {
 
     /**
      * Authenticates the user with the provided password.
-     * Navigates to the main application if authentication succeeds.
+     * <p>
+     * Validates the password against stored credentials using AuthenticationService.
+     * On successful authentication, navigates to the main application screen.
+     * Shows error messages for empty passwords, incorrect passwords, or if
+     * the user is already logged in.
+     * </p>
+     *
+     * @throws IOException if the main application FXML resource cannot be loaded
+     * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
      */
     @FXML
     public void login() throws IOException {
@@ -65,13 +87,13 @@ public class PromptPasswordController {
         try {
             authenticated = authHandler.authenticate(userEmail, password);
         } catch (UserAlreadyLoggedInException ex) {
-            setError("User already logged in.");
+            ShowAlertUtils.showError("Prompt Password Error","User already logged in.");
             logger.debug("User already logged in.");
         } catch (PasswordEmptyException ex) {
-            setError("Password cannot be empty.");
+            ShowAlertUtils.showError("Prompt Password Error","Password cannot be empty.");
             logger.debug("Password cannot be empty.");
         } catch (PasswordComparisonException ex) {
-            setError("Incorrect password. Please try again.");
+            ShowAlertUtils.showError("Prompt Password Error","Incorrect password. Please try again.");
             logger.debug("Incorrect password. Please try again.");
         }
         if (authenticated) {
@@ -82,23 +104,40 @@ public class PromptPasswordController {
         }
     }
 
+    /**
+     * Navigates back to the email prompt screen.
+     * <p>
+     * Returns to the previous step in the login flow, allowing users
+     * to change their email address or restart the authentication process.
+     * </p>
+     *
+     * @throws IOException if the email prompt FXML resource cannot be loaded
+     * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
+     */
     @FXML
     public void backToPromptEmailPage() throws IOException {
         Stage stage = (Stage) backToPromptEmailPageBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user/login/prompt-email-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
 
     /**
      * Navigates to the security questions screen.
-     * Loads the next view and initialises it with the user's security questions.
+     * <p>
+     * Initiates the password reset flow by retrieving the user's security
+     * questions and navigating to the answer validation screen. Passes both
+     * the user object and security questions to the next controller.
+     * </p>
+     *
+     * @throws IOException if the security questions FXML resource cannot be loaded
+     * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
      */
     @FXML
     public void goToAnswerSecurityQuestion() throws IOException {
         User user = retrieveUserAndInitQuestions(userEmail, QuestionList);
         Stage stage = (Stage) resetPasswordBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("answer-security-questions-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user/reset-password/answer-security-questions-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         AnswerSecurityQuestionController answerController = fxmlLoader.getController();
         answerController.initSecurityQuestion(QuestionList);
@@ -107,11 +146,17 @@ public class PromptPasswordController {
     }
 
     /**
-     * Retrieves a user and add their security questions to a provided list.
+     * Retrieves a user and adds their security questions to a provided list.
+     * <p>
+     * Fetches the user from the database using their email address and
+     * populates the question list with their three configured security
+     * questions for use in the password reset flow.
+     * </p>
      *
      * @param userEmail The email of the user
      * @param QuestionList List to populate with the user's security questions
      * @return The retrieved User object
+     * @author Hoang Dat Bui (n11659831, hoangdat.bui@connect.qut.edu.au)
      */
     public static User retrieveUserAndInitQuestions(String userEmail, List<String> QuestionList) {
         QuestionList.clear();
@@ -123,13 +168,5 @@ public class PromptPasswordController {
         QuestionList.add(userSecurityQuestion.getQuestionTwo());
         QuestionList.add(userSecurityQuestion.getQuestionThree());
         return user;
-    }
-
-    private void setError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Prompt Password Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }

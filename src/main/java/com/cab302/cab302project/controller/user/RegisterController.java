@@ -1,30 +1,45 @@
 package com.cab302.cab302project.controller.user;
 
-import com.cab302.cab302project.model.user.IUserDAO;
-import com.cab302.cab302project.model.userSecQuestions.IUserSecurityQuestionDAO;
 import com.cab302.cab302project.util.RegexValidator;
 import com.cab302.cab302project.HelloApplication;
 import com.cab302.cab302project.error.authentication.*;
 import com.cab302.cab302project.model.user.User;
 
+import com.cab302.cab302project.util.ShowAlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextInputControl;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 /**
- * The {@code RegisterController} class provides methods to handle
- * button function in FXML file, checking validated data, add those data to tempUser and move to security question window.
- * This class link to register-view.fxml to control the Ul for register.
- *
- * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+ * The {@code RegisterController} class handles user input for the registration form,
+ * validates all fields including email and password, and manages navigation
+ * between the registration and security question views.
+ * <p>This controller is bound to the {@code register-view.fxml} layout and coordinates
+ * data collection for creating a temporary {@link com.cab302.cab302project.model.user.User} object.
+ * Upon successful validation, the controller transitions to the Add Security Question stage
+ * handled by {@link com.cab302.cab302project.controller.user.AddSecurityQuestionController}.
+ * </p>
+ * <p>Key responsibilities include:
+ * <ul>
+ *   <li>Handling back and next button navigation events</li>
+ *   <li>Validating input fields (first name, last name, email, password)</li>
+ *   <li>Checking email uniqueness using {@link com.cab302.cab302project.error.authentication}</li>
+ *   <li>Displaying validation feedback using {@link com.cab302.cab302project.util.ShowAlertUtils}</li>
+ * </ul>
+ * </p>
+ * @see com.cab302.cab302project.model.user.User
+ * @see com.cab302.cab302project.controller.user.AddSecurityQuestionController
+ * @see com.cab302.cab302project.error.authentication
+ * @see com.cab302.cab302project.util.RegexValidator
+ * @see com.cab302.cab302project.util.ShowAlertUtils
+ * @see <a href="../../../../user/register/register-view.fxml">register-view.fxml</a>
+ * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
  */
 public class RegisterController {
     @FXML
@@ -53,17 +68,36 @@ public class RegisterController {
     private String confirmPassword;
 
     /**
-     * Navigates back to the prompt-email view when "Back" button is clicked.
+     * Navigates back to the prompt-email view when the "Back" button is clicked.
+     * <p>
+     * This method is triggered by the Back button and loads the {@code prompt-email-view.fxml} UI.
+     * It allows the user to return to the previous login stage if they wish to cancel registration.
+     * </p>
+     * @throws IOException if the FXML file fails to load
+     * @see com.cab302.cab302project.HelloApplication
+     * @see <a href="../../../../user/login/prompt-email-view.fxml">prompt-email-view.fxml</a>
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     public void BackButtonAction() throws IOException {
         Stage stage = (Stage) BackButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prompt-email-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user/login/prompt-email-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
 
     /**
-     * Validates input fields and, if successful, transitions to the security question view.
+     * Validates input fields and transitions to the "Add Security Questions" view if all inputs are valid.
+     * <p>
+     * This method checks that all registration fields are correct using {@link #registerUser()},
+     * then creates a temporary {@link User} object and passes it to the next controller
+     * {@link AddSecurityQuestionController} to complete the second step of registration.
+     * </p>
+     *
+     * @throws IOException if the FXML file for the next view fails to load
+     * @see #registerUser()
+     * @see AddSecurityQuestionController#setTempUser(User)
+     * @see <a href="../../../../user/register/add-questions-security-view.fxml">add-questions-security-view.fxml</a>
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     public void NextButtonAction() throws IOException {
         if (registerUser()) {
@@ -71,7 +105,7 @@ public class RegisterController {
             User user = new User(firstName, lastName, email, password);
             Stage stage = (Stage) NextButton.getScene().getWindow();
 
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-questions-security-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user/register/add-questions-security-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
             stage.setScene(scene);
             // Pass temporary user to the next controller
@@ -81,12 +115,20 @@ public class RegisterController {
     }
 
     /**
+     * Validates all user input fields in the registration form.
      * <p>
-     * Validates all user input fields. If valid, creates a User object and stores
-     * it temporarily for use in the Add Security Question step.
+     * This includes validation for first name, last name, email, password format,
+     * password confirmation, and email uniqueness via {@link AuthenticationService#emailCheck(String)}.
+     * Displays warning messages via {@link ShowAlertUtils#showError(String, String)} if any field is invalid.
      * </p>
-     * @return true if all fields are valid, false otherwise
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+     * @return {@code true} if all fields are valid and ready for next step; {@code false} otherwise
+     * @see ShowAlertUtils#showError(String, String)
+     * @see RegexValidator#validEmailAddress(String)
+     * @see RegexValidator#validPassword(String)
+     * @see AuthenticationService#emailCheck(String)
+     * @see EmailAlreadyInUseException
+     * @see User
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     public boolean registerUser() {
 
@@ -99,62 +141,48 @@ public class RegisterController {
 
         // validate first name
         if (firstName.isEmpty()) {
-            setError(FirstNameTextField, "First name cannot be empty.");
+            ShowAlertUtils.showError("Registration Error", "First name cannot be empty.");
             return false;
         }
 
         // validate last name
         if (lastName.isEmpty()) {
-            setError(LastNameTextField, "Last name cannot be empty.");
+            ShowAlertUtils.showError("Registration Error", "Last name cannot be empty.");
             return false;
         }
 
         // validate email
         if (email.isEmpty()) {
-            setError(EmailAddressTextField, "Email cannot be empty.");
+            ShowAlertUtils.showError("Registration Error", "Email cannot be empty.");
             return false;
         }
         if (!RegexValidator.validEmailAddress(email)) {
-            setError(EmailAddressTextField, "Invalid email format.");
+            ShowAlertUtils.showError("Registration Error", "Invalid email format.");
             return false;
         }
         // Check if email already exists in database
         try {
             new AuthenticationService().emailCheck(email);
         } catch (EmailAlreadyInUseException e) {
-            setError(EmailAddressTextField, "Email address already in use");
+            ShowAlertUtils.showError("Registration Error", "Email address already in use");
             return false;
         }
 
         // validate password
         if (password.isEmpty()) {
-            setError(SetPasswordField, "Password cannot be empty.");
+            ShowAlertUtils.showError("Registration Error", "Password cannot be empty.");
             return false;
         }
         if (!RegexValidator.validPassword(password)) {
-            setError(SetPasswordField, "Password must be at least 8 characters, include 1 number and 1 special character.");
+            ShowAlertUtils.showError("Registration Error", "Password must be at least 8 characters, include 1 number and 1 special character.");
             return false;
         }
         // Confirm passwords match
         else if (!password.equals(confirmPassword)) {
-            setError(ConfirmPasswordField, "Passwords do not match.");
+            ShowAlertUtils.showError("Registration Error", "Passwords do not match.");
             return false;
         }
         return true;
     }
 
-    /**
-     * <p>
-     * Displays an error alert associated with a given input control.
-     * </p>
-     * @param input The TextInputControl that caused the error
-     * @param message The message to display in the alert
-     */
-    private void setError(TextInputControl input, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Registration Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 }

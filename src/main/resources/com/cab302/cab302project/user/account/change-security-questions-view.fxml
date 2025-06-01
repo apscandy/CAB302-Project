@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.user.ProfileControllerSecurityQuestion">
+    <children>
+        <fx:include source="../../base-view.fxml" />
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="49.0" prefHeight="30.0" prefWidth="489.0" text="Update Account Security Questions" textAlignment="CENTER" textFill="#d90429">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="firstQuestionComboBox" layoutX="172.0" layoutY="113.0" prefHeight="25.0" prefWidth="300.0" promptText="Select Security Question 1" />
+        <ComboBox fx:id="secondQuestionComboBox" layoutX="171.0" layoutY="185.0" prefHeight="25.0" prefWidth="300.0" promptText="Select Security Question 2" />
+        <ComboBox fx:id="thirdQuestionComboBox" layoutX="170.0" layoutY="252.0" prefHeight="25.0" prefWidth="300.0" promptText="Select Security Question 3" />
+        <TextField fx:id="FirstAnswerTextField" layoutX="172.0" layoutY="145.0" prefHeight="25.0" prefWidth="300.0" promptText="Please input your answer here" />
+        <TextField fx:id="SecondAnswerTextField" layoutX="171.0" layoutY="213.0" prefHeight="25.0" prefWidth="300.0" promptText="Please input your answer here" />
+        <TextField fx:id="ThirdAnswerTextField" layoutX="171.0" layoutY="282.0" prefHeight="25.0" prefWidth="300.0" promptText="Please input your answer here" />
+        <Button fx:id="cancelButton" layoutX="26.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleCancelUpdateSecurityQuestion" text="Cancel" />
+        <Button fx:id="confirmButton" layoutX="570.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleUpdateSecurityQuestion" text="Save" />
+    </children>
+</AnchorPane>

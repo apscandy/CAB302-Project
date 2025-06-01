@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cab302.cab302project.controller.testMode.TestModeStandard">
+   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="219.0" layoutX="83.0" layoutY="66.0" stroke="#d90429" strokeType="INSIDE" strokeWidth="5.0" width="474.0" />
+    <fx:include source="../base-view.fxml" />
+   <Text fx:id="questionOrAnswerText" layoutX="109.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet. Ut explicabo voluptas ut ullam voluptatem et omnis pariatur ab impedit soluta in voluptas ducimus. Et placeat dolorem et doloremque distinctio est dolores illo. Aut maxime dignissimos At dolorum voluptatum quo numquam explicabo." textAlignment="CENTER" wrappingWidth="421.13671875">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text fx:id="questionOrAnswerTitle" fill="#135675" layoutX="29.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Questest-mode.fxmltion" textAlignment="CENTER" wrappingWidth="582.13671875">
+      <font>
+         <Font name="System Bold" size="20.0" />
+      </font>
+   </Text>
+   <Button fx:id="gotItWrongButton" layoutX="182.0" layoutY="306.0" mnemonicParsing="false" onAction="#onGotItWrongButtonClicked" text="Got it wrong" />
+   <Button fx:id="flipButton" layoutX="299.0" layoutY="306.0" mnemonicParsing="false" onAction="#onFlipButtonClicked" text="Flip" />
+   <Button fx:id="gotItRightButton" layoutX="369.0" layoutY="306.0" mnemonicParsing="false" onAction="#onGotItRightButtonClicked" text="Got it right" />
+
+</AnchorPane>

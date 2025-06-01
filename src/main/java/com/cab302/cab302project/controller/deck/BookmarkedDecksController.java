@@ -43,7 +43,7 @@ public class BookmarkedDecksController implements Initializable {
         this.cardDAO = new SqliteCardDAO();
     }
 
-    @Override
+        @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (!ApplicationState.isUserLoggedIn()) return;
         loadBookmarkedDecks();
@@ -57,8 +57,12 @@ public class BookmarkedDecksController implements Initializable {
     }
 
     /**
-     * Called when the user clicks on the left‐hand list of decks.
-     * Populates the title, description, bookmark button text and loads the cards.
+     * Called when a deck is selected from the bookmarked deck list.
+     * <p>
+     * Populates the deck name, description, and bookmark button label,
+     * and loads all cards from the selected deck into the card ListView.
+     * </p>
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void selectListViewItem() {
@@ -81,8 +85,12 @@ public class BookmarkedDecksController implements Initializable {
     }
 
     /**
-     * Fired when “Remove Bookmark ☆” is clicked.
-     * Unmarks the deck then removes it from the list.
+     * Toggles the bookmark status for the selected deck.
+     * <p>
+     * If a deck is currently bookmarked, this method unmarks it,
+     * removes it from the view, and clears all associated fields.
+     * </p>
+     * @author Monica Borg (n9802045) (monica.borg@connect.qut.edu.au)
      */
     @FXML
     private void toggleBookmark() {

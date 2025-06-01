@@ -13,6 +13,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ * Implementation of IUserDAO for SQLite.
+ * This class handles all user-related database operations, including
+ * creating, updating, retrieving and deleting user records.
+ * Operations are executed within transactions to ensure consistency and
+ * integrity. Custom exceptions are thrown for specific failure scenarios.
+ *
  * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
  */
 public final class SqliteUserDAO implements IUserDAO {
@@ -21,7 +27,7 @@ public final class SqliteUserDAO implements IUserDAO {
     private static final Logger logger = LogManager.getLogger(SqliteUserDAO.class);
 
     /**
-     * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
+     * Constructs a new SqliteUserDAO using a singleton SQLite connection.
      */
     public SqliteUserDAO() {
         con = SqliteConnection.getInstance();
@@ -33,10 +39,17 @@ public final class SqliteUserDAO implements IUserDAO {
     private final String getUserByEmailSQL = "SELECT * FROM user WHERE email = ?";
 
     /**
+     * Adds a new user to the database.
+     * The user must have a non-null first name, last name, and email.
+     * A transaction is used to ensure the operation is atomic.
+     *
+     * @param user the user to be added
+     * @throws FailedToCreateUserException if the insertion fails
+     * @throws IllegalArgumentException if required user fields are null
      * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
      */
     @Override
-    public void addUser (User user) {
+    public void addUser(User user) {
         if (user == null || user.getFirstName() == null || user.getLastName() == null || user.getEmail() == null) {
             throw new IllegalArgumentException();
         }
@@ -70,10 +83,15 @@ public final class SqliteUserDAO implements IUserDAO {
     }
 
     /**
+     * Updates an existing user's information in the database.
+     * Executes within a transaction for consistency.
+     *
+     * @param user the user object with updated information
+     * @throws FailedToUpdateUserException if update fails
      * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
      */
     @Override
-    public void updateUser (User user) {
+    public void updateUser(User user) {
         try {
             con.setAutoCommit(false);
             try {
@@ -100,10 +118,15 @@ public final class SqliteUserDAO implements IUserDAO {
     }
 
     /**
+     * Retrieves a user from the database by their ID.
+     *
+     * @param id the ID of the user to retrieve
+     * @return the User object if found, null otherwise
+     * @throws FailedToGetUserException if the retrieval fails
      * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
      */
     @Override
-    public User getUser (int id) {
+    public User getUser(int id) {
         User user = null;
         try {
             con.setAutoCommit(false);
@@ -122,11 +145,11 @@ public final class SqliteUserDAO implements IUserDAO {
                 con.commit();
                 sql.close();
                 result.close();
-           }catch (SQLException e) {
+            } catch (SQLException e) {
                 con.rollback();
                 logger.error(e.getMessage());
                 throw new FailedToGetUserException(e.getMessage());
-            }finally {
+            } finally {
                 con.setAutoCommit(true);
             }
         } catch (Exception e) {
@@ -137,6 +160,11 @@ public final class SqliteUserDAO implements IUserDAO {
     }
 
     /**
+     * Retrieves a user from the database by their email address.
+     *
+     * @param email the email of the user to retrieve
+     * @return the User object if found, null otherwise
+     * @throws FailedToGetUserException if the retrieval fails
      * @author Minh Son Doan - Maverick (minhson.doan@connect.qut.edu.au)
      */
     @Override
@@ -159,11 +187,11 @@ public final class SqliteUserDAO implements IUserDAO {
                 con.commit();
                 sql.close();
                 result.close();
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 con.rollback();
                 logger.error(e.getMessage());
                 throw new FailedToGetUserException(e.getMessage());
-            }finally {
+            } finally {
                 con.setAutoCommit(true);
             }
         } catch (Exception e) {
@@ -174,7 +202,18 @@ public final class SqliteUserDAO implements IUserDAO {
     }
 
     /**
-     * @author Dang Linh Phan - Lewis (danglinh.phan@connect.qut.edu.au)
+     * Deletes a user record from the database based on their unique ID.
+     *
+     * <p>
+     * This method executes a SQL DELETE statement to remove the specified user from the "user" table,
+     * using the user's ID as the identifier. If the deletion fails due to a SQL exception,
+     * a custom {@link FailedToUpdateUserException} is thrown and the error is logged.
+     * </p>
+     *
+     * @param user The {@link User} object to be deleted. Must not be {@code null}, and must have a valid ID.
+     * @throws FailedToUpdateUserException if the database deletion fails.
+     *
+     * @author Dang Linh Phan - Lewis (n11781840) (danglinh.phan@connect.qut.edu.au)
      */
     public void deleteUser(User user) {
         String deleteSQL = "DELETE FROM user WHERE id = ?";
